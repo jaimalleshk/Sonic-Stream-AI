@@ -1,22 +1,30 @@
-# SonicStream - YouTube Downloader & Cloud Sync (Windows Desktop & Mobile PWA)
+# Sonic Stream AI - Media Downloader & Real-time Audio Separation Engine
 
-SonicStream is a modern, high-speed media downloader and cloud audio streamer designed to extract playlists and videos from YouTube. It features a glassmorphism dark-mode desktop app (Windows WebView2) paired with a responsive Mobile & Web PWA.
+Sonic Stream AI is a modern, high-speed media downloader equipped with state-of-the-art on-device AI for real-time audio manipulation. It features a glassmorphism dark-mode desktop app (Windows WebView2) paired with advanced audio demixing pipelines, plus a responsive Mobile & Web PWA.
 
 ---
 
 ## 🌟 Key Features
 
-- **Native Windows Desktop App**: Runs in a dedicated window using Microsoft Edge WebView2, with full local filesystem integration and single-click access to downloaded media.
-- **YouTube Audio & Video Downloading**:
-  - Convert YouTube videos and playlists to high-fidelity MP3 audio (up to 320 kbps) or MP4 video (up to 1080p+).
-  - Batch select/deselect tracks, filter by title, and track progress with real-time download speed and ETA indicators.
-- **Automatic Cloud Sync to Azure Storage**:
-  - When new audio tracks are downloaded or new playlists are created in the Desktop App, they are automatically synced to Azure Storage Blob (`stsonicstream/media`).
-  - Automatically builds and exports `playlists_manifest.json` so the Web PWA can stream all desktop playlists instantly.
-- **Mobile & Web PWA Companion**:
-  - Responsive Web PWA accessible on iPhone, Android, and desktop web browsers.
-  - Installable as a Home Screen App shortcut with offline caching (IndexedDB), resume playback memory, and AVRCP lock screen controls.
-  - Storage quota management with 20MB file size guards and automatic cache cleanup.
+### 🧠 Next-Gen AI Audio Processing
+Sonic Stream AI leverages Meta's **Demucs** architecture (`htdemucs_ft`) combined with real-time chunking to offer zero-wait-time audio manipulation:
+- **Live Voice Mute**: Instantly strip vocals from a playing track to listen to pristine instrumentals.
+- **Voice-to-Instrument**: Synthesizes the human singer's pitch and vibrato into a MIDI instrument (e.g., Flute) in real-time.
+- **AI Offline Karaoke**: Download permanent, high-quality MP3s with vocals completely removed, automatically sorted into your "Instruments" playlist.
+
+### ⚡ Native Windows Desktop App
+- Runs in a dedicated window using Microsoft Edge WebView2, with full local filesystem integration and single-click access to downloaded media.
+- Convert YouTube videos and playlists to high-fidelity MP3 audio (up to 320 kbps) or MP4 video (up to 1080p+).
+- Batch select/deselect tracks, filter by title, and track progress with real-time download speed and ETA indicators.
+
+### ☁️ Automatic Cloud Sync to Azure Storage
+- When new audio tracks are downloaded or new playlists are created in the Desktop App, they are automatically synced to Azure Storage Blob (`stsonicstream/media`).
+- Automatically builds and exports `playlists_manifest.json` so the Web PWA can stream all desktop playlists instantly.
+
+### 📱 Mobile & Web PWA Companion
+- Responsive Web PWA accessible on iPhone, Android, and desktop web browsers.
+- Installable as a Home Screen App shortcut with offline caching (IndexedDB), resume playback memory, and AVRCP lock screen controls.
+- Storage quota management with 20MB file size guards and automatic cache cleanup.
 
 ---
 
@@ -24,14 +32,14 @@ SonicStream is a modern, high-speed media downloader and cloud audio streamer de
 
 ```
 ┌───────────────────────────┐         ┌───────────────────────────┐
-│   SonicStream Desktop     │ ──────> │   Azure Storage Blob      │
-│ (YouTube Downloader / CLI)│         │   (stsonicstream/media)   │
+│   Sonic Stream AI Desktop │ ──────> │   Azure Storage Blob      │
+│ (Downloader / AI Engine)  │         │   (stsonicstream/media)   │
 └─────────────┬─────────────┘         └─────────────┬─────────────┘
               │                                     │
               │ Exports playlists_manifest.json     │ Streams Audio
               ▼                                     ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    SonicStream Web PWA                          │
+│                    Sonic Stream AI Web PWA                      │
 │        (https://salmon-hill-08be7d60f.7.azurestaticapps.net)    │
 └─────────────────────────────────────────────────────────────────┘
 ```

@@ -6,8 +6,8 @@
 
 ## Why
 
-The iPhone companion app (MusicApp, github.com/jaimalleshk/MusicApp) mirrors
-SonicStream's playlists and plays the downloaded MP3s. To get playlists + files
+The iPhone companion app (Sonic Stream AI Web PWA) mirrors
+Sonic Stream AI's playlists and plays the downloaded MP3s. To get playlists + files
 onto the phone without a USB cable, the phone pulls them from SonicStream's
 FastAPI server over the local Wi-Fi network. SonicStream previously bound to
 `127.0.0.1:<random>`, which is unreachable from other devices — this branch

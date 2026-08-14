@@ -84,7 +84,7 @@ This project extends SonicStream with **100% Free, Local, Offline AI Capabilitie
 
 ## 📁 Repository Location
 - **Path**: `D:\OneDrive\OneDrive-Projects\Sonic Stream AI`
-- **Baseline**: Copied cleanly from `Youtube Downloader` repository.
+- **Baseline**: Primary development branch.
 - **Status**: 
   - **IMPLEMENTED (2026-08-13)**: Backend offline AI extraction via Demucs for Instrumental/Karaoke variants.
   - **IMPLEMENTED (2026-08-13)**: Basic Pitch MIDI extraction and FluidSynth replacement for AI Instrumental.

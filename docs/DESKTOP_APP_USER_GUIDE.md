@@ -32,10 +32,8 @@ That's it — the app window opens. Your music downloads to your
 
 ### Option B — Run from the source code (for tinkerers)
 
-1. Download the code: open
-   **https://github.com/jaimalleshk/SonicStream-YouTube-Downloader**, click the
-   green **Code** button → **Download ZIP**, and extract it. *(Or, with Git:
-   `git clone https://github.com/jaimalleshk/SonicStream-YouTube-Downloader.git`.)*
+1. Go to the **Sonic Stream AI GitHub repository**, click the **Code** button, and select **Download ZIP**. Extract the folder to a location on your PC (e.g., `Documents`).
+   *(Alternatively, if you use Git, you can clone the repository to your machine.)*
 2. Install **Python 3.11+** from https://python.org (tick *"Add Python to PATH"*).
 3. Install **ffmpeg** and make sure it's on your PATH (https://ffmpeg.org).
 4. In the project folder, run once: `pip install -r requirements.txt`

@@ -1,12 +1,12 @@
-# SonicStream Architecture & Code Documentation
+# Sonic Stream AI Architecture & Code Documentation
 
-This document describes the system architecture, core components, data flows, and technical design of **SonicStream YouTube Downloader**.
+This document describes the system architecture, core components, data flows, and technical design of **Sonic Stream AI**.
 
 ---
 
 ## 1. High-Level System Architecture
 
-SonicStream is designed as a **hybrid local desktop-web application**. It combines a lightweight Python-based ASGI backend with a modern single-page frontend, wrapped in a native Windows Edge WebView2 container.
+Sonic Stream AI is designed as a **hybrid local desktop-web application with on-device AI**. It combines a lightweight Python-based ASGI backend, a modern single-page frontend, a native Windows Edge WebView2 container, and an integrated PyTorch AI processing engine.
 
 ```mermaid
 graph TD
@@ -21,6 +21,14 @@ graph TD
         E <-->|API Endpoints / Server-Sent Events| D
     end
 
+    subgraph AI Audio Engine (PyTorch)
+        E <-->|Trigger AI Processing| L[AIVocalProcessor]
+        L -->|Chunked Demucs| M[Vocal Separation]
+        L -->|FluidSynth| N[Voice-to-Instrument]
+        M -->|Streaming Chunk| E
+        N -->|Streaming Chunk| E
+    end
+
     subgraph Core Engine & OS Layer
         E -->|Executes| F[yt-dlp Engine]
         F -->|Converts Audio / Merges Tracks| G[FFmpeg CLI]
@@ -28,11 +36,13 @@ graph TD
         E <-->|Persists Logs| I[(history.json)]
         F <-->|Tracks Completed IDs| J[(download_archive.txt)]
         F -->|Writes Media| K[downloads/ Folder]
+        L <-->|Reads Original / Writes AI| K
     end
     
     style C fill:#2a1f3d,stroke:#9c27b0,stroke-width:2px,color:#fff
     style E fill:#0f2027,stroke:#00a8ff,stroke-width:2px,color:#fff
     style F fill:#1c2a38,stroke:#cbd5e1,stroke-width:2px,color:#fff
+    style L fill:#4a148c,stroke:#e040fb,stroke-width:2px,color:#fff
 ```
 
 ---
