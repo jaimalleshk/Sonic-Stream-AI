@@ -4,6 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const analyzeBtn = document.getElementById("analyzeBtn");
     const analyzeSpinner = document.getElementById("analyzeSpinner");
     const urlError = document.getElementById("urlError");
+    
+    function showAIStatus(msg) {
+        const aiConsole = document.getElementById("aiStatusConsole");
+        if (!aiConsole) return;
+        if (!msg) {
+            aiConsole.style.display = "none";
+        } else {
+            aiConsole.style.display = "block";
+            aiConsole.textContent = msg;
+        }
+    }
     const downloadDirInput = document.getElementById("downloadDirInput");
     const browseDirBtn = document.getElementById("browseDirBtn");
     const openFolderBtn = document.getElementById("openFolderBtn");
@@ -125,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Load jobs history and populate left sidebar explorer
+    let isAppInitialized = false;
     async function loadSidebar() {
         try {
             const res = await fetch("/api/history");
@@ -135,6 +147,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 const active = historyJobs.find(job => !job.deleted && !job.is_virtual && job.is_playlist !== false);
                 if (active) {
                     selectPlaylist(active);
+                }
+            }
+            
+            // Fade out splash screen on first load
+            if (!isAppInitialized) {
+                isAppInitialized = true;
+                const splash = document.getElementById("appSplash");
+                if (splash) {
+                    splash.style.opacity = "0";
+                    setTimeout(() => { splash.style.display = "none"; }, 500);
                 }
             }
             
@@ -1521,14 +1543,21 @@ document.addEventListener("DOMContentLoaded", () => {
         
         updateMediaSessionMetadata(track);
         
-        // Reset Live Mute if track changes
-        if (window.isLiveMuteOn) {
-            window.isLiveMuteOn = false;
-            window.originalMediaUrl = null;
-            if (typeof playerLiveMuteBtn !== 'undefined' && playerLiveMuteBtn) {
-                playerLiveMuteBtn.style.color = "var(--text-primary)";
-                playerLiveMuteBtn.style.textShadow = "none";
-            }
+        // Handle AI Queue Auto-Apply
+        const shouldApplyAI = (typeof aiQueueToggle !== 'undefined' && aiQueueToggle && aiQueueToggle.checked);
+        const activeAIMode = window.isLiveMuteOn ? "mute" : (window.isInstrumentOn ? "instrument" : null);
+
+        // Reset AI states
+        window.isLiveMuteOn = false;
+        window.isInstrumentOn = false;
+        window.originalMediaUrl = null;
+        if (typeof playerLiveMuteBtn !== 'undefined' && playerLiveMuteBtn) {
+            playerLiveMuteBtn.style.color = "var(--text-primary)";
+            playerLiveMuteBtn.style.textShadow = "none";
+        }
+        if (typeof playerInstrumentBtn !== 'undefined' && playerInstrumentBtn) {
+            playerInstrumentBtn.style.color = "var(--text-primary)";
+            playerInstrumentBtn.style.textShadow = "none";
         }
         
         const format = document.querySelector('input[name="format"]:checked')?.value || "audio";
@@ -1565,6 +1594,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (playerStatusText) playerStatusText.textContent = "Playing";
 
             savePlaybackPosition(track.id, shuffleIndex, shuffleOrder);
+
+            if (shouldApplyAI && activeAIMode) {
+                if (activeAIMode === "mute" && typeof playerLiveMuteBtn !== 'undefined' && playerLiveMuteBtn) {
+                    playerLiveMuteBtn.click();
+                } else if (activeAIMode === "instrument" && typeof playerInstrumentBtn !== 'undefined' && playerInstrumentBtn) {
+                    playerInstrumentBtn.click();
+                }
+            }
         } catch (err) {
             console.error("Playback failed:", err);
             if (playerStatusEq) {
@@ -1685,6 +1722,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // High-Quality AI Mute (Streamed Demucs extraction instead of Real-time Phase Cancellation)
     if (typeof window.isLiveMuteOn === 'undefined') window.isLiveMuteOn = false;
     if (typeof window.originalMediaUrl === 'undefined') window.originalMediaUrl = null;
+    window.isInstrumentOn = false;
+    const playerInstrumentBtn = document.getElementById("playerInstrumentBtn");
+    const aiQueueToggle = document.getElementById("aiQueueToggle");
 
     if (playerLiveMuteBtn) {
         playerLiveMuteBtn.addEventListener("click", async () => {
@@ -1693,6 +1733,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const item = playQueue[currentTrackIndex];
             const playlistId = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
 
+            // If Instrument is on, turn it off first to revert stream
+            if (window.isInstrumentOn && playerInstrumentBtn) {
+                window.isInstrumentOn = false;
+                playerInstrumentBtn.style.color = "var(--text-primary)";
+                playerInstrumentBtn.style.textShadow = "none";
+                if (window.originalMediaUrl) {
+                    playerVideo.src = window.originalMediaUrl;
+                    window.originalMediaUrl = null;
+                }
+            }
+
             // Toggle state
             window.isLiveMuteOn = !window.isLiveMuteOn;
             
@@ -1700,7 +1751,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Turn ON High-Quality Mute
                 playerLiveMuteBtn.style.color = "#ffb6c1"; // highlight pink
                 playerLiveMuteBtn.style.textShadow = "0 0 10px rgba(255,182,193,0.5)";
-                logToTerminal(`[AI] 🎙️ Live Voice Mute ON: Processing high-quality separation for "${item.title}"... This may take a minute.`);
+                logToTerminal(`[AI] ✨ Live Voice Mute ON: Processing high-quality separation for "${item.title}"... This may take a minute.`);
+                showAIStatus(`[AI] ✨ Processing Live Voice Mute for "${item.title}"...`);
                 
                 const originalInnerHTML = playerLiveMuteBtn.innerHTML;
                 playerLiveMuteBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V2"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>';
@@ -1719,13 +1771,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         const isPlaying = !playerVideo.paused;
                         
                         playerVideo.src = data.url;
-                        playerVideo.currentTime = currentTime;
                         if (isPlaying) playerVideo.play();
                         
-                        logToTerminal("[AI] 🎙️ High-Quality Vocal Mute stream loaded successfully.");
+                        logToTerminal("[AI] ✨ High-Quality Vocal Mute stream loaded successfully. It will play from the beginning.");
+                        showAIStatus(""); // Clear status
                     } else {
                         const data = await res.json();
                         alert(`Failed to process vocal mute: ${data.detail}`);
+                        showAIStatus("");
                         // Revert UI
                         window.isLiveMuteOn = false;
                         playerLiveMuteBtn.style.color = "var(--text-primary)";
@@ -1735,6 +1788,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } catch (err) {
                     playerLiveMuteBtn.innerHTML = originalInnerHTML;
                     alert(`Failed to process vocal mute: ${err.message}`);
+                    showAIStatus("");
                     window.isLiveMuteOn = false;
                     playerLiveMuteBtn.style.color = "var(--text-primary)";
                     playerLiveMuteBtn.style.textShadow = "none";
@@ -1757,6 +1811,86 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    if (playerInstrumentBtn) {
+        playerInstrumentBtn.addEventListener("click", async () => {
+            if (!playerVideo || currentTrackIndex < 0 || currentTrackIndex >= playQueue.length) return;
+            
+            const item = playQueue[currentTrackIndex];
+            const playlistId = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
+
+            // If Live Mute is on, turn it off first
+            if (window.isLiveMuteOn && playerLiveMuteBtn) {
+                window.isLiveMuteOn = false;
+                playerLiveMuteBtn.style.color = "var(--text-primary)";
+                playerLiveMuteBtn.style.textShadow = "none";
+                if (window.originalMediaUrl) {
+                    playerVideo.src = window.originalMediaUrl;
+                    window.originalMediaUrl = null;
+                }
+            }
+
+            // Toggle state
+            window.isInstrumentOn = !window.isInstrumentOn;
+            
+            if (window.isInstrumentOn) {
+                playerInstrumentBtn.style.color = "#a020f0"; // highlight purple
+                playerInstrumentBtn.style.textShadow = "0 0 10px rgba(160,32,240,0.5)";
+                logToTerminal(`[AI] 🎷 Voice-to-Instrument ON: Synthesizing MIDI replacement for "${item.title}"... This may take a minute.`);
+                showAIStatus(`[AI] 🎷 Synthesizing instrument for "${item.title}"...`);
+                
+                const originalInnerHTML = playerInstrumentBtn.innerHTML;
+                playerInstrumentBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V2"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>';
+
+                try {
+                    const res = await fetch(`/api/history/${playlistId}/items/${item.id}/ai-instrument-process`, { method: "POST" });
+                    playerInstrumentBtn.innerHTML = originalInnerHTML;
+                    
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (!window.originalMediaUrl) window.originalMediaUrl = playerVideo.src;
+                        
+                        const currentTime = playerVideo.currentTime;
+                        const isPlaying = !playerVideo.paused;
+                        
+                        playerVideo.src = data.url;
+                        if (isPlaying) playerVideo.play();
+                        
+                        logToTerminal("[AI] 🎷 Instrument stream loaded successfully. It will play from the beginning.");
+                        showAIStatus("");
+                    } else {
+                        const data = await res.json();
+                        alert(`Failed to process instrument: ${data.detail}`);
+                        showAIStatus("");
+                        window.isInstrumentOn = false;
+                        playerInstrumentBtn.style.color = "var(--text-primary)";
+                        playerInstrumentBtn.style.textShadow = "none";
+                        logToTerminal("[AI] 🎷 Voice-to-Instrument Error.");
+                    }
+                } catch (err) {
+                    playerInstrumentBtn.innerHTML = originalInnerHTML;
+                    alert(`Failed to process instrument: ${err.message}`);
+                    window.isInstrumentOn = false;
+                    playerInstrumentBtn.style.color = "var(--text-primary)";
+                    playerInstrumentBtn.style.textShadow = "none";
+                }
+            } else {
+                playerInstrumentBtn.style.color = "var(--text-primary)";
+                playerInstrumentBtn.style.textShadow = "none";
+                logToTerminal("[AI] 🎷 Voice-to-Instrument OFF: Reverting to original track.");
+                
+                if (window.originalMediaUrl) {
+                    const currentTime = playerVideo.currentTime;
+                    const isPlaying = !playerVideo.paused;
+                    playerVideo.src = window.originalMediaUrl;
+                    playerVideo.currentTime = currentTime;
+                    if (isPlaying) playerVideo.play();
+                    window.originalMediaUrl = null;
+                }
+            }
+        });
+    }
+
 
     function playNextTrack() {
         if (playQueue.length === 0) return;
