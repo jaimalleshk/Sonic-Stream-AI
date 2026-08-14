@@ -59,12 +59,13 @@ if __name__ == "__main__":
     time.sleep(1.2)
 
     # Start native desktop window
+    icon_path = os.path.join(base_dir, "..", "static", "favicon.ico")
     webview.create_window(
-        title="SonicStream - YouTube Downloader",
+        title="Sonic Stream AI",
         url=f"http://127.0.0.1:{port}",
         width=1120,
         height=820,
         min_size=(800, 600),
         resizable=True
     )
-    webview.start()
+    webview.start(icon=icon_path)

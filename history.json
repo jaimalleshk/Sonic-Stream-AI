@@ -316,9 +316,9 @@
     "url": "https://www.youtube.com/watch?v=efv3iHUarxY&list=PLcqF0SS4XiHFvtqCcHdDHrKGw_r9aRCak",
     "timestamp": "2026-07-03T21:52:19.078681",
     "total_tracks": 833,
-    "completed_tracks": 778,
+    "completed_tracks": 779,
     "success_count": 649,
-    "failure_count": 129,
+    "failure_count": 130,
     "is_playlist": true,
     "format": "audio",
     "quality": "highest",
@@ -545,8 +545,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:39:59",
-        "end_time": "12:40:00",
+        "start_time": "12:44:22",
+        "end_time": "12:44:22",
         "error_detail": ""
       },
       {
@@ -559,8 +559,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:03",
-        "end_time": "12:40:03",
+        "start_time": "12:44:26",
+        "end_time": "12:44:27",
         "error_detail": ""
       },
       {
@@ -629,8 +629,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:03",
-        "end_time": "12:40:03",
+        "start_time": "12:44:27",
+        "end_time": "12:44:27",
         "error_detail": ""
       },
       {
@@ -671,8 +671,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:39:38",
-        "end_time": "12:39:38",
+        "start_time": "12:43:57",
+        "end_time": "12:43:57",
         "error_detail": ""
       },
       {
@@ -853,8 +853,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:39:04",
-        "end_time": "12:39:04",
+        "start_time": "12:43:20",
+        "end_time": "12:43:21",
         "error_detail": ""
       },
       {
@@ -1049,8 +1049,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:00",
-        "end_time": "12:40:01",
+        "start_time": "12:44:23",
+        "end_time": "12:44:24",
         "error_detail": ""
       },
       {
@@ -1189,8 +1189,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:04",
-        "end_time": "12:40:04",
+        "start_time": "12:44:27",
+        "end_time": "12:44:27",
         "error_detail": ""
       },
       {
@@ -1203,8 +1203,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:03",
-        "end_time": "12:40:03",
+        "start_time": "12:44:26",
+        "end_time": "12:44:26",
         "error_detail": ""
       },
       {
@@ -1231,8 +1231,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:39:29",
-        "end_time": "12:39:29",
+        "start_time": "12:43:47",
+        "end_time": "12:43:47",
         "error_detail": ""
       },
       {
@@ -1259,8 +1259,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:39:27",
-        "end_time": "12:39:28",
+        "start_time": "12:43:45",
+        "end_time": "12:43:46",
         "error_detail": ""
       },
       {
@@ -1315,8 +1315,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:02",
-        "end_time": "12:40:03",
+        "start_time": "12:44:26",
+        "end_time": "12:44:26",
         "error_detail": ""
       },
       {
@@ -1357,8 +1357,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:39:16",
-        "end_time": "12:39:17",
+        "start_time": "12:43:35",
+        "end_time": "12:43:35",
         "error_detail": ""
       },
       {
@@ -1399,8 +1399,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:00",
-        "end_time": "12:40:00",
+        "start_time": "12:44:23",
+        "end_time": "12:44:23",
         "error_detail": ""
       },
       {
@@ -1413,8 +1413,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:02",
-        "end_time": "12:40:02",
+        "start_time": "12:44:24",
+        "end_time": "12:44:24",
         "error_detail": ""
       },
       {
@@ -1875,8 +1875,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:04",
-        "end_time": "12:40:05",
+        "start_time": "12:44:28",
+        "end_time": "12:44:28",
         "error_detail": ""
       },
       {
@@ -2141,8 +2141,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:39:28",
-        "end_time": "12:39:28",
+        "start_time": "12:43:46",
+        "end_time": "12:43:47",
         "error_detail": ""
       },
       {
@@ -2211,8 +2211,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:40:04",
-        "end_time": "12:40:04",
+        "start_time": "12:44:27",
+        "end_time": "12:44:28",
         "error_detail": ""
       },
       {
@@ -3051,8 +3051,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "12:39:15",
-        "end_time": "12:39:16",
+        "start_time": "12:43:33",
+        "end_time": "12:43:34",
         "error_detail": ""
       },
       {
@@ -7881,8 +7881,8 @@
         "status": "error",
         "percentage": 0.0,
         "speed": "--",
-        "start_time": "12:39:29",
-        "end_time": "12:39:38",
+        "start_time": "12:43:47",
+        "end_time": "12:43:57",
         "error_detail": "ERROR: [youtube] Ze87r1ouZTw: This video is only available to Music Premium members"
       },
       {
@@ -7909,8 +7909,8 @@
         "status": "error",
         "percentage": 0.0,
         "speed": "--",
-        "start_time": "12:39:39",
-        "end_time": "12:39:48",
+        "start_time": "12:43:59",
+        "end_time": "12:44:09",
         "error_detail": "ERROR: [youtube] QfEgVaut_Rw: This video is only available to Music Premium members"
       },
       {
@@ -8441,8 +8441,8 @@
         "status": "error",
         "percentage": 0.0,
         "speed": "--",
-        "start_time": "12:39:49",
-        "end_time": "12:39:59",
+        "start_time": "12:44:10",
+        "end_time": "12:44:21",
         "error_detail": "ERROR: [youtube] EPgbSblfrhI: This video is only available to Music Premium members"
       },
       {
@@ -10107,8 +10107,8 @@
         "status": "error",
         "percentage": 0.0,
         "speed": "--",
-        "start_time": "12:39:04",
-        "end_time": "12:39:14",
+        "start_time": "12:43:21",
+        "end_time": "12:43:32",
         "error_detail": "ERROR: [youtube] PBEAxWdD1ko: This video is only available to Music Premium members"
       },
       {
@@ -10121,8 +10121,8 @@
         "status": "error",
         "percentage": 0.0,
         "speed": "--",
-        "start_time": "12:39:17",
-        "end_time": "12:39:26",
+        "start_time": "12:43:35",
+        "end_time": "12:43:44",
         "error_detail": "ERROR: [youtube] p3Bt53dkzb4: This video is only available to Music Premium members"
       },
       {
@@ -10146,12 +10146,12 @@
         "duration": 340,
         "thumbnail": "https://i.ytimg.com/vi/0vviQLA4mWs/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=0vviQLA4mWs",
-        "status": "downloading",
+        "status": "error",
         "percentage": 0.0,
         "speed": "--",
         "start_time": "12:43:08",
-        "end_time": "12:39:04",
-        "error_detail": ""
+        "end_time": "12:43:19",
+        "error_detail": "ERROR: [youtube] 0vviQLA4mWs: This video is only available to Music Premium members"
       },
       {
         "id": "pxz9H6Hte4U",
@@ -11988,7 +11988,7 @@
         "error_detail": ""
       }
     ],
-    "last_played_track_id": "fA0Za4eShi4",
+    "last_played_track_id": "AdoJ6Ci5DAM",
     "last_played_shuffle": true,
     "shuffle_order": [
       "ABy95341Dto",
@@ -12611,7 +12611,7 @@
       "I0zU7A76Neg",
       "Y77s13RrnvY"
     ],
-    "shuffle_index": 412
+    "shuffle_index": 414
   },
   {
     "id": "job_1783134945",
