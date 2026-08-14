@@ -1,0 +1,7 @@
+{
+  "azure_storage_account": "your_storage_account_name",
+  "azure_container": "media",
+  "azure_sas_token": "se=2027-12-31T23%3A59%3A59Z&sp=r&sv=2026-02-06&sr=c&sig=YOUR_SAS_TOKEN_SIGNATURE",
+  "azure_client_id": "YOUR_AZURE_AD_CLIENT_ID",
+  "onedrive_share_link": "https://your-domain-my.sharepoint.com/:f:/g/personal/your_user/YOUR_SHARE_LINK"
+}

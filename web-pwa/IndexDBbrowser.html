@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SonicStream - IndexedDB Browser & Troubleshooting Tool</title>
+    <link rel="icon" type="image/svg+xml" href="favicon-db.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Outfit', sans-serif;
+        }
+        .db-header {
+            padding: 0.85rem 1.25rem;
+            background: rgba(13, 17, 23, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+        .db-layout {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .db-sidebar {
+            width: 280px;
+            background: rgba(22, 27, 34, 0.7);
+            border-right: 1px solid var(--border-color);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        .db-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+            background: rgba(13, 17, 23, 0.4);
+        }
+        .store-tree-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.55rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+        .store-tree-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+        }
+        .store-tree-item.active {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: rgba(0, 242, 254, 0.3);
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+        .badge-count {
+            font-size: 0.72rem;
+            font-family: 'Fira Code', monospace;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.1rem 0.45rem;
+            border-radius: 12px;
+            color: var(--text-muted);
+        }
+        .db-toolbar {
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            background: rgba(16, 21, 28, 0.6);
+            flex-shrink: 0;
+        }
+        .db-table-container {
+            flex: 1;
+            overflow: auto;
+            padding: 0;
+        }
+        .db-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.83rem;
+            text-align: left;
+        }
+        .db-data-table th {
+            position: sticky;
+            top: 0;
+            background: #161b22;
+            padding: 0.65rem 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+        .db-data-table td {
+            padding: 0.6rem 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            max-width: 320px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .db-data-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .json-preview {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: #a5d6ff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        .json-modal-content {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            max-width: 750px;
+            width: 90%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .json-code-box {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.82rem;
+            color: #79c0ff;
+            background: #040d14;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow: auto;
+            max-height: 60vh;
+            white-space: pre-wrap;
+            word-break: break-word;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="db-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#dbGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <defs>
+                    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="var(--neon-blue)"/>
+                        <stop offset="100%" stop-color="var(--neon-pink)"/>
+                    </linearGradient>
+                </defs>
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+            <span style="font-size: 1.2rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif;">SonicStream IndexedDB Browser</span>
+            <span class="logo-badge" style="font-size: 0.65rem; background: rgba(0, 242, 254, 0.15); color: var(--neon-blue);">TROUBLESHOOTING TOOL</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div id="storageQuotaText" style="font-size: 0.78rem; font-family: 'Fira Code', monospace; color: var(--text-secondary);">
+                Checking storage...
+            </div>
+            <button id="btnRefreshDB" class="btn btn-secondary btn-sm" style="padding: 0.3rem 0.65rem; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 0.3rem;">
+                🔄 Refresh State
+            </button>
+        </div>
+    </header>
+
+    <!-- Layout -->
+    <div class="db-layout">
+        <!-- Sidebar Tree -->
+        <div class="db-sidebar">
+            <div>
+                <label style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">Select Database</label>
+                <select id="dbSelect" class="btn btn-secondary" style="width: 100%; text-align: left; padding: 0.45rem; font-size: 0.82rem; background: #161b22; color: var(--text-primary); border-color: var(--border-color);">
+                    <option value="SonicStreamPWA_DB">SonicStreamPWA_DB</option>
+                </select>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0.2rem 0;">
+
+            <div>
+                <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem;">Object Stores (Tables)</div>
+                <div id="storeTreeList" style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <!-- Store items dynamically injected -->
+                </div>
+            </div>
+
+            <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                <button id="btnClearCurrentStore" class="btn btn-secondary btn-sm" style="width: 100%; padding: 0.4rem; font-size: 0.75rem; color: #ff5f56; border-color: rgba(255, 95, 86, 0.3);">
+                    🗑️ Clear Selected Store
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Data View -->
+        <div class="db-main">
+            <!-- Toolbar -->
+            <div class="db-toolbar">
+                <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1; max-width: 500px;">
+                    <input type="text" id="searchInput" placeholder="Search keys or record text..." style="width: 100%; padding: 0.4rem 0.75rem; background: #161b22; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.82rem;">
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span id="pageInfoText" style="font-size: 0.78rem; color: var(--text-secondary); font-family: 'Fira Code', monospace;">Records: 0</span>
+                    <button id="btnPrevPage" class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" disabled>← Prev</button>
+                    <button id="btnNextPage" class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" disabled>Next →</button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="db-table-container">
+                <table class="db-data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">#</th>
+                            <th style="width: 200px;">Primary Key</th>
+                            <th style="width: 160px;">Mapped Playlists</th>
+                            <th style="width: 100px;">Value Type</th>
+                            <th style="width: 90px; text-align: right;">Size</th>
+                            <th>Data Preview</th>
+                            <th style="width: 110px; text-align: center;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody">
+                        <!-- Table rows injected dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Record Inspector Modal -->
+    <div id="jsonModal" class="modal-overlay hidden">
+        <div class="json-modal-content">
+            <div class="modal-header">
+                <h3 id="jsonModalTitle" style="font-size: 1rem;">Inspect Record Payload</h3>
+                <button id="btnCloseJsonModal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="jsonCodeBox" class="json-code-box"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCopyJson" class="btn btn-secondary btn-sm">📋 Copy JSON</button>
+                <button id="btnCloseJsonModal2" class="btn btn-primary btn-sm">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // IndexedDB Troubleshooting Engine
+        let activeDBName = "SonicStreamPWA_DB";
+        let activeDB = null;
+        let activeStoreName = null;
+        let storeRecordCount = 0;
+        let currentRecords = [];
+        let filteredRecords = [];
+        let currentPage = 1;
+        const pageSize = 25;
+
+        const dbSelect = document.getElementById("dbSelect");
+        const storeTreeList = document.getElementById("storeTreeList");
+        const dataTableBody = document.getElementById("dataTableBody");
+        const searchInput = document.getElementById("searchInput");
+        const pageInfoText = document.getElementById("pageInfoText");
+        const storageQuotaText = document.getElementById("storageQuotaText");
+        const btnRefreshDB = document.getElementById("btnRefreshDB");
+        const btnClearCurrentStore = document.getElementById("btnClearCurrentStore");
+        const btnPrevPage = document.getElementById("btnPrevPage");
+        const btnNextPage = document.getElementById("btnNextPage");
+        const jsonModal = document.getElementById("jsonModal");
+        const jsonModalTitle = document.getElementById("jsonModalTitle");
+        const jsonCodeBox = document.getElementById("jsonCodeBox");
+        const btnCloseJsonModal = document.getElementById("btnCloseJsonModal");
+        const btnCloseJsonModal2 = document.getElementById("btnCloseJsonModal2");
+        const btnCopyJson = document.getElementById("btnCopyJson");
+
+        async function updateStorageEstimate() {
+            if (navigator.storage && navigator.storage.estimate) {
+                try {
+                    const est = await navigator.storage.estimate();
+                    const usedMB = ((est.usage || 0) / (1024 * 1024)).toFixed(2);
+                    const totalMB = ((est.quota || 0) / (1024 * 1024)).toFixed(0);
+                    storageQuotaText.textContent = `Used Storage: ${usedMB} MB / ${totalMB} MB`;
+                } catch (e) {
+                    storageQuotaText.textContent = "Storage estimate unavailable";
+                }
+            }
+        }
+
+        async function discoverDatabases() {
+            dbSelect.innerHTML = "";
+            let dbNames = ["SonicStreamPWA_DB"];
+            if (indexedDB.databases) {
+                try {
+                    const dbs = await indexedDB.databases();
+                    const found = dbs.map(d => d.name).filter(Boolean);
+                    if (found.length > 0) dbNames = Array.from(new Set([...found, "SonicStreamPWA_DB"]));
+                } catch (e) {}
+            }
+            dbNames.forEach(name => {
+                const opt = document.createElement("option");
+                opt.value = name;
+                opt.textContent = name;
+                if (name === activeDBName) opt.selected = true;
+                dbSelect.appendChild(opt);
+            });
+        }
+
+        function openDatabase(dbName) {
+            return new Promise((resolve) => {
+                let resolved = false;
+                const safeResolve = (dbObj) => {
+                    if (!resolved) {
+                        resolved = true;
+                        resolve(dbObj);
+                    }
+                };
+
+                const timer = setTimeout(() => {
+                    console.warn(`[DB Browser] openDatabase('${dbName}') timed out, attempting simple open...`);
+                    const reqTimeout = indexedDB.open(dbName);
+                    reqTimeout.onsuccess = () => safeResolve(reqTimeout.result);
+                    reqTimeout.onerror = () => safeResolve(null);
+                }, 1500);
+
+                try {
+                    const req = indexedDB.open(dbName, 5);
+                    req.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains("files")) db.createObjectStore("files", { keyPath: "file_id" });
+                        if (!db.objectStoreNames.contains("playlists")) db.createObjectStore("playlists", { keyPath: "id" });
+                        if (!db.objectStoreNames.contains("settings")) db.createObjectStore("settings", { keyPath: "key" });
+                    };
+                    req.onsuccess = () => {
+                        clearTimeout(timer);
+                        safeResolve(req.result);
+                    };
+                    req.onerror = () => {
+                        clearTimeout(timer);
+                        const fallbackReq = indexedDB.open(dbName);
+                        fallbackReq.onsuccess = () => safeResolve(fallbackReq.result);
+                        fallbackReq.onerror = () => safeResolve(null);
+                    };
+                    req.onblocked = () => {
+                        console.warn("[DB Browser] Open blocked by concurrent connection");
+                    };
+                } catch (e) {
+                    clearTimeout(timer);
+                    safeResolve(null);
+                }
+            });
+        }
+
+        async function loadStoreTree() {
+            storeTreeList.innerHTML = "";
+            try {
+                if (activeDB) {
+                    try { activeDB.close(); } catch(e) {}
+                }
+                activeDB = await openDatabase(activeDBName);
+                const storeNames = Array.from(activeDB.objectStoreNames);
+
+                if (storeNames.length === 0) {
+                    storeTreeList.innerHTML = `<div style="font-size: 0.8rem; color: var(--text-muted); padding: 0.5rem;">No object stores found.</div>`;
+                    return;
+                }
+
+                for (let i = 0; i < storeNames.length; i++) {
+                    const storeName = storeNames[i];
+                    const count = await getStoreCount(storeName);
+                    
+                    const item = document.createElement("div");
+                    item.className = `store-tree-item ${storeName === activeStoreName ? 'active' : ''}`;
+                    item.innerHTML = `
+                        <span>📁 ${storeName}</span>
+                        <span class="badge-count">${count}</span>
+                    `;
+
+                    item.addEventListener("click", () => {
+                        selectStore(storeName);
+                    });
+
+                    storeTreeList.appendChild(item);
+                }
+
+                if (!activeStoreName && storeNames.length > 0) {
+                    selectStore(storeNames[0]);
+                } else if (activeStoreName) {
+                    selectStore(activeStoreName);
+                }
+            } catch (e) {
+                console.error("Error loading object stores:", e);
+                storeTreeList.innerHTML = `<div style="font-size: 0.8rem; color: #ff5f56; padding: 0.5rem;">Error opening database</div>`;
+            }
+        }
+
+        function getStoreCount(storeName) {
+            return new Promise(resolve => {
+                try {
+                    if (!activeDB || !activeDB.objectStoreNames.contains(storeName)) return resolve(0);
+                    const tx = activeDB.transaction(storeName, "readonly");
+                    const req = tx.objectStore(storeName).count();
+                    req.onsuccess = () => resolve(req.result || 0);
+                    req.onerror = () => resolve(0);
+                } catch (e) {
+                    resolve(0);
+                }
+            });
+        }
+
+        async function selectStore(storeName) {
+            activeStoreName = storeName;
+            document.querySelectorAll(".store-tree-item").forEach(el => {
+                el.classList.toggle("active", el.textContent.includes(storeName));
+            });
+
+            await buildPlaylistRefMap();
+            await fetchStoreRecords(storeName);
+        }
+
+        function fetchStoreRecords(storeName) {
+            return new Promise(resolve => {
+                dataTableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading records...</td></tr>`;
+                try {
+                    if (!activeDB || !activeDB.objectStoreNames.contains(storeName)) {
+                        dataTableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">Store '${storeName}' does not exist.</td></tr>`;
+                        return resolve([]);
+                    }
+                    const tx = activeDB.transaction(storeName, "readonly");
+                    const store = tx.objectStore(storeName);
+                    const req = store.getAll();
+                    req.onsuccess = () => {
+                        const rawResult = req.result || [];
+                        const records = rawResult.map((val, i) => {
+                            let keyVal = val.file_id || val.id || val.key || i;
+                            return {
+                                key: keyVal,
+                                primaryKey: keyVal,
+                                value: val
+                            };
+                        });
+                        currentRecords = records;
+                        filterRecords();
+                        resolve(records);
+                    };
+                    req.onerror = (e) => {
+                        console.error("fetchStoreRecords error:", e);
+                        dataTableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #ff5f56; padding: 2rem;">Error reading store</td></tr>`;
+                        resolve([]);
+                    };
+                } catch (err) {
+                    console.error("fetchStoreRecords catch:", err);
+                    dataTableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #ff5f56; padding: 2rem;">Error accessing store: ${err.message}</td></tr>`;
+                    resolve([]);
+                }
+            });
+        }
+
+        let playlistRefMap = {};
+
+        async function buildPlaylistRefMap() {
+            playlistRefMap = {};
+            let pls = [];
+            if (activeDB && activeDB.objectStoreNames.contains("playlists")) {
+                try {
+                    const tx = activeDB.transaction("playlists", "readonly");
+                    pls = await new Promise(r => {
+                        const req = tx.objectStore("playlists").getAll();
+                        req.onsuccess = () => r(req.result || []);
+                        req.onerror = () => r([]);
+                    });
+                } catch (e) {}
+            }
+
+            if (pls.length === 0) {
+                try {
+                    const res = await fetch("./playlists_manifest.json").catch(() => null);
+                    if (res && res.ok) {
+                        const manifest = await res.json();
+                        pls = manifest.playlists || [];
+                    }
+                } catch (e) {}
+            }
+
+            pls.forEach(pl => {
+                const plTitle = pl.title || pl.id || "Playlist";
+                const tracks = pl.tracks || pl.items || [];
+                tracks.forEach(t => {
+                    const keys = [t.file, t.id, t.title, t.title ? t.title.toLowerCase().replace(/[^a-z0-9]/g, "") : null].filter(Boolean);
+                    keys.forEach(k => {
+                        if (!playlistRefMap[k]) playlistRefMap[k] = new Set();
+                        playlistRefMap[k].add(plTitle);
+                    });
+                });
+            });
+        }
+
+        function filterRecords() {
+            const query = searchInput.value.toLowerCase().trim();
+            if (!query) {
+                filteredRecords = currentRecords;
+            } else {
+                filteredRecords = currentRecords.filter(rec => {
+                    const keyStr = String(rec.key).toLowerCase();
+                    const valStr = JSON.stringify(rec.value).toLowerCase();
+                    return keyStr.includes(query) || valStr.includes(query);
+                });
+            }
+            currentPage = 1;
+            renderDataTable();
+        }
+
+        async function renderDataTable() {
+            dataTableBody.innerHTML = "";
+            const total = filteredRecords.length;
+            const totalPages = Math.ceil(total / pageSize) || 1;
+
+            if (total === 0) {
+                dataTableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">No records found in '${activeStoreName}'.</td></tr>`;
+                pageInfoText.textContent = `Records: 0`;
+                btnPrevPage.disabled = true;
+                btnNextPage.disabled = true;
+                return;
+            }
+
+            const start = (currentPage - 1) * pageSize;
+            const end = Math.min(start + pageSize, total);
+            const pageItems = filteredRecords.slice(start, end);
+
+            pageInfoText.textContent = `Showing ${start + 1}-${end} of ${total} records (Page ${currentPage}/${totalPages})`;
+            btnPrevPage.disabled = currentPage <= 1;
+            btnNextPage.disabled = currentPage >= totalPages;
+
+            pageItems.forEach((rec, idx) => {
+                const tr = document.createElement("tr");
+                
+                let valueType = typeof rec.value;
+                let preview = "";
+                const valObj = rec.value || {};
+
+                if (rec.value instanceof Blob) {
+                    valueType = `🟢 Blob (${(rec.value.size / (1024*1024)).toFixed(2)} MB)`;
+                    preview = `[Binary Blob: ${rec.value.type || 'audio/mpeg'}, ${rec.value.size} bytes]`;
+                } else if (valObj.audio_blob || valObj.blob) {
+                    const audio = valObj.audio_blob || valObj.blob;
+                    const audioMB = (audio.size / (1024*1024)).toFixed(2);
+                    const thumbKB = valObj.thumb_blob ? (valObj.thumb_blob.size / 1024).toFixed(1) : "0";
+                    valueType = `🟢 Media Binary Saved (${audioMB} MB)`;
+                    preview = `[Audio: ${audioMB} MB | Thumb: ${thumbKB} KB | Title: ${valObj.title || valObj.file_id}]`;
+                } else if (Array.isArray(rec.value)) {
+                    valueType = `Array [${rec.value.length}]`;
+                    preview = JSON.stringify(rec.value);
+                } else if (rec.value && typeof rec.value === "object") {
+                    valueType = "Object Record";
+                    preview = JSON.stringify(rec.value);
+                } else {
+                    preview = String(rec.value);
+                }
+
+                // "Mapped Playlists" column is contextual:
+                //  - files store: which playlists reference this cached file
+                //  - playlists store: the playlist's own title + track count
+                //  - settings store: n/a
+                const badge = (txt) => `<span style="background: rgba(0, 242, 254, 0.15); color: var(--neon-blue); padding: 0.15rem 0.4rem; border-radius: 6px; font-size: 0.72rem; display: inline-block; margin: 1px;">${String(txt).replace(/</g,'&lt;')}</span>`;
+                const dash = `<span style="color: var(--text-muted); font-size: 0.75rem;">--</span>`;
+                let mappedBadge;
+                if (activeStoreName === "playlists") {
+                    const tc = (valObj.tracks || valObj.items || []).length;
+                    mappedBadge = badge((valObj.title || valObj.id || "Playlist") + " · " + tc + " tracks");
+                } else {
+                    const recKey = String(rec.key);
+                    const mappedSet = playlistRefMap[recKey] || playlistRefMap[valObj.file] || playlistRefMap[valObj.file_id] || playlistRefMap[valObj.id] || playlistRefMap[valObj.normKey];
+                    const mappedArray = mappedSet ? Array.from(mappedSet) : [];
+                    mappedBadge = mappedArray.length > 0 ? mappedArray.map(p => badge(p)).join(" ") : dash;
+                }
+
+                // Size of the record's binary (audio + thumb), if any.
+                let sizeBytes = 0;
+                if (rec.value instanceof Blob) sizeBytes = rec.value.size;
+                else if (valObj.audio_blob || valObj.blob) sizeBytes = (valObj.audio_blob || valObj.blob).size + (valObj.thumb_blob ? valObj.thumb_blob.size : 0);
+                const sizeText = sizeBytes >= 1048576 ? (sizeBytes / 1048576).toFixed(2) + " MB" : (sizeBytes > 0 ? (sizeBytes / 1024).toFixed(1) + " KB" : "--");
+
+                tr.innerHTML = `
+                    <td style="color: var(--text-muted);">${start + idx + 1}</td>
+                    <td style="font-family: 'Fira Code', monospace; color: var(--neon-blue); font-weight: 600;">${String(rec.key)}</td>
+                    <td>${mappedBadge}</td>
+                    <td><span class="json-preview">${valueType}</span></td>
+                    <td style="text-align: right; font-family: 'Fira Code', monospace; color: ${sizeBytes > 0 ? 'var(--neon-blue)' : 'var(--text-muted)'}; font-size: 0.78rem;">${sizeText}</td>
+                    <td style="font-family: 'Fira Code', monospace; color: var(--text-secondary); font-size: 0.78rem;">${preview}</td>
+                    <td style="text-align: center;">
+                        <button class="btn-inspect-rec btn btn-secondary btn-sm" style="padding: 0.2rem 0.45rem; font-size: 0.7rem; margin-right: 0.25rem;">🔍 Inspect</button>
+                        <button class="btn-delete-rec btn btn-secondary btn-sm" style="padding: 0.2rem 0.45rem; font-size: 0.7rem; color: #ff5f56;">🗑️</button>
+                    </td>
+                `;
+
+                tr.style.cursor = "pointer";
+                tr.addEventListener("click", (e) => {
+                    if (!e.target.closest(".btn-delete-rec")) {
+                        inspectRecord(rec);
+                    }
+                });
+
+                tr.querySelector(".btn-inspect-rec").addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    inspectRecord(rec);
+                });
+                tr.querySelector(".btn-delete-rec").addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    deleteRecord(rec.key);
+                });
+
+                dataTableBody.appendChild(tr);
+            });
+        }
+
+        function inspectRecord(rec) {
+            jsonModalTitle.textContent = `Record Key: "${rec.key}"`;
+            if (rec.value instanceof Blob) {
+                jsonCodeBox.textContent = `Blob Object:\nType: ${rec.value.type}\nSize: ${rec.value.size} bytes (${(rec.value.size / 1024).toFixed(2)} KB)`;
+            } else {
+                jsonCodeBox.textContent = JSON.stringify(rec.value, null, 2);
+            }
+            jsonModal.classList.remove("hidden");
+        }
+
+        async function deleteRecord(key) {
+            if (!confirm(`Delete record with key "${key}" from "${activeStoreName}"?`)) return;
+            try {
+                const tx = activeDB.transaction(activeStoreName, "readwrite");
+                tx.objectStore(activeStoreName).delete(key);
+                await fetchStoreRecords(activeStoreName);
+                await loadStoreTree();
+                await updateStorageEstimate();
+            } catch (e) {
+                alert("Failed to delete record: " + e.message);
+            }
+        }
+
+        btnClearCurrentStore.addEventListener("click", async () => {
+            if (!activeStoreName) return;
+            if (confirm(`CLEAR ALL RECORDS in store "${activeStoreName}"? This action cannot be undone.`)) {
+                try {
+                    const tx = activeDB.transaction(activeStoreName, "readwrite");
+                    tx.objectStore(activeStoreName).clear();
+                    await fetchStoreRecords(activeStoreName);
+                    await loadStoreTree();
+                    await updateStorageEstimate();
+                } catch (e) {
+                    alert("Failed to clear store: " + e.message);
+                }
+            }
+        });
+
+        btnRefreshDB.addEventListener("click", async () => {
+            btnRefreshDB.disabled = true;
+            btnRefreshDB.textContent = "⏳ Refreshing...";
+            await updateStorageEstimate();
+            await discoverDatabases();
+            await loadStoreTree();
+            btnRefreshDB.disabled = false;
+            btnRefreshDB.textContent = "🔄 Refresh State";
+        });
+
+        dbSelect.addEventListener("change", (e) => {
+            activeDBName = e.target.value;
+            activeStoreName = null;
+            loadStoreTree();
+        });
+
+        searchInput.addEventListener("input", filterRecords);
+
+        btnPrevPage.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderDataTable();
+            }
+        });
+
+        btnNextPage.addEventListener("click", () => {
+            const totalPages = Math.ceil(filteredRecords.length / pageSize);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderDataTable();
+            }
+        });
+
+        const hideModal = () => jsonModal.classList.add("hidden");
+        btnCloseJsonModal.addEventListener("click", hideModal);
+        btnCloseJsonModal2.addEventListener("click", hideModal);
+
+        btnCopyJson.addEventListener("click", () => {
+            navigator.clipboard.writeText(jsonCodeBox.textContent);
+            btnCopyJson.textContent = "✅ Copied!";
+            setTimeout(() => { btnCopyJson.textContent = "📋 Copy JSON"; }, 2000);
+        });
+
+        // Initialize on load
+        updateStorageEstimate();
+        discoverDatabases();
+        loadStoreTree();
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+.venv/
+downloads/
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+*.log
+sync_config.json
+history.json.bak
+history.json.tmp
+schedules.json.bak
+schedules.json.tmp
+history.json*.corrupt-*
+history-manual-backup-*.json
+history-git-head.tmp.json
+pwa_config.json
+keys.json
+web-pwa/config.js
+web-pwa/media/
+sync_azure_batch.py
+
+# PyInstaller build output (the .exe is large; ship it via a release, not git)
+build/
+dist/
+*.manifest
+
+# AI & Audio testing assets
+*.sf2
+*.sf3
+fluidsynth.zip
+fluidsynth_bin/
+ai_workspace/
+test_audio*

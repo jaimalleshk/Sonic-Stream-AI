@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "sonicstream",
+      "runtimeExecutable": ".venv/Scripts/python.exe",
+      "runtimeArgs": ["-m", "uvicorn", "main:app", "--port", "8971"],
+      "port": 8971
+    },
+    {
+      "name": "pwa-static",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8099", "--directory", "web-pwa"],
+      "port": 8099
+    }
+  ]
+}

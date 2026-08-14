@@ -1,0 +1,65 @@
+[
+  {
+    "id": "sched_1786672476269",
+    "title": "Instruments",
+    "enabled": true,
+    "target_type": "playlist",
+    "playlist_id": "job_1783134296",
+    "track_id": null,
+    "track_title": null,
+    "mode": "shuffle",
+    "repeat": "daily",
+    "date": null,
+    "days": [],
+    "start_time": "21:00",
+    "end_time": "22:00",
+    "last_fired": "2026-08-13T21:00",
+    "created_at": "2026-08-13T20:54:36.269053"
+  },
+  {
+    "id": "sched_1786673311481",
+    "title": "Music while work - 2pm",
+    "enabled": true,
+    "target_type": "playlist",
+    "playlist_id": "job_1783134296",
+    "track_id": null,
+    "track_title": null,
+    "mode": "shuffle",
+    "repeat": "weekly",
+    "date": null,
+    "days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_time": "14:00",
+    "end_time": "14:30",
+    "last_fired": null,
+    "created_at": "2026-08-13T21:08:31.481995"
+  },
+  {
+    "id": "sched_1786673448309",
+    "title": "Instrumental music while work 4pm",
+    "enabled": true,
+    "target_type": "playlist",
+    "playlist_id": "job_1783134296",
+    "track_id": null,
+    "track_title": null,
+    "mode": "shuffle",
+    "repeat": "weekly",
+    "date": null,
+    "days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_time": "16:00",
+    "end_time": "18:00",
+    "last_fired": null,
+    "created_at": "2026-08-13T21:10:48.309661"
+  }
+]
