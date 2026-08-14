@@ -54,6 +54,11 @@ PWA_DIR = os.path.join(RESOURCE_DIR, "web-pwa")
 if os.path.exists(PWA_DIR):
     app.mount("/pwa", StaticFiles(directory=PWA_DIR, html=True), name="pwa")
 
+# Mount AI workspace for streaming processed files
+AI_WORKSPACE_DIR = os.path.join(BASE_DIR, "ai_workspace")
+os.makedirs(AI_WORKSPACE_DIR, exist_ok=True)
+app.mount("/ai_workspace", StaticFiles(directory=AI_WORKSPACE_DIR), name="ai_workspace")
+
 # Global state for downloading progress
 progress_lock = threading.Lock()
 download_state = {
@@ -2206,6 +2211,52 @@ async def generate_ai_instrumental(job_id: str, track_id: str):
 
     threading.Thread(target=_process_ai, daemon=True).start()
     return {"message": "AI processing started", "ai_job_id": ai_job_id}
+
+@app.post("/api/history/{job_id}/items/{track_id}/ai-mute-process")
+def process_ai_mute_stream(job_id: str, track_id: str):
+    try:
+        target_job = None
+        target_track = None
+        with history_lock:
+            history = load_history()
+            for job in history:
+                if job_id == "all_downloads" or job.get("id") == job_id:
+                    items = job.get("items", job.get("request", {}).get("items", []))
+                    for item in items:
+                        if item.get("id") == track_id:
+                            target_job = job
+                            target_track = item
+                            break
+                    if target_job:
+                        break
+
+        if not target_track or not target_job:
+            raise HTTPException(status_code=404, detail="Track or playlist not found")
+
+        download_dir = target_job.get("download_dir", DOWNLOAD_DIR)
+        request_dict = target_job.get("request") or {}
+        format_type = request_dict.get("format", "audio")
+        
+        track_title = target_track.get("title", "")
+        local_path = check_local_duplicate(track_title, format_type, download_dir)
+        if not local_path or not os.path.exists(local_path):
+            raise HTTPException(status_code=404, detail="Local file not found for processing. Make sure it's downloaded.")
+
+        from services.ai_vocal_processor import AIVocalProcessor
+        processor = AIVocalProcessor(workspace_dir=os.path.join(BASE_DIR, "ai_workspace"))
+        vocals_path, accompaniment_path = processor.separate_vocals(local_path)
+        
+        # Calculate relative path to ai_workspace
+        rel_path = os.path.relpath(accompaniment_path, os.path.join(BASE_DIR, "ai_workspace"))
+        url = f"/ai_workspace/{rel_path}".replace("\\", "/")
+        return {"url": url}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        err_msg = traceback.format_exc()
+        # Fallback to string error if format_exc fails
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}\nTraceback: {err_msg}")
 @app.post("/api/history/{job_id}/items/{track_id}/ai-karaoke")
 async def generate_ai_karaoke(job_id: str, track_id: str):
     target_job = None

@@ -1521,6 +1521,16 @@ document.addEventListener("DOMContentLoaded", () => {
         
         updateMediaSessionMetadata(track);
         
+        // Reset Live Mute if track changes
+        if (window.isLiveMuteOn) {
+            window.isLiveMuteOn = false;
+            window.originalMediaUrl = null;
+            if (typeof playerLiveMuteBtn !== 'undefined' && playerLiveMuteBtn) {
+                playerLiveMuteBtn.style.color = "var(--text-primary)";
+                playerLiveMuteBtn.style.textShadow = "none";
+            }
+        }
+        
         const format = document.querySelector('input[name="format"]:checked')?.value || "audio";
         const downloadDir = downloadDirInput.value.trim();
         
@@ -1672,73 +1682,78 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Real-time Web Audio API Karaoke (Live Mute)
-    let audioCtx = null;
-    let mediaSource = null;
-    let isLiveMuteOn = false;
-    let normalGainNode = null;
-    let karaokeMergerNode = null;
+    // High-Quality AI Mute (Streamed Demucs extraction instead of Real-time Phase Cancellation)
+    if (typeof window.isLiveMuteOn === 'undefined') window.isLiveMuteOn = false;
+    if (typeof window.originalMediaUrl === 'undefined') window.originalMediaUrl = null;
 
     if (playerLiveMuteBtn) {
-        playerLiveMuteBtn.addEventListener("click", () => {
-            if (!playerVideo) return;
+        playerLiveMuteBtn.addEventListener("click", async () => {
+            if (!playerVideo || currentTrackIndex < 0 || currentTrackIndex >= playQueue.length) return;
             
-            if (!audioCtx) {
-                try {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    mediaSource = audioCtx.createMediaElementSource(playerVideo);
-                    
-                    // Create nodes
-                    normalGainNode = audioCtx.createGain();
-                    
-                    // Karaoke extraction graph (Pure Phase cancellation L - R)
-                    const splitter = audioCtx.createChannelSplitter(2);
-                    karaokeMergerNode = audioCtx.createGain(); // Final mix node for Karaoke
-                    
-                    const invert = audioCtx.createGain();
-                    invert.gain.value = -1.0;
-                    
-                    // 1. Split source into L and R
-                    mediaSource.connect(splitter);
-                    
-                    // 2. Normal path
-                    mediaSource.connect(normalGainNode);
-                    normalGainNode.connect(audioCtx.destination);
-                    
-                    // 3. Karaoke path (pure L - R to prevent comb filtering echo)
-                    splitter.connect(karaokeMergerNode, 0); // L channel
-                    splitter.connect(invert, 1);            // R channel inverted
-                    invert.connect(karaokeMergerNode);      // Mix -R with L
-                    
-                } catch (err) {
-                    console.error("Web Audio API Error:", err);
-                    alert("Real-time mute is not supported by your browser or caused an error.");
-                    return;
-                }
-            }
-            
-            // Resume context if suspended
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            
+            const item = playQueue[currentTrackIndex];
+            const playlistId = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
+
             // Toggle state
-            isLiveMuteOn = !isLiveMuteOn;
+            window.isLiveMuteOn = !window.isLiveMuteOn;
             
-            if (isLiveMuteOn) {
-                // Turn OFF normal audio, turn ON karaoke audio
-                normalGainNode.disconnect();
-                karaokeMergerNode.connect(audioCtx.destination);
+            if (window.isLiveMuteOn) {
+                // Turn ON High-Quality Mute
                 playerLiveMuteBtn.style.color = "#ffb6c1"; // highlight pink
                 playerLiveMuteBtn.style.textShadow = "0 0 10px rgba(255,182,193,0.5)";
-                logToTerminal("[AI] 🎙️ Live Voice Mute ON (Real-time Phase Cancellation)");
+                logToTerminal(`[AI] 🎙️ Live Voice Mute ON: Processing high-quality separation for "${item.title}"... This may take a minute.`);
+                
+                const originalInnerHTML = playerLiveMuteBtn.innerHTML;
+                playerLiveMuteBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V2"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>';
+
+                try {
+                    const res = await fetch(`/api/history/${playlistId}/items/${item.id}/ai-mute-process`, { method: "POST" });
+                    playerLiveMuteBtn.innerHTML = originalInnerHTML; // restore icon
+                    
+                    if (res.ok) {
+                        const data = await res.json();
+                        // Save original URL to revert later
+                        if (!window.originalMediaUrl) window.originalMediaUrl = playerVideo.src;
+                        
+                        // Swap audio stream seamlessly
+                        const currentTime = playerVideo.currentTime;
+                        const isPlaying = !playerVideo.paused;
+                        
+                        playerVideo.src = data.url;
+                        playerVideo.currentTime = currentTime;
+                        if (isPlaying) playerVideo.play();
+                        
+                        logToTerminal("[AI] 🎙️ High-Quality Vocal Mute stream loaded successfully.");
+                    } else {
+                        const data = await res.json();
+                        alert(`Failed to process vocal mute: ${data.detail}`);
+                        // Revert UI
+                        window.isLiveMuteOn = false;
+                        playerLiveMuteBtn.style.color = "var(--text-primary)";
+                        playerLiveMuteBtn.style.textShadow = "none";
+                        logToTerminal("[AI] 🎙️ Live Voice Mute Error.");
+                    }
+                } catch (err) {
+                    playerLiveMuteBtn.innerHTML = originalInnerHTML;
+                    alert(`Failed to process vocal mute: ${err.message}`);
+                    window.isLiveMuteOn = false;
+                    playerLiveMuteBtn.style.color = "var(--text-primary)";
+                    playerLiveMuteBtn.style.textShadow = "none";
+                }
+
             } else {
-                // Turn OFF karaoke audio, turn ON normal audio
-                karaokeMergerNode.disconnect();
-                normalGainNode.connect(audioCtx.destination);
+                // Turn OFF Mute, revert to original stream
                 playerLiveMuteBtn.style.color = "var(--text-primary)"; // revert
                 playerLiveMuteBtn.style.textShadow = "none";
-                logToTerminal("[AI] 🎙️ Live Voice Mute OFF");
+                logToTerminal("[AI] 🎙️ Live Voice Mute OFF: Reverting to original track.");
+                
+                if (window.originalMediaUrl) {
+                    const currentTime = playerVideo.currentTime;
+                    const isPlaying = !playerVideo.paused;
+                    playerVideo.src = window.originalMediaUrl;
+                    playerVideo.currentTime = currentTime;
+                    if (isPlaying) playerVideo.play();
+                    window.originalMediaUrl = null;
+                }
             }
         });
     }

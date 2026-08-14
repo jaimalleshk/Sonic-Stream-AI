@@ -30,7 +30,18 @@ class AIVocalProcessor:
             "-o", self.workspace_dir,
             input_path
         ]
-        subprocess.run(cmd, check=True)
+        kwargs = {
+            'stdout': subprocess.PIPE,
+            'stderr': subprocess.PIPE
+        }
+        if os.name == 'nt':
+            kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
+        
+        try:
+            subprocess.run(cmd, check=True, **kwargs)
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Demucs failed: {e.stderr.decode('utf-8', errors='ignore')}")
+            raise RuntimeError(f"Demucs processing failed: {e.stderr.decode('utf-8', errors='ignore')}")
         
         # Demucs output structure: {workspace_dir}/htdemucs/{basename}/vocals.wav and no_vocals.wav
         basename = os.path.splitext(os.path.basename(input_path))[0]
@@ -57,7 +68,18 @@ class AIVocalProcessor:
         
         # Set PYTHONIOENCODING to fix UnicodeEncodeError when basic-pitch prints emoji
         env = dict(os.environ, PYTHONIOENCODING="utf-8")
-        subprocess.run(cmd, check=True, env=env)
+        kwargs = {
+            'stdout': subprocess.PIPE,
+            'stderr': subprocess.PIPE
+        }
+        if os.name == 'nt':
+            kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
+        
+        try:
+            subprocess.run(cmd, check=True, env=env, **kwargs)
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Basic Pitch failed: {e.stderr.decode('utf-8', errors='ignore')}")
+            raise RuntimeError(f"Basic Pitch failed: {e.stderr.decode('utf-8', errors='ignore')}")
         
         # Basic pitch appends _basic_pitch.mid to the output
         basename = os.path.splitext(os.path.basename(vocal_path))[0]
@@ -99,7 +121,18 @@ class AIVocalProcessor:
             midi_path,
             "-F", output_path
         ]
-        subprocess.run(cmd, check=True)
+        kwargs = {
+            'stdout': subprocess.PIPE,
+            'stderr': subprocess.PIPE
+        }
+        if os.name == 'nt':
+            kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
+            
+        try:
+            subprocess.run(cmd, check=True, **kwargs)
+        except subprocess.CalledProcessError as e:
+            logger.error(f"FluidSynth failed: {e.stderr.decode('utf-8', errors='ignore')}")
+            raise RuntimeError(f"FluidSynth failed: {e.stderr.decode('utf-8', errors='ignore')}")
         
         if not os.path.exists(output_path):
             raise FileNotFoundError("FluidSynth did not output the synthesized audio file.")
