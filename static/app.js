@@ -2952,6 +2952,27 @@ document.addEventListener("DOMContentLoaded", () => {
             checkYtdlpVersion();
         });
     }
+
+    const btnAzureSync = document.getElementById("btnAzureSync");
+    if (btnAzureSync) {
+        btnAzureSync.addEventListener("click", async () => {
+            btnAzureSync.disabled = true;
+            const originalText = btnAzureSync.innerHTML;
+            btnAzureSync.innerHTML = '<div class="spinner" style="width:14px;height:14px;"></div> Syncing...';
+            try {
+                const res = await fetch("/api/azure/sync", { method: "POST" });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || "Failed to trigger sync");
+                showToast(data.message || "Cloud sync completed!");
+            } catch (err) {
+                console.error(err);
+                showToast("Error: " + err.message, true);
+            } finally {
+                btnAzureSync.disabled = false;
+                btnAzureSync.innerHTML = originalText;
+            }
+        });
+    }
     
     if (btnCloseSettings && settingsModal) {
         btnCloseSettings.addEventListener("click", () => {

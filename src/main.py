@@ -218,6 +218,7 @@ def clean_ansi(text: str) -> str:
 def apply_bypass_ydl_opts(ydl_opts: dict) -> dict:
     """Applies common bypass options like SSL verification skip, player clients, user agents, and browser cookies."""
     ydl_opts['nocheckcertificate'] = True
+    ydl_opts['ignoreerrors'] = True
     ydl_opts['extractor_args'] = {
         'youtube': {
             'player_client': ['web', 'ios', 'android']
