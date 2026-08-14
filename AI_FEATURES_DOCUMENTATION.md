@@ -8,6 +8,7 @@ There are three primary AI features integrated into the platform:
 
 ## 1. Live Voice Mute (Real-time Instrumental Streaming)
 **Purpose:** Instantly strips vocals from a playing track, allowing you to listen to a pristine instrumental version without waiting for the entire song to process.
+**Quality:** **Average to Good**. The separation removes the vast majority of vocals cleanly, though slight artifacts or backing vocal bleeds may occasionally be present depending on the song.
 
 **How it works under the hood:**
 1. **Chunking Engine:** When you activate Live Voice Mute, the Python backend intercepts the raw downloaded MP3 and slices it into 30-second segments (`chunks`) using `pydub`.
@@ -19,6 +20,7 @@ There are three primary AI features integrated into the platform:
 
 ## 2. Voice-to-Instrument AI (Synthesized Replacement)
 **Purpose:** Instead of just muting the vocals, this feature completely replaces the human singer's voice with a synthesized MIDI instrument (defaulting to a Flute, MIDI program 73, for maximum harmony and versatility).
+**Quality:** **Not Good** *(Tracked as an open defect)*. The raw pitch extraction captures unwanted vocal artifacts (like breath and excessive vibrato), which translates poorly to MIDI, making the synthesized instrument sound choppy or disjointed.
 
 **How it works under the hood:**
 1. **Vocal Isolation:** Like Live Voice Mute, the track is chunked into 30-second segments, and the vocals are isolated from the accompaniment.

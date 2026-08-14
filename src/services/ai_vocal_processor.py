@@ -214,6 +214,7 @@ class AIVocalProcessor:
         """
         import tempfile
         import shutil
+        import uuid
         from pydub.utils import make_chunks
 
         logger.info(f"Chunking {input_path} into {chunk_length_ms}ms segments...")
@@ -221,12 +222,13 @@ class AIVocalProcessor:
         chunks = make_chunks(audio, chunk_length_ms)
         
         basename = os.path.splitext(os.path.basename(input_path))[0]
+        req_id = str(uuid.uuid4())[:8]
         
         for i, chunk in enumerate(chunks):
-            temp_chunk_path = os.path.join(self.workspace_dir, f"{basename}_chunk_{i}.mp3")
+            temp_chunk_path = os.path.join(self.workspace_dir, f"{basename}_{mode}_{req_id}_chunk_{i}.mp3")
             chunk.export(temp_chunk_path, format="mp3", bitrate="320k")
             
-            final_chunk_path = os.path.join(self.workspace_dir, f"{basename}_chunk_{i}_final.mp3")
+            final_chunk_path = os.path.join(self.workspace_dir, f"{basename}_{mode}_{req_id}_chunk_{i}_final.mp3")
             
             try:
                 # Process the chunk
@@ -236,13 +238,14 @@ class AIVocalProcessor:
                 if mode == 'instrument':
                     midi_path = self.extract_pitch(vocals_path)
                     soundfont_path = os.path.join(os.path.dirname(__file__), "..", "..", "TimGM6mb.sf2")
-                    synth_output = os.path.join(self.workspace_dir, f"{basename}_chunk_{i}_synth.wav")
+                    synth_output = os.path.join(self.workspace_dir, f"{basename}_{mode}_{req_id}_chunk_{i}_synth.wav")
                     self.synthesize_instrument(midi_path, soundfont_path, synth_output, midi_program=midi_program)
                     self.mix_audio(accompaniment_path, synth_output, final_chunk_path)
                     os.remove(synth_output)
                     os.remove(midi_path)
                 else:
-                    self.export_audio(accompaniment_path, final_chunk_path)
+                    acc_audio = AudioSegment.from_file(accompaniment_path)
+                    acc_audio.export(final_chunk_path, format="mp3", bitrate="320k")
                 
                 # Yield bytes
                 with open(final_chunk_path, 'rb') as f:
