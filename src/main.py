@@ -2935,6 +2935,10 @@ async def get_azure_config():
 @app.post("/api/azure/sync")
 async def trigger_azure_sync():
     """Triggers background sync of all local downloaded tracks to Azure Storage Blob."""
+    try:
+        await export_playlists()
+    except Exception as e:
+        print(f"[Azure Sync] Warning: failed to export manifest before sync: {e}")
     trigger_full_azure_sync()
     return {"message": "Azure Storage Blob batch sync started in background"}
 
