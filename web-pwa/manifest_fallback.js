@@ -8667,10 +8667,80 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       "id": "ai_muted_vocals",
       "title": "AI Muted Vocals",
       "playlist_title": "AI Muted Vocals",
-      "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-      "track_count": 3,
+      "thumbnail": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
+      "track_count": 10,
       "tracks": [
+        {
+          "id": "RYVCXXVFnHE_ai_muted_vocals",
+          "title": "Moosina Muthyalake - Karaoke",
+          "artist": "Annamayya Keerthana - Topic",
+          "duration": 200,
+          "thumbnail": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=RYVCXXVFnHE",
+          "file": "Moosina Muthyalake - Karaoke.mp3"
+        },
+        {
+          "id": "w-cGHBhx-dE_ai_muted_vocals",
+          "title": "Yavvo Yaako ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - Karaoke",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 302,
+          "thumbnail": "https://i.ytimg.com/vi/w-cGHBhx-dE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/w-cGHBhx-dE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=w-cGHBhx-dE",
+          "file": "Yavvo Yaako ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - Karaoke.mp3"
+        },
+        {
+          "id": "0MrR0lo1uaY_ai_muted_vocals",
+          "title": "Hadondu Hadabeku ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 228,
+          "thumbnail": "https://i.ytimg.com/vi/0MrR0lo1uaY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/0MrR0lo1uaY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=0MrR0lo1uaY",
+          "file": "Hadondu Hadabeku ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - Karaoke.mp3"
+        },
+        {
+          "id": "MgbBo9u2U3U_ai_muted_vocals_ai_muted_vocals",
+          "title": "Om Guru -Slokam - Karaoke - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 113,
+          "thumbnail": "https://i.ytimg.com/vi/MgbBo9u2U3U/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/MgbBo9u2U3U/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=MgbBo9u2U3U",
+          "file": "Om Guru -Slokam - Karaoke - Karaoke.mp3"
+        },
+        {
+          "id": "rsvPzDWFWg8_ai_muted_vocals",
+          "title": "Ee Hasiru Siriyali - Karaoke",
+          "artist": "C. Aswath  - Topic",
+          "duration": 309,
+          "thumbnail": "https://i.ytimg.com/vi/rsvPzDWFWg8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/rsvPzDWFWg8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=rsvPzDWFWg8",
+          "file": "Ee Hasiru Siriyali - Karaoke.mp3"
+        },
+        {
+          "id": "Pa_HuoZ93RU_ai_muted_vocals",
+          "title": "Sparsha - _Oho Chenne Chenne_ Audio Song _ Sudeep, Rekha _ Hariharan, K S Chitra _ Akash Audio - Karaoke",
+          "artist": "Akash Audio",
+          "duration": 310,
+          "thumbnail": "https://i.ytimg.com/vi/Pa_HuoZ93RU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Pa_HuoZ93RU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Pa_HuoZ93RU",
+          "file": "Sparsha - _Oho Chenne Chenne_ Audio Song _ Sudeep, Rekha _ Hariharan, K S Chitra _ Akash Audio - Karaoke.mp3"
+        },
+        {
+          "id": "0OMjQgxdxIE_ai_muted_vocals",
+          "title": "Ivanu Geleyanalla - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 229,
+          "thumbnail": "https://i.ytimg.com/vi/0OMjQgxdxIE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/0OMjQgxdxIE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=0OMjQgxdxIE",
+          "file": "Ivanu Geleyanalla - Karaoke.mp3"
+        },
         {
           "id": "LF_1_hy2wXU_ai_muted_vocals",
           "title": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - Karaoke",
@@ -8707,10 +8777,70 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       "id": "ai_vocals_only",
       "title": "AI Vocals Only",
       "playlist_title": "AI Vocals Only",
-      "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-      "track_count": 3,
+      "thumbnail": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
+      "track_count": 9,
       "tracks": [
+        {
+          "id": "RYVCXXVFnHE_ai_vocals_only",
+          "title": "Moosina Muthyalake - AI Vocals Only",
+          "artist": "Annamayya Keerthana - Topic",
+          "duration": 200,
+          "thumbnail": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=RYVCXXVFnHE",
+          "file": "Moosina Muthyalake - AI Vocals Only.mp3"
+        },
+        {
+          "id": "w-cGHBhx-dE_ai_vocals_only",
+          "title": "Yavvo Yaako ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - AI Vocals Only",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 302,
+          "thumbnail": "https://i.ytimg.com/vi/w-cGHBhx-dE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/w-cGHBhx-dE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=w-cGHBhx-dE",
+          "file": "Yavvo Yaako ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - AI Vocals Only.mp3"
+        },
+        {
+          "id": "0MrR0lo1uaY_ai_vocals_only",
+          "title": "Hadondu Hadabeku ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 228,
+          "thumbnail": "https://i.ytimg.com/vi/0MrR0lo1uaY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/0MrR0lo1uaY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=0MrR0lo1uaY",
+          "file": "Hadondu Hadabeku ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - AI Vocals Only.mp3"
+        },
+        {
+          "id": "MgbBo9u2U3U_ai_muted_vocals_ai_vocals_only",
+          "title": "Om Guru -Slokam - Karaoke - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 113,
+          "thumbnail": "https://i.ytimg.com/vi/MgbBo9u2U3U/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/MgbBo9u2U3U/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=MgbBo9u2U3U",
+          "file": "Om Guru -Slokam - Karaoke - AI Vocals Only.mp3"
+        },
+        {
+          "id": "Pa_HuoZ93RU_ai_vocals_only",
+          "title": "Sparsha - _Oho Chenne Chenne_ Audio Song _ Sudeep, Rekha _ Hariharan, K S Chitra _ Akash Audio - AI Vocals Only",
+          "artist": "Akash Audio",
+          "duration": 310,
+          "thumbnail": "https://i.ytimg.com/vi/Pa_HuoZ93RU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Pa_HuoZ93RU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Pa_HuoZ93RU",
+          "file": "Sparsha - _Oho Chenne Chenne_ Audio Song _ Sudeep, Rekha _ Hariharan, K S Chitra _ Akash Audio - AI Vocals Only.mp3"
+        },
+        {
+          "id": "0OMjQgxdxIE_ai_vocals_only",
+          "title": "Ivanu Geleyanalla - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 229,
+          "thumbnail": "https://i.ytimg.com/vi/0OMjQgxdxIE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/0OMjQgxdxIE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=0OMjQgxdxIE",
+          "file": "Ivanu Geleyanalla - AI Vocals Only.mp3"
+        },
         {
           "id": "LF_1_hy2wXU_ai_vocals_only",
           "title": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - AI Vocals Only",

@@ -103,11 +103,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function loadSettingsJson() {
         try {
-            const res = await fetch("./settings.json", { cache: "no-cache" });
+            // Cache-bust: config.js is a <script>, which the service worker serves
+            // CACHE-FIRST, so a stale BLANK config.js can outlive a good deploy.
+            const res = await fetch("./settings.json?cb=" + Date.now(), { cache: "no-store" });
             if (res.ok) {
                 const fetchedConfig = await res.json();
                 if (fetchedConfig && typeof fetchedConfig === "object") {
-                    CONFIG = { ...fetchedConfig, ...CONFIG };
+                    // Merge preferring NON-EMPTY values. The old spread was
+                    //     { ...fetchedConfig, ...CONFIG }
+                    // which let an EMPTY string from a stale blank config.js
+                    // overwrite the correct value from settings.json — leaving the
+                    // app with no storage account, so nothing played at all.
+                    const merged = { ...fetchedConfig };
+                    for (const [k, v] of Object.entries(CONFIG)) {
+                        if (v !== undefined && v !== null && v !== "") merged[k] = v;
+                    }
+                    CONFIG = merged;
                     populateSettingsUI();
                 }
             }
@@ -800,7 +811,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v16";
+    const APP_BUILD = "v17";
 
     async function updateCacheUsageUI() {
         const cachedCount = await countCachedTracks();

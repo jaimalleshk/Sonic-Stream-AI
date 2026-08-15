@@ -228,11 +228,24 @@ def inject_keys():
     generate_pwa_manifest()
 
 def clean_keys():
+    """Strip SECRETS before check-in — but keep the non-secret address.
+
+    This used to blank the storage account/container too, which is what made
+    playback depend on remembering to re-inject before every deploy: ship a blank
+    settings.json and the app has no account, so NOTHING plays. The account and
+    container are addresses, not credentials (and are already visible on the
+    deployed site), so they stay. Only the SAS token / client id are cleared.
+    """
+    keys = load_keys()
+    settings_data = dict(BLANK_SETTINGS)
+    settings_data["azure_storage_account"] = keys.get("azure_storage_account", "")
+    settings_data["azure_container"] = keys.get("azure_container", "media")
+
     os.makedirs(os.path.dirname(TARGET_SETTINGS_FILE), exist_ok=True)
     with open(TARGET_SETTINGS_FILE, "w", encoding="utf-8") as f:
-        json.dump(BLANK_SETTINGS, f, indent=2)
+        json.dump(settings_data, f, indent=2)
 
-    js_content = f"// Blank configuration for GitHub check-in\nwindow.SONICSTREAM_CONFIG = {json.dumps(BLANK_SETTINGS, indent=2)};\n"
+    js_content = f"// Public config (no secrets) for check-in\nwindow.SONICSTREAM_CONFIG = {json.dumps(settings_data, indent=2)};\n"
     with open(TARGET_CONFIG_JS, "w", encoding="utf-8") as f:
         f.write(js_content)
 
