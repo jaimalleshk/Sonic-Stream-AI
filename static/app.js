@@ -1617,11 +1617,12 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Handle AI Queue Auto-Apply
         const shouldApplyAI = (typeof aiQueueToggle !== 'undefined' && aiQueueToggle && aiQueueToggle.checked);
-        const activeAIMode = window.isLiveMuteOn ? "mute" : (window.isInstrumentOn ? "instrument" : null);
+        const activeAIMode = window.isLiveMuteOn ? "mute" : (window.isInstrumentOn ? "instrument" : (window.isVocalsOnlyOn ? "vocals" : null));
 
         // Reset AI states
         window.isLiveMuteOn = false;
         window.isInstrumentOn = false;
+        window.isVocalsOnlyOn = false;
         window.originalMediaUrl = null;
         if (typeof playerLiveMuteBtn !== 'undefined' && playerLiveMuteBtn) {
             playerLiveMuteBtn.style.color = "var(--text-primary)";
@@ -1630,6 +1631,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typeof playerInstrumentBtn !== 'undefined' && playerInstrumentBtn) {
             playerInstrumentBtn.style.color = "var(--text-primary)";
             playerInstrumentBtn.style.textShadow = "none";
+        }
+        if (typeof playerVocalsOnlyBtn !== 'undefined' && playerVocalsOnlyBtn) {
+            playerVocalsOnlyBtn.style.color = "var(--text-primary)";
+            playerVocalsOnlyBtn.style.textShadow = "none";
         }
         
         const format = document.querySelector('input[name="format"]:checked')?.value || "audio";
@@ -1672,6 +1677,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     playerLiveMuteBtn.click();
                 } else if (activeAIMode === "instrument" && typeof playerInstrumentBtn !== 'undefined' && playerInstrumentBtn) {
                     playerInstrumentBtn.click();
+                } else if (activeAIMode === "vocals" && typeof playerVocalsOnlyBtn !== 'undefined' && playerVocalsOnlyBtn) {
+                    playerVocalsOnlyBtn.click();
                 }
             }
         } catch (err) {
