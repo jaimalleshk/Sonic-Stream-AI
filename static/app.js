@@ -2605,6 +2605,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- the engine: one tick a second ---
+    const manuallyStoppedOccurrences = new Set();
+
     async function scheduleTick() {
         const now = new Date();
 
@@ -2618,9 +2620,12 @@ document.addEventListener("DOMContentLoaded", () => {
             for (const entry of scheduleEntries) {
                 if (!entry.enabled) continue;
                 const occ = currentOccurrence(entry, now);
-                if (occ && entry.last_fired !== occ.key) {
-                    await startScheduledPlayback(entry, occ);
-                    break;
+                if (occ) {
+                    const stopKey = `${entry.id}@${occ.end.getTime()}`;
+                    if (!manuallyStoppedOccurrences.has(stopKey)) {
+                        await startScheduledPlayback(entry, occ);
+                        break;
+                    }
                 }
             }
         }
@@ -2692,6 +2697,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function stopScheduledPlayback(reason) {
         const entry = activeSchedule;
+        if (entry && activeScheduleEndsAt) {
+            const stopKey = `${entry.id}@${activeScheduleEndsAt.getTime()}`;
+            manuallyStoppedOccurrences.add(stopKey);
+        }
         activeSchedule = null;
         activeScheduleEndsAt = null;
 
