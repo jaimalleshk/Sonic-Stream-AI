@@ -2172,6 +2172,8 @@ def _add_ai_track_to_playlist(target_track, playlist_id, playlist_title, out_pat
                 "timestamp": datetime.now().isoformat()
             }
             current_history.insert(0, ai_playlist)
+        else:
+            ai_playlist["title"] = playlist_title
             
         new_track_id = f"{target_track['id']}_{playlist_id}"
         existing = next((t for t in ai_playlist["items"] if t.get("id") == new_track_id), None)
@@ -2230,8 +2232,8 @@ async def generate_ai_instrumental(job_id: str, track_id: str, background_tasks:
     out_path = os.path.join(download_dir, out_filename)
 
     if os.path.exists(out_path):
-        _add_ai_track_to_playlist(target_track, "ai_instruments", "AI Instruments", out_path)
-        return {"status": "started", "message": "Already cached and added to AI Instruments playlist."}
+        _add_ai_track_to_playlist(target_track, "ai_instruments", "AI Synth Tune", out_path)
+        return {"status": "started", "message": "Already cached and added to AI Synth Tune playlist."}
 
     ai_job_id = f"ai_{track_id}_{int(time.time())}"
     
@@ -2282,7 +2284,7 @@ async def generate_ai_instrumental(job_id: str, track_id: str, background_tasks:
                 
             processor.mix_audio(accomp_path, inst_path, out_path)
             
-            _add_ai_track_to_playlist(target_track, "ai_instruments", "AI Instruments", out_path)
+            _add_ai_track_to_playlist(target_track, "ai_instruments", "AI Synth Tune", out_path)
             
             with ai_jobs_lock:
                 ai_jobs_state[ai_job_id]["status"] = "completed"
