@@ -2171,6 +2171,78 @@ document.addEventListener("DOMContentLoaded", () => {
     // Fallback for paused-state seeks and metadata loads
     playerVideo.addEventListener("timeupdate", updateProgressUI);
 
+    // --- Silence Skipping Engine (Skip Silence > 5s) ---
+    const skipSilenceToggle = document.getElementById("skipSilenceToggle");
+    let silenceAudioCtx = null;
+    let silenceAnalyser = null;
+    let silenceDataArray = null;
+    let silenceStartTime = null;
+
+    function initSilenceAnalyser() {
+        if (silenceAnalyser) return;
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            silenceAudioCtx = new AudioCtx();
+            const source = silenceAudioCtx.createMediaElementSource(playerVideo);
+            silenceAnalyser = silenceAudioCtx.createAnalyser();
+            silenceAnalyser.fftSize = 256;
+            source.connect(silenceAnalyser);
+            silenceAnalyser.connect(silenceAudioCtx.destination);
+            silenceDataArray = new Uint8Array(silenceAnalyser.frequencyBinCount);
+        } catch (e) {
+            console.error("[Silence Skip] Web Audio setup:", e);
+        }
+    }
+
+    function checkAndSkipSilence() {
+        if (!skipSilenceToggle || !skipSilenceToggle.checked) {
+            silenceStartTime = null;
+            return;
+        }
+        if (!playerVideo || playerVideo.paused || playerVideo.ended || playerVideo.seeking) {
+            silenceStartTime = null;
+            return;
+        }
+
+        if (silenceAudioCtx && silenceAudioCtx.state === "suspended") {
+            silenceAudioCtx.resume().catch(() => {});
+        }
+
+        initSilenceAnalyser();
+        if (!silenceAnalyser || !silenceDataArray) return;
+
+        silenceAnalyser.getByteFrequencyData(silenceDataArray);
+        let sum = 0;
+        for (let i = 0; i < silenceDataArray.length; i++) {
+            sum += silenceDataArray[i];
+        }
+        const avg = sum / silenceDataArray.length;
+
+        // Low volume threshold for silence (avg < 2.5)
+        const isSilent = avg < 2.5;
+        const now = Date.now();
+
+        if (isSilent) {
+            if (silenceStartTime === null) {
+                silenceStartTime = now;
+            } else {
+                const duration = (now - silenceStartTime) / 1000;
+                // If silence duration exceeds 5.0 seconds, jump forward in steps
+                if (duration >= 5.0) {
+                    if (playerVideo.duration && playerVideo.currentTime < playerVideo.duration - 1) {
+                        playerVideo.currentTime = Math.min(playerVideo.duration - 0.5, playerVideo.currentTime + 1.5);
+                        logToTerminal(`[Silence Skip] Fast-forwarded silent gap (>5s kept)`);
+                    }
+                }
+            }
+        } else {
+            silenceStartTime = null;
+        }
+    }
+
+    setInterval(checkAndSkipSilence, 250);
+
     playerProgressBar.addEventListener("input", (e) => {
         if (playerVideo.duration) {
             playerVideo.currentTime = (e.target.value / 100) * playerVideo.duration;
