@@ -3224,6 +3224,42 @@ document.addEventListener("DOMContentLoaded", () => {
         tbody.innerHTML = html;
     }
 
+    // Lightweight toast notification.
+    //
+    // This was CALLED in four places by the Azure explorer but never DEFINED
+    // anywhere in the project, so every call threw ReferenceError. That is what
+    // made the Sync button appear dead: the success path threw at
+    // showToast("Azure Sync started..."), the catch block then called showToast
+    // again and threw a second time, so `disabled = false` never ran and
+    // startAzSyncPolling() was never reached — the button stayed permanently
+    // disabled with no message and no progress bar ("nothing happens").
+    function showToast(message, isError = false) {
+        let host = document.getElementById("ssToastHost");
+        if (!host) {
+            host = document.createElement("div");
+            host.id = "ssToastHost";
+            host.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);" +
+                "z-index:4000;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;";
+            document.body.appendChild(host);
+        }
+        const el = document.createElement("div");
+        el.textContent = String(message);
+        el.style.cssText =
+            "pointer-events:auto;max-width:min(90vw,520px);padding:0.7rem 1.1rem;border-radius:10px;" +
+            "font-size:0.85rem;font-weight:600;color:#fff;box-shadow:0 8px 28px rgba(0,0,0,0.5);" +
+            "opacity:0;transform:translateY(6px);transition:opacity .18s ease,transform .18s ease;" +
+            (isError
+                ? "background:rgba(190,45,40,0.97);border:1px solid #ff6b64;"
+                : "background:rgba(22,27,34,0.97);border:1px solid var(--neon-blue,#00f2fe);");
+        host.appendChild(el);
+        requestAnimationFrame(() => { el.style.opacity = "1"; el.style.transform = "translateY(0)"; });
+        setTimeout(() => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(6px)";
+            setTimeout(() => el.remove(), 220);
+        }, isError ? 6000 : 3200);
+    }
+
     // Sync progress polling
     function startAzSyncPolling() {
         if (azSyncPollInterval) return;
@@ -3237,6 +3273,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // indistinguishable from completion, and we announce success for a sync
         // that never ran (and hide the progress bar immediately).
         let sawSyncing = false;
+        // ...but do not wait forever: a sync with nothing to upload can finish
+        // before the first poll lands, in which case we would never observe it
+        // running. After a short grace period, accept the finished state.
+        let graceCycles = 0;
 
         azSyncPollInterval = setInterval(async () => {
             try {
@@ -3258,7 +3298,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (text) text.textContent = "Scanning…";
                     }
                     if (file) file.textContent = data.current_file || "Working...";
-                } else if (!sawSyncing) {
+                } else if (!sawSyncing && graceCycles++ < 3) {
                     const file = document.getElementById("azSyncCurrentFile");
                     if (file) file.textContent = "Starting…";   // keep waiting, don't claim success
                 } else {
@@ -3333,11 +3373,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 const res = await fetch("/api/azure/sync?download_dir=" + encodeURIComponent(downloadDir), { method: "POST" });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.detail || "Failed to trigger sync");
-                showToast("Azure Sync started in background.");
+                // Start polling FIRST: polling owns re-enabling the button, so it
+                // must not be skippable by a failure in a cosmetic notification.
                 startAzSyncPolling();
+                showToast("Azure Sync started in background.");
             } catch (err) {
-                showToast("Error: " + err.message, true);
-                btnConfirmAzSync.disabled = false;
+                btnConfirmAzSync.disabled = false;   // re-enable before anything that can throw
+                showToast("Error: " + (err && err.message ? err.message : err), true);
             }
         });
     }

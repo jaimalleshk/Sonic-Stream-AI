@@ -792,7 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v13";
+    const APP_BUILD = "v14";
 
     async function updateCacheUsageUI() {
         const cachedCount = await countCachedTracks();
@@ -1360,6 +1360,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
                 await saveBatchFileRecordsToDB(fileRecordsToSave);
+
+                // Prune desktop playlists that no longer exist in the manifest.
+                // Sync only ever added/updated, so a playlist that was removed or
+                // renamed upstream lingered in IndexedDB forever and appeared
+                // alongside its replacement — e.g. TWO "Bhagavad Gita" playlists,
+                // the stale one still pointing at filenames that no longer exist.
+                // Only desktop-sourced playlists are pruned; anything created
+                // locally on the phone is left untouched.
+                try {
+                    const liveIds = new Set(desktopPlaylists.map(p => p.id));
+                    const existing = await getAllPlaylistsFromDB();
+                    const stale = existing.filter(p => (!p.source || p.source === "desktop") && !liveIds.has(p.id));
+                    if (stale.length && db && db.objectStoreNames.contains("playlists")) {
+                        const tx = db.transaction("playlists", "readwrite");
+                        const store = tx.objectStore("playlists");
+                        stale.forEach(p => { try { store.delete(p.id); } catch (_) {} });
+                        console.log("[PWA Sync] Pruned stale playlists:", stale.map(p => p.title || p.id).join(", "));
+                    }
+                } catch (e) {
+                    console.warn("[PWA Sync] Prune skipped:", e);
+                }
+
                 console.log(`[PWA] Synced ${desktopPlaylists.length} playlists and ${fileRecordsToSave.length} file records to IndexedDB.`);
             }
 
