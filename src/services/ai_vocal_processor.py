@@ -243,6 +243,9 @@ class AIVocalProcessor:
                     self.mix_audio(accompaniment_path, synth_output, final_chunk_path)
                     os.remove(synth_output)
                     os.remove(midi_path)
+                elif mode == 'vocals':
+                    voc_audio = AudioSegment.from_file(vocals_path)
+                    voc_audio.export(final_chunk_path, format="mp3", bitrate="320k")
                 else:
                     acc_audio = AudioSegment.from_file(accompaniment_path)
                     acc_audio.export(final_chunk_path, format="mp3", bitrate="320k")

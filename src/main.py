@@ -2460,6 +2460,49 @@ async def process_ai_instrument_stream(job_id: str, track_id: str, background_ta
         err_msg = traceback.format_exc()
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}\nTraceback: {err_msg}")
 
+@app.post("/api/history/{job_id}/items/{track_id}/ai-vocals-process")
+async def process_ai_vocals_stream(job_id: str, track_id: str, background_tasks: BackgroundTasks):
+    try:
+        import urllib.parse
+        target_job, target_track = _get_target_track(job_id, track_id)
+        if not target_track or not target_job:
+            raise HTTPException(status_code=404, detail="Track or playlist not found")
+
+        download_dir = target_job.get("download_dir", DOWNLOAD_DIR)
+        request_dict = target_job.get("request") or {}
+        format_type = request_dict.get("format", "audio")
+        
+        track_title = target_track.get("title", "")
+        if " - AI Muted Vocals" in track_title or " - AI Instrumental" in track_title or " - AI Vocals Only" in track_title:
+            raise HTTPException(status_code=400, detail="Track is already AI processed.")
+        local_path = check_local_duplicate(track_title, format_type, download_dir)
+        if not local_path or not os.path.exists(local_path):
+            raise HTTPException(status_code=404, detail="Local file not found for processing. Make sure it's downloaded.")
+
+        # Check if already cached!
+        cache_filename = f"{sanitize_filename(track_title)} - AI Vocals Only.mp3"
+        cache_out_path = os.path.join(download_dir, cache_filename)
+        
+        if os.path.exists(cache_out_path):
+            # Return cached url
+            title_encoded = urllib.parse.quote(f"{track_title} - AI Vocals Only")
+            download_dir_encoded = urllib.parse.quote(download_dir)
+            url = f"/api/media/stream?video_url=local&title={title_encoded}&format=audio&download_dir={download_dir_encoded}"
+            return {"url": url}
+
+        # Not cached, start background generation for future AND return live stream url for now
+        await generate_ai_karaoke(job_id, track_id, background_tasks)
+
+        # Return streaming endpoint URL for INSTANT playback
+        url = f"/api/stream/ai/{job_id}/{track_id}?mode=vocals"
+        return {"url": url}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        err_msg = traceback.format_exc()
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}\nTraceback: {err_msg}")
+
 @app.get("/api/stream/ai/{job_id}/{track_id}")
 def stream_ai_processed_audio(job_id: str, track_id: str, mode: str = "mute"):
     from fastapi.responses import StreamingResponse

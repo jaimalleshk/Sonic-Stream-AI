@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const playerNextBtn = document.getElementById("playerNextBtn");
     const playerKaraokeBtn = document.getElementById("playerKaraokeBtn");
     const playerLiveMuteBtn = document.getElementById("playerLiveMuteBtn");
+    const playerVocalsOnlyBtn = document.getElementById("playerVocalsOnlyBtn");
     const playerShuffleBtn = document.getElementById("playerShuffleBtn");
     const playerRepeatBtn = document.getElementById("playerRepeatBtn");
     const playerVolumeBtn = document.getElementById("playerVolumeBtn");
@@ -1793,7 +1794,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // High-Quality AI Mute (Streamed Demucs extraction instead of Real-time Phase Cancellation)
     if (typeof window.isLiveMuteOn === 'undefined') window.isLiveMuteOn = false;
     if (typeof window.originalMediaUrl === 'undefined') window.originalMediaUrl = null;
+    window.isLiveMuteOn = false;
     window.isInstrumentOn = false;
+    window.isVocalsOnlyOn = false;
     const playerInstrumentBtn = document.getElementById("playerInstrumentBtn");
     const aiQueueToggle = document.getElementById("aiQueueToggle");
 
@@ -1809,11 +1812,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const item = playQueue[currentTrackIndex];
             const playlistId = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
 
-            // If Instrument is on, turn it off first to revert stream
+            // If Instrument or Vocals Only is on, turn it off first to revert stream
             if (window.isInstrumentOn && playerInstrumentBtn) {
                 window.isInstrumentOn = false;
                 playerInstrumentBtn.style.color = "var(--text-primary)";
                 playerInstrumentBtn.style.textShadow = "none";
+                if (window.originalMediaUrl) {
+                    playerVideo.src = window.originalMediaUrl;
+                    window.originalMediaUrl = null;
+                }
+            }
+            if (window.isVocalsOnlyOn && playerVocalsOnlyBtn) {
+                window.isVocalsOnlyOn = false;
+                playerVocalsOnlyBtn.style.color = "var(--text-primary)";
+                playerVocalsOnlyBtn.style.textShadow = "none";
                 if (window.originalMediaUrl) {
                     playerVideo.src = window.originalMediaUrl;
                     window.originalMediaUrl = null;
@@ -1959,6 +1971,94 @@ document.addEventListener("DOMContentLoaded", () => {
                 playerInstrumentBtn.style.color = "var(--text-primary)";
                 playerInstrumentBtn.style.textShadow = "none";
                 logToTerminal("[AI] 🎷 Voice-to-Instrument OFF: Reverting to original track.");
+                
+                if (window.originalMediaUrl) {
+                    const currentTime = playerVideo.currentTime;
+                    const isPlaying = !playerVideo.paused;
+                    playerVideo.src = window.originalMediaUrl;
+                    playerVideo.currentTime = currentTime;
+                    if (isPlaying) playerVideo.play();
+                    window.originalMediaUrl = null;
+                }
+            }
+        });
+    }
+
+    if (playerVocalsOnlyBtn) {
+        playerVocalsOnlyBtn.addEventListener("click", async () => {
+            if (!playerVideo || currentTrackIndex < 0 || currentTrackIndex >= playQueue.length) return;
+            const currentPlaylistIdForCheck = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
+            if (currentPlaylistIdForCheck.startsWith("ai_")) {
+                alert("This track is already playing from an AI processed playlist.");
+                return;
+            }
+
+            const item = playQueue[currentTrackIndex];
+            const playlistId = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
+
+            if (window.isLiveMuteOn && playerLiveMuteBtn) {
+                window.isLiveMuteOn = false;
+                playerLiveMuteBtn.style.color = "var(--text-primary)";
+                playerLiveMuteBtn.style.textShadow = "none";
+                if (window.originalMediaUrl) {
+                    playerVideo.src = window.originalMediaUrl;
+                    window.originalMediaUrl = null;
+                }
+            }
+            if (window.isInstrumentOn && playerInstrumentBtn) {
+                window.isInstrumentOn = false;
+                playerInstrumentBtn.style.color = "var(--text-primary)";
+                playerInstrumentBtn.style.textShadow = "none";
+                if (window.originalMediaUrl) {
+                    playerVideo.src = window.originalMediaUrl;
+                    window.originalMediaUrl = null;
+                }
+            }
+
+            window.isVocalsOnlyOn = !window.isVocalsOnlyOn;
+            
+            if (window.isVocalsOnlyOn) {
+                playerVocalsOnlyBtn.style.color = "var(--neon-blue)";
+                playerVocalsOnlyBtn.style.textShadow = "0 0 10px rgba(0,242,254,0.5)";
+                logToTerminal(`[AI] 🗣️ Human Vocals Only ON: Isolating voice for "${item.title}"... This may take a minute.`);
+                showAIStatus(`[AI] 🗣️ Isolating Human Vocals for "${item.title}"...`);
+                
+                const originalInnerHTML = playerVocalsOnlyBtn.innerHTML;
+                playerVocalsOnlyBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V2"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>';
+
+                try {
+                    const res = await fetch(`/api/history/${playlistId}/items/${item.id}/ai-vocals-process`, { method: "POST" });
+                    playerVocalsOnlyBtn.innerHTML = originalInnerHTML;
+                    
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (!window.originalMediaUrl) window.originalMediaUrl = playerVideo.src;
+                        const isPlaying = !playerVideo.paused;
+                        playerVideo.src = data.url;
+                        if (isPlaying) playerVideo.play();
+                        logToTerminal("[AI] 🗣️ Human Vocals stream loaded successfully.");
+                        showAIStatus("");
+                    } else {
+                        const data = await res.json();
+                        alert(`Failed to isolate vocals: ${data.detail}`);
+                        showAIStatus("");
+                        window.isVocalsOnlyOn = false;
+                        playerVocalsOnlyBtn.style.color = "var(--text-primary)";
+                        playerVocalsOnlyBtn.style.textShadow = "none";
+                        logToTerminal("[AI] 🗣️ Human Vocals Isolation Error.");
+                    }
+                } catch (err) {
+                    playerVocalsOnlyBtn.innerHTML = originalInnerHTML;
+                    alert(`Failed to isolate vocals: ${err.message}`);
+                    showAIStatus("");
+                    window.isVocalsOnlyOn = false;
+                    playerVocalsOnlyBtn.style.color = "var(--text-primary)";
+                    playerVocalsOnlyBtn.style.textShadow = "none";
+                }
+            } else {
+                playerVocalsOnlyBtn.style.color = "var(--text-primary)";
+                playerVocalsOnlyBtn.style.textShadow = "none";
+                logToTerminal("[AI] 🗣️ Human Vocals Only OFF: Reverting to original track.");
                 
                 if (window.originalMediaUrl) {
                     const currentTime = playerVideo.currentTime;
