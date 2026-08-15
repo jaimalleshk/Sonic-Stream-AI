@@ -24,10 +24,10 @@ class AIVocalProcessor:
         self.workspace_dir = workspace_dir
         os.makedirs(self.workspace_dir, exist_ok=True)
 
-    def separate_vocals(self, input_path, shifts=4):
+    def separate_vocals(self, input_path, shifts=1):
         """
         Uses Demucs to separate the audio into vocals and accompaniment.
-        shifts=4 enables 4-pass multi-shift inference averaging to eliminate phase artifacts & residual vocal bleed.
+        shifts=1 runs ultra-fast single-pass separation for real-time live streaming.
         """
         logger.info(f"Separating vocals using Demucs (htdemucs_ft, shifts={shifts}) for {input_path}...")
         cmd = [
@@ -70,38 +70,54 @@ class AIVocalProcessor:
 
     def suppress_residual_vocals(self, accompaniment_path, vocals_path, output_path):
         """
-        Eliminates low-volume residual vocal bleed and vocal reverb tails from accompaniment stem.
-        Compares frame-by-frame vocal power and applies dynamic spectral ducking
-        during vocal phrases.
+        Eliminates low-volume residual vocal bleed and vocal reverb tails from accompaniment stem
+        using fast vectorized NumPy array math.
         """
         try:
-            logger.info("Applying Zero-Bleed Residual Vocal Suppression...")
+            import numpy as np
+            logger.info("Applying Fast Vectorized Zero-Bleed Residual Vocal Suppression...")
             acc = AudioSegment.from_file(accompaniment_path)
             voc = AudioSegment.from_file(vocals_path)
             
-            chunk_ms = 50
-            cleaned_acc = AudioSegment.empty()
+            acc_samples = np.array(acc.get_array_of_samples())
+            voc_samples = np.array(voc.get_array_of_samples())
             
-            for i in range(0, len(acc), chunk_ms):
-                acc_chunk = acc[i:i+chunk_ms]
-                voc_chunk = voc[i:i+chunk_ms]
+            channels = acc.channels
+            sample_rate = acc.frame_rate
+            chunk_len = int(sample_rate * 0.05) * channels  # 50ms frames
+            
+            n_chunks = len(acc_samples) // chunk_len
+            if n_chunks > 0 and len(voc_samples) >= n_chunks * chunk_len:
+                acc_trunc = acc_samples[:n_chunks * chunk_len].reshape(n_chunks, chunk_len)
+                voc_trunc = voc_samples[:n_chunks * chunk_len].reshape(n_chunks, chunk_len)
                 
-                voc_rms = voc_chunk.rms
+                # Compute RMS per chunk vectorized
+                voc_rms = np.sqrt(np.mean(voc_trunc.astype(np.float32)**2, axis=1))
                 
-                # If vocal power is active in this frame (voc_rms > 100), duck residual vocal leakage
-                if voc_rms > 100:
-                    duck_db = min(5.0, (voc_rms / 600.0) * 3.5)
-                    acc_chunk = acc_chunk - duck_db
-                    
-                cleaned_acc += acc_chunk
+                # Active vocal frames (voc_rms > 120)
+                active_mask = voc_rms > 120.0
                 
-            cleaned_acc.export(output_path, format="mp3", bitrate="320k")
-            return output_path
+                # Build smooth gain reduction array
+                gains = np.ones(n_chunks, dtype=np.float32)
+                gains[active_mask] = 0.70  # -3.1dB ducking during active vocal phrases
+                
+                gain_expanded = np.repeat(gains, chunk_len)
+                cleaned_samples = (acc_trunc.reshape(-1) * gain_expanded).astype(acc_samples.dtype)
+                
+                cleaned_acc = AudioSegment(
+                    cleaned_samples.tobytes(),
+                    frame_rate=sample_rate,
+                    sample_width=acc.sample_width,
+                    channels=channels
+                )
+                cleaned_acc.export(output_path, format="mp3", bitrate="320k")
+                return output_path
         except Exception as e:
             logger.error(f"Residual vocal suppression fallback: {e}")
-            audio = AudioSegment.from_file(accompaniment_path)
-            audio.export(output_path, format="mp3", bitrate="320k")
-            return output_path
+            
+        audio = AudioSegment.from_file(accompaniment_path)
+        audio.export(output_path, format="mp3", bitrate="320k")
+        return output_path
 
     def export_audio(self, input_path, output_path, is_vocal_stem=False, is_karaoke_stem=False, vocal_path=None):
         """
@@ -206,7 +222,7 @@ class AIVocalProcessor:
             try:
                 # Process the chunk
                 logger.info(f"Processing chunk {i+1}/{len(chunks)}...")
-                vocals_path, accompaniment_path = self.separate_vocals(temp_chunk_path)
+                vocals_path, accompaniment_path = self.separate_vocals(temp_chunk_path, shifts=1)
                 
                 if mode == 'instrument':
                     midi_path = self.extract_pitch(vocals_path)
