@@ -26,7 +26,7 @@ current: append to the Change Log and update Open Items as you go.
 ## 2. Architecture in one paragraph
 
 Desktop app (`main.py`) downloads audio → `sync_azure_batch.py` uploads mp3s +
-`playlists_manifest.json` to Azure Blob `stsonicstream/media`. The PWA
+`playlists_manifest.json` to Azure Blob `<your-storage-account>/media`. The PWA
 (`desktop.html` / `mobile.html` over one shared `app.js`) reads the manifest,
 streams from the blob via a read-only SAS token, and caches blobs in IndexedDB
 (`SonicStreamPWA_DB`: stores `settings`, `playlists`, `files`). **Join is by
@@ -75,18 +75,22 @@ This is the fragile, high-value area. Key invariants and hard-won lessons:
 
 ```bash
 # Azure management plane needs MFA each session:
-az login --tenant db659a83-b811-41fb-946b-fd4f7e813864 --use-device-code
-# Static Web App: sonicstream-pwa / rg-sonicstream
-TOKEN=$(az staticwebapp secrets list -n sonicstream-pwa -g rg-sonicstream --query "properties.apiKey" -o tsv)
+az login --tenant <your-tenant-id> --use-device-code
+# Static Web App: <your-swa-name> / <your-resource-group>
+TOKEN=$(az staticwebapp secrets list -n <your-swa-name> -g <your-resource-group> --query "properties.apiKey" -o tsv)
 # Exclude the 46 MB media/ (audio streams from Azure Blob), deploy, restore:
 mv web-pwa/media ./_media_tmp
 npx --yes @azure/static-web-apps-cli deploy ./web-pwa --deployment-token "$TOKEN" --env production
 mv ./_media_tmp web-pwa/media
 ```
 
-- Live URL: **https://salmon-hill-08be7d60f.7.azurestaticapps.net** (the
+- Live URL: **`<your azure static site>`** — the real value lives in `keys.json`
+  under `pwa_site_url` (gitignored, never published). The
   `*.azurestaticapps.net` name is auto-generated and can't be renamed; a branded
-  URL needs a custom domain).
+  URL needs a custom domain.
+- Deployment identifiers (tenant id, resource group, Static Web App name, storage
+  account) are deliberately NOT written into tracked docs — keep them in
+  `keys.json`.
 - **SAS/secrets model:** `web-pwa/settings.json` and `config.js` stay BLANK in
   git and in the deploy. The user pastes the read-only SAS token in the app
   Settings on each device (saved to IndexedDB). Do NOT inject secrets into the

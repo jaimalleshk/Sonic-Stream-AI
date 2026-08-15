@@ -176,6 +176,34 @@ def generate_pwa_manifest():
 
     print(f"[PWA Deploy] SUCCESS: Generated playlists_manifest.json and manifest_fallback.js ({len(playlists)} playlists, {sum(len(p['tracks']) for p in playlists)} tracks)")
 
+def inject_public_config():
+    """Write ONLY the non-secret deployment config into the PWA before deploying.
+
+    The storage account and container are not secrets (they are just addresses),
+    but they must reach the app somehow: the PWA has no Settings field for them,
+    so previously the account name was HARDCODED as a fallback in app.js. That
+    kept a personal deployment identifier in the repo. Injecting it at deploy time
+    from keys.json removes it from source control while keeping playback working.
+
+    Secrets (SAS token, client id) are deliberately left BLANK - the user still
+    pastes the read-only SAS into the app's Settings on each device.
+    """
+    keys = load_keys()
+    settings_data = dict(BLANK_SETTINGS)
+    settings_data["azure_storage_account"] = keys.get("azure_storage_account", "")
+    settings_data["azure_container"] = keys.get("azure_container", "media")
+
+    os.makedirs(os.path.dirname(TARGET_SETTINGS_FILE), exist_ok=True)
+    with open(TARGET_SETTINGS_FILE, "w", encoding="utf-8") as f:
+        json.dump(settings_data, f, indent=2)
+    js_content = ("// Auto-generated PUBLIC config (no secrets) for SonicStream Web PWA\n"
+                  f"window.SONICSTREAM_CONFIG = {json.dumps(settings_data, indent=2)};\n")
+    with open(TARGET_CONFIG_JS, "w", encoding="utf-8") as f:
+        f.write(js_content)
+    print(f"[PWA Deploy] Injected public config (account='{settings_data['azure_storage_account']}', "
+          f"container='{settings_data['azure_container']}'); secrets left blank.")
+
+
 def inject_keys():
     keys = load_keys()
     settings_data = {

@@ -4,5 +4,11 @@
   "azure_account_key": "YOUR_STORAGE_ACCOUNT_KEY_for_uploads_only_never_committed",
   "azure_sas_token": "se=2027-12-31T23%3A59%3A59Z&sp=r&sv=2026-02-06&sr=c&sig=YOUR_READ_ONLY_SAS_SIGNATURE",
   "azure_client_id": "YOUR_AZURE_AD_CLIENT_ID",
-  "onedrive_share_link": "https://your-domain-my.sharepoint.com/:f:/g/personal/your_user/YOUR_SHARE_LINK"
+  "onedrive_share_link": "https://your-domain-my.sharepoint.com/:f:/g/personal/your_user/YOUR_SHARE_LINK",
+
+  "_comment_deployment": "Your own deployment identifiers. Kept here (gitignored) instead of in tracked docs so the repo never publishes where your instance lives.",
+  "pwa_site_url": "https://<your-azure-static-site>.azurestaticapps.net",
+  "azure_swa_name": "your-static-web-app-name",
+  "azure_resource_group": "your-resource-group",
+  "azure_tenant_id": "your-azure-tenant-id"
 }

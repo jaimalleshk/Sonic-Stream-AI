@@ -16,7 +16,7 @@ This guide details the exact key management and deployment workflow for SonicStr
   keys.example.json     ──► Reference template file
 
 [Local Machine (Gitignored)]
-  keys.json              ──► { "azure_sas_token": "se=2027...", "azure_storage_account": "stsonicstream", ... }
+  keys.json              ──► { "azure_sas_token": "se=2027...", "azure_storage_account": "<your-storage-account>", ... }
 
 [Deploy / Build Script: deploy_pwa.py]
   python deploy_pwa.py inject ──► Reads keys.json & populates web-pwa/settings.json + web-pwa/config.js
@@ -36,7 +36,7 @@ On your local machine, your secret parameters are saved in **`keys.json`** in th
 
 ```json
 {
-  "azure_storage_account": "stsonicstream",
+  "azure_storage_account": "<your-storage-account>",
   "azure_container": "media",
   "azure_sas_token": "se=2027-12-31T23%3A59%3A59Z&sp=r&sv=2026-02-06&sr=c&sig=...",
   "azure_client_id": "51f81489-12ee-4a9e-aaae-a2591f45987d",

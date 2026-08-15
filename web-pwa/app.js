@@ -256,8 +256,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Storage account/container come from the deployed config (settings.json /
+    // config.js), written at deploy time by deploy_pwa.inject_public_config()
+    // from the local, gitignored keys.json. The account name used to be HARDCODED
+    // here as a fallback: that put a personal deployment identifier in the repo,
+    // and — because the deployed settings.json was blank — that fallback was the
+    // only thing making playback work at all. Read from CONFIG only.
     function getAzureStorageAccount() {
-        return CONFIG.azure_storage_account || "stsonicstream";
+        const acct = CONFIG.azure_storage_account || "";
+        if (!acct) console.warn("[PWA] azure_storage_account missing from config — deploy with inject-public.");
+        return acct;
     }
 
     function getAzureContainer() {
@@ -792,7 +800,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v15";
+    const APP_BUILD = "v16";
 
     async function updateCacheUsageUI() {
         const cachedCount = await countCachedTracks();

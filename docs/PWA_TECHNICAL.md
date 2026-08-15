@@ -21,7 +21,7 @@ audio produced by the SonicStream Windows desktop app.
                                                     ▼
                                         ┌──────────────────────────┐
                                         │  Azure Blob Storage       │
-                                        │  stsonicstream / media    │
+                                        │  <your-storage-account> / media    │
                                         │  - audio *.mp3 (blobs)    │
                                         │  - playlists_manifest.json│
                                         └───────────┬──────────────┘
@@ -79,7 +79,7 @@ client id, OneDrive link) with this precedence:
 2. `localStorage` (`sonicstream_*` keys)
 3. `window.SONICSTREAM_CONFIG` (from `config.js`)
 4. `./settings.json` (fetched on launch; merged as defaults)
-5. Hard-coded fallbacks (e.g. account `stsonicstream`, container `media`)
+5. Hard-coded fallbacks (e.g. account `<your-storage-account>`, container `media`)
 
 Azure blob base URL = `https://{account}.blob.core.windows.net/{container}`.
 A media URL is `{blobBase}/{encodeURIComponent(file)}?{sasToken}`.

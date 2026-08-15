@@ -39,14 +39,14 @@ cents at most).
 ```bash
 az login
 # Pick names that are globally unique (lowercase, no spaces):
-az group create -n rg-sonicstream -l eastus
-az storage account create -n <yourstorageacct> -g rg-sonicstream -l eastus --sku Standard_LRS
+az group create -n <your-resource-group> -l eastus
+az storage account create -n <yourstorageacct> -g <your-resource-group> -l eastus --sku Standard_LRS
 az storage container create --account-name <yourstorageacct> -n media --public-access off
 ```
 
 Get your **account key** (needed by the local sync tool, kept OFF GitHub):
 ```bash
-az storage account keys list -n <yourstorageacct> -g rg-sonicstream --query "[0].value" -o tsv
+az storage account keys list -n <yourstorageacct> -g <your-resource-group> --query "[0].value" -o tsv
 ```
 
 Allow the player to stream cross-origin (one time):
@@ -109,10 +109,10 @@ uploads the manifest. Re-run it any time you download more music.
 
 ```bash
 # Create the Static Web App (no GitHub connection needed for manual deploy):
-az staticwebapp create -n sonicstream-pwa -g rg-sonicstream
+az staticwebapp create -n <your-static-web-app> -g <your-resource-group>
 
 # Get its deployment token:
-az staticwebapp secrets list -n sonicstream-pwa -g rg-sonicstream --query "properties.apiKey" -o tsv
+az staticwebapp secrets list -n <your-static-web-app> -g <your-resource-group> --query "properties.apiKey" -o tsv
 
 # Deploy the web-pwa folder (media/ excluded — audio streams from Blob):
 python deploy_pwa.py clean        # ensure settings.json is blank for a clean deploy

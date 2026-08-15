@@ -150,7 +150,10 @@ def _get_pwa_config() -> dict:
     return {}
 
 _pwa_cfg = _get_pwa_config()
-AZURE_STORAGE_ACCOUNT = os.environ.get("AZURE_STORAGE_ACCOUNT", _pwa_cfg.get("azure_storage_account", "stsonicstream"))
+# No hardcoded account name: _get_pwa_config() already resolves it from the local,
+# gitignored keys.json / pwa_config.json, so the literal was only a last-resort
+# default that also leaked a personal deployment identifier into the repo.
+AZURE_STORAGE_ACCOUNT = os.environ.get("AZURE_STORAGE_ACCOUNT", _pwa_cfg.get("azure_storage_account", ""))
 AZURE_STORAGE_KEY = os.environ.get("AZURE_STORAGE_KEY", _pwa_cfg.get("azure_storage_key", ""))
 AZURE_CONTAINER = os.environ.get("AZURE_CONTAINER", _pwa_cfg.get("azure_container", "media"))
 AZURE_SAS_TOKEN = os.environ.get("AZURE_SAS_TOKEN", _pwa_cfg.get("azure_sas_token", ""))
@@ -175,7 +178,7 @@ def auto_sync_file_to_azure(file_path: str):
             ]
             res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=(os.name == "nt"))
             if res.returncode == 0:
-                print(f"[Azure Auto-Sync] Automatically synced '{file_name}' to Azure Storage Blob stsonicstream/media!")
+                print(f"[Azure Auto-Sync] Automatically synced '{file_name}' to Azure Storage Blob {AZURE_STORAGE_ACCOUNT}/{AZURE_CONTAINER}!")
             else:
                 print(f"[Azure Auto-Sync Note] Sync failed for '{file_name}' (exit code {res.returncode})")
         except Exception as e:

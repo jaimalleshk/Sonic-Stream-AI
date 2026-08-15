@@ -34,7 +34,7 @@ python sync_azure_batch.py
 ```
 
 This uploads every new `.mp3` (and cover/json) from the configured download
-folders to the `stsonicstream / media` container. **The blob name is the file's
+folders to the `<your-storage-account> / media` container. **The blob name is the file's
 on-disk basename** — this is the name the manifest must reference.
 
 ---
@@ -74,7 +74,7 @@ a GitHub Actions workflow; thereafter **`git push` auto-deploys**.
 
 ```bash
 # 1. Log in (this account/tenant requires MFA for the management plane):
-az login --tenant db659a83-b811-41fb-946b-fd4f7e813864 --use-device-code
+az login --tenant <your-tenant-id> --use-device-code
 
 # 2. Find the Static Web App:
 az staticwebapp list -o table
@@ -112,7 +112,7 @@ account (data-plane, uses the account key — no MFA):
 ```bash
 az storage cors add --services b --methods GET HEAD OPTIONS \
   --origins "*" --allowed-headers "*" --exposed-headers "*" --max-age 3600 \
-  --account-name stsonicstream --account-key <ACCOUNT_KEY>
+  --account-name <your-storage-account> --account-key <ACCOUNT_KEY>
 ```
 
 Tighten `--origins` to your Static Web App domain for production.

@@ -18,7 +18,7 @@ Sonic Stream AI leverages Meta's **Demucs** architecture (`htdemucs_ft`) combine
 - Batch select/deselect tracks, filter by title, and track progress with real-time download speed and ETA indicators.
 
 ### ☁️ Automatic Cloud Sync to Azure Storage
-- When new audio tracks are downloaded or new playlists are created in the Desktop App, they are automatically synced to Azure Storage Blob (`stsonicstream/media`).
+- When new audio tracks are downloaded or new playlists are created in the Desktop App, they are automatically synced to Azure Storage Blob (`<your-storage-account>/media`).
 - Automatically builds and exports `playlists_manifest.json` so the Web PWA can stream all desktop playlists instantly.
 
 ### 📱 Mobile & Web PWA Companion
@@ -33,16 +33,20 @@ Sonic Stream AI leverages Meta's **Demucs** architecture (`htdemucs_ft`) combine
 ```
 ┌───────────────────────────┐         ┌───────────────────────────┐
 │   Sonic Stream AI Desktop │ ──────> │   Azure Storage Blob      │
-│ (Downloader / AI Engine)  │         │   (stsonicstream/media)   │
+│ (Downloader / AI Engine)  │         │  <your-storage>/<media>   │
 └─────────────┬─────────────┘         └─────────────┬─────────────┘
               │                                     │
               │ Exports playlists_manifest.json     │ Streams Audio
               ▼                                     ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                    Sonic Stream AI Web PWA                      │
-│        (https://salmon-hill-08be7d60f.7.azurestaticapps.net)    │
+│              <your azure static site>                           │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+> Your own deployment details — static site URL, storage account and container —
+> live in **`keys.json`**, which is gitignored and never published. See
+> `keys.example.json` for the shape.
 
 ---
 
