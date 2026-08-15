@@ -24,21 +24,22 @@ class AIVocalProcessor:
         self.workspace_dir = workspace_dir
         os.makedirs(self.workspace_dir, exist_ok=True)
 
-    def separate_vocals(self, input_path):
+    def separate_vocals(self, input_path, shifts=2):
         """
         Uses Demucs to separate the audio into vocals and accompaniment.
-        Returns paths to the separated stems.
+        shifts=2 enables multi-shift inference averaging to eliminate phase artifacts & background bleed.
         """
-        logger.info(f"Separating vocals using Demucs for {input_path}...")
-        # '-n htdemucs_ft' uses the fine-tuned high-quality model
-        # '--two-stems vocals' explicitly only separates into vocals and non-vocals
+        logger.info(f"Separating vocals using Demucs (htdemucs_ft, shifts={shifts}) for {input_path}...")
         cmd = [
             "demucs", 
             "-n", "htdemucs_ft", 
             "--two-stems", "vocals",
-            "-o", self.workspace_dir,
-            input_path
+            "-o", self.workspace_dir
         ]
+        if shifts > 1:
+            cmd.extend(["--shifts", str(shifts)])
+        cmd.append(input_path)
+
         env = os.environ.copy()
         env["PYTHONIOENCODING"] = "utf-8"
         kwargs = {
@@ -183,12 +184,25 @@ class AIVocalProcessor:
             
         return output_path
 
-    def export_audio(self, input_path, output_path):
+    def export_audio(self, input_path, output_path, is_vocal_stem=False):
         """
-        Exports a WAV file as an MP3.
+        Exports a WAV file as a 320k high bitrate MP3 with master acoustic polishing.
         """
         logger.info(f"Exporting {input_path} to {output_path}...")
         audio = AudioSegment.from_file(input_path)
+        
+        if is_vocal_stem:
+            # High-pass filter at 85Hz to cut low-end mic thumps and sub-bass rumble
+            try:
+                audio = audio.high_pass_filter(85)
+            except Exception:
+                pass
+            # Normalize peak dynamics for studio vocal presence
+            try:
+                audio = audio.normalize()
+            except Exception:
+                pass
+
         audio.export(output_path, format="mp3", bitrate="320k")
         return output_path
 

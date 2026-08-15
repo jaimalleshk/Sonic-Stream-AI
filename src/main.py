@@ -2261,7 +2261,7 @@ async def generate_ai_instrumental(job_id: str, track_id: str, background_tasks:
                 ai_jobs_state[ai_job_id]["progress"] = "Caching Vocals Byproduct..."
             vocals_filename = f"{sanitize_filename(target_track['title'])} - AI Vocals Only.mp3"
             vocals_out_path = os.path.join(download_dir, vocals_filename)
-            processor.export_audio(vocal_path, vocals_out_path)
+            processor.export_audio(vocal_path, vocals_out_path, is_vocal_stem=True)
             _add_ai_track_to_playlist(target_track, "ai_vocals_only", "AI Vocals Only", vocals_out_path)
 
             with ai_jobs_lock:
@@ -2350,7 +2350,7 @@ async def generate_ai_karaoke(job_id: str, track_id: str, background_tasks: Back
                 ai_jobs_state[ai_job_id]["progress"] = "Caching Vocals Byproduct..."
             vocals_filename = f"{sanitize_filename(target_track['title'])} - AI Vocals Only.mp3"
             vocals_out_path = os.path.join(download_dir, vocals_filename)
-            processor.export_audio(vocal_path, vocals_out_path)
+            processor.export_audio(vocal_path, vocals_out_path, is_vocal_stem=True)
             _add_ai_track_to_playlist(target_track, "ai_vocals_only", "AI Vocals Only", vocals_out_path)
 
             with ai_jobs_lock:
