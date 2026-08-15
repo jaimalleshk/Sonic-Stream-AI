@@ -9,6 +9,8 @@ import asyncio
 import subprocess
 import threading
 import re
+import importlib
+import traceback
 from datetime import datetime
 from typing import List, Optional
 from urllib.parse import urlparse, parse_qs
@@ -181,13 +183,13 @@ def auto_sync_file_to_azure(file_path: str):
             
     threading.Thread(target=_do_upload, daemon=True).start()
 
-def trigger_full_azure_sync():
+def trigger_full_azure_sync(download_dir: str):
     """Triggers background sync of all local downloaded files to Azure Storage Blob."""
     batch_script = os.path.join(BASE_DIR, "sync_azure_batch.py")
     if os.path.exists(batch_script):
         def _run_batch():
             try:
-                subprocess.run([sys.executable, batch_script], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run([sys.executable, batch_script, download_dir], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             except Exception as e:
                 print(f"[Azure Sync Error] {e}")
         threading.Thread(target=_run_batch, daemon=True).start()
@@ -1592,6 +1594,30 @@ async def move_job(job_id: str, req: MoveRequest):
         save_history(history)
     return {"message": "Moved", "moved": True}
 
+@app.post("/api/history/{job_id}/items/{track_id}/move")
+async def move_track(job_id: str, track_id: str, req: MoveRequest):
+    """Reorders a single track within a playlist's items array."""
+    if req.direction not in ("up", "down"):
+        raise HTTPException(status_code=400, detail="direction must be 'up' or 'down'")
+    with history_lock:
+        history = load_history()
+        job = next((j for j in history if j.get("id") == job_id), None)
+        if not job or "items" not in job:
+            raise HTTPException(status_code=404, detail="Job or items not found")
+            
+        items = job["items"]
+        pos = next((i for i, item in enumerate(items) if item.get("id") == track_id), None)
+        if pos is None:
+            raise HTTPException(status_code=404, detail="Track not found")
+            
+        swap = pos - 1 if req.direction == "up" else pos + 1
+        if swap < 0 or swap >= len(items):
+            return {"message": "Already at the edge", "moved": False}
+            
+        items[pos], items[swap] = items[swap], items[pos]
+        save_history(history)
+    return {"message": "Track moved", "moved": True}
+
 @app.delete("/api/history/{job_id}")
 async def delete_job(job_id: str):
     with history_lock:
@@ -2662,7 +2688,9 @@ async def stream_media(video_url: str, title: str, format: str, download_dir: Op
     target_dir = download_dir or DOWNLOAD_DIR
     local_path = check_local_duplicate(title, format, target_dir)
     if local_path and os.path.exists(local_path):
-        return FileResponse(local_path)
+        _, ext = os.path.splitext(local_path)
+        m_type = "video/mp4" if ext in (".mp4", ".mkv", ".webm") else "audio/mpeg"
+        return FileResponse(local_path, media_type=m_type)
         
     ydl_opts = apply_bypass_ydl_opts({
         'quiet': True,
@@ -3126,15 +3154,267 @@ async def get_azure_config():
         "manifest_url": f"https://{AZURE_STORAGE_ACCOUNT}.blob.core.windows.net/{AZURE_CONTAINER}/playlists_manifest.json?{AZURE_SAS_TOKEN}"
     }
 
+AZURE_SYNC_STATUS = {
+    "is_syncing": False,
+    "progress": 0,
+    "total": 0,
+    "current_file": "",
+    "error": None
+}
+
+@app.get("/api/azure/stats")
+async def get_azure_stats(download_dir: Optional[str] = None):
+    if AZURE_SYNC_STATUS["is_syncing"]:
+        return {"is_syncing": True}
+
+    try:
+        from azure.storage.blob import BlobServiceClient
+    except ImportError:
+        return {"error": "Azure Storage library not installed."}
+        
+    try:
+        with open("keys.json", "r") as f:
+            keys = json.load(f)
+            
+        account_name = keys.get("azure_storage_account")
+        sas_token = keys.get("azure_sas_token", "")
+        account_key = keys.get("azure_account_key")
+        container = keys.get("azure_container")
+        
+        if not account_name or not container:
+            return {"error": "Azure storage account or container missing in keys.json"}
+            
+        acc_url = f"https://{account_name}.blob.core.windows.net"
+        
+        try:
+            if account_key:
+                conn_str = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
+                blob_service = BlobServiceClient.from_connection_string(conn_str)
+            else:
+                if sas_token.startswith("?"):
+                    sas_token = sas_token[1:]
+                blob_service = BlobServiceClient(account_url=acc_url, credential=sas_token)
+        except Exception as e:
+            return {"error": f"Failed to authenticate with Azure: {e}"}
+            
+        container_client = blob_service.get_container_client(container)
+        
+        # Build detailed azure file info
+        azure_files = {}
+        try:
+            for b in container_client.list_blobs():
+                azure_files[b.name] = {
+                    "size": b.size,
+                    "last_modified": b.last_modified.isoformat() if b.last_modified else None,
+                    "content_type": b.content_settings.content_type if b.content_settings else None
+                }
+        except Exception as e:
+            return {"error": f"Failed to list Azure blobs: {str(e)}"}
+            
+        target_dir = download_dir or DOWNLOAD_DIR
+        local_files = {}
+        if os.path.exists(target_dir):
+            for f in os.listdir(target_dir):
+                full = os.path.join(target_dir, f)
+                if os.path.isfile(full):
+                    local_files[f] = {"size": os.path.getsize(full)}
+                    
+        # Build combined file list
+        all_names = set(list(azure_files.keys()) + list(local_files.keys()))
+        files = []
+        for name in sorted(all_names):
+            in_azure = name in azure_files
+            in_local = name in local_files
+            ext = os.path.splitext(name)[1].lower()
+            
+            if ext in ('.mp3', '.m4a', '.wav', '.flac', '.ogg', '.aac'):
+                ftype = 'audio'
+            elif ext in ('.mp4', '.mkv', '.webm', '.avi'):
+                ftype = 'video'
+            elif ext in ('.json',):
+                ftype = 'data'
+            else:
+                ftype = 'other'
+            
+            size = azure_files[name]["size"] if in_azure else local_files[name]["size"]
+            
+            if in_azure and in_local:
+                sync_status = 'synced'
+            elif in_local and not in_azure:
+                sync_status = 'local_only'
+            else:
+                sync_status = 'azure_only'
+                
+            files.append({
+                "name": name,
+                "size": size,
+                "type": ftype,
+                "ext": ext,
+                "sync_status": sync_status,
+                "last_modified": azure_files[name]["last_modified"] if in_azure else None
+            })
+        
+        local_count = len(local_files)
+        azure_count = len(azure_files)
+        synced_count = sum(1 for f in files if f["sync_status"] == "synced")
+        local_only_count = sum(1 for f in files if f["sync_status"] == "local_only")
+        azure_only_count = sum(1 for f in files if f["sync_status"] == "azure_only")
+        total_azure_size = sum(azure_files[n]["size"] or 0 for n in azure_files)
+        
+        return {
+            "local_count": local_count,
+            "azure_count": azure_count,
+            "synced_count": synced_count,
+            "local_only_count": local_only_count,
+            "azure_only_count": azure_only_count,
+            "total_azure_size": total_azure_size,
+            "files": files
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.get("/api/azure/explorer")
+async def get_azure_explorer(download_dir: Optional[str] = None):
+    """Returns playlist manifest from Azure + all blob file metadata for the explorer UI."""
+    try:
+        from azure.storage.blob import BlobServiceClient
+    except ImportError:
+        return {"error": "Azure Storage library not installed."}
+        
+    try:
+        with open("keys.json", "r") as f:
+            keys = json.load(f)
+            
+        account_name = keys.get("azure_storage_account")
+        sas_token = keys.get("azure_sas_token", "")
+        account_key = keys.get("azure_account_key")
+        container = keys.get("azure_container")
+        
+        if not account_name or not container:
+            return {"error": "Azure credentials missing in keys.json"}
+            
+        acc_url = f"https://{account_name}.blob.core.windows.net"
+        try:
+            if account_key:
+                conn_str = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
+                blob_service = BlobServiceClient.from_connection_string(conn_str)
+            else:
+                if sas_token.startswith("?"):
+                    sas_token = sas_token[1:]
+                blob_service = BlobServiceClient(account_url=acc_url, credential=sas_token)
+        except Exception as e:
+            return {"error": f"Auth failed: {e}"}
+
+        container_client = blob_service.get_container_client(container)
+        
+        # 1) List all blobs with metadata
+        azure_blobs = {}
+        try:
+            for b in container_client.list_blobs():
+                azure_blobs[b.name] = {
+                    "size": b.size,
+                    "last_modified": b.last_modified.isoformat() if b.last_modified else None,
+                }
+        except Exception as e:
+            return {"error": f"Failed listing blobs: {e}"}
+
+        # 2) Fetch manifest (history.json) from Azure blob
+        playlists = []
+        try:
+            manifest_client = container_client.get_blob_client("history.json")
+            if manifest_client.exists():
+                raw = manifest_client.download_blob().readall()
+                manifest_data = json.loads(raw)
+                if isinstance(manifest_data, list):
+                    playlists = manifest_data
+        except Exception as e:
+            print(f"[Azure Explorer] Could not fetch manifest: {e}")
+
+        # 3) Local files for comparison
+        target_dir = download_dir or DOWNLOAD_DIR
+        local_files = set()
+        if os.path.exists(target_dir):
+            for f in os.listdir(target_dir):
+                if os.path.isfile(os.path.join(target_dir, f)):
+                    local_files.add(f)
+
+        # 4) Build file list with sync status
+        files = {}
+        for name, meta in azure_blobs.items():
+            ext = os.path.splitext(name)[1].lower()
+            if ext in ('.mp3', '.m4a', '.wav', '.flac', '.ogg', '.aac'):
+                ftype = 'audio'
+            elif ext in ('.mp4', '.mkv', '.webm', '.avi'):
+                ftype = 'video'
+            elif ext in ('.json',):
+                ftype = 'data'
+            else:
+                ftype = 'other'
+            files[name] = {
+                "name": name,
+                "size": meta["size"],
+                "type": ftype,
+                "ext": ext,
+                "in_local": name in local_files,
+                "last_modified": meta["last_modified"],
+            }
+
+        total_size = sum(v["size"] or 0 for v in azure_blobs.values())
+        
+        return {
+            "playlists": playlists,
+            "files": files,
+            "stats": {
+                "total_blobs": len(azure_blobs),
+                "total_size": total_size,
+                "local_count": len(local_files),
+                "synced": sum(1 for n in azure_blobs if n in local_files),
+            }
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.get("/api/azure/sync/status")
+async def get_azure_sync_status():
+    return AZURE_SYNC_STATUS
+
 @app.post("/api/azure/sync")
-async def trigger_azure_sync():
+async def trigger_azure_sync(download_dir: str = ""):
     """Triggers background sync of all local downloaded tracks to Azure Storage Blob."""
+    if AZURE_SYNC_STATUS["is_syncing"]:
+        return {"status": "started", "message": "Background Azure Sync is already running."}
+        
     try:
         await export_playlists()
     except Exception as e:
-        print(f"[Azure Sync] Warning: failed to export manifest before sync: {e}")
-    trigger_full_azure_sync()
-    return {"message": "Azure Storage Blob batch sync started in background"}
+        print(f"[Azure Sync] Failed to export playlists: {e}")
+        
+    def _progress_cb(current, total, filename, is_done=False, error=None):
+        AZURE_SYNC_STATUS["is_syncing"] = not is_done
+        AZURE_SYNC_STATUS["progress"] = current
+        AZURE_SYNC_STATUS["total"] = total
+        AZURE_SYNC_STATUS["current_file"] = filename
+        if error:
+            AZURE_SYNC_STATUS["error"] = error
+        elif is_done:
+            AZURE_SYNC_STATUS["error"] = None
+            
+    def _run_batch():
+        try:
+            _progress_cb(0, 0, "Initializing...")
+            src_dir = os.path.dirname(os.path.abspath(__file__))
+            if src_dir not in sys.path:
+                sys.path.insert(0, src_dir)
+            import sync_azure_batch
+            importlib.reload(sync_azure_batch)
+            sync_azure_batch.run_sync(download_dir or DOWNLOAD_DIR, _progress_cb)
+        except Exception as e:
+            print(f"Background azure sync error: {e}")
+            traceback.print_exc()
+            _progress_cb(0, 0, "", is_done=True, error=str(e))
+
+    threading.Thread(target=_run_batch, daemon=True).start()
+    return {"status": "started", "message": "Background Azure Sync started."}
 
 
 # ---------------------------------------------------------------------------

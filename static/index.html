@@ -88,7 +88,7 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
                     </svg>
-                    Az Blob Sync
+                    Az Blob
                 </button>
                 <button class="btn btn-secondary open-folder-btn" id="btnOpenSettings" title="Settings">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -709,6 +709,103 @@
             </div>
         </div>
     </div>
+
+    <!-- Az Blob Explorer Modal (full-screen) -->
+    <div id="azBlobStatsModal" class="modal-overlay hidden">
+        <div class="az-explorer-modal">
+            <!-- Header Bar -->
+            <div class="az-explorer-header">
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-blue)" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                    <span style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary);">Azure Blob Explorer</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <!-- Stats Chips -->
+                    <div id="azExpStats" style="display: flex; gap: 0.5rem; font-size: 0.72rem;"></div>
+                    <button id="btnConfirmAzSync" class="btn btn-primary" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; border-radius: 6px; display: flex; align-items: center; gap: 0.35rem;">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"/></svg>
+                        Sync Now
+                    </button>
+                    <button id="btnCancelAzSync" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.78rem; border-radius: 6px;">✕</button>
+                </div>
+            </div>
+
+            <!-- Sync Progress Bar (hidden by default) -->
+            <div id="azSyncProgressBar" class="hidden" style="padding: 0 1.25rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0;">
+                    <div style="flex: 1; background: var(--surface-bg-alt); height: 5px; border-radius: 3px; overflow: hidden;">
+                        <div id="azSyncProgressFill" style="background: var(--neon-blue); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                    </div>
+                    <span id="azSyncProgressText" style="font-size: 0.72rem; color: var(--text-muted); white-space: nowrap;">0 / 0</span>
+                </div>
+                <div id="azSyncCurrentFile" style="font-size: 0.68rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-bottom: 0.4rem;"></div>
+            </div>
+
+            <!-- Two-Panel Layout -->
+            <div class="az-explorer-body">
+                <!-- Left Sidebar: Playlists from Azure -->
+                <div class="az-explorer-sidebar">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem;">
+                        <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin: 0;">Cloud Playlists</h3>
+                        <span id="azPlaylistCount" style="font-size: 0.68rem; color: var(--text-muted);"></span>
+                    </div>
+                    <!-- Filter Tabs -->
+                    <div class="sidebar-tabs" style="display: flex; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 2px; margin-bottom: 0.6rem;">
+                        <button class="az-filter-tab active" data-filter="all" style="flex:1; border:none; background:transparent; color:var(--text-secondary); padding:0.3rem; font-size:0.7rem; font-weight:600; border-radius:6px; cursor:pointer;">All</button>
+                        <button class="az-filter-tab" data-filter="audio" style="flex:1; border:none; background:transparent; color:var(--text-secondary); padding:0.3rem; font-size:0.7rem; font-weight:600; border-radius:6px; cursor:pointer;">Audio</button>
+                        <button class="az-filter-tab" data-filter="video" style="flex:1; border:none; background:transparent; color:var(--text-secondary); padding:0.3rem; font-size:0.7rem; font-weight:600; border-radius:6px; cursor:pointer;">Video</button>
+                        <button class="az-filter-tab" data-filter="data" style="flex:1; border:none; background:transparent; color:var(--text-secondary); padding:0.3rem; font-size:0.7rem; font-weight:600; border-radius:6px; cursor:pointer;">Data</button>
+                    </div>
+                    <div id="azPlaylistList" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.4rem;"></div>
+                </div>
+
+                <!-- Right Panel: File Grid -->
+                <div class="az-explorer-grid-panel">
+                    <!-- Grid Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border-color); margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.5rem;">
+                        <div>
+                            <h2 id="azGridTitle" style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0;">All Blob Files</h2>
+                            <p id="azGridSubtitle" style="margin: 0; font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem;"></p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input type="text" id="azGridSearch" placeholder="Search files..." style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.72rem; padding: 0.3rem 0.6rem; width: 180px;">
+                            <select id="azSyncFilter" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.72rem; padding: 0.3rem 0.6rem; cursor: pointer;">
+                                <option value="all">All Status</option>
+                                <option value="synced">✓ Synced</option>
+                                <option value="local_only">↑ Local Only</option>
+                                <option value="azure_only">☁ Azure Only</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Grid Table -->
+                    <div class="az-grid-table-wrapper">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.72rem;">
+                            <thead style="background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 10;">
+                                <tr>
+                                    <th class="az-sortable" data-sort="index" style="padding: 0.45rem 0.5rem; width: 40px;">#</th>
+                                    <th style="padding: 0.45rem 0.5rem; width: 36px;">Type</th>
+                                    <th class="az-sortable" data-sort="name" style="padding: 0.45rem 0.5rem;">File Name</th>
+                                    <th class="az-sortable" data-sort="size" style="padding: 0.45rem 0.5rem; width: 80px;">Size</th>
+                                    <th class="az-sortable" data-sort="sync" style="padding: 0.45rem 0.5rem; width: 100px;">Status</th>
+                                    <th class="az-sortable" data-sort="modified" style="padding: 0.45rem 0.5rem; width: 130px;">Last Modified</th>
+                                </tr>
+                            </thead>
+                            <tbody id="azGridBody"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 0.45rem; margin-top: 0.45rem; font-size: 0.72rem; color: var(--text-muted);">
+                        <button id="azGridPrev" class="pager-btn" style="background: transparent; border: none; cursor: pointer; padding: 2px 6px; color: var(--text-muted);">◀ Previous</button>
+                        <span id="azGridPageInfo">Page 1 of 1</span>
+                        <button id="azGridNext" class="pager-btn" style="background: transparent; border: none; cursor: pointer; padding: 2px 6px; color: var(--text-muted);">Next ▶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="/static/app.js?v=5"></script>
 </body>
 </html>

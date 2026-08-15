@@ -225,15 +225,12 @@ document.addEventListener("DOMContentLoaded", () => {
             filtered = deletedTracks ? [deletedTracks].concat(trashPlaylists) : trashPlaylists;
         }
 
-        // Sort items so newest are at top, but keep virtual playlists at the very top.
+        // Sort items so virtual playlists are at the very top.
+        // Maintain the order from history.json for everything else so manual moving works!
         filtered.sort((a, b) => {
             if (a.is_virtual && !b.is_virtual) return -1;
             if (!a.is_virtual && b.is_virtual) return 1;
-            
-            // For standard jobs, sort by timestamp descending
-            const timeA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
-            const timeB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
-            return timeB - timeA;
+            return 0;
         });
         
         // Pagination logic
@@ -895,6 +892,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </button>
                     ${currentPlaylistId !== "all_downloads" ? `
+                    <button class="row-up-btn" style="background: transparent; border: none; color: var(--text-secondary); cursor: pointer; padding: 2px;" title="Move Track Up">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    </button>
+                    <button class="row-down-btn" style="background: transparent; border: none; color: var(--text-secondary); cursor: pointer; padding: 2px;" title="Move Track Down">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
                     <button class="row-delete-btn" style="background: transparent; border: none; color: var(--error); cursor: pointer; padding: 2px;" title="Remove from Playlist">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                     </button>
@@ -1056,6 +1059,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 if (currentPlaylistId !== "all_downloads") {
+                    row.querySelector(".row-up-btn").addEventListener("click", async (e) => {
+                        e.stopPropagation();
+                        try {
+                            const res = await fetch(`/api/history/${currentPlaylistId}/items/${item.id}/move`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ direction: "up" })
+                            });
+                            if (res.ok) {
+                                await loadSidebar();
+                                const updatedJob = historyJobs.find(j => j.id === currentPlaylistId);
+                                if (updatedJob) selectPlaylist(updatedJob);
+                            }
+                        } catch (err) {
+                            console.error("Move track up failed:", err);
+                        }
+                    });
+
+                    row.querySelector(".row-down-btn").addEventListener("click", async (e) => {
+                        e.stopPropagation();
+                        try {
+                            const res = await fetch(`/api/history/${currentPlaylistId}/items/${item.id}/move`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ direction: "down" })
+                            });
+                            if (res.ok) {
+                                await loadSidebar();
+                                const updatedJob = historyJobs.find(j => j.id === currentPlaylistId);
+                                if (updatedJob) selectPlaylist(updatedJob);
+                            }
+                        } catch (err) {
+                            console.error("Move track down failed:", err);
+                        }
+                    });
+
                     row.querySelector(".row-delete-btn").addEventListener("click", async (e) => {
                         e.stopPropagation();
                         if (!confirm(`Remove "${item.title}" from this playlist?`)) return;
@@ -2974,26 +3013,375 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ═══════════════════════════════════════════════════════════════════
+    // Azure Blob Explorer
+    // ═══════════════════════════════════════════════════════════════════
     const btnAzureSync = document.getElementById("btnAzureSync");
-    if (btnAzureSync) {
-        btnAzureSync.addEventListener("click", async () => {
-            btnAzureSync.disabled = true;
-            const originalText = btnAzureSync.innerHTML;
-            btnAzureSync.innerHTML = '<div class="spinner" style="width:14px;height:14px;"></div> Syncing...';
+    const azBlobStatsModal = document.getElementById("azBlobStatsModal");
+    const btnConfirmAzSync = document.getElementById("btnConfirmAzSync");
+    const btnCancelAzSync = document.getElementById("btnCancelAzSync");
+
+    // Explorer state
+    let azExplorerData = null;       // raw API response
+    let azFilteredFiles = [];        // current filtered file list
+    let azGridPage = 1;
+    const AZ_PAGE_SIZE = 50;
+    let azSelectedPlaylistId = null; // currently selected playlist in sidebar
+    let azTypeFilter = "all";        // all / audio / video / data
+    let azSyncStatusFilter = "all";  // all / synced / local_only / azure_only
+    let azSearchQuery = "";
+    let azSortKey = "name";
+    let azSortAsc = true;
+    let azSyncPollInterval = null;
+
+    function formatBytes(bytes) {
+        if (!bytes || bytes === 0) return "0 B";
+        const k = 1024;
+        const sizes = ["B", "KB", "MB", "GB", "TB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+    }
+
+    function azRenderStats(stats) {
+        const el = document.getElementById("azExpStats");
+        if (!el || !stats) return;
+        el.innerHTML = `
+            <span class="az-stat-chip">☁ <span class="az-stat-val">${stats.total_blobs}</span></span>
+            <span class="az-stat-chip">💾 <span class="az-stat-val">${formatBytes(stats.total_size)}</span></span>
+            <span class="az-stat-chip" style="color:#27c93f;">✓ <span class="az-stat-val">${stats.synced}</span></span>
+        `;
+    }
+
+    function azRenderSidebar(playlists, files) {
+        const container = document.getElementById("azPlaylistList");
+        const countEl = document.getElementById("azPlaylistCount");
+        if (!container) return;
+
+        // Filter out non-playlists (like all_downloads which is virtual)
+        const pls = playlists.filter(p => p.id !== "all_downloads");
+        if (countEl) countEl.textContent = pls.length + " playlists";
+
+        // "All Files" virtual entry
+        let html = `<div class="az-playlist-row ${!azSelectedPlaylistId ? 'active' : ''}" data-az-pl="">
+            <span class="az-pl-name">☁ All Blob Files</span>
+            <span class="az-pl-count">${Object.keys(files).length}</span>
+        </div>`;
+
+        for (const pl of pls) {
+            const trackCount = (pl.items || []).length;
+            const isActive = azSelectedPlaylistId === pl.id;
+            const icon = pl.id && pl.id.includes("gita") ? "📿" : "🎵";
+            html += `<div class="az-playlist-row ${isActive ? 'active' : ''}" data-az-pl="${pl.id}">
+                <span class="az-pl-name">${icon} ${pl.title || pl.id}</span>
+                <span class="az-pl-count">${trackCount}</span>
+            </div>`;
+        }
+        container.innerHTML = html;
+
+        // Attach click handlers
+        container.querySelectorAll(".az-playlist-row").forEach(row => {
+            row.addEventListener("click", () => {
+                azSelectedPlaylistId = row.dataset.azPl || null;
+                azGridPage = 1;
+                azApplyFilters();
+                // Update active state
+                container.querySelectorAll(".az-playlist-row").forEach(r => r.classList.remove("active"));
+                row.classList.add("active");
+            });
+        });
+    }
+
+    function azApplyFilters() {
+        if (!azExplorerData) return;
+        const { playlists, files } = azExplorerData;
+
+        let fileList;
+        if (azSelectedPlaylistId) {
+            // Find the playlist and get its track filenames
+            const pl = playlists.find(p => p.id === azSelectedPlaylistId);
+            if (pl && pl.items) {
+                const trackNames = new Set();
+                pl.items.forEach(item => {
+                    if (item.file_name) trackNames.add(item.file_name);
+                    // Also try matching by title pattern
+                    if (item.title) {
+                        // Check all files for matching name
+                        for (const fname of Object.keys(files)) {
+                            if (fname.includes(item.title.substring(0, 30))) {
+                                trackNames.add(fname);
+                            }
+                        }
+                    }
+                });
+                fileList = Object.values(files).filter(f => trackNames.has(f.name));
+            } else {
+                fileList = [];
+            }
+            // Update title
+            const titleEl = document.getElementById("azGridTitle");
+            if (titleEl) titleEl.textContent = pl ? (pl.title || pl.id) : "Unknown Playlist";
+        } else {
+            fileList = Object.values(files);
+            const titleEl = document.getElementById("azGridTitle");
+            if (titleEl) titleEl.textContent = "All Blob Files";
+        }
+
+        // Type filter
+        if (azTypeFilter !== "all") {
+            fileList = fileList.filter(f => f.type === azTypeFilter);
+        }
+
+        // Sync status filter
+        if (azSyncStatusFilter !== "all") {
+            if (azSyncStatusFilter === "synced") fileList = fileList.filter(f => f.in_local);
+            else if (azSyncStatusFilter === "local_only") fileList = fileList.filter(f => !f.in_local && false); // N/A in explorer (explorer only shows azure files)
+            else if (azSyncStatusFilter === "azure_only") fileList = fileList.filter(f => !f.in_local);
+        }
+
+        // Search
+        if (azSearchQuery) {
+            const q = azSearchQuery.toLowerCase();
+            fileList = fileList.filter(f => f.name.toLowerCase().includes(q));
+        }
+
+        // Sort
+        fileList.sort((a, b) => {
+            let va, vb;
+            switch (azSortKey) {
+                case "name": va = a.name.toLowerCase(); vb = b.name.toLowerCase(); break;
+                case "size": va = a.size || 0; vb = b.size || 0; break;
+                case "sync": va = a.in_local ? 1 : 0; vb = b.in_local ? 1 : 0; break;
+                case "modified": va = a.last_modified || ""; vb = b.last_modified || ""; break;
+                default: va = a.name; vb = b.name;
+            }
+            if (va < vb) return azSortAsc ? -1 : 1;
+            if (va > vb) return azSortAsc ? 1 : -1;
+            return 0;
+        });
+
+        azFilteredFiles = fileList;
+        azRenderGrid();
+    }
+
+    function azRenderGrid() {
+        const tbody = document.getElementById("azGridBody");
+        const pageInfo = document.getElementById("azGridPageInfo");
+        const subtitle = document.getElementById("azGridSubtitle");
+        if (!tbody) return;
+
+        const totalPages = Math.max(1, Math.ceil(azFilteredFiles.length / AZ_PAGE_SIZE));
+        if (azGridPage > totalPages) azGridPage = totalPages;
+        const start = (azGridPage - 1) * AZ_PAGE_SIZE;
+        const pageFiles = azFilteredFiles.slice(start, start + AZ_PAGE_SIZE);
+
+        if (subtitle) subtitle.textContent = `${azFilteredFiles.length} files`;
+        if (pageInfo) pageInfo.textContent = `Page ${azGridPage} of ${totalPages}`;
+
+        // Pagination buttons
+        const prevBtn = document.getElementById("azGridPrev");
+        const nextBtn = document.getElementById("azGridNext");
+        if (prevBtn) prevBtn.disabled = azGridPage <= 1;
+        if (nextBtn) nextBtn.disabled = azGridPage >= totalPages;
+
+        if (pageFiles.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 2rem; color: var(--text-muted);">No files found</td></tr>`;
+            return;
+        }
+
+        const typeIcons = {
+            audio: '<div class="az-type-icon az-type-audio">♫</div>',
+            video: '<div class="az-type-icon az-type-video">▶</div>',
+            data:  '<div class="az-type-icon az-type-data">{ }</div>',
+            other: '<div class="az-type-icon az-type-other">…</div>',
+        };
+
+        let html = "";
+        pageFiles.forEach((f, i) => {
+            const idx = start + i + 1;
+            const badge = f.in_local
+                ? '<span class="az-badge az-badge-synced">✓ Synced</span>'
+                : '<span class="az-badge az-badge-azure">☁ Azure</span>';
+            const modified = f.last_modified
+                ? new Date(f.last_modified).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+                : "—";
+
+            html += `<tr>
+                <td style="color: var(--text-muted);">${idx}</td>
+                <td>${typeIcons[f.type] || typeIcons.other}</td>
+                <td style="color: var(--text-primary); max-width: 350px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${f.name}">${f.name}</td>
+                <td>${formatBytes(f.size)}</td>
+                <td>${badge}</td>
+                <td style="color: var(--text-muted);">${modified}</td>
+            </tr>`;
+        });
+        tbody.innerHTML = html;
+    }
+
+    // Sync progress polling
+    function startAzSyncPolling() {
+        if (azSyncPollInterval) return;
+        const progressBar = document.getElementById("azSyncProgressBar");
+        if (progressBar) progressBar.classList.remove("hidden");
+        btnConfirmAzSync.disabled = true;
+        btnConfirmAzSync.innerHTML = `<div class="spinner" style="width:12px;height:12px;display:inline-block;vertical-align:middle;margin-right:4px;"></div> Syncing...`;
+
+        azSyncPollInterval = setInterval(async () => {
             try {
-                const res = await fetch("/api/azure/sync", { method: "POST" });
+                const res = await fetch("/api/azure/sync/status");
+                const data = await res.json();
+                if (data.is_syncing) {
+                    const pct = data.total > 0 ? Math.round((data.progress / data.total) * 100) : 0;
+                    const fill = document.getElementById("azSyncProgressFill");
+                    const text = document.getElementById("azSyncProgressText");
+                    const file = document.getElementById("azSyncCurrentFile");
+                    if (fill) fill.style.width = pct + "%";
+                    if (text) text.textContent = `${data.progress} / ${data.total}`;
+                    if (file) file.textContent = data.current_file || "Working...";
+                } else {
+                    clearInterval(azSyncPollInterval);
+                    azSyncPollInterval = null;
+                    const progressBar = document.getElementById("azSyncProgressBar");
+                    if (progressBar) progressBar.classList.add("hidden");
+                    btnConfirmAzSync.disabled = false;
+                    btnConfirmAzSync.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"/></svg> Sync Now`;
+
+                    if (data.error) {
+                        showToast("Sync error: " + data.error, true);
+                    } else {
+                        showToast("Azure Sync completed successfully!");
+                        // Refresh explorer data
+                        loadAzExplorer();
+                    }
+                }
+            } catch (e) {
+                console.error("Az sync poll error", e);
+            }
+        }, 1500);
+    }
+
+    async function loadAzExplorer() {
+        const downloadDir = downloadDirInput ? downloadDirInput.value.trim() : "";
+        const gridBody = document.getElementById("azGridBody");
+        if (gridBody) gridBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 2rem; color: var(--text-muted);"><div class="spinner" style="width:20px;height:20px;display:inline-block;vertical-align:middle;margin-right:8px;"></div> Loading from Azure...</td></tr>`;
+
+        try {
+            const res = await fetch("/api/azure/explorer?download_dir=" + encodeURIComponent(downloadDir));
+            const data = await res.json();
+            if (data.error) throw new Error(data.error);
+
+            azExplorerData = data;
+            azRenderStats(data.stats);
+            azRenderSidebar(data.playlists || [], data.files || {});
+            azApplyFilters();
+        } catch (err) {
+            console.error(err);
+            if (gridBody) gridBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 2rem; color: var(--error);">Error: ${err.message}</td></tr>`;
+        }
+    }
+
+    // Open explorer
+    if (btnAzureSync) {
+        btnAzureSync.addEventListener("click", () => {
+            azBlobStatsModal.classList.remove("hidden");
+            azSelectedPlaylistId = null;
+            azTypeFilter = "all";
+            azSyncStatusFilter = "all";
+            azSearchQuery = "";
+            azGridPage = 1;
+            // Reset filter tab UI
+            document.querySelectorAll(".az-filter-tab").forEach(t => t.classList.remove("active"));
+            const allTab = document.querySelector('.az-filter-tab[data-filter="all"]');
+            if (allTab) allTab.classList.add("active");
+            const syncFilter = document.getElementById("azSyncFilter");
+            if (syncFilter) syncFilter.value = "all";
+            const searchInput = document.getElementById("azGridSearch");
+            if (searchInput) searchInput.value = "";
+            loadAzExplorer();
+        });
+    }
+
+    // Sync button
+    if (btnConfirmAzSync) {
+        btnConfirmAzSync.addEventListener("click", async () => {
+            const downloadDir = downloadDirInput ? downloadDirInput.value.trim() : "";
+            btnConfirmAzSync.disabled = true;
+            try {
+                const res = await fetch("/api/azure/sync?download_dir=" + encodeURIComponent(downloadDir), { method: "POST" });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.detail || "Failed to trigger sync");
-                showToast(data.message || "Cloud sync completed!");
+                showToast("Azure Sync started in background.");
+                startAzSyncPolling();
             } catch (err) {
-                console.error(err);
                 showToast("Error: " + err.message, true);
-            } finally {
-                btnAzureSync.disabled = false;
-                btnAzureSync.innerHTML = originalText;
+                btnConfirmAzSync.disabled = false;
             }
         });
     }
+
+    // Close button
+    if (btnCancelAzSync) {
+        btnCancelAzSync.addEventListener("click", () => {
+            azBlobStatsModal.classList.add("hidden");
+            // Don't stop the sync, just close the modal. Sync continues in background.
+        });
+    }
+
+    // Type filter tabs
+    document.querySelectorAll(".az-filter-tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+            document.querySelectorAll(".az-filter-tab").forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+            azTypeFilter = tab.dataset.filter;
+            azGridPage = 1;
+            azApplyFilters();
+        });
+    });
+
+    // Sync status filter dropdown
+    const azSyncFilterEl = document.getElementById("azSyncFilter");
+    if (azSyncFilterEl) {
+        azSyncFilterEl.addEventListener("change", () => {
+            azSyncStatusFilter = azSyncFilterEl.value;
+            azGridPage = 1;
+            azApplyFilters();
+        });
+    }
+
+    // Search input
+    const azGridSearchEl = document.getElementById("azGridSearch");
+    if (azGridSearchEl) {
+        let azSearchTimeout;
+        azGridSearchEl.addEventListener("input", () => {
+            clearTimeout(azSearchTimeout);
+            azSearchTimeout = setTimeout(() => {
+                azSearchQuery = azGridSearchEl.value.trim();
+                azGridPage = 1;
+                azApplyFilters();
+            }, 250);
+        });
+    }
+
+    // Pagination
+    const azPrevBtn = document.getElementById("azGridPrev");
+    const azNextBtn = document.getElementById("azGridNext");
+    if (azPrevBtn) azPrevBtn.addEventListener("click", () => { if (azGridPage > 1) { azGridPage--; azRenderGrid(); } });
+    if (azNextBtn) azNextBtn.addEventListener("click", () => { const tp = Math.ceil(azFilteredFiles.length / AZ_PAGE_SIZE); if (azGridPage < tp) { azGridPage++; azRenderGrid(); } });
+
+    // Sortable column headers
+    document.querySelectorAll(".az-sortable").forEach(th => {
+        th.addEventListener("click", () => {
+            const key = th.dataset.sort;
+            if (azSortKey === key) {
+                azSortAsc = !azSortAsc;
+            } else {
+                azSortKey = key;
+                azSortAsc = true;
+            }
+            azGridPage = 1;
+            azApplyFilters();
+        });
+    });
+    
     
     if (btnCloseSettings && settingsModal) {
         btnCloseSettings.addEventListener("click", () => {

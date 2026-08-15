@@ -1527,3 +1527,213 @@ th {
     opacity: 0.7;
 }
 
+/* ─── Azure Blob Explorer Modal ─── */
+.az-explorer-modal {
+    width: 94vw;
+    height: 90vh;
+    max-width: 1400px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.az-explorer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.01);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.az-explorer-body {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.az-explorer-sidebar {
+    border-right: 1px solid var(--border-color);
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.008);
+}
+
+.az-explorer-grid-panel {
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.az-grid-table-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+/* Playlist row in sidebar */
+.az-playlist-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    border: 1px solid transparent;
+    min-height: 38px;
+}
+
+.az-playlist-row:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--border-color);
+}
+
+.az-playlist-row.active {
+    background: rgba(0, 242, 254, 0.06);
+    border-color: rgba(0, 242, 254, 0.25);
+}
+
+.az-playlist-row .az-pl-name {
+    flex: 1;
+    font-size: 0.78rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.az-playlist-row .az-pl-count {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+/* Status badges */
+.az-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.12rem 0.45rem;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.az-badge-synced {
+    background: rgba(39, 201, 63, 0.12);
+    color: #27c93f;
+}
+
+.az-badge-local {
+    background: rgba(255, 189, 46, 0.12);
+    color: #ffbd2e;
+}
+
+.az-badge-azure {
+    background: rgba(0, 120, 215, 0.15);
+    color: #4fc3f7;
+}
+
+/* Stat chips in header */
+.az-stat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 10px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.az-stat-chip .az-stat-val {
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}
+
+/* Sortable column headers */
+.az-sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+}
+
+.az-sortable:hover {
+    color: var(--neon-blue);
+}
+
+/* Grid row styling */
+#azGridBody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.12s;
+}
+
+#azGridBody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+#azGridBody td {
+    padding: 0.4rem 0.5rem;
+    color: var(--text-secondary);
+    vertical-align: middle;
+}
+
+/* File type icon colors */
+.az-type-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    font-size: 0.6rem;
+    font-weight: 700;
+}
+
+.az-type-audio { background: rgba(156, 39, 176, 0.15); color: #ce93d8; }
+.az-type-video { background: rgba(233, 30, 99, 0.15); color: #f48fb1; }
+.az-type-data  { background: rgba(0, 150, 136, 0.15); color: #80cbc4; }
+.az-type-other { background: rgba(158, 158, 158, 0.15); color: #bdbdbd; }
+
+/* Filter tabs */
+.az-filter-tab.active {
+    background: rgba(0, 242, 254, 0.1) !important;
+    color: var(--neon-blue) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .az-explorer-modal {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+    }
+    .az-explorer-body {
+        grid-template-columns: 1fr;
+    }
+    .az-explorer-sidebar {
+        display: none;
+    }
+}
