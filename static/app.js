@@ -2993,8 +2993,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     if ((state.status === "completed" || state.status === "failed") && !notifiedAIJobs.has(jobId)) {
                         notifiedAIJobs.add(jobId);
                         if (state.status === "completed") {
-                            logToTerminal(`[AI] ✨ Finished generating AI Instrumental for "${state.track_title}"!`);
-                            loadHistory();
+                            logToTerminal(`[AI] ✨ Finished generating AI track for "${state.track_title}"!`);
+                            loadSidebar();
                         } else {
                             logToTerminal(`[AI Error] Failed on "${state.track_title}": ${state.error}`, true);
                         }
