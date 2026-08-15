@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // DOM Elements - Left Sidebar Playlist Explorer
     const tabPinned = document.getElementById("tabPinned");
     const tabAll = document.getElementById("tabAll");
+    const tabAI = document.getElementById("tabAI");
     const tabTrash = document.getElementById("tabTrash");
     const playlistListContainer = document.getElementById("playlistListContainer");
     const sidebarPrevBtn = document.getElementById("sidebarPrevBtn");
@@ -213,11 +214,15 @@ document.addEventListener("DOMContentLoaded", () => {
         playlistListContainer.innerHTML = "";
         
         let filtered = [];
+        const isAIPlaylist = (j) => j.id && (j.id.startsWith("ai_") || j.id.includes("instruments") || j.is_ai === true);
+
         if (sidebarTab === "pinned") {
-            filtered = historyJobs.filter(job => job.pinned && !job.deleted && job.id !== "deleted_tracks");
+            filtered = historyJobs.filter(job => job.pinned && !job.deleted && job.id !== "deleted_tracks" && !isAIPlaylist(job));
         } else if (sidebarTab === "all") {
             // Show all downloads virtual entry at index 0, followed by non-deleted items
-            filtered = historyJobs.filter(job => !job.deleted && job.id !== "deleted_tracks");
+            filtered = historyJobs.filter(job => !job.deleted && job.id !== "deleted_tracks" && !isAIPlaylist(job));
+        } else if (sidebarTab === "ai") {
+            filtered = historyJobs.filter(job => !job.deleted && isAIPlaylist(job));
         } else if (sidebarTab === "trash") {
             // Show deleted tracks virtual entry at index 0, followed by deleted items
             const trashPlaylists = historyJobs.filter(job => job.deleted);
@@ -605,8 +610,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     sidebarNextBtn.addEventListener("click", () => {
         let count = 0;
-        if (sidebarTab === "pinned") count = historyJobs.filter(j => j.pinned && !j.deleted && j.id !== "deleted_tracks").length;
-        else if (sidebarTab === "all") count = historyJobs.filter(j => !j.deleted && j.id !== "deleted_tracks").length;
+        const isAIPlaylist = (j) => j.id && (j.id.startsWith("ai_") || j.id.includes("instruments") || j.is_ai === true);
+        if (sidebarTab === "pinned") count = historyJobs.filter(j => j.pinned && !j.deleted && j.id !== "deleted_tracks" && !isAIPlaylist(j)).length;
+        else if (sidebarTab === "all") count = historyJobs.filter(j => !j.deleted && j.id !== "deleted_tracks" && !isAIPlaylist(j)).length;
+        else if (sidebarTab === "ai") count = historyJobs.filter(j => !j.deleted && isAIPlaylist(j)).length;
         else if (sidebarTab === "trash") count = historyJobs.filter(j => j.deleted || j.id === "deleted_tracks").length;
         
         const totalPages = Math.ceil(count / sidebarPageSize);
@@ -621,6 +628,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebarTab = "pinned";
         tabPinned.classList.add("active");
         tabAll.classList.remove("active");
+        if (tabAI) tabAI.classList.remove("active");
         tabTrash.classList.remove("active");
         sidebarPage = 1;
         renderSidebarList();
@@ -629,15 +637,28 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebarTab = "all";
         tabAll.classList.add("active");
         tabPinned.classList.remove("active");
+        if (tabAI) tabAI.classList.remove("active");
         tabTrash.classList.remove("active");
         sidebarPage = 1;
         renderSidebarList();
     });
+    if (tabAI) {
+        tabAI.addEventListener("click", () => {
+            sidebarTab = "ai";
+            tabAI.classList.add("active");
+            tabPinned.classList.remove("active");
+            tabAll.classList.remove("active");
+            tabTrash.classList.remove("active");
+            sidebarPage = 1;
+            renderSidebarList();
+        });
+    }
     tabTrash.addEventListener("click", () => {
         sidebarTab = "trash";
         tabTrash.classList.add("active");
         tabPinned.classList.remove("active");
         tabAll.classList.remove("active");
+        if (tabAI) tabAI.classList.remove("active");
         sidebarPage = 1;
         renderSidebarList();
     });
