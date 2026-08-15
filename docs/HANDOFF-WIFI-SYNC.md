@@ -87,7 +87,7 @@ remove existing ones without bumping `version`.
   this, folder-imported playlists resolved to `file: null` for every track in
   the sync manifest (found while building the phone-side sync).
 - A small "Sync Test" playlist (4 generated tones from
-  `C:\Users\jaima\Music\MusicAppTest`) exists in history — it's the standing
+  `C:\Users\<you>\Music\MusicAppTest`) exists in history — it's the standing
   sample for end-to-end sync tests; please leave it in place.
 
 ## Suggested follow-ups for you (not done, by design)

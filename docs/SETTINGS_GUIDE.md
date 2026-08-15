@@ -40,7 +40,7 @@ On your local machine, your secret parameters are saved in **`keys.json`** in th
   "azure_container": "media",
   "azure_sas_token": "se=2027-12-31T23%3A59%3A59Z&sp=r&sv=2026-02-06&sr=c&sig=...",
   "azure_client_id": "51f81489-12ee-4a9e-aaae-a2591f45987d",
-  "onedrive_share_link": "https://traimber-my.sharepoint.com/..."
+  "onedrive_share_link": "https://<your-tenant>-my.sharepoint.com/..."
 }
 ```
 

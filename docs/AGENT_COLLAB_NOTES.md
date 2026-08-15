@@ -15,9 +15,15 @@ current: append to the Change Log and update Open Items as you go.
   Check `git log --oneline -10` and `git diff` for uncommitted work so we don't
   clobber each other. (I found an uncommitted in-progress `app.js` from you and
   built on it rather than reverting.)
-- **`master` is the deploy branch.** The user wants check-ins on `master`.
-  `feature/wifi-sync` mirrors it. There is **no GitHub Actions workflow**, so
-  `git push` does NOT auto-deploy — deploy is a manual SWA CLI step (§4).
+- **`master` is the deploy branch** and the only branch in this repo. There is
+  **no GitHub Actions workflow**, so `git push` does NOT auto-deploy — deploy is a
+  manual SWA CLI step (§4), and it needs `inject_public_config()` first (§5b #4).
+- **This repo (`Sonic-Stream-AI`, private) is now the active one**, replacing
+  `SonicStream-YouTube-Downloader`. Python lives under `src/`; `web-pwa/` is
+  byte-identical to the old repo's, so PWA knowledge and defects carry over.
+- **Verify against reality, not the UI.** Read the live blob container with the
+  azure SDK and `curl` HEAD real track URLs. Several bugs here looked like one
+  layer failing while the actual fault was elsewhere.
 - Commit messages should explain the *why* (root cause), not just the *what* —
   the audio bugs are subtle and the reasoning matters.
 
@@ -113,7 +119,96 @@ mv ./_media_tmp web-pwa/media
 
 ---
 
+## 5b. HARD-WON INVARIANTS — read before touching cloud/sync/audio
+
+Each of these cost real debugging. Breaking one silently breaks the product.
+
+1. **`BASE_DIR` must be the repo root, not `src/`.** Modules live in `src/` but
+   `history.json`, `keys.json` and `web-pwa/` are one level up. The src/ restructure
+   left `deploy_pwa.py` computing `dirname(__file__)`, so it read **no history** and
+   silently generated a manifest with **ZERO playlists** — that alone is why new
+   playlists (Gita) never reached the PWA. Use `dirname(dirname(abspath(__file__)))`.
+
+2. **Never upload raw `history.json` as `playlists_manifest.json`.** Different
+   schemas: history is a list of download jobs; the PWA needs
+   `{playlists:[{tracks:[{file,…}]}]}` with **resolved** blob filenames (yt-dlp
+   rewrites `|` → fullwidth `｜` U+FF5C and truncates long titles). Always publish
+   `deploy_pwa.generate_pwa_manifest()` output. We no longer publish `history.json`
+   to the blob at all (it exposed the whole local catalogue).
+
+3. **The PWA reads `./playlists_manifest.json` (its own deployed copy) BEFORE the
+   blob copy.** Publishing to the blob alone will NEVER update the phone — the
+   static site must be redeployed. This wasted a full debugging cycle.
+
+4. **Run `deploy_pwa.inject_public_config()` before every SWA deploy.** The PWA has
+   no Settings field for the storage account and the committed `settings.json` is
+   blank, so without injection the app has no account and **nothing plays**. It
+   writes account+container only; secrets stay blank (SAS is still pasted
+   per-device). Run `clean_keys()` before committing.
+
+5. **Never blind-`put` into the IndexedDB `files` store.** `put()` replaces the
+   whole record; playlist sync writes metadata-only rows and previously destroyed
+   every cached audio blob — i.e. every "Refresh" wiped the offline cache. Merge.
+
+6. **Sync must prune.** `syncPlaylists()` only added/updated, so playlists removed
+   upstream lingered in IndexedDB and rendered beside their replacements (two
+   "Bhagavad Gita" entries). Desktop-sourced playlists absent from the manifest are
+   now deleted; locally created ones are left alone.
+
+7. **Empty playlists are filtered out of the manifest.** A zero-track duplicate
+   "All Songs" sorted above the real 833-track one, so opening it looked exactly
+   like "the collection disappeared".
+
+8. **Never gate audio behaviour on viewport width.** `isPhoneDevice()` is
+   `innerWidth <= 768`; in landscape an iPhone reports ~850–930px, which let the
+   Web Audio graph be built on the phone. `createMediaElementSource()` reroutes the
+   element's output permanently and iOS suspends the context on lock → the playback
+   clock advances with **no sound**. Use `isMobileAudioDevice()` for anything audio.
+
+9. **Diagnosing "no sound": ask FIRST whether the progress bar moves.** Moving =
+   audio running into a dead output (routing/session). Frozen = playback blocked.
+   Not asking this cost ~4 wrong fixes on the lock-screen resume bug.
+
+10. **`node --check` does NOT catch temporal-dead-zone errors.** `web-pwa/app.js`
+    calls `populateSettingsUI()` long before `let db` is initialised; any helper
+    touching `db` there throws (and `typeof` throws too in a TDZ — use try/catch).
+    Always load the page after editing `app.js`.
+
+11. **Desktop app changes need a restart.** `src/main.py` and `static/` do not
+    hot-reload; several "your fix didn't work" reports were stale processes.
+
+---
+
 ## 6. Change Log (most recent first)
+
+### Sonic Stream AI repo (2026-08-15, Claude Code) — cloud/sync session
+
+- **fbb6d33** — removed deployment identifiers from the repo (site URL, tenant id,
+  resource group, SWA name, storage account); real values now in gitignored
+  `keys.json`. Added `deploy_pwa.inject_public_config()` because the storage
+  account was NOT just docs — it was a hardcoded fallback in `app.js` and the only
+  thing making playback work (see invariant #4).
+- **4d53856** — filter empty playlists out of the manifest (blank duplicate
+  "All Songs" was masking the real one). Live manifest 14 → 10 playlists.
+- **cb10de3** — `showToast()` was **called in 4 places but never defined**, so the
+  Azure Sync button threw on its success path, threw again in the catch, and left
+  itself permanently disabled: "clicking Sync does nothing". Implemented it and
+  made polling own the button state. Also prune stale PWA playlists.
+- **ccd5b01** — `sync_azure_batch.py` un-ignored (verified secret-free; it reads
+  everything from `keys.json`) so the sync fix actually ships. Sync now regenerates
+  and publishes a real manifest instead of raw history.json.
+- **819d80e** — fixed `deploy_pwa` BASE_DIR (manifest 0 → 14 playlists); Azure
+  Explorer left panel read a blob that does not exist (`history.json`) and required
+  a list when the manifest is a dict, so it was always empty — now reads
+  `playlists_manifest.json` and returns an exact manifest-track → blob join
+  (`playlist_summaries`) so selecting a playlist filters the grid; sync progress no
+  longer claims success for a sync that never ran.
+- Uploaded 20 files / 788 MB that had never synced (incl. all 18 Gita chapters).
+  Gita now 18/18 resolving; **Gita plays on the phone** (user-confirmed).
+
+**Known-good verification method:** inspect the live container read-only with the
+azure SDK and `curl` HEAD against real track URLs. That is how every claim above was
+checked — do not trust the UI alone.
 
 - **Claude Code (7122848):** removed OneDrive UI (dead weight — audio is on
   Azure); between-track pause defaults to 0/gapless (a silent gap can let iOS
@@ -139,6 +234,32 @@ mv ./_media_tmp web-pwa/media
 ---
 
 ## 7. Open items / trade-offs to discuss with the user
+
+### Current open items in THIS repo (GitHub issues)
+
+- **#10 SECURITY — container is publicly readable.** `public_access = blob`, so any
+  blob downloads anonymously (verified: `curl` → HTTP 200, 2.6 MB, no SAS). The SAS
+  provides no read protection. Worse, `playlists_manifest.json` is served publicly
+  and lists all 1214 filenames. Listing is disabled, but the manifest removes the
+  need to list. **Deliberately NOT changed** — flipping the container to private
+  breaks playback on any device without a valid SAS. Needs a user decision.
+- **#5** `/api/history/{job}/items/{track}/ai-karaoke` is registered **twice** in
+  `src/main.py` (lines ~2357 and ~2560). FastAPI matches the first; the second
+  (which lacks `background_tasks`) is unreachable dead code. Confirm which is
+  correct and delete the other.
+- **#6** Voice-to-Instrument quality — pitch extraction carries breath/vibrato
+  artifacts into MIDI. Needs stronger smoothing or an end-to-end voice→MIDI model.
+- **#7** README still says `python main.py`; entry point is `src/main.py`.
+- **160 of 1214 manifest tracks have no blob** (135 in "All Songs") — their local
+  files are gone from the download folder, so sync cannot upload them. The explorer
+  now flags this per playlist with a ⚠ count rather than hiding it.
+- **Old-repo defects not yet carried over.** 16 open issues in
+  `SonicStream-YouTube-Downloader`; the PWA ones apply unchanged because `web-pwa/`
+  is byte-identical. Its #23 (one-click Azure upload) is DONE here.
+- **PWA lock-screen/Bluetooth resume is still unsolved** (old repo #38): resume
+  succeeds but is silent. Needs on-device diagnostics, not another blind fix.
+
+### Pre-existing trade-offs
 
 - **Volume boost on mobile:** currently 0–100% only (background-safe). Boost
   >100% requires the Web Audio graph, which breaks iOS background playback.
