@@ -148,6 +148,16 @@ def generate_pwa_manifest():
         except Exception as e:
             print(f"[PWA Deploy Warning] History parse error: {e}")
 
+    # Drop empty playlists. They cannot be played, and they actively caused a
+    # support issue: history.json contains a SECOND, zero-track "All Songs" job
+    # (plus "Diagnostic Job" / "Grid Diagnostic Run" / "Individual Downloads"),
+    # and the empty "All Songs" sorted ABOVE the real 833-track one — so opening
+    # it looked exactly like "the All Songs collection disappeared".
+    dropped = [p["title"] for p in playlists if not p.get("tracks")]
+    playlists = [p for p in playlists if p.get("tracks")]
+    if dropped:
+        print(f"[PWA Deploy] Skipped {len(dropped)} empty playlist(s): {', '.join(dropped)}")
+
     manifest_data = {
         "version": 1,
         "app": "SonicStream",
