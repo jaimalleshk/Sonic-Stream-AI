@@ -8664,6 +8664,86 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       ]
     },
     {
+      "id": "ai_muted_vocals",
+      "title": "AI Muted Vocals",
+      "playlist_title": "AI Muted Vocals",
+      "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+      "track_count": 3,
+      "tracks": [
+        {
+          "id": "LF_1_hy2wXU_ai_muted_vocals",
+          "title": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - Karaoke",
+          "artist": "Tamil Music Video",
+          "duration": 269,
+          "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=LF_1_hy2wXU",
+          "file": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - Karaoke.mp3"
+        },
+        {
+          "id": "y5r5JL064Us_ai_muted_vocals",
+          "title": "Evvarineppudu - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 88,
+          "thumbnail": "https://i.ytimg.com/vi/y5r5JL064Us/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/y5r5JL064Us/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=y5r5JL064Us",
+          "file": "Evvarineppudu - Karaoke.mp3"
+        },
+        {
+          "id": "4Kpl9vBrlIU_ai_muted_vocals",
+          "title": "Chittegale - Karaoke",
+          "artist": "Hamsalekha - Topic",
+          "duration": 268,
+          "thumbnail": "https://i.ytimg.com/vi/4Kpl9vBrlIU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/4Kpl9vBrlIU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=4Kpl9vBrlIU",
+          "file": "Chittegale - Karaoke.mp3"
+        }
+      ]
+    },
+    {
+      "id": "ai_vocals_only",
+      "title": "AI Vocals Only",
+      "playlist_title": "AI Vocals Only",
+      "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+      "track_count": 3,
+      "tracks": [
+        {
+          "id": "LF_1_hy2wXU_ai_vocals_only",
+          "title": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - AI Vocals Only",
+          "artist": "Tamil Music Video",
+          "duration": 269,
+          "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=LF_1_hy2wXU",
+          "file": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - AI Vocals Only.mp3"
+        },
+        {
+          "id": "y5r5JL064Us_ai_vocals_only",
+          "title": "Evvarineppudu - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 88,
+          "thumbnail": "https://i.ytimg.com/vi/y5r5JL064Us/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/y5r5JL064Us/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=y5r5JL064Us",
+          "file": "Evvarineppudu - AI Vocals Only.mp3"
+        },
+        {
+          "id": "4Kpl9vBrlIU_ai_vocals_only",
+          "title": "Chittegale - AI Vocals Only",
+          "artist": "Hamsalekha - Topic",
+          "duration": 268,
+          "thumbnail": "https://i.ytimg.com/vi/4Kpl9vBrlIU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/4Kpl9vBrlIU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=4Kpl9vBrlIU",
+          "file": "Chittegale - AI Vocals Only.mp3"
+        }
+      ]
+    },
+    {
       "id": "job_1783134359",
       "title": "Bhakthi",
       "playlist_title": "Bhakthi",
