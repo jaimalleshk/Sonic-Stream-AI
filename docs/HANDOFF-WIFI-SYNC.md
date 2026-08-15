@@ -202,10 +202,9 @@ transient `file_missing` bool (not persisted). Backup files use
 `{app, type: "playlists_backup", version: 1, exported_at, playlists: [...]}`
 — treat as a contract like the sync manifest.
 
-## Session 2026-07-04 (later): GitHub issues #4–#13, restore hang + UI batch
+## Session 2026-07-04 (later): restore hang + UI batch
 
-All work tracked as GitHub issues (jaimalleshk/SonicStream-YouTube-Downloader
-#4–#13). Fixed and verified this session:
+Fixed and verified this session:
 
 - **#4 restore hang (the "stuck 3 hours" report):** not a hang — a retry
   storm. Every auto-resume re-queued permanently dead YouTube videos

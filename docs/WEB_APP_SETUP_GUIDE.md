@@ -29,7 +29,7 @@ cents at most).
 - An **Azure account** (free): https://azure.microsoft.com/free
 - **Azure CLI** installed: https://learn.microsoft.com/cli/azure/install-azure-cli
 - **Node.js** (for the one-line deploy tool): https://nodejs.org
-- This repo cloned locally, and the **desktop app working** (that's what produces
+- This project setup locally, and the **desktop app working** (that's what produces
   your audio + `history.json`).
 
 ---
@@ -101,7 +101,7 @@ app's `history.json`, uploads any **new** mp3s (skips ones already there), and
 uploads the manifest. Re-run it any time you download more music.
 
 > If you'd rather not run scripts, you can ask **Claude Code / Antigravity** in
-> this repo to "sync new files and playlists to Azure" — it runs the same tool.
+> this project to "sync new files and playlists to Azure" — it runs the same tool.
 
 ---
 

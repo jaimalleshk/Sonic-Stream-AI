@@ -67,7 +67,7 @@ via the Azure CLI / SWA CLI. Two options:
 ### Option A — connect the repo (recommended long-term)
 
 In the Azure Portal → **Static Web Apps** → create/connect to the GitHub repo
-`jaimalleshk/SonicStream-YouTube-Downloader`, app location `/web-pwa`. Azure adds
+`your-project`, app location `/web-pwa`. Azure adds
 a GitHub Actions workflow; thereafter **`git push` auto-deploys**.
 
 ### Option B — manual CLI deploy

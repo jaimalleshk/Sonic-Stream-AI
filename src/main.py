@@ -2117,8 +2117,51 @@ async def get_ai_jobs():
     with ai_jobs_lock:
         return ai_jobs_state
 
-@app.post("/api/history/{job_id}/items/{track_id}/ai-instrumental")
-async def generate_ai_instrumental(job_id: str, track_id: str):
+def _add_ai_track_to_playlist(target_track, playlist_id, playlist_title, out_path):
+    import os
+    from datetime import datetime
+    with history_lock:
+        current_history = load_history()
+        ai_playlist = next((j for j in current_history if j.get("id") == playlist_id), None)
+        if not ai_playlist:
+            ai_playlist = {
+                "id": playlist_id,
+                "job_num": 0,
+                "title": playlist_title,
+                "url": "",
+                "format": "audio",
+                "quality": "highest",
+                "items": [],
+                "total_tracks": 0,
+                "success_count": 0,
+                "failure_count": 0,
+                "completed_tracks": 0,
+                "pinned": True,
+                "deleted": False,
+                "timestamp": datetime.now().isoformat()
+            }
+            current_history.insert(0, ai_playlist)
+            
+        new_track_id = f"{target_track['id']}_{playlist_id}"
+        existing = next((t for t in ai_playlist["items"] if t.get("id") == new_track_id), None)
+        if not existing:
+            new_item = dict(target_track)
+            new_item["id"] = new_track_id
+            new_item["title"] = os.path.splitext(os.path.basename(out_path))[0]
+            new_item["status"] = "completed"
+            new_item["percentage"] = 100.0
+            new_item["speed"] = "--"
+            new_item["start_time"] = datetime.now().strftime("%H:%M:%S")
+            new_item["end_time"] = datetime.now().strftime("%H:%M:%S")
+            ai_playlist["items"].insert(0, new_item)
+            ai_playlist["total_tracks"] = len(ai_playlist["items"])
+            ai_playlist["success_count"] = len(ai_playlist["items"])
+            ai_playlist["completed_tracks"] = len(ai_playlist["items"])
+            ai_playlist["timestamp"] = datetime.now().isoformat()
+            save_history(current_history)
+        return new_track_id
+
+def _get_target_track(job_id, track_id):
     target_job = None
     target_track = None
     with history_lock:
@@ -2133,9 +2176,78 @@ async def generate_ai_instrumental(job_id: str, track_id: str):
                         break
                 if target_job:
                     break
+    return target_job, target_track
 
+def _add_ai_track_to_playlist(target_track, playlist_id, playlist_title, out_path):
+    import os
+    from datetime import datetime
+    with history_lock:
+        current_history = load_history()
+        ai_playlist = next((j for j in current_history if j.get("id") == playlist_id), None)
+        if not ai_playlist:
+            ai_playlist = {
+                "id": playlist_id,
+                "job_num": 0,
+                "title": playlist_title,
+                "url": "",
+                "format": "audio",
+                "quality": "highest",
+                "items": [],
+                "total_tracks": 0,
+                "success_count": 0,
+                "failure_count": 0,
+                "completed_tracks": 0,
+                "pinned": True,
+                "deleted": False,
+                "timestamp": datetime.now().isoformat()
+            }
+            current_history.insert(0, ai_playlist)
+            
+        new_track_id = f"{target_track['id']}_{playlist_id}"
+        existing = next((t for t in ai_playlist["items"] if t.get("id") == new_track_id), None)
+        if not existing:
+            new_item = dict(target_track)
+            new_item["id"] = new_track_id
+            new_item["title"] = os.path.splitext(os.path.basename(out_path))[0]
+            new_item["status"] = "completed"
+            new_item["percentage"] = 100.0
+            new_item["speed"] = "--"
+            new_item["start_time"] = datetime.now().strftime("%H:%M:%S")
+            new_item["end_time"] = datetime.now().strftime("%H:%M:%S")
+            ai_playlist["items"].insert(0, new_item)
+            ai_playlist["total_tracks"] = len(ai_playlist["items"])
+            ai_playlist["success_count"] = len(ai_playlist["items"])
+            ai_playlist["completed_tracks"] = len(ai_playlist["items"])
+            ai_playlist["timestamp"] = datetime.now().isoformat()
+            save_history(current_history)
+        return new_track_id
+
+def _get_target_track(job_id, track_id):
+    target_job = None
+    target_track = None
+    with history_lock:
+        history = load_history()
+        for job in history:
+            if job_id == "all_downloads" or job.get("id") == job_id:
+                items = job.get("items", job.get("request", {}).get("items", []))
+                for item in items:
+                    if item.get("id") == track_id:
+                        target_job = job
+                        target_track = item
+                        break
+                if target_job:
+                    break
+    return target_job, target_track
+
+@app.post("/api/history/{job_id}/items/{track_id}/ai-instrumental")
+async def generate_ai_instrumental(job_id: str, track_id: str, background_tasks: BackgroundTasks):
+    import urllib.parse
+    target_job, target_track = _get_target_track(job_id, track_id)
     if not target_track or not target_job:
         raise HTTPException(status_code=404, detail="Track or playlist not found")
+    track_title = target_track.get("title", "")
+    if " - AI Muted Vocals" in track_title or " - AI Instrumental" in track_title or " - AI Vocals Only" in track_title:
+        raise HTTPException(status_code=400, detail="Track is already AI processed.")
 
     download_dir = target_job.get("download_dir", DOWNLOAD_DIR)
     format_type = target_job.get("request", {}).get("format", "audio")
@@ -2143,6 +2255,13 @@ async def generate_ai_instrumental(job_id: str, track_id: str):
     local_path = check_local_duplicate(target_track["title"], format_type, download_dir)
     if not local_path or not os.path.exists(local_path):
         raise HTTPException(status_code=404, detail="Local file not found for processing. Make sure it's downloaded.")
+
+    out_filename = f"{sanitize_filename(target_track['title'])} - AI Instrumental.mp3"
+    out_path = os.path.join(download_dir, out_filename)
+
+    if os.path.exists(out_path):
+        _add_ai_track_to_playlist(target_track, "ai_instruments", "AI Instruments", out_path)
+        return {"status": "started", "message": "Already cached and added to AI Instruments playlist."}
 
     ai_job_id = f"ai_{track_id}_{int(time.time())}"
     
@@ -2165,6 +2284,14 @@ async def generate_ai_instrumental(job_id: str, track_id: str):
             
             vocal_path, accomp_path = processor.separate_vocals(local_path)
             
+            # Save Vocals Byproduct
+            with ai_jobs_lock:
+                ai_jobs_state[ai_job_id]["progress"] = "Caching Vocals Byproduct..."
+            vocals_filename = f"{sanitize_filename(target_track['title'])} - AI Vocals Only.mp3"
+            vocals_out_path = os.path.join(download_dir, vocals_filename)
+            processor.export_audio(vocal_path, vocals_out_path)
+            _add_ai_track_to_playlist(target_track, "ai_vocals_only", "AI Vocals Only", vocals_out_path)
+
             with ai_jobs_lock:
                 ai_jobs_state[ai_job_id]["progress"] = "Extracting pitch (Basic Pitch)..."
             
@@ -2178,88 +2305,107 @@ async def generate_ai_instrumental(job_id: str, track_id: str):
                 raise Exception("SoundFont not found. Please download TimGM6mb.sf2.")
                 
             inst_path = os.path.join(processor.workspace_dir, f"{track_id}_inst.wav")
-            processor.synthesize_instrument(midi_path, soundfont_path, inst_path)
+            processor.synthesize_instrument(midi_path, soundfont_path, inst_path) # Piano
             
             with ai_jobs_lock:
                 ai_jobs_state[ai_job_id]["progress"] = "Mixing final audio..."
                 
-            out_filename = f"{sanitize_filename(target_track['title'])} - AI Instrumental.mp3"
-            out_path = os.path.join(download_dir, out_filename)
             processor.mix_audio(accomp_path, inst_path, out_path)
             
-            # Append to history
-            with history_lock:
-                current_history = load_history()
-                
-                instruments_job = None
-                for j in current_history:
-                    if j.get("id") == "instruments_playlist":
-                        instruments_job = j
-                        break
-                        
-                if not instruments_job:
-                    instruments_job = {
-                        "id": "instruments_playlist",
-                        "job_num": max([j.get("job_num", 0) for j in current_history] + [0]) + 1,
-                        "title": "Instruments",
-                        "url": "",
-                        "format": "audio",
-                        "quality": "highest",
-                        "items": [],
-                        "total_tracks": 0,
-                        "success_count": 0,
-                        "failure_count": 0,
-                        "completed_tracks": 0,
-                        "pinned": False,
-                        "deleted": False,
-                        "is_playlist": True,
-                        "timestamp": datetime.now().isoformat()
-                    }
-                    current_history.append(instruments_job)
-                
-                new_track = target_track.copy()
-                new_track["id"] = f"{track_id}_ai_{int(time.time())}"
-                new_track["title"] = f"{target_track['title']} - AI Instrumental"
-                if "format" in new_track:
-                    new_track["format"] = "audio"
-                
-                instruments_job.setdefault("items", []).append(new_track)
-                instruments_job["total_tracks"] = len(instruments_job["items"])
-                instruments_job["success_count"] = sum(1 for t in instruments_job["items"] if t.get("status") in ["completed", "skipped"])
-                instruments_job["timestamp"] = datetime.now().isoformat()
-                
-                save_history(current_history)
-                        
+            _add_ai_track_to_playlist(target_track, "ai_instruments", "AI Instruments", out_path)
+            
             with ai_jobs_lock:
                 ai_jobs_state[ai_job_id]["status"] = "completed"
-                ai_jobs_state[ai_job_id]["progress"] = "Done!"
-
+                ai_jobs_state[ai_job_id]["progress"] = "Completed"
+                
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             with ai_jobs_lock:
                 ai_jobs_state[ai_job_id]["status"] = "failed"
-                ai_jobs_state[ai_job_id]["error"] = str(e)
+                ai_jobs_state[ai_job_id]["progress"] = f"Failed: {str(e)}"
 
-    threading.Thread(target=_process_ai, daemon=True).start()
-    return {"message": "AI processing started", "ai_job_id": ai_job_id}
+    background_tasks.add_task(_process_ai)
+    return {"status": "started", "ai_job_id": ai_job_id, "message": "AI generation started"}
+
+@app.post("/api/history/{job_id}/items/{track_id}/ai-karaoke")
+async def generate_ai_karaoke(job_id: str, track_id: str, background_tasks: BackgroundTasks):
+    import urllib.parse
+    target_job, target_track = _get_target_track(job_id, track_id)
+    if not target_track or not target_job:
+        raise HTTPException(status_code=404, detail="Track or playlist not found")
+    track_title = target_track.get("title", "")
+    if " - AI Muted Vocals" in track_title or " - AI Instrumental" in track_title or " - AI Vocals Only" in track_title:
+        raise HTTPException(status_code=400, detail="Track is already AI processed.")
+
+    download_dir = target_job.get("download_dir", DOWNLOAD_DIR)
+    format_type = target_job.get("request", {}).get("format", "audio")
+    
+    local_path = check_local_duplicate(target_track["title"], format_type, download_dir)
+    if not local_path or not os.path.exists(local_path):
+        raise HTTPException(status_code=404, detail="Local file not found for processing. Make sure it's downloaded.")
+
+    out_filename = f"{sanitize_filename(target_track['title'])} - Karaoke.mp3"
+    out_path = os.path.join(download_dir, out_filename)
+
+    if os.path.exists(out_path):
+        _add_ai_track_to_playlist(target_track, "ai_muted_vocals", "AI Muted Vocals", out_path)
+        return {"status": "started", "message": "Already cached and added to AI Muted Vocals playlist."}
+
+    ai_job_id = f"karaoke_{track_id}_{int(time.time())}"
+    
+    with ai_jobs_lock:
+        ai_jobs_state[ai_job_id] = {
+            "status": "pending",
+            "progress": "Starting Karaoke extraction...",
+            "track_title": target_track["title"],
+            "track_id": track_id
+        }
+
+    def _process_karaoke():
+        try:
+            with ai_jobs_lock:
+                ai_jobs_state[ai_job_id]["status"] = "processing"
+                ai_jobs_state[ai_job_id]["progress"] = "Removing vocals (Demucs)..."
+
+            from services.ai_vocal_processor import AIVocalProcessor
+            processor = AIVocalProcessor(workspace_dir=os.path.join(BASE_DIR, "ai_workspace"))
+            
+            vocal_path, accomp_path = processor.separate_vocals(local_path)
+            
+            # Save Vocals Byproduct
+            with ai_jobs_lock:
+                ai_jobs_state[ai_job_id]["progress"] = "Caching Vocals Byproduct..."
+            vocals_filename = f"{sanitize_filename(target_track['title'])} - AI Vocals Only.mp3"
+            vocals_out_path = os.path.join(download_dir, vocals_filename)
+            processor.export_audio(vocal_path, vocals_out_path)
+            _add_ai_track_to_playlist(target_track, "ai_vocals_only", "AI Vocals Only", vocals_out_path)
+
+            with ai_jobs_lock:
+                ai_jobs_state[ai_job_id]["progress"] = "Exporting karaoke track..."
+                
+            processor.export_audio(accomp_path, out_path)
+            _add_ai_track_to_playlist(target_track, "ai_muted_vocals", "AI Muted Vocals", out_path)
+            
+            with ai_jobs_lock:
+                ai_jobs_state[ai_job_id]["status"] = "completed"
+                ai_jobs_state[ai_job_id]["progress"] = "Completed"
+                
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            with ai_jobs_lock:
+                ai_jobs_state[ai_job_id]["status"] = "failed"
+                ai_jobs_state[ai_job_id]["progress"] = f"Failed: {str(e)}"
+
+    background_tasks.add_task(_process_karaoke)
+    return {"status": "started", "ai_job_id": ai_job_id, "message": "AI Karaoke generation started"}
 
 @app.post("/api/history/{job_id}/items/{track_id}/ai-mute-process")
-def process_ai_mute_stream(job_id: str, track_id: str):
+async def process_ai_mute_stream(job_id: str, track_id: str, background_tasks: BackgroundTasks):
     try:
-        target_job = None
-        target_track = None
-        with history_lock:
-            history = load_history()
-            for job in history:
-                if job_id == "all_downloads" or job.get("id") == job_id:
-                    items = job.get("items", job.get("request", {}).get("items", []))
-                    for item in items:
-                        if item.get("id") == track_id:
-                            target_job = job
-                            target_track = item
-                            break
-                    if target_job:
-                        break
-
+        import urllib.parse
+        target_job, target_track = _get_target_track(job_id, track_id)
         if not target_track or not target_job:
             raise HTTPException(status_code=404, detail="Track or playlist not found")
 
@@ -2268,11 +2414,27 @@ def process_ai_mute_stream(job_id: str, track_id: str):
         format_type = request_dict.get("format", "audio")
         
         track_title = target_track.get("title", "")
+        if " - AI Muted Vocals" in track_title or " - AI Instrumental" in track_title or " - AI Vocals Only" in track_title:
+            raise HTTPException(status_code=400, detail="Track is already AI processed.")
         local_path = check_local_duplicate(track_title, format_type, download_dir)
         if not local_path or not os.path.exists(local_path):
             raise HTTPException(status_code=404, detail="Local file not found for processing. Make sure it's downloaded.")
 
-        # Return streaming endpoint URL instead of processing synchronously
+        # Check if already cached!
+        cache_filename = f"{sanitize_filename(track_title)} - AI Muted Vocals.mp3"
+        cache_out_path = os.path.join(download_dir, cache_filename)
+        
+        if os.path.exists(cache_out_path):
+            # Return cached url
+            title_encoded = urllib.parse.quote(f"{track_title} - AI Muted Vocals")
+            download_dir_encoded = urllib.parse.quote(download_dir)
+            url = f"/api/media/stream?video_url=local&title={title_encoded}&format=audio&download_dir={download_dir_encoded}"
+            return {"url": url}
+
+        # Not cached, start background generation for future AND return live stream url for now
+        await generate_ai_karaoke(job_id, track_id, background_tasks)
+
+        # Return streaming endpoint URL for INSTANT playback
         url = f"/api/stream/ai/{job_id}/{track_id}?mode=mute"
         return {"url": url}
     except HTTPException:
@@ -2284,23 +2446,10 @@ def process_ai_mute_stream(job_id: str, track_id: str):
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}\nTraceback: {err_msg}")
 
 @app.post("/api/history/{job_id}/items/{track_id}/ai-instrument-process")
-def process_ai_instrument_stream(job_id: str, track_id: str):
+async def process_ai_instrument_stream(job_id: str, track_id: str, background_tasks: BackgroundTasks):
     try:
-        target_job = None
-        target_track = None
-        with history_lock:
-            history = load_history()
-            for job in history:
-                if job_id == "all_downloads" or job.get("id") == job_id:
-                    items = job.get("items", job.get("request", {}).get("items", []))
-                    for item in items:
-                        if item.get("id") == track_id:
-                            target_job = job
-                            target_track = item
-                            break
-                    if target_job:
-                        break
-
+        import urllib.parse
+        target_job, target_track = _get_target_track(job_id, track_id)
         if not target_track or not target_job:
             raise HTTPException(status_code=404, detail="Track or playlist not found")
 
@@ -2309,10 +2458,27 @@ def process_ai_instrument_stream(job_id: str, track_id: str):
         format_type = request_dict.get("format", "audio")
         
         track_title = target_track.get("title", "")
+        if " - AI Muted Vocals" in track_title or " - AI Instrumental" in track_title or " - AI Vocals Only" in track_title:
+            raise HTTPException(status_code=400, detail="Track is already AI processed.")
         local_path = check_local_duplicate(track_title, format_type, download_dir)
         if not local_path or not os.path.exists(local_path):
             raise HTTPException(status_code=404, detail="Local file not found for processing. Make sure it's downloaded.")
 
+        # Check if already cached!
+        cache_filename = f"{sanitize_filename(track_title)} - AI Instrumental.mp3"
+        cache_out_path = os.path.join(download_dir, cache_filename)
+        
+        if os.path.exists(cache_out_path):
+            # Return cached url
+            title_encoded = urllib.parse.quote(f"{track_title} - AI Instrumental")
+            download_dir_encoded = urllib.parse.quote(download_dir)
+            url = f"/api/media/stream?video_url=local&title={title_encoded}&format=audio&download_dir={download_dir_encoded}"
+            return {"url": url}
+
+        # Not cached, start background generation for future AND return live stream url for now
+        await generate_ai_instrumental(job_id, track_id, background_tasks)
+
+        # Return streaming endpoint URL for INSTANT playback
         url = f"/api/stream/ai/{job_id}/{track_id}?mode=instrument"
         return {"url": url}
     except HTTPException:

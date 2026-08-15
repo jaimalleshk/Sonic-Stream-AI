@@ -1,237 +1,5 @@
 [
   {
-    "id": "job_bhagavad_gita_18_chapters",
-    "url": "https://www.youtube.com/playlist?list=PL_BHAGAVAD_GITA_18_CHAPTERS",
-    "title": "Bhagavad Gita (18 Chapters)",
-    "playlist_title": "Bhagavad Gita (18 Chapters)",
-    "status": "completed",
-    "created_at": "2026-07-24T15:54:53Z",
-    "total_tracks": 18,
-    "success_count": 18,
-    "failure_count": 0,
-    "completed_tracks": 18,
-    "items": [
-      {
-        "id": "gita_ch_01",
-        "title": "Bhagavad Gita - Chapter 1",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_01.mp3",
-        "file": "audio_chapter_01.mp3",
-        "downloadUrl": "./media/audio_chapter_01.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_02",
-        "title": "Bhagavad Gita - Chapter 2",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_02.mp3",
-        "file": "audio_chapter_02.mp3",
-        "downloadUrl": "./media/audio_chapter_02.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_03",
-        "title": "Bhagavad Gita - Chapter 3",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_03.mp3",
-        "file": "audio_chapter_03.mp3",
-        "downloadUrl": "./media/audio_chapter_03.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_04",
-        "title": "Bhagavad Gita - Chapter 4",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_04.mp3",
-        "file": "audio_chapter_04.mp3",
-        "downloadUrl": "./media/audio_chapter_04.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_05",
-        "title": "Bhagavad Gita - Chapter 5",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_05.mp3",
-        "file": "audio_chapter_05.mp3",
-        "downloadUrl": "./media/audio_chapter_05.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_06",
-        "title": "Bhagavad Gita - Chapter 6",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_06.mp3",
-        "file": "audio_chapter_06.mp3",
-        "downloadUrl": "./media/audio_chapter_06.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_07",
-        "title": "Bhagavad Gita - Chapter 7",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_07.mp3",
-        "file": "audio_chapter_07.mp3",
-        "downloadUrl": "./media/audio_chapter_07.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_08",
-        "title": "Bhagavad Gita - Chapter 8",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_08.mp3",
-        "file": "audio_chapter_08.mp3",
-        "downloadUrl": "./media/audio_chapter_08.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_09",
-        "title": "Bhagavad Gita - Chapter 9",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_09.mp3",
-        "file": "audio_chapter_09.mp3",
-        "downloadUrl": "./media/audio_chapter_09.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_10",
-        "title": "Bhagavad Gita - Chapter 10",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_10.mp3",
-        "file": "audio_chapter_10.mp3",
-        "downloadUrl": "./media/audio_chapter_10.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_11",
-        "title": "Bhagavad Gita - Chapter 11",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_11.mp3",
-        "file": "audio_chapter_11.mp3",
-        "downloadUrl": "./media/audio_chapter_11.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_12",
-        "title": "Bhagavad Gita - Chapter 12",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_12.mp3",
-        "file": "audio_chapter_12.mp3",
-        "downloadUrl": "./media/audio_chapter_12.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_13",
-        "title": "Bhagavad Gita - Chapter 13",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_13.mp3",
-        "file": "audio_chapter_13.mp3",
-        "downloadUrl": "./media/audio_chapter_13.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_14",
-        "title": "Bhagavad Gita - Chapter 14",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_14.mp3",
-        "file": "audio_chapter_14.mp3",
-        "downloadUrl": "./media/audio_chapter_14.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_15",
-        "title": "Bhagavad Gita - Chapter 15",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_15.mp3",
-        "file": "audio_chapter_15.mp3",
-        "downloadUrl": "./media/audio_chapter_15.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_16",
-        "title": "Bhagavad Gita - Chapter 16",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_16.mp3",
-        "file": "audio_chapter_16.mp3",
-        "downloadUrl": "./media/audio_chapter_16.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_17",
-        "title": "Bhagavad Gita - Chapter 17",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_17.mp3",
-        "file": "audio_chapter_17.mp3",
-        "downloadUrl": "./media/audio_chapter_17.mp3",
-        "status": "completed"
-      },
-      {
-        "id": "gita_ch_18",
-        "title": "Bhagavad Gita - Chapter 18",
-        "uploader": "Bhagavad Gita",
-        "artist": "Bhagavad Gita",
-        "duration": 1800,
-        "thumbnail": "/api/media/file/gita_cover_logo.png",
-        "url": "./media/audio_chapter_18.mp3",
-        "file": "audio_chapter_18.mp3",
-        "downloadUrl": "./media/audio_chapter_18.mp3",
-        "status": "completed"
-      }
-    ],
-    "thumbnail": "/api/media/file/gita_cover_logo.png",
-    "deleted": true
-  },
-  {
     "id": "manual_1783103292",
     "job_num": 18,
     "title": "Sync Test",
@@ -314,11 +82,11 @@
     "job_num": 3,
     "title": "All Songs",
     "url": "https://www.youtube.com/watch?v=efv3iHUarxY&list=PLcqF0SS4XiHFvtqCcHdDHrKGw_r9aRCak",
-    "timestamp": "2026-07-03T21:52:19.078681",
+    "timestamp": "2026-08-14T19:14:55.229709",
     "total_tracks": 833,
     "completed_tracks": 779,
-    "success_count": 672,
-    "failure_count": 107,
+    "success_count": 779,
+    "failure_count": 0,
     "is_playlist": true,
     "format": "audio",
     "quality": "highest",
@@ -503,8 +271,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:07",
-        "end_time": "18:47:08",
+        "start_time": "19:32:19",
+        "end_time": "19:32:19",
         "error_detail": ""
       },
       {
@@ -545,8 +313,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:25",
-        "end_time": "18:48:26",
+        "start_time": "19:32:45",
+        "end_time": "19:32:45",
         "error_detail": ""
       },
       {
@@ -559,8 +327,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:29",
-        "end_time": "18:48:30",
+        "start_time": "19:32:50",
+        "end_time": "19:32:50",
         "error_detail": ""
       },
       {
@@ -629,8 +397,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:30",
-        "end_time": "18:48:30",
+        "start_time": "19:32:50",
+        "end_time": "19:32:50",
         "error_detail": ""
       },
       {
@@ -671,8 +439,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:18",
-        "end_time": "18:48:18",
+        "start_time": "19:32:44",
+        "end_time": "19:32:45",
         "error_detail": ""
       },
       {
@@ -769,8 +537,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:46:59",
-        "end_time": "18:47:00",
+        "start_time": "19:32:13",
+        "end_time": "19:32:13",
         "error_detail": ""
       },
       {
@@ -811,8 +579,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:48",
-        "end_time": "18:47:49",
+        "start_time": "19:32:39",
+        "end_time": "19:32:39",
         "error_detail": ""
       },
       {
@@ -839,8 +607,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:04",
-        "end_time": "18:47:04",
+        "start_time": "19:32:16",
+        "end_time": "19:32:16",
         "error_detail": ""
       },
       {
@@ -853,8 +621,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:02",
-        "end_time": "18:48:03",
+        "start_time": "19:32:41",
+        "end_time": "19:32:41",
         "error_detail": ""
       },
       {
@@ -1049,8 +817,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:26",
-        "end_time": "18:48:26",
+        "start_time": "19:32:46",
+        "end_time": "19:32:46",
         "error_detail": ""
       },
       {
@@ -1091,8 +859,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:03",
-        "end_time": "18:47:03",
+        "start_time": "19:32:15",
+        "end_time": "19:32:15",
         "error_detail": ""
       },
       {
@@ -1105,8 +873,8 @@
         "status": "completed",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:46:55",
-        "end_time": "18:46:56",
+        "start_time": "19:32:11",
+        "end_time": "19:32:12",
         "error_detail": ""
       },
       {
@@ -1147,8 +915,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:56",
-        "end_time": "18:47:57",
+        "start_time": "19:32:40",
+        "end_time": "19:32:40",
         "error_detail": ""
       },
       {
@@ -1175,8 +943,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:26",
-        "end_time": "18:47:26",
+        "start_time": "19:32:30",
+        "end_time": "19:32:31",
         "error_detail": ""
       },
       {
@@ -1189,8 +957,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:31",
-        "end_time": "18:48:31",
+        "start_time": "19:32:51",
+        "end_time": "19:32:51",
         "error_detail": ""
       },
       {
@@ -1203,8 +971,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:29",
-        "end_time": "18:48:29",
+        "start_time": "19:32:49",
+        "end_time": "19:32:50",
         "error_detail": ""
       },
       {
@@ -1217,8 +985,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:34",
-        "end_time": "18:47:35",
+        "start_time": "19:32:36",
+        "end_time": "19:32:36",
         "error_detail": ""
       },
       {
@@ -1231,8 +999,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:15",
-        "end_time": "18:48:15",
+        "start_time": "19:32:44",
+        "end_time": "19:32:44",
         "error_detail": ""
       },
       {
@@ -1259,8 +1027,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:14",
-        "end_time": "18:48:14",
+        "start_time": "19:32:43",
+        "end_time": "19:32:43",
         "error_detail": ""
       },
       {
@@ -1315,8 +1083,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:29",
-        "end_time": "18:48:29",
+        "start_time": "19:32:48",
+        "end_time": "19:32:48",
         "error_detail": ""
       },
       {
@@ -1357,8 +1125,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:11",
-        "end_time": "18:48:11",
+        "start_time": "19:32:42",
+        "end_time": "19:32:42",
         "error_detail": ""
       },
       {
@@ -1399,8 +1167,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:26",
-        "end_time": "18:48:26",
+        "start_time": "19:32:45",
+        "end_time": "19:32:46",
         "error_detail": ""
       },
       {
@@ -1413,8 +1181,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:27",
-        "end_time": "18:48:27",
+        "start_time": "19:32:47",
+        "end_time": "19:32:47",
         "error_detail": ""
       },
       {
@@ -1441,8 +1209,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:55",
-        "end_time": "18:47:56",
+        "start_time": "19:32:39",
+        "end_time": "19:32:40",
         "error_detail": ""
       },
       {
@@ -1466,12 +1234,12 @@
         "duration": 311,
         "thumbnail": "https://i.ytimg.com/vi/b3ST34JW6dA/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=b3ST34JW6dA",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:41:10",
-        "end_time": "07:41:19",
-        "error_detail": "ERROR: [youtube] b3ST34JW6dA: Video unavailable. This video is not available"
+        "start_time": "19:24:00",
+        "end_time": "19:24:02",
+        "error_detail": ""
       },
       {
         "id": "6XP-f7wPM0A",
@@ -1567,8 +1335,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:46:56",
-        "end_time": "18:46:57",
+        "start_time": "19:32:12",
+        "end_time": "19:32:12",
         "error_detail": ""
       },
       {
@@ -1581,8 +1349,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:27",
-        "end_time": "18:47:27",
+        "start_time": "19:32:34",
+        "end_time": "19:32:34",
         "error_detail": ""
       },
       {
@@ -1805,8 +1573,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:27",
-        "end_time": "18:47:27",
+        "start_time": "19:32:34",
+        "end_time": "19:32:35",
         "error_detail": ""
       },
       {
@@ -1875,8 +1643,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:31",
-        "end_time": "18:48:32",
+        "start_time": "19:32:51",
+        "end_time": "19:32:52",
         "error_detail": ""
       },
       {
@@ -2096,12 +1864,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/Re5h3EetEjw/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=Re5h3EetEjw",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:25:45",
-        "end_time": "07:25:52",
-        "error_detail": "ERROR: [youtube] Re5h3EetEjw: Private video. Sign in if you've been granted access to this video. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies"
+        "start_time": "19:14:57",
+        "end_time": "19:14:58",
+        "error_detail": ""
       },
       {
         "id": "PszSx4HvKAA",
@@ -2141,8 +1909,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:15",
-        "end_time": "18:48:15",
+        "start_time": "19:32:43",
+        "end_time": "19:32:43",
         "error_detail": ""
       },
       {
@@ -2211,8 +1979,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:31",
-        "end_time": "18:48:31",
+        "start_time": "19:32:51",
+        "end_time": "19:32:51",
         "error_detail": ""
       },
       {
@@ -2236,12 +2004,12 @@
         "duration": 272,
         "thumbnail": "https://i.ytimg.com/vi/JUqBtghZpg4/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=JUqBtghZpg4",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:34:22",
-        "end_time": "07:34:31",
-        "error_detail": "ERROR: [youtube] JUqBtghZpg4: Video unavailable. This video is not available"
+        "start_time": "19:22:24",
+        "end_time": "19:22:26",
+        "error_detail": ""
       },
       {
         "id": "oWpZJV5AU-s",
@@ -2267,8 +2035,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:08",
-        "end_time": "18:47:08",
+        "start_time": "19:32:19",
+        "end_time": "19:32:19",
         "error_detail": ""
       },
       {
@@ -2295,8 +2063,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:46:59",
-        "end_time": "18:46:59",
+        "start_time": "19:32:12",
+        "end_time": "19:32:13",
         "error_detail": ""
       },
       {
@@ -2404,12 +2172,12 @@
         "duration": 366,
         "thumbnail": "https://i.ytimg.com/vi/kzeU8K8t6ps/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=kzeU8K8t6ps",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:45:44",
-        "end_time": "07:45:54",
-        "error_detail": "ERROR: [youtube] kzeU8K8t6ps: Video unavailable. This video is not available"
+        "start_time": "19:24:46",
+        "end_time": "19:24:48",
+        "error_detail": ""
       },
       {
         "id": "_sKpiNN6ldM",
@@ -2418,12 +2186,12 @@
         "duration": 200,
         "thumbnail": "https://i.ytimg.com/vi/_sKpiNN6ldM/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=_sKpiNN6ldM",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:29:31",
-        "end_time": "07:29:41",
-        "error_detail": "ERROR: [youtube] _sKpiNN6ldM: Video unavailable. This video is not available"
+        "start_time": "19:21:21",
+        "end_time": "19:21:22",
+        "error_detail": ""
       },
       {
         "id": "IRfDCN84zGo",
@@ -2432,12 +2200,12 @@
         "duration": 183,
         "thumbnail": "https://i.ytimg.com/vi/IRfDCN84zGo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=IRfDCN84zGo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:27:53",
-        "end_time": "07:28:02",
-        "error_detail": "ERROR: [youtube] IRfDCN84zGo: Video unavailable. This video is not available"
+        "start_time": "19:15:23",
+        "end_time": "19:15:25",
+        "error_detail": ""
       },
       {
         "id": "MXowBwfO3C4",
@@ -2446,12 +2214,12 @@
         "duration": 200,
         "thumbnail": "https://i.ytimg.com/vi/MXowBwfO3C4/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=MXowBwfO3C4",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:29:42",
-        "end_time": "07:29:51",
-        "error_detail": "ERROR: [youtube] MXowBwfO3C4: Video unavailable. This video is not available"
+        "start_time": "19:21:23",
+        "end_time": "19:21:25",
+        "error_detail": ""
       },
       {
         "id": "s9njfa4s3Kk",
@@ -2460,12 +2228,12 @@
         "duration": 195,
         "thumbnail": "https://i.ytimg.com/vi/s9njfa4s3Kk/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=s9njfa4s3Kk",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:28:50",
-        "end_time": "07:29:00",
-        "error_detail": "ERROR: [youtube] s9njfa4s3Kk: Video unavailable. This video is not available"
+        "start_time": "19:15:40",
+        "end_time": "19:15:43",
+        "error_detail": ""
       },
       {
         "id": "v8OSafjvYmM",
@@ -2645,8 +2413,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:26",
-        "end_time": "18:47:27",
+        "start_time": "19:32:31",
+        "end_time": "19:32:33",
         "error_detail": ""
       },
       {
@@ -2841,8 +2609,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:26",
-        "end_time": "18:47:26",
+        "start_time": "19:32:29",
+        "end_time": "19:32:29",
         "error_detail": ""
       },
       {
@@ -2964,12 +2732,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/t9KTRkc1YuY/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=t9KTRkc1YuY",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:26:00",
-        "end_time": "07:26:08",
-        "error_detail": "ERROR: [youtube] t9KTRkc1YuY: Video unavailable. This video is no longer available because the YouTube account associated with this video has been terminated."
+        "start_time": "19:15:00",
+        "end_time": "19:15:01",
+        "error_detail": ""
       },
       {
         "id": "bmA3UQf6X_Q",
@@ -3006,12 +2774,12 @@
         "duration": 289,
         "thumbnail": "https://i.ytimg.com/vi/6yIKOlbYldo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=6yIKOlbYldo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:38:02",
-        "end_time": "07:38:12",
-        "error_detail": "ERROR: [youtube] 6yIKOlbYldo: Video unavailable. This video is not available"
+        "start_time": "19:23:19",
+        "end_time": "19:23:21",
+        "error_detail": ""
       },
       {
         "id": "L_WJn8OyzMY",
@@ -3051,8 +2819,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:48:07",
-        "end_time": "18:48:09",
+        "start_time": "19:32:41",
+        "end_time": "19:32:42",
         "error_detail": ""
       },
       {
@@ -3146,12 +2914,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/GLHIBwGnCLo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=GLHIBwGnCLo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:26:08",
-        "end_time": "07:26:16",
-        "error_detail": "ERROR: [youtube] GLHIBwGnCLo: This video has been removed for violating YouTube's Terms of Service"
+        "start_time": "19:15:01",
+        "end_time": "19:15:02",
+        "error_detail": ""
       },
       {
         "id": "mMvmAwnMBDk",
@@ -3216,12 +2984,12 @@
         "duration": 345,
         "thumbnail": "https://i.ytimg.com/vi/UhXPODsMwww/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=UhXPODsMwww",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:44:46",
-        "end_time": "07:44:55",
-        "error_detail": "ERROR: [youtube] UhXPODsMwww: Video unavailable. This video is not available"
+        "start_time": "19:24:33",
+        "end_time": "19:24:36",
+        "error_detail": ""
       },
       {
         "id": "b18nMMQ2i7U",
@@ -3412,12 +3180,12 @@
         "duration": 246,
         "thumbnail": "https://i.ytimg.com/vi/yiIYjyIuoGA/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=yiIYjyIuoGA",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:31:05",
-        "end_time": "07:31:14",
-        "error_detail": "ERROR: [youtube] yiIYjyIuoGA: Video unavailable. This video is not available"
+        "start_time": "19:21:42",
+        "end_time": "19:21:44",
+        "error_detail": ""
       },
       {
         "id": "re88S-5fpmA",
@@ -3569,8 +3337,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:28",
-        "end_time": "18:47:28",
+        "start_time": "19:32:35",
+        "end_time": "19:32:35",
         "error_detail": ""
       },
       {
@@ -3608,12 +3376,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/kKzA3MkfJV0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=kKzA3MkfJV0",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:26:24",
-        "end_time": "07:26:32",
-        "error_detail": "ERROR: [youtube] kKzA3MkfJV0: Private video. Sign in if you've been granted access to this video. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies"
+        "start_time": "19:15:04",
+        "end_time": "19:15:05",
+        "error_detail": ""
       },
       {
         "id": "Z_MvLsx1fOY",
@@ -3653,8 +3421,8 @@
         "status": "completed",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:23",
-        "end_time": "18:47:26",
+        "start_time": "19:32:24",
+        "end_time": "19:32:27",
         "error_detail": ""
       },
       {
@@ -3695,8 +3463,8 @@
         "status": "completed",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:21",
-        "end_time": "18:47:23",
+        "start_time": "19:32:21",
+        "end_time": "19:32:23",
         "error_detail": ""
       },
       {
@@ -3765,8 +3533,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:04",
-        "end_time": "18:47:05",
+        "start_time": "19:32:16",
+        "end_time": "19:32:17",
         "error_detail": ""
       },
       {
@@ -4322,12 +4090,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/MXNnp21YPM8/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=MXNnp21YPM8",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:26:32",
-        "end_time": "07:26:40",
-        "error_detail": "ERROR: [youtube] MXNnp21YPM8: This video has been removed for violating YouTube's Terms of Service"
+        "start_time": "19:15:05",
+        "end_time": "19:15:07",
+        "error_detail": ""
       },
       {
         "id": "UPULV1QBpNQ",
@@ -4980,12 +4748,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/Dk_jUGRFYz0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=Dk_jUGRFYz0",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:26:40",
-        "end_time": "07:26:48",
-        "error_detail": "ERROR: [youtube] Dk_jUGRFYz0: Private video. Sign in if you've been granted access to this video. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies"
+        "start_time": "19:15:07",
+        "end_time": "19:15:08",
+        "error_detail": ""
       },
       {
         "id": "BgqW3Gy-2hM",
@@ -5092,12 +4860,12 @@
         "duration": 293,
         "thumbnail": "https://i.ytimg.com/vi/odSxFfPGlHk/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=odSxFfPGlHk",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:38:50",
-        "end_time": "07:38:59",
-        "error_detail": "ERROR: [youtube] odSxFfPGlHk: Video unavailable. This video is not available"
+        "start_time": "19:23:28",
+        "end_time": "19:23:30",
+        "error_detail": ""
       },
       {
         "id": "X-k8JmfCulk",
@@ -5288,12 +5056,12 @@
         "duration": 250,
         "thumbnail": "https://i.ytimg.com/vi/PUIeXpTTwRo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=PUIeXpTTwRo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:31:37",
-        "end_time": "07:31:47",
-        "error_detail": "ERROR: [youtube] PUIeXpTTwRo: Video unavailable. This video is not available"
+        "start_time": "19:21:50",
+        "end_time": "19:21:52",
+        "error_detail": ""
       },
       {
         "id": "tIi-j2JzZEA",
@@ -5319,8 +5087,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:00",
-        "end_time": "18:47:00",
+        "start_time": "19:32:14",
+        "end_time": "19:32:14",
         "error_detail": ""
       },
       {
@@ -5568,12 +5336,12 @@
         "duration": 273,
         "thumbnail": "https://i.ytimg.com/vi/ecRhNLEyA5Y/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=ecRhNLEyA5Y",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:34:32",
-        "end_time": "07:34:41",
-        "error_detail": "ERROR: [youtube] ecRhNLEyA5Y: Video unavailable. This video is not available"
+        "start_time": "19:22:27",
+        "end_time": "19:22:29",
+        "error_detail": ""
       },
       {
         "id": "L28WAfbvGlQ",
@@ -5582,12 +5350,12 @@
         "duration": 367,
         "thumbnail": "https://i.ytimg.com/vi/L28WAfbvGlQ/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=L28WAfbvGlQ",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:46:04",
-        "end_time": "07:46:14",
-        "error_detail": "ERROR: [youtube] L28WAfbvGlQ: Video unavailable. This video is not available"
+        "start_time": "19:24:49",
+        "end_time": "19:24:51",
+        "error_detail": ""
       },
       {
         "id": "PQFUNoXvwI8",
@@ -5596,12 +5364,12 @@
         "duration": 286,
         "thumbnail": "https://i.ytimg.com/vi/PQFUNoXvwI8/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=PQFUNoXvwI8",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:37:24",
-        "end_time": "07:37:33",
-        "error_detail": "ERROR: [youtube] PQFUNoXvwI8: Video unavailable. This video is not available"
+        "start_time": "19:23:07",
+        "end_time": "19:23:09",
+        "error_detail": ""
       },
       {
         "id": "r4_Ob3MxXd0",
@@ -5610,12 +5378,12 @@
         "duration": 266,
         "thumbnail": "https://i.ytimg.com/vi/r4_Ob3MxXd0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=r4_Ob3MxXd0",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:32:47",
-        "end_time": "07:32:57",
-        "error_detail": "ERROR: [youtube] r4_Ob3MxXd0: Video unavailable. This video is not available"
+        "start_time": "19:22:06",
+        "end_time": "19:22:08",
+        "error_detail": ""
       },
       {
         "id": "Jr36SXKfCBo",
@@ -5624,12 +5392,12 @@
         "duration": 306,
         "thumbnail": "https://i.ytimg.com/vi/Jr36SXKfCBo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=Jr36SXKfCBo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:40:30",
-        "end_time": "07:40:40",
-        "error_detail": "ERROR: [youtube] Jr36SXKfCBo: Video unavailable. This video is not available"
+        "start_time": "19:23:51",
+        "end_time": "19:23:53",
+        "error_detail": ""
       },
       {
         "id": "Mays_Z5vw9A",
@@ -5666,12 +5434,12 @@
         "duration": 240,
         "thumbnail": "https://i.ytimg.com/vi/ouHydmJq2z4/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=ouHydmJq2z4",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:30:55",
-        "end_time": "07:31:04",
-        "error_detail": "ERROR: [youtube] ouHydmJq2z4: Video unavailable. This video is not available"
+        "start_time": "19:21:39",
+        "end_time": "19:21:41",
+        "error_detail": ""
       },
       {
         "id": "QLb9JvQL87M",
@@ -5764,12 +5532,12 @@
         "duration": 454,
         "thumbnail": "https://i.ytimg.com/vi/-ClgVjnEVS0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=-ClgVjnEVS0",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:47:18",
-        "end_time": "07:47:27",
-        "error_detail": "ERROR: [youtube] -ClgVjnEVS0: Video unavailable. This video is not available"
+        "start_time": "19:25:00",
+        "end_time": "19:25:02",
+        "error_detail": ""
       },
       {
         "id": "eKVdc_RGo0o",
@@ -5778,12 +5546,12 @@
         "duration": 52,
         "thumbnail": "https://i.ytimg.com/vi/eKVdc_RGo0o/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=eKVdc_RGo0o",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:27:05",
-        "end_time": "07:27:14",
-        "error_detail": "ERROR: [youtube] eKVdc_RGo0o: Video unavailable. This video is not available"
+        "start_time": "19:15:12",
+        "end_time": "19:15:14",
+        "error_detail": ""
       },
       {
         "id": "59gXY7OhTF0",
@@ -5792,12 +5560,12 @@
         "duration": 46,
         "thumbnail": "https://i.ytimg.com/vi/59gXY7OhTF0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=59gXY7OhTF0",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:26:56",
-        "end_time": "07:27:05",
-        "error_detail": "ERROR: [youtube] 59gXY7OhTF0: Video unavailable. This video is not available"
+        "start_time": "19:15:10",
+        "end_time": "19:15:12",
+        "error_detail": ""
       },
       {
         "id": "A8mcIJ2KiO4",
@@ -5806,12 +5574,12 @@
         "duration": 195,
         "thumbnail": "https://i.ytimg.com/vi/A8mcIJ2KiO4/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=A8mcIJ2KiO4",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:29:00",
-        "end_time": "07:29:09",
-        "error_detail": "ERROR: [youtube] A8mcIJ2KiO4: Video unavailable. This video is not available"
+        "start_time": "19:21:13",
+        "end_time": "19:21:15",
+        "error_detail": ""
       },
       {
         "id": "r5HT-FD4yTA",
@@ -5820,12 +5588,12 @@
         "duration": 237,
         "thumbnail": "https://i.ytimg.com/vi/r5HT-FD4yTA/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=r5HT-FD4yTA",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:30:45",
-        "end_time": "07:30:53",
-        "error_detail": "ERROR: [youtube] r5HT-FD4yTA: Video unavailable. This video is not available"
+        "start_time": "19:21:36",
+        "end_time": "19:21:38",
+        "error_detail": ""
       },
       {
         "id": "y9O8LTCgbgs",
@@ -5851,8 +5619,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:15",
-        "end_time": "18:47:16",
+        "start_time": "19:32:21",
+        "end_time": "19:32:21",
         "error_detail": ""
       },
       {
@@ -5904,12 +5672,12 @@
         "duration": 247,
         "thumbnail": "https://i.ytimg.com/vi/GTK7bLjJy1w/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=GTK7bLjJy1w",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:31:17",
-        "end_time": "07:31:26",
-        "error_detail": "ERROR: [youtube] GTK7bLjJy1w: Video unavailable. This video is not available"
+        "start_time": "19:21:46",
+        "end_time": "19:21:48",
+        "error_detail": ""
       },
       {
         "id": "xmFzMmwlHEA",
@@ -5946,12 +5714,12 @@
         "duration": 305,
         "thumbnail": "https://i.ytimg.com/vi/CDvSrqIE3dI/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=CDvSrqIE3dI",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:40:11",
-        "end_time": "07:40:20",
-        "error_detail": "ERROR: [youtube] CDvSrqIE3dI: Video unavailable. This video is not available"
+        "start_time": "19:23:47",
+        "end_time": "19:23:49",
+        "error_detail": ""
       },
       {
         "id": "xmFzMmwlHEA",
@@ -6086,12 +5854,12 @@
         "duration": 337,
         "thumbnail": "https://i.ytimg.com/vi/i6FURSbfDwU/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=i6FURSbfDwU",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:44:26",
-        "end_time": "07:44:36",
-        "error_detail": "ERROR: [youtube] i6FURSbfDwU: Video unavailable. This video is not available"
+        "start_time": "19:24:31",
+        "end_time": "19:24:33",
+        "error_detail": ""
       },
       {
         "id": "KhPEx3V6USs",
@@ -6100,12 +5868,12 @@
         "duration": 312,
         "thumbnail": "https://i.ytimg.com/vi/KhPEx3V6USs/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=KhPEx3V6USs",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:42:11",
-        "end_time": "07:42:20",
-        "error_detail": "ERROR: [youtube] KhPEx3V6USs: Video unavailable. This video is not available"
+        "start_time": "19:24:07",
+        "end_time": "19:24:09",
+        "error_detail": ""
       },
       {
         "id": "1Imy7f8h3zg",
@@ -6380,12 +6148,12 @@
         "duration": 271,
         "thumbnail": "https://i.ytimg.com/vi/-PApfvAv0AA/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=-PApfvAv0AA",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:34:01",
-        "end_time": "07:34:11",
-        "error_detail": "ERROR: [youtube] -PApfvAv0AA: Video unavailable. This video is not available"
+        "start_time": "19:22:20",
+        "end_time": "19:22:22",
+        "error_detail": ""
       },
       {
         "id": "bVYmbY3p_7c",
@@ -6408,12 +6176,12 @@
         "duration": 292,
         "thumbnail": "https://i.ytimg.com/vi/lbEK0H9sg9Q/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=lbEK0H9sg9Q",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:38:21",
-        "end_time": "07:38:30",
-        "error_detail": "ERROR: [youtube] lbEK0H9sg9Q: Video unavailable. This video is not available"
+        "start_time": "19:23:23",
+        "end_time": "19:23:26",
+        "error_detail": ""
       },
       {
         "id": "2UA41YP4TW0",
@@ -6467,8 +6235,8 @@
         "status": "completed",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:47:38",
-        "end_time": "18:47:40",
+        "start_time": "19:32:36",
+        "end_time": "19:32:39",
         "error_detail": ""
       },
       {
@@ -6478,12 +6246,12 @@
         "duration": 394,
         "thumbnail": "https://i.ytimg.com/vi/dUD5YA2Wh5g/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=dUD5YA2Wh5g",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:46:15",
-        "end_time": "07:46:24",
-        "error_detail": "ERROR: [youtube] dUD5YA2Wh5g: Video unavailable. This video is not available"
+        "start_time": "19:24:52",
+        "end_time": "19:24:54",
+        "error_detail": ""
       },
       {
         "id": "ZA9aeDWzK2A",
@@ -6492,12 +6260,12 @@
         "duration": 247,
         "thumbnail": "https://i.ytimg.com/vi/ZA9aeDWzK2A/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=ZA9aeDWzK2A",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:31:27",
-        "end_time": "07:31:36",
-        "error_detail": "ERROR: [youtube] ZA9aeDWzK2A: Video unavailable. This video is not available"
+        "start_time": "19:21:48",
+        "end_time": "19:21:50",
+        "error_detail": ""
       },
       {
         "id": "hJa9BS_JBG0",
@@ -6660,12 +6428,12 @@
         "duration": 271,
         "thumbnail": "https://i.ytimg.com/vi/5cSpCUDC7R0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=5cSpCUDC7R0",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:34:12",
-        "end_time": "07:34:21",
-        "error_detail": "ERROR: [youtube] 5cSpCUDC7R0: Video unavailable. This video is not available"
+        "start_time": "19:22:22",
+        "end_time": "19:22:24",
+        "error_detail": ""
       },
       {
         "id": "0rQaQ2m5kUQ",
@@ -6674,12 +6442,12 @@
         "duration": 311,
         "thumbnail": "https://i.ytimg.com/vi/0rQaQ2m5kUQ/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=0rQaQ2m5kUQ",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:41:31",
-        "end_time": "07:41:40",
-        "error_detail": "ERROR: [youtube] 0rQaQ2m5kUQ: Video unavailable. This video is not available"
+        "start_time": "19:24:03",
+        "end_time": "19:24:05",
+        "error_detail": ""
       },
       {
         "id": "UDM3e6QDd_4",
@@ -6982,12 +6750,12 @@
         "duration": 252,
         "thumbnail": "https://i.ytimg.com/vi/rJ_3pVACVC4/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=rJ_3pVACVC4",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:31:47",
-        "end_time": "07:31:57",
-        "error_detail": "ERROR: [youtube] rJ_3pVACVC4: Video unavailable. This video is not available"
+        "start_time": "19:21:53",
+        "end_time": "19:21:55",
+        "error_detail": ""
       },
       {
         "id": "gJy-0vLoqPA",
@@ -6996,12 +6764,12 @@
         "duration": 290,
         "thumbnail": "https://i.ytimg.com/vi/gJy-0vLoqPA/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=gJy-0vLoqPA",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:38:12",
-        "end_time": "07:38:21",
-        "error_detail": "ERROR: [youtube] gJy-0vLoqPA: Video unavailable. This video is not available"
+        "start_time": "19:23:21",
+        "end_time": "19:23:23",
+        "error_detail": ""
       },
       {
         "id": "Y_wWJFm9Jt4",
@@ -7010,12 +6778,12 @@
         "duration": 282,
         "thumbnail": "https://i.ytimg.com/vi/Y_wWJFm9Jt4/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=Y_wWJFm9Jt4",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:36:44",
-        "end_time": "07:36:53",
-        "error_detail": "ERROR: [youtube] Y_wWJFm9Jt4: Video unavailable. This video is not available"
+        "start_time": "19:22:55",
+        "end_time": "19:22:57",
+        "error_detail": ""
       },
       {
         "id": "rDsg0DeV9Eo",
@@ -7024,12 +6792,12 @@
         "duration": 273,
         "thumbnail": "https://i.ytimg.com/vi/rDsg0DeV9Eo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=rDsg0DeV9Eo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:34:42",
-        "end_time": "07:34:51",
-        "error_detail": "ERROR: [youtube] rDsg0DeV9Eo: Video unavailable. This video is not available"
+        "start_time": "19:22:29",
+        "end_time": "19:22:31",
+        "error_detail": ""
       },
       {
         "id": "cHFrpqUR6hU",
@@ -7038,12 +6806,12 @@
         "duration": 305,
         "thumbnail": "https://i.ytimg.com/vi/cHFrpqUR6hU/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=cHFrpqUR6hU",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:40:20",
-        "end_time": "07:40:30",
-        "error_detail": "ERROR: [youtube] cHFrpqUR6hU: Video unavailable. This video is not available"
+        "start_time": "19:23:49",
+        "end_time": "19:23:51",
+        "error_detail": ""
       },
       {
         "id": "n1K-iNdrXCo",
@@ -7052,12 +6820,12 @@
         "duration": 297,
         "thumbnail": "https://i.ytimg.com/vi/n1K-iNdrXCo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=n1K-iNdrXCo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:39:20",
-        "end_time": "07:39:29",
-        "error_detail": "ERROR: [youtube] n1K-iNdrXCo: Video unavailable. This video is not available"
+        "start_time": "19:23:35",
+        "end_time": "19:23:37",
+        "error_detail": ""
       },
       {
         "id": "d3otc4j-QgU",
@@ -7066,12 +6834,12 @@
         "duration": 315,
         "thumbnail": "https://i.ytimg.com/vi/d3otc4j-QgU/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=d3otc4j-QgU",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:42:50",
-        "end_time": "07:42:59",
-        "error_detail": "ERROR: [youtube] d3otc4j-QgU: Video unavailable. This video is not available"
+        "start_time": "19:24:16",
+        "end_time": "19:24:18",
+        "error_detail": ""
       },
       {
         "id": "KQUS-phhM0Y",
@@ -8130,12 +7898,12 @@
         "duration": 283,
         "thumbnail": "https://i.ytimg.com/vi/Lr2L4yZh7mk/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=Lr2L4yZh7mk",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:37:03",
-        "end_time": "07:37:13",
-        "error_detail": "ERROR: [youtube] Lr2L4yZh7mk: Video unavailable. This video is not available"
+        "start_time": "19:23:02",
+        "end_time": "19:23:05",
+        "error_detail": ""
       },
       {
         "id": "n-BcNx6JsRo",
@@ -8144,12 +7912,12 @@
         "duration": 316,
         "thumbnail": "https://i.ytimg.com/vi/n-BcNx6JsRo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=n-BcNx6JsRo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:42:59",
-        "end_time": "07:43:08",
-        "error_detail": "ERROR: [youtube] n-BcNx6JsRo: Video unavailable. This video is not available"
+        "start_time": "19:24:18",
+        "end_time": "19:24:20",
+        "error_detail": ""
       },
       {
         "id": "ABRjuAVzvGM",
@@ -8158,12 +7926,12 @@
         "duration": 359,
         "thumbnail": "https://i.ytimg.com/vi/ABRjuAVzvGM/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=ABRjuAVzvGM",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:45:15",
-        "end_time": "07:45:25",
-        "error_detail": "ERROR: [youtube] ABRjuAVzvGM: Video unavailable. This video is not available"
+        "start_time": "19:24:40",
+        "end_time": "19:24:42",
+        "error_detail": ""
       },
       {
         "id": "LCIeNUYZsUs",
@@ -8172,12 +7940,12 @@
         "duration": 362,
         "thumbnail": "https://i.ytimg.com/vi/LCIeNUYZsUs/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=LCIeNUYZsUs",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:45:25",
-        "end_time": "07:45:34",
-        "error_detail": "ERROR: [youtube] LCIeNUYZsUs: Video unavailable. This video is not available"
+        "start_time": "19:24:42",
+        "end_time": "19:24:44",
+        "error_detail": ""
       },
       {
         "id": "o4pWBJp0cpw",
@@ -8186,12 +7954,12 @@
         "duration": 313,
         "thumbnail": "https://i.ytimg.com/vi/o4pWBJp0cpw/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=o4pWBJp0cpw",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:42:31",
-        "end_time": "07:42:40",
-        "error_detail": "ERROR: [youtube] o4pWBJp0cpw: Video unavailable. This video is not available"
+        "start_time": "19:24:11",
+        "end_time": "19:24:13",
+        "error_detail": ""
       },
       {
         "id": "tPc6r06Hu_Q",
@@ -9180,12 +8948,12 @@
         "duration": 282,
         "thumbnail": "https://i.ytimg.com/vi/Rqct4PhQedU/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=Rqct4PhQedU",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:36:54",
-        "end_time": "07:37:03",
-        "error_detail": "ERROR: [youtube] Rqct4PhQedU: Video unavailable. This video is not available"
+        "start_time": "19:22:58",
+        "end_time": "19:23:02",
+        "error_detail": ""
       },
       {
         "id": "jBg_ywFAohw",
@@ -9194,12 +8962,12 @@
         "duration": 363,
         "thumbnail": "https://i.ytimg.com/vi/jBg_ywFAohw/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=jBg_ywFAohw",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:45:34",
-        "end_time": "07:45:44",
-        "error_detail": "ERROR: [youtube] jBg_ywFAohw: Video unavailable. This video is not available"
+        "start_time": "19:24:44",
+        "end_time": "19:24:46",
+        "error_detail": ""
       },
       {
         "id": "GQm50iLDXkg",
@@ -9208,12 +8976,12 @@
         "duration": 186,
         "thumbnail": "https://i.ytimg.com/vi/GQm50iLDXkg/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=GQm50iLDXkg",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:28:02",
-        "end_time": "07:28:11",
-        "error_detail": "ERROR: [youtube] GQm50iLDXkg: Video unavailable. This video is not available"
+        "start_time": "19:15:26",
+        "end_time": "19:15:28",
+        "error_detail": ""
       },
       {
         "id": "grkU5QwWdb8",
@@ -9222,12 +8990,12 @@
         "duration": 323,
         "thumbnail": "https://i.ytimg.com/vi/grkU5QwWdb8/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=grkU5QwWdb8",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:43:19",
-        "end_time": "07:43:29",
-        "error_detail": "ERROR: [youtube] grkU5QwWdb8: Video unavailable. This video is not available"
+        "start_time": "19:24:21",
+        "end_time": "19:24:23",
+        "error_detail": ""
       },
       {
         "id": "wg3e9csg5sU",
@@ -9236,12 +9004,12 @@
         "duration": 264,
         "thumbnail": "https://i.ytimg.com/vi/wg3e9csg5sU/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=wg3e9csg5sU",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:32:37",
-        "end_time": "07:32:47",
-        "error_detail": "ERROR: [youtube] wg3e9csg5sU: Video unavailable. This video is not available"
+        "start_time": "19:22:04",
+        "end_time": "19:22:06",
+        "error_detail": ""
       },
       {
         "id": "Qra0uBTS4xo",
@@ -9250,12 +9018,12 @@
         "duration": 297,
         "thumbnail": "https://i.ytimg.com/vi/Qra0uBTS4xo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=Qra0uBTS4xo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:39:30",
-        "end_time": "07:39:39",
-        "error_detail": "ERROR: [youtube] Qra0uBTS4xo: Video unavailable. This video is not available"
+        "start_time": "19:23:37",
+        "end_time": "19:23:40",
+        "error_detail": ""
       },
       {
         "id": "-8lgKs-GLWg",
@@ -9264,12 +9032,12 @@
         "duration": 269,
         "thumbnail": "https://i.ytimg.com/vi/-8lgKs-GLWg/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=-8lgKs-GLWg",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:33:51",
-        "end_time": "07:34:01",
-        "error_detail": "ERROR: [youtube] -8lgKs-GLWg: Video unavailable. This video is not available"
+        "start_time": "19:22:18",
+        "end_time": "19:22:19",
+        "error_detail": ""
       },
       {
         "id": "OXjBIzCMFV4",
@@ -9278,12 +9046,12 @@
         "duration": 292,
         "thumbnail": "https://i.ytimg.com/vi/OXjBIzCMFV4/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=OXjBIzCMFV4",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:38:31",
-        "end_time": "07:38:39",
-        "error_detail": "ERROR: [youtube] OXjBIzCMFV4: Video unavailable. This video is not available"
+        "start_time": "19:23:26",
+        "end_time": "19:23:28",
+        "error_detail": ""
       },
       {
         "id": "7CtG2aHmoAI",
@@ -9292,12 +9060,12 @@
         "duration": 280,
         "thumbnail": "https://i.ytimg.com/vi/7CtG2aHmoAI/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=7CtG2aHmoAI",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:36:04",
-        "end_time": "07:36:13",
-        "error_detail": "ERROR: [youtube] 7CtG2aHmoAI: Video unavailable. This video is not available"
+        "start_time": "19:22:41",
+        "end_time": "19:22:43",
+        "error_detail": ""
       },
       {
         "id": "gI6jz8RIZ3c",
@@ -9306,12 +9074,12 @@
         "duration": 267,
         "thumbnail": "https://i.ytimg.com/vi/gI6jz8RIZ3c/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=gI6jz8RIZ3c",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:33:18",
-        "end_time": "07:33:28",
-        "error_detail": "ERROR: [youtube] gI6jz8RIZ3c: Video unavailable. This video is not available"
+        "start_time": "19:22:14",
+        "end_time": "19:22:15",
+        "error_detail": ""
       },
       {
         "id": "NFADCq_qWik",
@@ -9474,12 +9242,12 @@
         "duration": 228,
         "thumbnail": "https://i.ytimg.com/vi/D1J6aHhETyo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=D1J6aHhETyo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:30:33",
-        "end_time": "07:30:43",
-        "error_detail": "ERROR: [youtube] D1J6aHhETyo: Video unavailable. This video is not available"
+        "start_time": "19:21:32",
+        "end_time": "19:21:34",
+        "error_detail": ""
       },
       {
         "id": "hAP_vFmCLx0",
@@ -9488,12 +9256,12 @@
         "duration": 100,
         "thumbnail": "https://i.ytimg.com/vi/hAP_vFmCLx0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=hAP_vFmCLx0",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:27:15",
-        "end_time": "07:27:24",
-        "error_detail": "ERROR: [youtube] hAP_vFmCLx0: Video unavailable. This video is not available"
+        "start_time": "19:15:16",
+        "end_time": "19:15:18",
+        "error_detail": ""
       },
       {
         "id": "f838DdWmndw",
@@ -9502,12 +9270,12 @@
         "duration": 327,
         "thumbnail": "https://i.ytimg.com/vi/f838DdWmndw/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=f838DdWmndw",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:43:58",
-        "end_time": "07:44:07",
-        "error_detail": "ERROR: [youtube] f838DdWmndw: Video unavailable. This video is not available"
+        "start_time": "19:24:25",
+        "end_time": "19:24:27",
+        "error_detail": ""
       },
       {
         "id": "2F3E82Wmx5s",
@@ -9516,12 +9284,12 @@
         "duration": 196,
         "thumbnail": "https://i.ytimg.com/vi/2F3E82Wmx5s/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=2F3E82Wmx5s",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:29:10",
-        "end_time": "07:29:19",
-        "error_detail": "ERROR: [youtube] 2F3E82Wmx5s: Video unavailable. This video is not available"
+        "start_time": "19:21:16",
+        "end_time": "19:21:18",
+        "error_detail": ""
       },
       {
         "id": "CjXlYFzMBcU",
@@ -9530,12 +9298,12 @@
         "duration": 258,
         "thumbnail": "https://i.ytimg.com/vi/CjXlYFzMBcU/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=CjXlYFzMBcU",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:32:16",
-        "end_time": "07:32:25",
-        "error_detail": "ERROR: [youtube] CjXlYFzMBcU: Video unavailable. This video is not available"
+        "start_time": "19:22:00",
+        "end_time": "19:22:02",
+        "error_detail": ""
       },
       {
         "id": "oB1-cFFSacQ",
@@ -9544,12 +9312,12 @@
         "duration": 215,
         "thumbnail": "https://i.ytimg.com/vi/oB1-cFFSacQ/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=oB1-cFFSacQ",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:29:53",
-        "end_time": "07:30:02",
-        "error_detail": "ERROR: [youtube] oB1-cFFSacQ: Video unavailable. This video is not available"
+        "start_time": "19:21:26",
+        "end_time": "19:21:28",
+        "error_detail": ""
       },
       {
         "id": "UCAMUBsykqo",
@@ -9558,12 +9326,12 @@
         "duration": 190,
         "thumbnail": "https://i.ytimg.com/vi/UCAMUBsykqo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=UCAMUBsykqo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:28:11",
-        "end_time": "07:28:20",
-        "error_detail": "ERROR: [youtube] UCAMUBsykqo: Video unavailable. This video is not available"
+        "start_time": "19:15:28",
+        "end_time": "19:15:32",
+        "error_detail": ""
       },
       {
         "id": "9EVnaRmGBdE",
@@ -9572,12 +9340,12 @@
         "duration": 192,
         "thumbnail": "https://i.ytimg.com/vi/9EVnaRmGBdE/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=9EVnaRmGBdE",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:28:30",
-        "end_time": "07:28:40",
-        "error_detail": "ERROR: [youtube] 9EVnaRmGBdE: Video unavailable. This video is not available"
+        "start_time": "19:15:35",
+        "end_time": "19:15:37",
+        "error_detail": ""
       },
       {
         "id": "eBi4zilItD0",
@@ -9586,12 +9354,12 @@
         "duration": 295,
         "thumbnail": "https://i.ytimg.com/vi/eBi4zilItD0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=eBi4zilItD0",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:39:09",
-        "end_time": "07:39:19",
-        "error_detail": "ERROR: [youtube] eBi4zilItD0: Video unavailable. This video is not available"
+        "start_time": "19:23:32",
+        "end_time": "19:23:34",
+        "error_detail": ""
       },
       {
         "id": "fhcz8MjYYII",
@@ -9600,12 +9368,12 @@
         "duration": 304,
         "thumbnail": "https://i.ytimg.com/vi/fhcz8MjYYII/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=fhcz8MjYYII",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:40:01",
-        "end_time": "07:40:11",
-        "error_detail": "ERROR: [youtube] fhcz8MjYYII: Video unavailable. This video is not available"
+        "start_time": "19:23:44",
+        "end_time": "19:23:47",
+        "error_detail": ""
       },
       {
         "id": "3PPCT_cYVKA",
@@ -9614,12 +9382,12 @@
         "duration": 309,
         "thumbnail": "https://i.ytimg.com/vi/3PPCT_cYVKA/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=3PPCT_cYVKA",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:41:01",
-        "end_time": "07:41:10",
-        "error_detail": "ERROR: [youtube] 3PPCT_cYVKA: Video unavailable. This video is not available"
+        "start_time": "19:23:58",
+        "end_time": "19:24:00",
+        "error_detail": ""
       },
       {
         "id": "r-Wa-o6i45I",
@@ -9628,12 +9396,12 @@
         "duration": 263,
         "thumbnail": "https://i.ytimg.com/vi/r-Wa-o6i45I/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=r-Wa-o6i45I",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:32:26",
-        "end_time": "07:32:36",
-        "error_detail": "ERROR: [youtube] r-Wa-o6i45I: Video unavailable. This video is not available"
+        "start_time": "19:22:02",
+        "end_time": "19:22:04",
+        "error_detail": ""
       },
       {
         "id": "i1lBSVo6OUs",
@@ -9992,12 +9760,12 @@
         "duration": 314,
         "thumbnail": "https://i.ytimg.com/vi/yQuzBsxF7ow/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=yQuzBsxF7ow",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:42:40",
-        "end_time": "07:42:49",
-        "error_detail": "ERROR: [youtube] yQuzBsxF7ow: Video unavailable. This video is not available"
+        "start_time": "19:24:13",
+        "end_time": "19:24:15",
+        "error_detail": ""
       },
       {
         "id": "N1ob-xMx3T4",
@@ -10006,12 +9774,12 @@
         "duration": 308,
         "thumbnail": "https://i.ytimg.com/vi/N1ob-xMx3T4/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=N1ob-xMx3T4",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:40:52",
-        "end_time": "07:41:01",
-        "error_detail": "ERROR: [youtube] N1ob-xMx3T4: Video unavailable. This video is not available"
+        "start_time": "19:23:56",
+        "end_time": "19:23:58",
+        "error_detail": ""
       },
       {
         "id": "wqfwFnPHq4w",
@@ -10020,12 +9788,12 @@
         "duration": 286,
         "thumbnail": "https://i.ytimg.com/vi/wqfwFnPHq4w/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=wqfwFnPHq4w",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:37:33",
-        "end_time": "07:37:43",
-        "error_detail": "ERROR: [youtube] wqfwFnPHq4w: Video unavailable. This video is not available"
+        "start_time": "19:23:10",
+        "end_time": "19:23:12",
+        "error_detail": ""
       },
       {
         "id": "Q42RLYsXFyM",
@@ -10034,12 +9802,12 @@
         "duration": 307,
         "thumbnail": "https://i.ytimg.com/vi/Q42RLYsXFyM/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=Q42RLYsXFyM",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:40:40",
-        "end_time": "07:40:51",
-        "error_detail": "ERROR: [youtube] Q42RLYsXFyM: Video unavailable. This video is not available"
+        "start_time": "19:23:53",
+        "end_time": "19:23:55",
+        "error_detail": ""
       },
       {
         "id": "iOyYvvztWY8",
@@ -10048,12 +9816,12 @@
         "duration": 144,
         "thumbnail": "https://i.ytimg.com/vi/iOyYvvztWY8/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=iOyYvvztWY8",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:27:43",
-        "end_time": "07:27:52",
-        "error_detail": "ERROR: [youtube] iOyYvvztWY8: Video unavailable. This video is not available"
+        "start_time": "19:15:20",
+        "end_time": "19:15:22",
+        "error_detail": ""
       },
       {
         "id": "oQJ3YhDYmVo",
@@ -10062,12 +9830,12 @@
         "duration": 281,
         "thumbnail": "https://i.ytimg.com/vi/oQJ3YhDYmVo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=oQJ3YhDYmVo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:36:14",
-        "end_time": "07:36:24",
-        "error_detail": "ERROR: [youtube] oQJ3YhDYmVo: Video unavailable. This video is not available"
+        "start_time": "19:22:46",
+        "end_time": "19:22:48",
+        "error_detail": ""
       },
       {
         "id": "ZAS_AUA_xkQ",
@@ -10076,12 +9844,12 @@
         "duration": 288,
         "thumbnail": "https://i.ytimg.com/vi/ZAS_AUA_xkQ/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=ZAS_AUA_xkQ",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:37:53",
-        "end_time": "07:38:02",
-        "error_detail": "ERROR: [youtube] ZAS_AUA_xkQ: Video unavailable. This video is not available"
+        "start_time": "19:23:16",
+        "end_time": "19:23:18",
+        "error_detail": ""
       },
       {
         "id": "XOvkRHB7Cks",
@@ -10090,12 +9858,12 @@
         "duration": 279,
         "thumbnail": "https://i.ytimg.com/vi/XOvkRHB7Cks/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=XOvkRHB7Cks",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:35:44",
-        "end_time": "07:35:53",
-        "error_detail": "ERROR: [youtube] XOvkRHB7Cks: Video unavailable. This video is not available"
+        "start_time": "19:22:37",
+        "end_time": "19:22:38",
+        "error_detail": ""
       },
       {
         "id": "PBEAxWdD1ko",
@@ -10160,12 +9928,12 @@
         "duration": 266,
         "thumbnail": "https://i.ytimg.com/vi/pxz9H6Hte4U/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=pxz9H6Hte4U",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:32:57",
-        "end_time": "07:33:07",
-        "error_detail": "ERROR: [youtube] pxz9H6Hte4U: Video unavailable. This video is not available"
+        "start_time": "19:22:09",
+        "end_time": "19:22:11",
+        "error_detail": ""
       },
       {
         "id": "5M7U2BwKxU8",
@@ -10174,12 +9942,12 @@
         "duration": 284,
         "thumbnail": "https://i.ytimg.com/vi/5M7U2BwKxU8/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=5M7U2BwKxU8",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:37:13",
-        "end_time": "07:37:23",
-        "error_detail": "ERROR: [youtube] 5M7U2BwKxU8: Video unavailable. This video is not available"
+        "start_time": "19:23:05",
+        "end_time": "19:23:07",
+        "error_detail": ""
       },
       {
         "id": "Myhtz51gB3A",
@@ -10188,12 +9956,12 @@
         "duration": 267,
         "thumbnail": "https://i.ytimg.com/vi/Myhtz51gB3A/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=Myhtz51gB3A",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:33:28",
-        "end_time": "07:33:38",
-        "error_detail": "ERROR: [youtube] Myhtz51gB3A: Video unavailable. This video is not available"
+        "start_time": "19:22:15",
+        "end_time": "19:22:17",
+        "error_detail": ""
       },
       {
         "id": "vcCvLsiZzrc",
@@ -10202,12 +9970,12 @@
         "duration": 356,
         "thumbnail": "https://i.ytimg.com/vi/vcCvLsiZzrc/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=vcCvLsiZzrc",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:45:05",
-        "end_time": "07:45:15",
-        "error_detail": "ERROR: [youtube] vcCvLsiZzrc: Video unavailable. This video is not available"
+        "start_time": "19:24:38",
+        "end_time": "19:24:40",
+        "error_detail": ""
       },
       {
         "id": "3j5tEPE49XM",
@@ -10216,12 +9984,12 @@
         "duration": 287,
         "thumbnail": "https://i.ytimg.com/vi/3j5tEPE49XM/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=3j5tEPE49XM",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:37:43",
-        "end_time": "07:37:52",
-        "error_detail": "ERROR: [youtube] 3j5tEPE49XM: Video unavailable. This video is not available"
+        "start_time": "19:23:13",
+        "end_time": "19:23:15",
+        "error_detail": ""
       },
       {
         "id": "DlFYDq5Go5E",
@@ -10258,12 +10026,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/qMhTTLxwPuA/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=qMhTTLxwPuA",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:26:48",
-        "end_time": "07:26:56",
-        "error_detail": "ERROR: [youtube] qMhTTLxwPuA: Video unavailable. It was removed following a copyright removal request by Revere Records"
+        "start_time": "19:15:09",
+        "end_time": "19:15:10",
+        "error_detail": ""
       },
       {
         "id": "kJ2fJCMt_DI",
@@ -10678,12 +10446,12 @@
         "duration": 275,
         "thumbnail": "https://i.ytimg.com/vi/SGuhYMJhiiU/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=SGuhYMJhiiU",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:35:04",
-        "end_time": "07:35:13",
-        "error_detail": "ERROR: [youtube] SGuhYMJhiiU: Video unavailable. This video is not available"
+        "start_time": "19:22:32",
+        "end_time": "19:22:34",
+        "error_detail": ""
       },
       {
         "id": "gw9OWeHWlgI",
@@ -11224,12 +10992,12 @@
         "duration": 536,
         "thumbnail": "https://i.ytimg.com/vi/tMn6jGbaGbY/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=tMn6jGbaGbY",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:47:28",
-        "end_time": "07:47:37",
-        "error_detail": "ERROR: [youtube] tMn6jGbaGbY: Video unavailable. This video is not available"
+        "start_time": "19:25:04",
+        "end_time": "19:25:06",
+        "error_detail": ""
       },
       {
         "id": "YqwK_6y4D-I",
@@ -11252,12 +11020,12 @@
         "duration": 257,
         "thumbnail": "https://i.ytimg.com/vi/YTBYK8-3LvY/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=YTBYK8-3LvY",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:31:57",
-        "end_time": "07:32:06",
-        "error_detail": "ERROR: [youtube] YTBYK8-3LvY: Video unavailable. This video is not available"
+        "start_time": "19:21:55",
+        "end_time": "19:21:57",
+        "error_detail": ""
       },
       {
         "id": "wbTDWosN8iU",
@@ -11308,12 +11076,12 @@
         "duration": 266,
         "thumbnail": "https://i.ytimg.com/vi/BOZozH4g0nM/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=BOZozH4g0nM",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:33:08",
-        "end_time": "07:33:17",
-        "error_detail": "ERROR: [youtube] BOZozH4g0nM: Video unavailable. This video is not available"
+        "start_time": "19:22:11",
+        "end_time": "19:22:13",
+        "error_detail": ""
       },
       {
         "id": "JqehArH2_Tc",
@@ -11322,12 +11090,12 @@
         "duration": 279,
         "thumbnail": "https://i.ytimg.com/vi/JqehArH2_Tc/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=JqehArH2_Tc",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:35:53",
-        "end_time": "07:36:02",
-        "error_detail": "ERROR: [youtube] JqehArH2_Tc: Video unavailable. This video is not available"
+        "start_time": "19:22:39",
+        "end_time": "19:22:41",
+        "error_detail": ""
       },
       {
         "id": "TNdVVaVXk38",
@@ -11336,12 +11104,12 @@
         "duration": 278,
         "thumbnail": "https://i.ytimg.com/vi/TNdVVaVXk38/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=TNdVVaVXk38",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:35:23",
-        "end_time": "07:35:33",
-        "error_detail": "ERROR: [youtube] TNdVVaVXk38: Video unavailable. This video is not available"
+        "start_time": "19:22:34",
+        "end_time": "19:22:36",
+        "error_detail": ""
       },
       {
         "id": "yGHUgRAtMiI",
@@ -11350,12 +11118,12 @@
         "duration": 346,
         "thumbnail": "https://i.ytimg.com/vi/yGHUgRAtMiI/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=yGHUgRAtMiI",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:44:55",
-        "end_time": "07:45:05",
-        "error_detail": "ERROR: [youtube] yGHUgRAtMiI: Video unavailable. This video is not available"
+        "start_time": "19:24:36",
+        "end_time": "19:24:38",
+        "error_detail": ""
       },
       {
         "id": "ADgaVAJXZxA",
@@ -11546,12 +11314,12 @@
         "duration": 397,
         "thumbnail": "https://i.ytimg.com/vi/hXyTqg4j8dk/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=hXyTqg4j8dk",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:46:34",
-        "end_time": "07:46:43",
-        "error_detail": "ERROR: [youtube] hXyTqg4j8dk: Video unavailable. This video is not available"
+        "start_time": "19:24:55",
+        "end_time": "19:24:57",
+        "error_detail": ""
       },
       {
         "id": "0shL50hjdxQ",
@@ -11560,12 +11328,12 @@
         "duration": 312,
         "thumbnail": "https://i.ytimg.com/vi/0shL50hjdxQ/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=0shL50hjdxQ",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:42:21",
-        "end_time": "07:42:30",
-        "error_detail": "ERROR: [youtube] 0shL50hjdxQ: Video unavailable. This video is not available"
+        "start_time": "19:24:09",
+        "end_time": "19:24:11",
+        "error_detail": ""
       },
       {
         "id": "BS0lfhSUG6k",
@@ -11574,12 +11342,12 @@
         "duration": 329,
         "thumbnail": "https://i.ytimg.com/vi/BS0lfhSUG6k/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=BS0lfhSUG6k",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:44:07",
-        "end_time": "07:44:16",
-        "error_detail": "ERROR: [youtube] BS0lfhSUG6k: Video unavailable. This video is not available"
+        "start_time": "19:24:28",
+        "end_time": "19:24:29",
+        "error_detail": ""
       },
       {
         "id": "V1o4QItqCaw",
@@ -11588,12 +11356,12 @@
         "duration": 300,
         "thumbnail": "https://i.ytimg.com/vi/V1o4QItqCaw/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=V1o4QItqCaw",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:39:40",
-        "end_time": "07:39:50",
-        "error_detail": "ERROR: [youtube] V1o4QItqCaw: Video unavailable. This video is not available"
+        "start_time": "19:23:41",
+        "end_time": "19:23:43",
+        "error_detail": ""
       },
       {
         "id": "qsVXy-XKb2U",
@@ -11602,12 +11370,12 @@
         "duration": 626,
         "thumbnail": "https://i.ytimg.com/vi/qsVXy-XKb2U/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=qsVXy-XKb2U",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:47:38",
-        "end_time": "07:47:47",
-        "error_detail": "ERROR: [youtube] qsVXy-XKb2U: Video unavailable. This video is not available"
+        "start_time": "19:25:06",
+        "end_time": "19:25:08",
+        "error_detail": ""
       },
       {
         "id": "XSXdprtshxE",
@@ -11658,12 +11426,12 @@
         "duration": 227,
         "thumbnail": "https://i.ytimg.com/vi/qVfsA1hXX7U/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=qVfsA1hXX7U",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:30:22",
-        "end_time": "07:30:32",
-        "error_detail": "ERROR: [youtube] qVfsA1hXX7U: Video unavailable. This video is not available"
+        "start_time": "19:21:30",
+        "end_time": "19:21:32",
+        "error_detail": ""
       },
       {
         "id": "ONTADb13ZyI",
@@ -11672,12 +11440,12 @@
         "duration": 100,
         "thumbnail": "https://i.ytimg.com/vi/ONTADb13ZyI/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=ONTADb13ZyI",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:27:24",
-        "end_time": "07:27:33",
-        "error_detail": "ERROR: [youtube] ONTADb13ZyI: Video unavailable. This video is not available"
+        "start_time": "19:15:18",
+        "end_time": "19:15:20",
+        "error_detail": ""
       },
       {
         "id": "MAF1oNHpM4A",
@@ -11686,12 +11454,12 @@
         "duration": 326,
         "thumbnail": "https://i.ytimg.com/vi/MAF1oNHpM4A/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=MAF1oNHpM4A",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:43:48",
-        "end_time": "07:43:57",
-        "error_detail": "ERROR: [youtube] MAF1oNHpM4A: Video unavailable. This video is not available"
+        "start_time": "19:24:23",
+        "end_time": "19:24:25",
+        "error_detail": ""
       },
       {
         "id": "3sJggtFDN3U",
@@ -11700,12 +11468,12 @@
         "duration": 196,
         "thumbnail": "https://i.ytimg.com/vi/3sJggtFDN3U/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=3sJggtFDN3U",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:29:21",
-        "end_time": "07:29:30",
-        "error_detail": "ERROR: [youtube] 3sJggtFDN3U: Video unavailable. This video is not available"
+        "start_time": "19:21:18",
+        "end_time": "19:21:20",
+        "error_detail": ""
       },
       {
         "id": "zaB5oLWv2mo",
@@ -11714,12 +11482,12 @@
         "duration": 257,
         "thumbnail": "https://i.ytimg.com/vi/zaB5oLWv2mo/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=zaB5oLWv2mo",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:32:07",
-        "end_time": "07:32:16",
-        "error_detail": "ERROR: [youtube] zaB5oLWv2mo: Video unavailable. This video is not available"
+        "start_time": "19:21:57",
+        "end_time": "19:21:59",
+        "error_detail": ""
       },
       {
         "id": "rQtt1f4_rgE",
@@ -11728,12 +11496,12 @@
         "duration": 215,
         "thumbnail": "https://i.ytimg.com/vi/rQtt1f4_rgE/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=rQtt1f4_rgE",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:30:02",
-        "end_time": "07:30:11",
-        "error_detail": "ERROR: [youtube] rQtt1f4_rgE: Video unavailable. This video is not available"
+        "start_time": "19:21:28",
+        "end_time": "19:21:30",
+        "error_detail": ""
       },
       {
         "id": "fUP81PHZSgI",
@@ -11742,12 +11510,12 @@
         "duration": 190,
         "thumbnail": "https://i.ytimg.com/vi/fUP81PHZSgI/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=fUP81PHZSgI",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:28:20",
-        "end_time": "07:28:30",
-        "error_detail": "ERROR: [youtube] fUP81PHZSgI: Video unavailable. This video is not available"
+        "start_time": "19:15:32",
+        "end_time": "19:15:35",
+        "error_detail": ""
       },
       {
         "id": "2QsaizXCqCg",
@@ -11756,12 +11524,12 @@
         "duration": 192,
         "thumbnail": "https://i.ytimg.com/vi/2QsaizXCqCg/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=2QsaizXCqCg",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "07:28:40",
-        "end_time": "07:28:49",
-        "error_detail": "ERROR: [youtube] 2QsaizXCqCg: Video unavailable. This video is not available"
+        "start_time": "19:15:38",
+        "end_time": "19:15:40",
+        "error_detail": ""
       },
       {
         "id": "CcMPz7tPtVA",
@@ -11988,7 +11756,7 @@
         "error_detail": ""
       }
     ],
-    "last_played_track_id": "oSeJ0j0oZ3s",
+    "last_played_track_id": "HK0xFMCkwrM",
     "last_played_shuffle": true,
     "shuffle_order": [
       "ABy95341Dto",
@@ -12611,7 +12379,8 @@
       "I0zU7A76Neg",
       "Y77s13RrnvY"
     ],
-    "shuffle_index": 142
+    "shuffle_index": 126,
+    "deleted": false
   },
   {
     "id": "job_1783134945",
@@ -16393,7 +16162,7 @@
         "error_detail": ""
       }
     ],
-    "last_played_track_id": "hXdmYhb8oFs",
+    "last_played_track_id": "PszSx4HvKAA",
     "last_played_shuffle": true,
     "shuffle_order": [
       "WE3HGyfH_jc",
@@ -16457,7 +16226,7 @@
       "LxEcI9uto2g",
       "TgpLksm6oq8"
     ],
-    "shuffle_index": 43
+    "shuffle_index": 12
   },
   {
     "id": "job_1783133096",
@@ -24070,11 +23839,11 @@
     "job_num": 20,
     "title": "Bhagavad Gita Translations - English",
     "url": "https://www.youtube.com/watch?v=M4Ga_L3Wy0g&list=PLdPjjkbQOnkg",
-    "timestamp": "2026-08-14T10:02:03.117079",
+    "timestamp": "2026-08-14T19:35:46.978901",
     "total_tracks": 24,
-    "completed_tracks": 12,
-    "success_count": 6,
-    "failure_count": 6,
+    "completed_tracks": 24,
+    "success_count": 24,
+    "failure_count": 0,
     "is_playlist": true,
     "format": "audio",
     "quality": "highest",
@@ -24088,11 +23857,11 @@
         "duration": 1099,
         "thumbnail": "https://i.ytimg.com/vi/M4Ga_L3Wy0g/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=M4Ga_L3Wy0g",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:51:59",
+        "end_time": "18:52:35",
         "error_detail": ""
       },
       {
@@ -24102,11 +23871,11 @@
         "duration": 1982,
         "thumbnail": "https://i.ytimg.com/vi/-bPqMYJ6Bw4/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=-bPqMYJ6Bw4",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:56:54",
+        "end_time": "18:57:54",
         "error_detail": ""
       },
       {
@@ -24116,12 +23885,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/KN79JDjtg9s/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=KN79JDjtg9s",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "10:25:46",
-        "end_time": "10:25:47",
-        "error_detail": "ERROR: [youtube] KN79JDjtg9s: Video unavailable. This video has been removed by the uploader"
+        "start_time": "19:35:47",
+        "end_time": "19:35:48",
+        "error_detail": ""
       },
       {
         "id": "wxj9f8fiFQY",
@@ -24130,11 +23899,11 @@
         "duration": 1200,
         "thumbnail": "https://i.ytimg.com/vi/wxj9f8fiFQY/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=wxj9f8fiFQY",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:53:12",
+        "end_time": "18:54:05",
         "error_detail": ""
       },
       {
@@ -24144,12 +23913,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/exFzEv88eoY/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=exFzEv88eoY",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "10:25:49",
-        "end_time": "10:25:50",
-        "error_detail": "ERROR: [youtube] exFzEv88eoY: Video unavailable. This video has been removed by the uploader"
+        "start_time": "19:35:48",
+        "end_time": "19:35:49",
+        "error_detail": ""
       },
       {
         "id": "cRDwKHG_wDw",
@@ -24158,11 +23927,11 @@
         "duration": 1191,
         "thumbnail": "https://i.ytimg.com/vi/cRDwKHG_wDw/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=cRDwKHG_wDw",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:52:35",
+        "end_time": "18:53:12",
         "error_detail": ""
       },
       {
@@ -24172,12 +23941,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/hBROUefzp-k/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=hBROUefzp-k",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "10:25:50",
-        "end_time": "10:25:52",
-        "error_detail": "ERROR: [youtube] hBROUefzp-k: Video unavailable. This video has been removed by the uploader"
+        "start_time": "19:35:50",
+        "end_time": "19:35:51",
+        "error_detail": ""
       },
       {
         "id": "UAEq0Opv_5o",
@@ -24186,11 +23955,11 @@
         "duration": 842,
         "thumbnail": "https://i.ytimg.com/vi/UAEq0Opv_5o/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=UAEq0Opv_5o",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:50:23",
+        "end_time": "18:50:47",
         "error_detail": ""
       },
       {
@@ -24200,12 +23969,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/1-xgiqcjWJY/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=1-xgiqcjWJY",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:44:07",
-        "end_time": "18:44:16",
-        "error_detail": "ERROR: [youtube] 1-xgiqcjWJY: Video unavailable. This video has been removed by the uploader"
+        "start_time": "19:35:51",
+        "end_time": "19:35:53",
+        "error_detail": ""
       },
       {
         "id": "f_txMdy29IY",
@@ -24214,11 +23983,11 @@
         "duration": 1340,
         "thumbnail": "https://i.ytimg.com/vi/f_txMdy29IY/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=f_txMdy29IY",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:55:00",
+        "end_time": "18:55:48",
         "error_detail": ""
       },
       {
@@ -24228,12 +23997,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/c67O30WWMHw/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=c67O30WWMHw",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:44:16",
-        "end_time": "18:44:17",
-        "error_detail": "ERROR: [youtube] c67O30WWMHw: Video unavailable. This video has been removed by the uploader"
+        "start_time": "19:35:53",
+        "end_time": "19:35:54",
+        "error_detail": ""
       },
       {
         "id": "90kwnoudJtI",
@@ -24242,11 +24011,11 @@
         "duration": 839,
         "thumbnail": "https://i.ytimg.com/vi/90kwnoudJtI/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=90kwnoudJtI",
-        "status": "downloading",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
         "start_time": "18:50:02",
-        "end_time": "--",
+        "end_time": "18:50:23",
         "error_detail": ""
       },
       {
@@ -24256,12 +24025,12 @@
         "duration": 0,
         "thumbnail": "https://i.ytimg.com/vi/X0RElg05-eE/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=X0RElg05-eE",
-        "status": "unavailable",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "18:44:17",
-        "end_time": "18:44:18",
-        "error_detail": "ERROR: [youtube] X0RElg05-eE: Video unavailable. This video has been removed by the uploader"
+        "start_time": "19:35:54",
+        "end_time": "19:35:56",
+        "error_detail": ""
       },
       {
         "id": "twHZejTilsI",
@@ -24284,11 +24053,11 @@
         "duration": 989,
         "thumbnail": "https://i.ytimg.com/vi/eJ5PI_TMddA/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=eJ5PI_TMddA",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:51:18",
+        "end_time": "18:51:49",
         "error_detail": ""
       },
       {
@@ -24298,11 +24067,11 @@
         "duration": 1204,
         "thumbnail": "https://i.ytimg.com/vi/QYS1kC64DUs/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=QYS1kC64DUs",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:54:07",
+        "end_time": "18:54:42",
         "error_detail": ""
       },
       {
@@ -24312,11 +24081,11 @@
         "duration": 1773,
         "thumbnail": "https://i.ytimg.com/vi/tId2N6GuGe0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=tId2N6GuGe0",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:55:48",
+        "end_time": "18:56:52",
         "error_detail": ""
       },
       {
@@ -24340,11 +24109,11 @@
         "duration": 959,
         "thumbnail": "https://i.ytimg.com/vi/hhKdcjsDNYY/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=hhKdcjsDNYY",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:50:48",
+        "end_time": "18:51:18",
         "error_detail": ""
       },
       {
@@ -24410,14 +24179,14 @@
         "duration": 2183,
         "thumbnail": "https://i.ytimg.com/vi/poDf2nt-tK0/hqdefault.jpg",
         "url": "https://www.youtube.com/watch?v=poDf2nt-tK0",
-        "status": "queued",
-        "percentage": 0.0,
+        "status": "completed",
+        "percentage": 100.0,
         "speed": "--",
-        "start_time": "--",
-        "end_time": "--",
+        "start_time": "18:57:55",
+        "end_time": "18:59:04",
         "error_detail": ""
       }
     ],
-    "deleted": true
+    "deleted": false
   }
 ]

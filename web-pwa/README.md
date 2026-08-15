@@ -25,10 +25,12 @@ A Progressive Web App (PWA) that streams music directly from your **OneDrive sto
 3. Copy the **Application (Client) ID** and paste it into the **SonicStream PWA Settings modal**.
 
 ### Step 2: Deploy to Azure Static Web Apps
-1. Push the `web-pwa/` directory to a GitHub repository.
-2. In Azure Portal, click **Create a resource** > **Static Web App**.
-3. Connect your GitHub repository and set the app location to `/web-pwa`.
-4. Click **Create**! Your app will be live on an HTTPS URL in less than 2 minutes.
+1. Ensure your `keys.json` is configured locally with your SAS tokens.
+2. Run `python deploy_pwa.py inject` to inject the configuration into the `web-pwa` build.
+3. Deploy the folder directly to Azure:
+   `npx @azure/static-web-apps-cli deploy ./web-pwa --env production --deployment-token <TOKEN>`
+4. Run `python deploy_pwa.py clean` to reset the configuration file locally.
+5. Your app will be live on an HTTPS URL immediately!
 
 ---
 

@@ -1740,7 +1740,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (playerLiveMuteBtn) {
         playerLiveMuteBtn.addEventListener("click", async () => {
             if (!playerVideo || currentTrackIndex < 0 || currentTrackIndex >= playQueue.length) return;
-            
+            const currentPlaylistIdForCheck = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
+            if (currentPlaylistIdForCheck.startsWith("ai_")) {
+                alert("This track is already playing from an AI processed playlist.");
+                return;
+            }
+
             const item = playQueue[currentTrackIndex];
             const playlistId = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
 
@@ -1826,7 +1831,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (playerInstrumentBtn) {
         playerInstrumentBtn.addEventListener("click", async () => {
             if (!playerVideo || currentTrackIndex < 0 || currentTrackIndex >= playQueue.length) return;
-            
+            const currentPlaylistIdForCheck = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
+            if (currentPlaylistIdForCheck.startsWith("ai_")) {
+                alert("This track is already playing from an AI processed playlist.");
+                return;
+            }
+
             const item = playQueue[currentTrackIndex];
             const playlistId = typeof currentPlayingPlaylistId !== "undefined" ? currentPlayingPlaylistId : "all_downloads";
 

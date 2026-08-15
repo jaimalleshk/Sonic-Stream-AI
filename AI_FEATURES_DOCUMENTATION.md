@@ -30,11 +30,11 @@ There are three primary AI features integrated into the platform:
 
 ---
 
-## 3. AI Offline Karaoke (Download)
-**Purpose:** For offline usage, this feature generates a permanent, high-quality MP3 of the track with all vocals completely removed, perfect for singing along or DJing.
+## 3. Intelligent Caching & Dedicated Playlists
+**Purpose:** Ensure that AI processing is only ever done once per track, and that the resulting byproduct is permanently saved and cataloged for immediate playback in the future.
 
 **How it works under the hood:**
-1. **Full-Track Processing:** Unlike the live streaming features, the Offline Karaoke generator processes the entire track sequentially in the background.
-2. **Model Execution:** The system runs the `htdemucs_ft` model to pull out the accompaniment stems.
-3. **Playlist Integration:** Once the `[KARAOKE]` MP3 is finalized, the backend automatically intercepts the file and injects it into a dedicated **"Instruments"** playlist within the `history.json` database.
-4. **Availability:** The track becomes immediately available for playback across all your devices via the "Instruments" playlist in the UI sidebar.
+1. **Background Caching:** When you stream an AI-manipulated track (e.g. using Live Voice Mute), the backend not only streams the chunked response to you, but also triggers a `BackgroundTasks` thread.
+2. **Permanent Storage:** This background thread sequentially processes the entire track and saves the byproduct (e.g., `[Title] - AI Muted Vocals.mp3`) to your local storage.
+3. **Dedicated Playlists:** Once the background process finishes, the new track is appended to a dedicated, un-deletable AI playlist in `history.json` (such as `ai_muted_vocals`, `ai_instruments`, or `ai_vocals_only`).
+4. **Cache Lookup:** The next time you attempt to play or manipulate that same track, the system performs a `_check_ai_cache_exists` lookup. If the byproduct already exists, it instantly streams the cached file instead of spinning up the AI engine, providing zero latency and preventing duplicate work.

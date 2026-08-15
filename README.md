@@ -10,7 +10,7 @@ Sonic Stream AI is a modern, high-speed media downloader equipped with state-of-
 Sonic Stream AI leverages Meta's **Demucs** architecture (`htdemucs_ft`) combined with real-time chunking to offer zero-wait-time audio manipulation:
 - **Live Voice Mute**: Instantly strip vocals from a playing track to listen to pristine instrumentals.
 - **Voice-to-Instrument**: Synthesizes the human singer's pitch and vibrato into a MIDI instrument (e.g., Flute) in real-time.
-- **AI Offline Karaoke**: Download permanent, high-quality MP3s with vocals completely removed, automatically sorted into your "Instruments" playlist.
+- **Intelligent Caching & Dedicated Playlists**: Whenever you stream an AI-manipulated track, the system seamlessly saves the byproduct in the background. The track is permanently added to a dedicated AI playlist (`AI Muted Vocals`, `AI Instruments`, or `AI Vocals Only`), ensuring instant playback on all future listens without re-processing.
 
 ### ⚡ Native Windows Desktop App
 - Runs in a dedicated window using Microsoft Edge WebView2, with full local filesystem integration and single-click access to downloaded media.

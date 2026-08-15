@@ -21,22 +21,24 @@ graph TD
         E <-->|API Endpoints / Server-Sent Events| D
     end
 
-    subgraph AI Audio Engine (PyTorch)
+    subgraph AI Audio Engine & Caching (PyTorch)
+        E <-->|Check Cache Layer| CACHE[(Local Cache)]
         E <-->|Trigger AI Processing| L[AIVocalProcessor]
         L -->|Chunked Demucs| M[Vocal Separation]
-        L -->|FluidSynth| N[Voice-to-Instrument]
         M -->|Streaming Chunk| E
-        N -->|Streaming Chunk| E
+        E -->|Spawns BackgroundTask| BG[Background Generation]
+        BG -->|Finalizes File| CACHE
     end
 
     subgraph Core Engine & OS Layer
         E -->|Executes| F[yt-dlp Engine]
         F -->|Converts Audio / Merges Tracks| G[FFmpeg CLI]
         E -->|Native os.startfile| H[Windows Explorer]
-        E <-->|Persists Logs| I[(history.json)]
+        E <-->|Persists Logs / Dedicated AI Playlists| I[(history.json)]
         F <-->|Tracks Completed IDs| J[(download_archive.txt)]
         F -->|Writes Media| K[downloads/ Folder]
-        L <-->|Reads Original / Writes AI| K
+        L <-->|Reads Original / Writes AI Byproduct| K
+        BG -->|Writes Permanent AI File| K
     end
     
     style C fill:#2a1f3d,stroke:#9c27b0,stroke-width:2px,color:#fff
