@@ -69,11 +69,15 @@ class AIVocalProcessor:
 
     def extract_pitch(self, vocal_path):
         """
-        Uses Basic Pitch to extract MIDI notes from the vocal track.
+        Uses Basic Pitch to extract MIDI notes from the vocal track with high-fidelity continuous pitch bends.
         """
-        logger.info(f"Extracting pitch from {vocal_path} using Basic Pitch...")
+        logger.info(f"Extracting high-precision pitch from {vocal_path} using Basic Pitch...")
         cmd = [
             "basic-pitch",
+            "--onset-threshold", "0.55",
+            "--frame-threshold", "0.35",
+            "--minimum-note-length", "100",
+            "--multiple-pitch-bends",
             self.workspace_dir,  # output directory
             vocal_path
         ]
@@ -104,33 +108,56 @@ class AIVocalProcessor:
             
         return midi_path
 
-    def synthesize_instrument(self, midi_path, soundfont_path, output_path, midi_program=None):
+    def synthesize_instrument(self, midi_path, soundfont_path, output_path, midi_program=73):
         """
-        Uses FluidSynth to render the MIDI file into a WAV file using the provided SoundFont.
-        Requires 'fluidsynth' to be installed on the system and available in PATH.
-        If midi_program is provided, inserts a program change message.
+        Uses FluidSynth studio DSP rendering engine (48kHz, Reverb, Chorus, Legato Expression)
+        to render the MIDI file into a high-fidelity WAV file using the provided SoundFont.
         """
-        logger.info(f"Synthesizing instrument to {output_path}...")
+        logger.info(f"Synthesizing high-fidelity instrument (Program {midi_program}) to {output_path}...")
         
-        if midi_program is not None:
-            try:
-                import mido
-                mid = mido.MidiFile(midi_path)
-                for track in mid.tracks:
-                    track.insert(0, mido.Message('program_change', program=int(midi_program), time=0))
-                mid.save(midi_path)
-            except Exception as e:
-                logger.error(f"Failed to set MIDI program: {e}")
+        # Default to General MIDI Program 73 (Flute)
+        if midi_program is None:
+            midi_program = 73
+
+        try:
+            import mido
+            mid = mido.MidiFile(midi_path)
+            for track in mid.tracks:
+                # Insert MIDI Expression & Legato Control Messages at timestamp 0
+                track.insert(0, mido.Message('program_change', program=int(midi_program), time=0))
+                track.insert(1, mido.Message('control_change', control=7, value=115, time=0))   # Main Volume
+                track.insert(2, mido.Message('control_change', control=11, value=110, time=0))  # Expression / Breath
+                track.insert(3, mido.Message('control_change', control=91, value=95, time=0))   # Reverb Send
+                track.insert(4, mido.Message('control_change', control=93, value=40, time=0))   # Chorus Send
+                track.insert(5, mido.Message('control_change', control=64, value=64, time=0))   # Legato Sustain
+
+                # Humanize velocities for natural acoustic woodwind response
+                for msg in track:
+                    if msg.type == 'note_on' and msg.velocity > 0:
+                        msg.velocity = min(105, max(65, int(msg.velocity * 0.85)))
+            mid.save(midi_path)
+        except Exception as e:
+            logger.error(f"Failed to set MIDI expression controllers: {e}")
 
         # Use local fluidsynth binary if available
         fluidsynth_exe = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "fluidsynth_bin", "bin", "fluidsynth.exe"))
         if not os.path.exists(fluidsynth_exe):
             fluidsynth_exe = "fluidsynth" # fallback to PATH
 
-        # -F outputs to a file, -ni runs in non-interactive mode (no gui)
+        # High-definition studio rendering flags: 48kHz, spatial reverb, chorus, polyphony
         cmd = [
             fluidsynth_exe,
             "-ni",
+            "-r", "48000",
+            "-g", "1.1",
+            "-R", "1",
+            "-C", "1",
+            "-o", "synth.polyphony=256",
+            "-o", "synth.reverb.room-size=0.7",
+            "-o", "synth.reverb.damp=0.3",
+            "-o", "synth.reverb.width=1.8",
+            "-o", "synth.reverb.level=0.55",
+            "-o", "synth.chorus.level=0.35",
             soundfont_path,
             midi_path,
             "-F", output_path
@@ -167,17 +194,26 @@ class AIVocalProcessor:
 
     def mix_audio(self, accompaniment_path, instrument_path, output_path):
         """
-        Mixes the accompaniment and the new instrument together.
+        Mixes the accompaniment and the synthesized flute together with warm EQ & master balance.
         """
         logger.info(f"Mixing {accompaniment_path} and {instrument_path}...")
         acc_audio = AudioSegment.from_file(accompaniment_path)
         inst_audio = AudioSegment.from_file(instrument_path)
         
+        # Soften harsh high frequencies > 7.5kHz for natural woodwind acoustics
+        try:
+            inst_audio = inst_audio.low_pass_filter(7500)
+        except Exception:
+            pass
+            
+        # Balance flute volume smoothly (-1.5dB relative adjustment)
+        inst_audio = inst_audio - 1.5
+        
         # Mix them (overlay)
         mixed = acc_audio.overlay(inst_audio)
         
-        # Export as mp3 (requires ffmpeg)
-        logger.info(f"Exporting final mix to {output_path}...")
+        # Export as 320k high bitrate mp3
+        logger.info(f"Exporting final master mix to {output_path}...")
         mixed.export(output_path, format="mp3", bitrate="320k")
         return output_path
 
