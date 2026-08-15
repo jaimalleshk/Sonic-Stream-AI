@@ -224,6 +224,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const deletedTracks = historyJobs.find(job => job.id === "deleted_tracks");
             filtered = deletedTracks ? [deletedTracks].concat(trashPlaylists) : trashPlaylists;
         }
+
+        // Sort items so newest are at top, but keep virtual playlists at the very top.
+        filtered.sort((a, b) => {
+            if (a.is_virtual && !b.is_virtual) return -1;
+            if (!a.is_virtual && b.is_virtual) return 1;
+            
+            // For standard jobs, sort by timestamp descending
+            const timeA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+            const timeB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+            return timeB - timeA;
+        });
         
         // Pagination logic
         const total = filtered.length;

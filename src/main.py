@@ -904,6 +904,8 @@ async def start_download(req: DownloadRequest):
             job_id = existing_job["id"]
             new_job_num = existing_job["job_num"]
             title = existing_job["title"]
+            existing_job["timestamp"] = datetime.now().isoformat()
+            existing_job["deleted"] = False
             
             # Find and append delta tracks or resume incomplete ones
             existing_items_map = {it["id"]: it for it in existing_job.get("items", [])}
@@ -2188,19 +2190,45 @@ async def generate_ai_instrumental(job_id: str, track_id: str):
             # Append to history
             with history_lock:
                 current_history = load_history()
+                
+                instruments_job = None
                 for j in current_history:
-                    if j.get("id") == job_id:
-                        new_track = target_track.copy()
-                        new_track["id"] = f"{track_id}_ai_{int(time.time())}"
-                        new_track["title"] = f"{target_track['title']} - AI Instrumental"
-                        if "format" in new_track:
-                            new_track["format"] = "audio"
-                        if "items" in j:
-                            j["items"].append(new_track)
-                        else:
-                            j.setdefault("request", {}).setdefault("items", []).append(new_track)
-                        save_history(current_history)
+                    if j.get("id") == "instruments_playlist":
+                        instruments_job = j
                         break
+                        
+                if not instruments_job:
+                    instruments_job = {
+                        "id": "instruments_playlist",
+                        "job_num": max([j.get("job_num", 0) for j in current_history] + [0]) + 1,
+                        "title": "Instruments",
+                        "url": "",
+                        "format": "audio",
+                        "quality": "highest",
+                        "items": [],
+                        "total_tracks": 0,
+                        "success_count": 0,
+                        "failure_count": 0,
+                        "completed_tracks": 0,
+                        "pinned": False,
+                        "deleted": False,
+                        "is_playlist": True,
+                        "timestamp": datetime.now().isoformat()
+                    }
+                    current_history.append(instruments_job)
+                
+                new_track = target_track.copy()
+                new_track["id"] = f"{track_id}_ai_{int(time.time())}"
+                new_track["title"] = f"{target_track['title']} - AI Instrumental"
+                if "format" in new_track:
+                    new_track["format"] = "audio"
+                
+                instruments_job.setdefault("items", []).append(new_track)
+                instruments_job["total_tracks"] = len(instruments_job["items"])
+                instruments_job["success_count"] = sum(1 for t in instruments_job["items"] if t.get("status") in ["completed", "skipped"])
+                instruments_job["timestamp"] = datetime.now().isoformat()
+                
+                save_history(current_history)
                         
             with ai_jobs_lock:
                 ai_jobs_state[ai_job_id]["status"] = "completed"
