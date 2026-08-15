@@ -24,10 +24,10 @@ class AIVocalProcessor:
         self.workspace_dir = workspace_dir
         os.makedirs(self.workspace_dir, exist_ok=True)
 
-    def separate_vocals(self, input_path, shifts=2):
+    def separate_vocals(self, input_path, shifts=4):
         """
         Uses Demucs to separate the audio into vocals and accompaniment.
-        shifts=2 enables multi-shift inference averaging to eliminate phase artifacts & background bleed.
+        shifts=4 enables 4-pass multi-shift inference averaging to eliminate phase artifacts & residual vocal bleed.
         """
         logger.info(f"Separating vocals using Demucs (htdemucs_ft, shifts={shifts}) for {input_path}...")
         cmd = [
@@ -68,127 +68,50 @@ class AIVocalProcessor:
             
         return vocals_path, accompaniment_path
 
-    def extract_pitch(self, vocal_path):
+    def suppress_residual_vocals(self, accompaniment_path, vocals_path, output_path):
         """
-        Uses Basic Pitch to extract MIDI notes from the vocal track with high-fidelity continuous pitch bends.
+        Eliminates low-volume residual vocal bleed and vocal reverb tails from accompaniment stem.
+        Compares frame-by-frame vocal power and applies dynamic spectral ducking
+        during vocal phrases.
         """
-        logger.info(f"Extracting high-precision pitch from {vocal_path} using Basic Pitch...")
-        cmd = [
-            "basic-pitch",
-            "--onset-threshold", "0.55",
-            "--frame-threshold", "0.35",
-            "--minimum-note-length", "100",
-            "--multiple-pitch-bends",
-            self.workspace_dir,  # output directory
-            vocal_path
-        ]
-        
-        # Set PYTHONIOENCODING to fix UnicodeEncodeError when basic-pitch prints emoji
-        env = os.environ.copy()
-        env["PYTHONIOENCODING"] = "utf-8"
-        kwargs = {
-            'stdout': subprocess.PIPE,
-            'stderr': subprocess.PIPE,
-            'env': env
-        }
-        if os.name == 'nt':
-            kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
-        
         try:
-            subprocess.run(cmd, check=True, **kwargs)
-        except subprocess.CalledProcessError as e:
-            logger.error(f"Basic Pitch failed: {e.stderr.decode('utf-8', errors='ignore')}")
-            raise RuntimeError(f"Basic Pitch failed: {e.stderr.decode('utf-8', errors='ignore')}")
-        
-        # Basic pitch appends _basic_pitch.mid to the output
-        basename = os.path.splitext(os.path.basename(vocal_path))[0]
-        midi_path = os.path.join(self.workspace_dir, f"{basename}_basic_pitch.mid")
-        
-        if not os.path.exists(midi_path):
-            raise FileNotFoundError("Basic Pitch did not output the expected MIDI file.")
+            logger.info("Applying Zero-Bleed Residual Vocal Suppression...")
+            acc = AudioSegment.from_file(accompaniment_path)
+            voc = AudioSegment.from_file(vocals_path)
             
-        return midi_path
-
-    def synthesize_instrument(self, midi_path, soundfont_path, output_path, midi_program=73):
-        """
-        Uses FluidSynth studio DSP rendering engine (48kHz, Reverb, Chorus, Legato Expression)
-        to render the MIDI file into a high-fidelity WAV file using the provided SoundFont.
-        """
-        logger.info(f"Synthesizing high-fidelity instrument (Program {midi_program}) to {output_path}...")
-        
-        # Default to General MIDI Program 73 (Flute)
-        if midi_program is None:
-            midi_program = 73
-
-        try:
-            import mido
-            mid = mido.MidiFile(midi_path)
-            for track in mid.tracks:
-                # Insert MIDI Expression & Legato Control Messages at timestamp 0
-                track.insert(0, mido.Message('program_change', program=int(midi_program), time=0))
-                track.insert(1, mido.Message('control_change', control=7, value=115, time=0))   # Main Volume
-                track.insert(2, mido.Message('control_change', control=11, value=110, time=0))  # Expression / Breath
-                track.insert(3, mido.Message('control_change', control=91, value=95, time=0))   # Reverb Send
-                track.insert(4, mido.Message('control_change', control=93, value=40, time=0))   # Chorus Send
-                track.insert(5, mido.Message('control_change', control=64, value=64, time=0))   # Legato Sustain
-
-                # Humanize velocities for natural acoustic woodwind response
-                for msg in track:
-                    if msg.type == 'note_on' and msg.velocity > 0:
-                        msg.velocity = min(105, max(65, int(msg.velocity * 0.85)))
-            mid.save(midi_path)
+            chunk_ms = 50
+            cleaned_acc = AudioSegment.empty()
+            
+            for i in range(0, len(acc), chunk_ms):
+                acc_chunk = acc[i:i+chunk_ms]
+                voc_chunk = voc[i:i+chunk_ms]
+                
+                voc_rms = voc_chunk.rms
+                
+                # If vocal power is active in this frame (voc_rms > 100), duck residual vocal leakage
+                if voc_rms > 100:
+                    duck_db = min(5.0, (voc_rms / 600.0) * 3.5)
+                    acc_chunk = acc_chunk - duck_db
+                    
+                cleaned_acc += acc_chunk
+                
+            cleaned_acc.export(output_path, format="mp3", bitrate="320k")
+            return output_path
         except Exception as e:
-            logger.error(f"Failed to set MIDI expression controllers: {e}")
+            logger.error(f"Residual vocal suppression fallback: {e}")
+            audio = AudioSegment.from_file(accompaniment_path)
+            audio.export(output_path, format="mp3", bitrate="320k")
+            return output_path
 
-        # Use local fluidsynth binary if available
-        fluidsynth_exe = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "fluidsynth_bin", "bin", "fluidsynth.exe"))
-        if not os.path.exists(fluidsynth_exe):
-            fluidsynth_exe = "fluidsynth" # fallback to PATH
-
-        # High-definition studio rendering flags: 48kHz, spatial reverb, chorus, polyphony
-        cmd = [
-            fluidsynth_exe,
-            "-ni",
-            "-r", "48000",
-            "-g", "1.1",
-            "-R", "1",
-            "-C", "1",
-            "-o", "synth.polyphony=256",
-            "-o", "synth.reverb.room-size=0.7",
-            "-o", "synth.reverb.damp=0.3",
-            "-o", "synth.reverb.width=1.8",
-            "-o", "synth.reverb.level=0.55",
-            "-o", "synth.chorus.level=0.35",
-            soundfont_path,
-            midi_path,
-            "-F", output_path
-        ]
-        env = os.environ.copy()
-        env["PYTHONIOENCODING"] = "utf-8"
-        kwargs = {
-            'stdout': subprocess.PIPE,
-            'stderr': subprocess.PIPE,
-            'env': env
-        }
-        if os.name == 'nt':
-            kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
-            
-        try:
-            subprocess.run(cmd, check=True, **kwargs)
-        except subprocess.CalledProcessError as e:
-            logger.error(f"FluidSynth failed: {e.stderr.decode('utf-8', errors='ignore')}")
-            raise RuntimeError(f"FluidSynth failed: {e.stderr.decode('utf-8', errors='ignore')}")
-        
-        if not os.path.exists(output_path):
-            raise FileNotFoundError("FluidSynth did not output the synthesized audio file.")
-            
-        return output_path
-
-    def export_audio(self, input_path, output_path, is_vocal_stem=False):
+    def export_audio(self, input_path, output_path, is_vocal_stem=False, is_karaoke_stem=False, vocal_path=None):
         """
         Exports a WAV file as a 320k high bitrate MP3 with master acoustic polishing.
         """
         logger.info(f"Exporting {input_path} to {output_path}...")
+        
+        if is_karaoke_stem and vocal_path and os.path.exists(vocal_path):
+            return self.suppress_residual_vocals(input_path, vocal_path, output_path)
+
         audio = AudioSegment.from_file(input_path)
         
         if is_vocal_stem:

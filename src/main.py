@@ -2356,7 +2356,7 @@ async def generate_ai_karaoke(job_id: str, track_id: str, background_tasks: Back
             with ai_jobs_lock:
                 ai_jobs_state[ai_job_id]["progress"] = "Exporting karaoke track..."
                 
-            processor.export_audio(accomp_path, out_path)
+            processor.export_audio(accomp_path, out_path, is_karaoke_stem=True, vocal_path=vocal_path)
             _add_ai_track_to_playlist(target_track, "ai_muted_vocals", "AI Muted Vocals", out_path)
             
             with ai_jobs_lock:
