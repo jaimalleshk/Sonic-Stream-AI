@@ -17,7 +17,12 @@ pwa_config.json
 keys.json
 web-pwa/config.js
 web-pwa/media/
-sync_azure_batch.py
+# NOTE: sync_azure_batch.py was ignored here because an older revision hardcoded the
+# Azure account key. It no longer contains any credential - account name, container,
+# account key and SAS are all read from keys.json at runtime (which stays ignored
+# above) - so it is tracked as normal source. Verified secret-free before tracking.
+# If you ever hardcode a credential in it, move the credential to keys.json instead
+# of re-adding it here.
 
 # PyInstaller build output (the .exe is large; ship it via a release, not git)
 build/
