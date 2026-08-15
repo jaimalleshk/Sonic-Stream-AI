@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // State Variables
     let historyJobs = [];
     let currentPlaylistId = null;
+    let currentPlayingPlaylistId = null;
     let playlistItems = [];
     let localItemStates = {}; // Map of item.id -> { status, percentage, speed, start_time, end_time, error_detail }
     let selectedItemIds = new Set();
@@ -1608,6 +1609,9 @@ document.addEventListener("DOMContentLoaded", () => {
         
         playQueue = queue || [track];
         currentTrackIndex = index !== undefined ? index : playQueue.findIndex(t => t.id === track.id);
+        if (currentPlaylistId) {
+            currentPlayingPlaylistId = currentPlaylistId;
+        }
         
         playerTrackTitle.textContent = track.title;
         playerTrackArtist.textContent = track.uploader || "Unknown";

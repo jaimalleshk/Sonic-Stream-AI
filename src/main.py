@@ -2171,7 +2171,7 @@ def _add_ai_track_to_playlist(target_track, playlist_id, playlist_title, out_pat
                 "deleted": False,
                 "timestamp": datetime.now().isoformat()
             }
-            current_history.insert(0, ai_playlist)
+            current_history.append(ai_playlist)
         else:
             ai_playlist["title"] = playlist_title
             
