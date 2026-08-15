@@ -31,6 +31,16 @@ def start_server(host, port):
     uvicorn.run(app, host=host, port=port, log_level="warning")
 
 if __name__ == "__main__":
+    # Windows Taskbar Branding: Set Explicit AppUserModelID so Windows Taskbar
+    # displays the custom Sonic Stream AI icon instead of python.exe default icon.
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            myappid = "SonicStream.AI.DesktopApp.v1"
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+        except Exception:
+            pass
+
     # Ensure correct base path for compiled execution (.exe)
     if getattr(sys, 'frozen', False):
         base_dir = sys._MEIPASS
@@ -58,8 +68,11 @@ if __name__ == "__main__":
     # Wait for the server to spin up
     time.sleep(1.2)
 
-    # Start native desktop window
-    icon_path = os.path.join(base_dir, "..", "static", "favicon.ico")
+    # Start native desktop window with multi-size brand icon
+    icon_path = os.path.abspath(os.path.join(base_dir, "..", "static", "favicon.ico"))
+    if not os.path.exists(icon_path):
+        icon_path = os.path.abspath(os.path.join(base_dir, "static", "favicon.ico"))
+
     webview.create_window(
         title="Sonic Stream AI",
         url=f"http://127.0.0.1:{port}",
