@@ -11,7 +11,13 @@ import sys
 import os
 import json
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Repo ROOT, not src/. This module lives in src/, but history.json, keys.json and
+# web-pwa/ all live one level up. After the src/ restructure, dirname(__file__)
+# pointed every path at a non-existent src/... location, so generate_pwa_manifest()
+# read no history and silently produced a manifest with ZERO playlists — which is
+# why new playlists (e.g. Bhagavad Gita) never reached the PWA.
+# Matches how sync_azure_batch.py resolves BASE_DIR.
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KEYS_FILE = os.path.join(BASE_DIR, "keys.json")
 KEYS_EXAMPLE_FILE = os.path.join(BASE_DIR, "keys.example.json")
 TARGET_SETTINGS_FILE = os.path.join(BASE_DIR, "web-pwa", "settings.json")

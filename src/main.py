@@ -3173,7 +3173,7 @@ async def get_azure_stats(download_dir: Optional[str] = None):
         return {"error": "Azure Storage library not installed."}
         
     try:
-        with open("keys.json", "r") as f:
+        with open(os.path.join(BASE_DIR, "keys.json"), "r", encoding="utf-8") as f:
             keys = json.load(f)
             
         account_name = keys.get("azure_storage_account")
@@ -3282,7 +3282,7 @@ async def get_azure_explorer(download_dir: Optional[str] = None):
         return {"error": "Azure Storage library not installed."}
         
     try:
-        with open("keys.json", "r") as f:
+        with open(os.path.join(BASE_DIR, "keys.json"), "r", encoding="utf-8") as f:
             keys = json.load(f)
             
         account_name = keys.get("azure_storage_account")
@@ -3318,17 +3318,27 @@ async def get_azure_explorer(download_dir: Optional[str] = None):
         except Exception as e:
             return {"error": f"Failed listing blobs: {e}"}
 
-        # 2) Fetch manifest (history.json) from Azure blob
+        # 2) Fetch the playlist manifest from Azure.
+        #
+        # It lives in "playlists_manifest.json" (NOT "history.json", which is not
+        # published) and is a DICT {version, app, playlists:[...]} — not a list.
+        # The previous code read the wrong blob AND required a list, so `playlists`
+        # was always empty and the explorer's left panel showed nothing.
         playlists = []
+        manifest_error = None
         try:
-            manifest_client = container_client.get_blob_client("history.json")
+            manifest_client = container_client.get_blob_client("playlists_manifest.json")
             if manifest_client.exists():
-                raw = manifest_client.download_blob().readall()
-                manifest_data = json.loads(raw)
-                if isinstance(manifest_data, list):
-                    playlists = manifest_data
+                manifest_data = json.loads(manifest_client.download_blob().readall())
+                if isinstance(manifest_data, dict):
+                    playlists = manifest_data.get("playlists", []) or []
+                elif isinstance(manifest_data, list):
+                    playlists = manifest_data          # tolerate a bare list
+            else:
+                manifest_error = "playlists_manifest.json not found in the container - run Sync to publish it."
         except Exception as e:
-            print(f"[Azure Explorer] Could not fetch manifest: {e}")
+            manifest_error = f"Could not read playlists_manifest.json: {e}"
+            print(f"[Azure Explorer] {manifest_error}")
 
         # 3) Local files for comparison
         target_dir = download_dir or DOWNLOAD_DIR
@@ -3360,15 +3370,46 @@ async def get_azure_explorer(download_dir: Optional[str] = None):
             }
 
         total_size = sum(v["size"] or 0 for v in azure_blobs.values())
-        
+
+        # 5) Join each manifest playlist to its actual blobs so the UI can show
+        #    "playlists as they are in the blob" on the left and that playlist's
+        #    files on the right. Tracks whose blob is absent are reported honestly
+        #    via missing_count rather than silently dropped.
+        playlist_summaries = []
+        for pl in playlists:
+            tracks = pl.get("tracks", []) or []
+            names, missing = [], 0
+            for t in tracks:
+                fn = t.get("file")
+                if not fn:
+                    missing += 1
+                    continue
+                if fn in azure_blobs:
+                    names.append(fn)
+                else:
+                    missing += 1
+            playlist_summaries.append({
+                "id": pl.get("id", ""),
+                "title": pl.get("title") or pl.get("playlist_title") or "Untitled Playlist",
+                "thumbnail": pl.get("thumbnail"),
+                "track_count": len(tracks),
+                "in_azure_count": len(names),
+                "missing_count": missing,
+                "size": sum((azure_blobs[n]["size"] or 0) for n in names),
+                "files": names,
+            })
+
         return {
             "playlists": playlists,
+            "playlist_summaries": playlist_summaries,
+            "manifest_error": manifest_error,
             "files": files,
             "stats": {
                 "total_blobs": len(azure_blobs),
                 "total_size": total_size,
                 "local_count": len(local_files),
                 "synced": sum(1 for n in azure_blobs if n in local_files),
+                "playlists": len(playlist_summaries),
             }
         }
     except Exception as e:
@@ -3383,12 +3424,22 @@ async def trigger_azure_sync(download_dir: str = ""):
     """Triggers background sync of all local downloaded tracks to Azure Storage Blob."""
     if AZURE_SYNC_STATUS["is_syncing"]:
         return {"status": "started", "message": "Background Azure Sync is already running."}
-        
+
+    # Mark as syncing BEFORE returning. The UI starts polling as soon as this
+    # responds; if the flag were still False when the first poll landed, the
+    # poller would take its "finished" branch and report "completed successfully"
+    # for a sync that had not even begun (and hide the progress bar).
+    AZURE_SYNC_STATUS["is_syncing"] = True
+    AZURE_SYNC_STATUS["progress"] = 0
+    AZURE_SYNC_STATUS["total"] = 0
+    AZURE_SYNC_STATUS["current_file"] = "Starting..."
+    AZURE_SYNC_STATUS["error"] = None
+
     try:
         await export_playlists()
     except Exception as e:
         print(f"[Azure Sync] Failed to export playlists: {e}")
-        
+
     def _progress_cb(current, total, filename, is_done=False, error=None):
         AZURE_SYNC_STATUS["is_syncing"] = not is_done
         AZURE_SYNC_STATUS["progress"] = current

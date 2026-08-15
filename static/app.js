@@ -3057,23 +3057,36 @@ document.addEventListener("DOMContentLoaded", () => {
         const countEl = document.getElementById("azPlaylistCount");
         if (!container) return;
 
-        // Filter out non-playlists (like all_downloads which is virtual)
-        const pls = playlists.filter(p => p.id !== "all_downloads");
+        // Use the backend's playlist->blob join (playlist_summaries). The old code
+        // read pl.items / item.file_name, which do not exist in the manifest schema
+        // (it uses `tracks` and `file`), so every count rendered as 0 and selecting
+        // a playlist matched nothing.
+        const summaries = (azExplorerData && azExplorerData.playlist_summaries) || [];
+        const pls = summaries.filter(p => p.id !== "all_downloads");
         if (countEl) countEl.textContent = pls.length + " playlists";
 
-        // "All Files" virtual entry
         let html = `<div class="az-playlist-row ${!azSelectedPlaylistId ? 'active' : ''}" data-az-pl="">
             <span class="az-pl-name">☁ All Blob Files</span>
             <span class="az-pl-count">${Object.keys(files).length}</span>
         </div>`;
 
+        if (!pls.length) {
+            const err = (azExplorerData && azExplorerData.manifest_error) || "";
+            html += `<div style="padding:0.75rem; color: var(--text-muted); font-size:0.8rem; line-height:1.4;">
+                No playlists found in the blob.${err ? "<br><span style='color:var(--error)'>" + err + "</span>" : ""}
+            </div>`;
+        }
+
         for (const pl of pls) {
-            const trackCount = (pl.items || []).length;
             const isActive = azSelectedPlaylistId === pl.id;
-            const icon = pl.id && pl.id.includes("gita") ? "📿" : "🎵";
-            html += `<div class="az-playlist-row ${isActive ? 'active' : ''}" data-az-pl="${pl.id}">
-                <span class="az-pl-name">${icon} ${pl.title || pl.id}</span>
-                <span class="az-pl-count">${trackCount}</span>
+            const icon = /gita|bhagavad/i.test(pl.title || "") ? "📿" : "🎵";
+            // Show what is actually IN the blob, and flag anything not uploaded yet.
+            const missing = pl.missing_count
+                ? ` <span style="color:var(--warning,#e3b341)" title="${pl.missing_count} track(s) not in blob storage">⚠${pl.missing_count}</span>`
+                : "";
+            html += `<div class="az-playlist-row ${isActive ? 'active' : ''}" data-az-pl="${pl.id}" title="${pl.in_azure_count} of ${pl.track_count} tracks in Azure">
+                <span class="az-pl-name">${icon} ${pl.title}</span>
+                <span class="az-pl-count">${pl.in_azure_count}${missing}</span>
             </div>`;
         }
         container.innerHTML = html;
@@ -3097,29 +3110,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let fileList;
         if (azSelectedPlaylistId) {
-            // Find the playlist and get its track filenames
-            const pl = playlists.find(p => p.id === azSelectedPlaylistId);
-            if (pl && pl.items) {
-                const trackNames = new Set();
-                pl.items.forEach(item => {
-                    if (item.file_name) trackNames.add(item.file_name);
-                    // Also try matching by title pattern
-                    if (item.title) {
-                        // Check all files for matching name
-                        for (const fname of Object.keys(files)) {
-                            if (fname.includes(item.title.substring(0, 30))) {
-                                trackNames.add(fname);
-                            }
-                        }
-                    }
-                });
+            // Exact join computed by the backend (manifest track.file -> blob name).
+            // The previous approach guessed via a 30-char title substring match,
+            // which mixed unrelated files together and missed renamed/truncated ones.
+            const summaries = (azExplorerData && azExplorerData.playlist_summaries) || [];
+            const pl = summaries.find(p => p.id === azSelectedPlaylistId);
+            if (pl) {
+                const trackNames = new Set(pl.files || []);
                 fileList = Object.values(files).filter(f => trackNames.has(f.name));
             } else {
                 fileList = [];
             }
-            // Update title
             const titleEl = document.getElementById("azGridTitle");
-            if (titleEl) titleEl.textContent = pl ? (pl.title || pl.id) : "Unknown Playlist";
+            if (titleEl) {
+                titleEl.textContent = pl
+                    ? `${pl.title} — ${pl.in_azure_count} of ${pl.track_count} in Azure`
+                    : "Unknown Playlist";
+            }
         } else {
             fileList = Object.values(files);
             const titleEl = document.getElementById("azGridTitle");
@@ -3225,18 +3232,35 @@ document.addEventListener("DOMContentLoaded", () => {
         btnConfirmAzSync.disabled = true;
         btnConfirmAzSync.innerHTML = `<div class="spinner" style="width:12px;height:12px;display:inline-block;vertical-align:middle;margin-right:4px;"></div> Syncing...`;
 
+        // Only trust a "finished" reading AFTER the sync has actually been seen
+        // running. Otherwise a poll landing before the backend flips the flag is
+        // indistinguishable from completion, and we announce success for a sync
+        // that never ran (and hide the progress bar immediately).
+        let sawSyncing = false;
+
         azSyncPollInterval = setInterval(async () => {
             try {
                 const res = await fetch("/api/azure/sync/status");
                 const data = await res.json();
                 if (data.is_syncing) {
-                    const pct = data.total > 0 ? Math.round((data.progress / data.total) * 100) : 0;
+                    sawSyncing = true;
                     const fill = document.getElementById("azSyncProgressFill");
                     const text = document.getElementById("azSyncProgressText");
                     const file = document.getElementById("azSyncCurrentFile");
-                    if (fill) fill.style.width = pct + "%";
-                    if (text) text.textContent = `${data.progress} / ${data.total}`;
+                    if (data.total > 0) {
+                        const pct = Math.round((data.progress / data.total) * 100);
+                        if (fill) fill.style.width = pct + "%";
+                        if (text) text.textContent = `${data.progress} / ${data.total}`;
+                    } else {
+                        // Counting/scanning phase reports total=0. Showing "0 / 0"
+                        // with a 0%-wide bar looked like nothing was happening.
+                        if (fill) fill.style.width = "100%";
+                        if (text) text.textContent = "Scanning…";
+                    }
                     if (file) file.textContent = data.current_file || "Working...";
+                } else if (!sawSyncing) {
+                    const file = document.getElementById("azSyncCurrentFile");
+                    if (file) file.textContent = "Starting…";   // keep waiting, don't claim success
                 } else {
                     clearInterval(azSyncPollInterval);
                     azSyncPollInterval = null;

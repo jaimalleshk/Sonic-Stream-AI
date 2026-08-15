@@ -4,196 +4,6 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
   "app": "SonicStream",
   "playlists": [
     {
-      "id": "job_bhagavad_gita_18_chapters",
-      "title": "Bhagavad Gita (18 Chapters)",
-      "playlist_title": "Bhagavad Gita (18 Chapters)",
-      "thumbnail": "gita_cover_logo.png",
-      "thumbnail_file": "gita_cover_logo.png",
-      "track_count": 18,
-      "tracks": [
-        {
-          "id": "gita_ch_01",
-          "title": "Bhagavad Gita - Chapter 1",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_01.mp3",
-          "file": "audio_chapter_01.mp3"
-        },
-        {
-          "id": "gita_ch_02",
-          "title": "Bhagavad Gita - Chapter 2",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_02.mp3",
-          "file": "audio_chapter_02.mp3"
-        },
-        {
-          "id": "gita_ch_03",
-          "title": "Bhagavad Gita - Chapter 3",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_03.mp3",
-          "file": "audio_chapter_03.mp3"
-        },
-        {
-          "id": "gita_ch_04",
-          "title": "Bhagavad Gita - Chapter 4",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_04.mp3",
-          "file": "audio_chapter_04.mp3"
-        },
-        {
-          "id": "gita_ch_05",
-          "title": "Bhagavad Gita - Chapter 5",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_05.mp3",
-          "file": "audio_chapter_05.mp3"
-        },
-        {
-          "id": "gita_ch_06",
-          "title": "Bhagavad Gita - Chapter 6",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_06.mp3",
-          "file": "audio_chapter_06.mp3"
-        },
-        {
-          "id": "gita_ch_07",
-          "title": "Bhagavad Gita - Chapter 7",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_07.mp3",
-          "file": "audio_chapter_07.mp3"
-        },
-        {
-          "id": "gita_ch_08",
-          "title": "Bhagavad Gita - Chapter 8",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_08.mp3",
-          "file": "audio_chapter_08.mp3"
-        },
-        {
-          "id": "gita_ch_09",
-          "title": "Bhagavad Gita - Chapter 9",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_09.mp3",
-          "file": "audio_chapter_09.mp3"
-        },
-        {
-          "id": "gita_ch_10",
-          "title": "Bhagavad Gita - Chapter 10",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_10.mp3",
-          "file": "audio_chapter_10.mp3"
-        },
-        {
-          "id": "gita_ch_11",
-          "title": "Bhagavad Gita - Chapter 11",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_11.mp3",
-          "file": "audio_chapter_11.mp3"
-        },
-        {
-          "id": "gita_ch_12",
-          "title": "Bhagavad Gita - Chapter 12",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_12.mp3",
-          "file": "audio_chapter_12.mp3"
-        },
-        {
-          "id": "gita_ch_13",
-          "title": "Bhagavad Gita - Chapter 13",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_13.mp3",
-          "file": "audio_chapter_13.mp3"
-        },
-        {
-          "id": "gita_ch_14",
-          "title": "Bhagavad Gita - Chapter 14",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_14.mp3",
-          "file": "audio_chapter_14.mp3"
-        },
-        {
-          "id": "gita_ch_15",
-          "title": "Bhagavad Gita - Chapter 15",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_15.mp3",
-          "file": "audio_chapter_15.mp3"
-        },
-        {
-          "id": "gita_ch_16",
-          "title": "Bhagavad Gita - Chapter 16",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_16.mp3",
-          "file": "audio_chapter_16.mp3"
-        },
-        {
-          "id": "gita_ch_17",
-          "title": "Bhagavad Gita - Chapter 17",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_17.mp3",
-          "file": "audio_chapter_17.mp3"
-        },
-        {
-          "id": "gita_ch_18",
-          "title": "Bhagavad Gita - Chapter 18",
-          "artist": "Bhagavad Gita",
-          "duration": 1800,
-          "thumbnail": "gita_cover_logo.png",
-          "thumbnail_file": "gita_cover_logo.png",
-          "url": "./media/audio_chapter_18.mp3",
-          "file": "audio_chapter_18.mp3"
-        }
-      ]
-    },
-    {
       "id": "job_1783133539",
       "title": "All Songs",
       "playlist_title": "All Songs",
@@ -8854,116 +8664,6 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       ]
     },
     {
-      "id": "job_1783134769",
-      "title": "\u0ca4\u0cae\u0cbf\u0cb3\u0cc1 \u0cb9\u0cbe\u0ca1\u0cc1\u0c97\u0cb3\u0cc1",
-      "playlist_title": "\u0ca4\u0cae\u0cbf\u0cb3\u0cc1 \u0cb9\u0cbe\u0ca1\u0cc1\u0c97\u0cb3\u0cc1",
-      "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-      "track_count": 10,
-      "tracks": [
-        {
-          "id": "V4PsND7MUho",
-          "title": "Padayappa - Tamil Movie Songs | Audio Jukebox | Rajinikanth | Soundarya | A R Rahman",
-          "artist": "Star Music India",
-          "duration": 1808,
-          "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=V4PsND7MUho",
-          "file": "Padayappa - Tamil Movie Songs \uff5c Audio Jukebox \uff5c Rajinikanth \uff5c Soundarya \uff5c A R Rahman.mp3"
-        },
-        {
-          "id": "VIRKf__jG-c",
-          "title": "Nayagan | Audio Jukebox | Kamal Hassan | Ilaiyaraaja Official",
-          "artist": "Ilaiyaraaja Official",
-          "duration": 1333,
-          "thumbnail": "https://i.ytimg.com/vi/VIRKf__jG-c/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/VIRKf__jG-c/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=VIRKf__jG-c",
-          "file": "Nayagan \uff5c Audio Jukebox \uff5c Kamal Hassan \uff5c Ilaiyaraaja Official.mp3"
-        },
-        {
-          "id": "LF_1_hy2wXU",
-          "title": "Minnalai Pidithu Song - Shajahan Tamil Movie | Vijay | Richa Pallod | Unni Menon | Mani Sharma",
-          "artist": "Tamil Music Video",
-          "duration": 269,
-          "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=LF_1_hy2wXU",
-          "file": "Minnalai Pidithu Song - Shajahan Tamil Movie \uff5c Vijay \uff5c Richa Pallod \uff5c Unni Menon \uff5c Mani Sharma.mp3"
-        },
-        {
-          "id": "pYwdl9EffVY",
-          "title": "Unknown Title",
-          "artist": "Unknown Channel",
-          "duration": 0,
-          "thumbnail": "https://i.ytimg.com/vi/pYwdl9EffVY/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/pYwdl9EffVY/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=pYwdl9EffVY",
-          "file": "Unknown Title.mp3"
-        },
-        {
-          "id": "Y77s13RrnvY",
-          "title": "Ennai Thalatta Varuvalo - Official Video | Kadhalukku mariyadhai | Vijay | Shalini | Illaiyaraja",
-          "artist": "DD Music",
-          "duration": 300,
-          "thumbnail": "https://i.ytimg.com/vi/Y77s13RrnvY/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/Y77s13RrnvY/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=Y77s13RrnvY",
-          "file": "Ennai Thalatta Varuvalo - Official Video \uff5c Kadhalukku mariyadhai \uff5c Vijay \uff5c Shalini \uff5c Illaiyaraja.mp3"
-        },
-        {
-          "id": "sYzuTdrfWi4",
-          "title": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song",
-          "artist": "Shemaroo Kannada",
-          "duration": 279,
-          "thumbnail": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=sYzuTdrfWi4",
-          "file": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song.mp3"
-        },
-        {
-          "id": "HBEtZk6_-vU",
-          "title": "Singam Ondru",
-          "artist": "Malaysia Vasudevan - Topic",
-          "duration": 286,
-          "thumbnail": "https://i.ytimg.com/vi/HBEtZk6_-vU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/HBEtZk6_-vU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=HBEtZk6_-vU",
-          "file": "Singam Ondru.mp3"
-        },
-        {
-          "id": "vQqxVULdwTw",
-          "title": "Sodhanai Mel Sodhanai",
-          "artist": "T. M. Soundararajan - Topic",
-          "duration": 240,
-          "thumbnail": "https://i.ytimg.com/vi/vQqxVULdwTw/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/vQqxVULdwTw/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=vQqxVULdwTw",
-          "file": "Sodhanai Mel Sodhanai.mp3"
-        },
-        {
-          "id": "u8UTf94H1Q0",
-          "title": "Tum Tum (From \"Enemy - Tamil\")",
-          "artist": "Aditi Bhavaraju Official",
-          "duration": 229,
-          "thumbnail": "https://i.ytimg.com/vi/u8UTf94H1Q0/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/u8UTf94H1Q0/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=u8UTf94H1Q0",
-          "file": "Tum Tum (From \"Enemy - Tamil\").mp3"
-        },
-        {
-          "id": "PwDmpVS1Fag",
-          "title": "Father Son Drama",
-          "artist": "A. R. Rahman",
-          "duration": 40,
-          "thumbnail": "https://i.ytimg.com/vi/PwDmpVS1Fag/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/PwDmpVS1Fag/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=PwDmpVS1Fag",
-          "file": "Father Son Drama.mp3"
-        }
-      ]
-    },
-    {
       "id": "job_1783134359",
       "title": "Bhakthi",
       "playlist_title": "Bhakthi",
@@ -10304,6 +10004,116 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       ]
     },
     {
+      "id": "job_1783134769",
+      "title": "\u0ca4\u0cae\u0cbf\u0cb3\u0cc1 \u0cb9\u0cbe\u0ca1\u0cc1\u0c97\u0cb3\u0cc1",
+      "playlist_title": "\u0ca4\u0cae\u0cbf\u0cb3\u0cc1 \u0cb9\u0cbe\u0ca1\u0cc1\u0c97\u0cb3\u0cc1",
+      "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+      "track_count": 10,
+      "tracks": [
+        {
+          "id": "V4PsND7MUho",
+          "title": "Padayappa - Tamil Movie Songs | Audio Jukebox | Rajinikanth | Soundarya | A R Rahman",
+          "artist": "Star Music India",
+          "duration": 1808,
+          "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=V4PsND7MUho",
+          "file": "Padayappa - Tamil Movie Songs \uff5c Audio Jukebox \uff5c Rajinikanth \uff5c Soundarya \uff5c A R Rahman.mp3"
+        },
+        {
+          "id": "VIRKf__jG-c",
+          "title": "Nayagan | Audio Jukebox | Kamal Hassan | Ilaiyaraaja Official",
+          "artist": "Ilaiyaraaja Official",
+          "duration": 1333,
+          "thumbnail": "https://i.ytimg.com/vi/VIRKf__jG-c/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/VIRKf__jG-c/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=VIRKf__jG-c",
+          "file": "Nayagan \uff5c Audio Jukebox \uff5c Kamal Hassan \uff5c Ilaiyaraaja Official.mp3"
+        },
+        {
+          "id": "LF_1_hy2wXU",
+          "title": "Minnalai Pidithu Song - Shajahan Tamil Movie | Vijay | Richa Pallod | Unni Menon | Mani Sharma",
+          "artist": "Tamil Music Video",
+          "duration": 269,
+          "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=LF_1_hy2wXU",
+          "file": "Minnalai Pidithu Song - Shajahan Tamil Movie \uff5c Vijay \uff5c Richa Pallod \uff5c Unni Menon \uff5c Mani Sharma.mp3"
+        },
+        {
+          "id": "pYwdl9EffVY",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/pYwdl9EffVY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/pYwdl9EffVY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=pYwdl9EffVY",
+          "file": "Unknown Title.mp3"
+        },
+        {
+          "id": "Y77s13RrnvY",
+          "title": "Ennai Thalatta Varuvalo - Official Video | Kadhalukku mariyadhai | Vijay | Shalini | Illaiyaraja",
+          "artist": "DD Music",
+          "duration": 300,
+          "thumbnail": "https://i.ytimg.com/vi/Y77s13RrnvY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Y77s13RrnvY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Y77s13RrnvY",
+          "file": "Ennai Thalatta Varuvalo - Official Video \uff5c Kadhalukku mariyadhai \uff5c Vijay \uff5c Shalini \uff5c Illaiyaraja.mp3"
+        },
+        {
+          "id": "sYzuTdrfWi4",
+          "title": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song",
+          "artist": "Shemaroo Kannada",
+          "duration": 279,
+          "thumbnail": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=sYzuTdrfWi4",
+          "file": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song.mp3"
+        },
+        {
+          "id": "HBEtZk6_-vU",
+          "title": "Singam Ondru",
+          "artist": "Malaysia Vasudevan - Topic",
+          "duration": 286,
+          "thumbnail": "https://i.ytimg.com/vi/HBEtZk6_-vU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/HBEtZk6_-vU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=HBEtZk6_-vU",
+          "file": "Singam Ondru.mp3"
+        },
+        {
+          "id": "vQqxVULdwTw",
+          "title": "Sodhanai Mel Sodhanai",
+          "artist": "T. M. Soundararajan - Topic",
+          "duration": 240,
+          "thumbnail": "https://i.ytimg.com/vi/vQqxVULdwTw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/vQqxVULdwTw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=vQqxVULdwTw",
+          "file": "Sodhanai Mel Sodhanai.mp3"
+        },
+        {
+          "id": "u8UTf94H1Q0",
+          "title": "Tum Tum (From \"Enemy - Tamil\")",
+          "artist": "Aditi Bhavaraju Official",
+          "duration": 229,
+          "thumbnail": "https://i.ytimg.com/vi/u8UTf94H1Q0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/u8UTf94H1Q0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=u8UTf94H1Q0",
+          "file": "Tum Tum (From \"Enemy - Tamil\").mp3"
+        },
+        {
+          "id": "PwDmpVS1Fag",
+          "title": "Father Son Drama",
+          "artist": "A. R. Rahman",
+          "duration": 40,
+          "thumbnail": "https://i.ytimg.com/vi/PwDmpVS1Fag/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/PwDmpVS1Fag/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=PwDmpVS1Fag",
+          "file": "Father Son Drama.mp3"
+        }
+      ]
+    },
+    {
       "id": "job_1783098595",
       "title": "English songs",
       "playlist_title": "English songs",
@@ -11084,6 +10894,546 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       ]
     },
     {
+      "id": "job_1783132972",
+      "title": "\u0ca8\u0cbe\u0c9f\u0ccd\u0caf",
+      "playlist_title": "\u0ca8\u0cbe\u0c9f\u0ccd\u0caf",
+      "thumbnail": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
+      "track_count": 53,
+      "tracks": [
+        {
+          "id": "lUOQ7Xrj0kI",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=lUOQ7Xrj0kI",
+          "file": "Unknown Title.mp3"
+        },
+        {
+          "id": "6yIKOlbYldo",
+          "title": "Rajashekara",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 289,
+          "thumbnail": "https://i.ytimg.com/vi/6yIKOlbYldo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/6yIKOlbYldo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=6yIKOlbYldo",
+          "file": "Rajashekara.mp3"
+        },
+        {
+          "id": "ENRb__nSo7w",
+          "title": "Jagadanandakaraka Song by Shreya Ghoshal | Sri Rama Rajyam Movie Songs HD | Balakrishna | Ilayaraja",
+          "artist": "Telugu Filmnagar",
+          "duration": 327,
+          "thumbnail": "https://i.ytimg.com/vi/ENRb__nSo7w/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ENRb__nSo7w/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ENRb__nSo7w",
+          "file": "Jagadanandakaraka Song by Shreya Ghoshal \uff5c Sri Rama Rajyam Movie Songs HD \uff5c Balakrishna \uff5c Ilayaraja.mp3"
+        },
+        {
+          "id": "-2Nw-rvogl4",
+          "title": "Balapam Patti Full Song With Lyrics - Bobbili Raja Songs - Venkatesh, Divya Bharati, Ilaiyaraaja",
+          "artist": "Aditya Music PLAYBACK",
+          "duration": 308,
+          "thumbnail": "https://i.ytimg.com/vi/-2Nw-rvogl4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/-2Nw-rvogl4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=-2Nw-rvogl4",
+          "file": "Balapam Patti Full Song With Lyrics - Bobbili Raja Songs - Venkatesh, Divya Bharati, Ilaiyaraaja.mp3"
+        },
+        {
+          "id": "cYLaLkKf2PM",
+          "title": "Ee Petaku Nene Mestri | Muta Mestri |  Chiranjeevi ,Roja, Meena| Raj - Koti",
+          "artist": "Lahari Music Telugu",
+          "duration": 399,
+          "thumbnail": "https://i.ytimg.com/vi/cYLaLkKf2PM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/cYLaLkKf2PM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=cYLaLkKf2PM",
+          "file": "Ee Petaku Nene Mestri \uff5c Muta Mestri \uff5c  Chiranjeevi ,Roja, Meena\uff5c Raj - Koti.mp3"
+        },
+        {
+          "id": "At599yZ_LX4",
+          "title": "LYRICAL : Na Kajre Ki Dhar-Jhankar Beats |Mohra |Pankaj Udhas & Sadhana Sargam | 90's Romantic Songs",
+          "artist": "Ishtar Music",
+          "duration": 320,
+          "thumbnail": "https://i.ytimg.com/vi/At599yZ_LX4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/At599yZ_LX4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=At599yZ_LX4",
+          "file": "LYRICAL \uff1a Na Kajre Ki Dhar-Jhankar Beats \uff5cMohra \uff5cPankaj Udhas & Sadhana Sargam \uff5c 90's Romantic Songs.mp3"
+        },
+        {
+          "id": "WTJSt4wP2ME",
+          "title": "K'NAAN - Wavin' Flag (Coca-Cola Celebration Mix)",
+          "artist": "Keinan A",
+          "duration": 225,
+          "thumbnail": "https://i.ytimg.com/vi/WTJSt4wP2ME/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/WTJSt4wP2ME/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=WTJSt4wP2ME",
+          "file": "K'NAAN - Wavin' Flag (Coca-Cola Celebration Mix).mp3"
+        },
+        {
+          "id": "oAL2Srr4JRk",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/oAL2Srr4JRk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/oAL2Srr4JRk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=oAL2Srr4JRk",
+          "file": "Unknown Title.mp3"
+        },
+        {
+          "id": "y_u9DRClNeg",
+          "title": "Rasika- \"Ambaraveri Ambaraveri\" Audio Song I Ravichandran, Bhanupriya I Akash Audio",
+          "artist": "Akash Audio",
+          "duration": 299,
+          "thumbnail": "https://i.ytimg.com/vi/y_u9DRClNeg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/y_u9DRClNeg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=y_u9DRClNeg",
+          "file": "Rasika- \uff02Ambaraveri Ambaraveri\uff02 Audio Song I Ravichandran, Bhanupriya I Akash Audio.mp3"
+        },
+        {
+          "id": "eNRvTifC9Vo",
+          "title": "Chiranjeevi Birthday Special Songs || Jukebox",
+          "artist": "Lahari Music",
+          "duration": 2960,
+          "thumbnail": "https://i.ytimg.com/vi/eNRvTifC9Vo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/eNRvTifC9Vo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=eNRvTifC9Vo",
+          "file": "Chiranjeevi Birthday Special Songs \uff5c\uff5c Jukebox.mp3"
+        },
+        {
+          "id": "V4PsND7MUho",
+          "title": "Padayappa - Tamil Movie Songs | Audio Jukebox | Rajinikanth | Soundarya | A R Rahman",
+          "artist": "Star Music India",
+          "duration": 1808,
+          "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=V4PsND7MUho",
+          "file": "Padayappa - Tamil Movie Songs \uff5c Audio Jukebox \uff5c Rajinikanth \uff5c Soundarya \uff5c A R Rahman.mp3"
+        },
+        {
+          "id": "JexbxHwlHTE",
+          "title": "Gentleman Telugu Movie Songs | Gentleman Jukebox | Telugu Super Hit Songs",
+          "artist": "Lahari Music",
+          "duration": 1448,
+          "thumbnail": "https://i.ytimg.com/vi/JexbxHwlHTE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/JexbxHwlHTE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=JexbxHwlHTE",
+          "file": "Gentleman Telugu Movie Songs \uff5c Gentleman Jukebox \uff5c Telugu Super Hit Songs.mp3"
+        },
+        {
+          "id": "oLyjZtRlHZk",
+          "title": "Ek Pal Ka Jeena",
+          "artist": "Lucky Ali",
+          "duration": 395,
+          "thumbnail": "https://i.ytimg.com/vi/oLyjZtRlHZk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/oLyjZtRlHZk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=oLyjZtRlHZk",
+          "file": "Ek Pal Ka Jeena.mp3"
+        },
+        {
+          "id": "YbtoehZFh6Y",
+          "title": "Rama Shree Rama | Sathya In Love | Chitra | Shivrajkumar, Genelia | Gurukiran | Jhankar Music",
+          "artist": "Jhankar Music",
+          "duration": 321,
+          "thumbnail": "https://i.ytimg.com/vi/YbtoehZFh6Y/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/YbtoehZFh6Y/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=YbtoehZFh6Y",
+          "file": "Rama Shree Rama \uff5c Sathya In Love \uff5c Chitra \uff5c Shivrajkumar, Genelia \uff5c Gurukiran \uff5c Jhankar Music.mp3"
+        },
+        {
+          "id": "WDjIpZj-6Ko",
+          "title": "Priya Raagale Video Song | Hello Brother Telugu Movie Songs | Nagarjuna | Soundarya | Ramya Krishna",
+          "artist": "Mango Music",
+          "duration": 367,
+          "thumbnail": "https://i.ytimg.com/vi/WDjIpZj-6Ko/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/WDjIpZj-6Ko/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=WDjIpZj-6Ko",
+          "file": "Priya Raagale Video Song \uff5c Hello Brother Telugu Movie Songs \uff5c Nagarjuna \uff5c Soundarya \uff5c Ramya Krishna.mp3"
+        },
+        {
+          "id": "FktgEn6RedY",
+          "title": "Annayya Movie Video Songs Jukebox | Chiranjeevi, Soundarya, Simran | Mani Sharma",
+          "artist": "Geetha Arts ",
+          "duration": 1691,
+          "thumbnail": "https://i.ytimg.com/vi/FktgEn6RedY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/FktgEn6RedY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=FktgEn6RedY",
+          "file": "Annayya Movie Video Songs Jukebox | Chiranjeevi, Soundarya, Simran | Mani Sharma.mp3"
+        },
+        {
+          "id": "_f5w2ijPxkU",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/_f5w2ijPxkU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_f5w2ijPxkU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_f5w2ijPxkU",
+          "file": "Unknown Title.mp3"
+        },
+        {
+          "id": "ZmPXTRr5-Y0",
+          "title": "Veedu Aradugula Bullettu Full Song With Lyrics - Attarintiki Daredi Songs- Pawan Kalyan Samantha DSP",
+          "artist": "Aditya Music PLAYBACK",
+          "duration": 291,
+          "thumbnail": "https://i.ytimg.com/vi/ZmPXTRr5-Y0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ZmPXTRr5-Y0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ZmPXTRr5-Y0",
+          "file": "Veedu Aradugula Bullettu Full Song With Lyrics - Attarintiki Daredi Songs- Pawan Kalyan Samantha DSP.mp3"
+        },
+        {
+          "id": "Ovwvj5GpNRw",
+          "title": "Siri Siri Muvva Movie Songs || Maa Voori Devudamma Video Song || Jaya Prada, Chandra Mohan",
+          "artist": "TeluguOne",
+          "duration": 282,
+          "thumbnail": "https://i.ytimg.com/vi/Ovwvj5GpNRw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Ovwvj5GpNRw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Ovwvj5GpNRw",
+          "file": "Siri Siri Muvva Movie Songs \uff5c\uff5c Maa Voori Devudamma Video Song \uff5c\uff5c Jaya Prada, Chandra Mohan.mp3"
+        },
+        {
+          "id": "UK1A-3Y9ubg",
+          "title": "Elu Male  Myaleri | S.P.Balasubrahmanyam | Jogi |Shiva Rajkumar |Prem's | Gurukiran |Full Video Song",
+          "artist": "Ashwini Recording Co",
+          "duration": 314,
+          "thumbnail": "https://i.ytimg.com/vi/UK1A-3Y9ubg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UK1A-3Y9ubg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UK1A-3Y9ubg",
+          "file": "Elu Male  Myaleri \uff5c S.P.Balasubrahmanyam \uff5c Jogi \uff5cShiva Rajkumar \uff5cPrem's \uff5c Gurukiran \uff5cFull Video Song.mp3"
+        },
+        {
+          "id": "n6FLVEWOWBg",
+          "title": "Priya Raagale",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 366,
+          "thumbnail": "https://i.ytimg.com/vi/n6FLVEWOWBg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/n6FLVEWOWBg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=n6FLVEWOWBg",
+          "file": "Priya Raagale.mp3"
+        },
+        {
+          "id": "PQFUNoXvwI8",
+          "title": "NAGUTHA NAGUTHA BAALU",
+          "artist": "Dr. Rajkumar - Topic",
+          "duration": 286,
+          "thumbnail": "https://i.ytimg.com/vi/PQFUNoXvwI8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/PQFUNoXvwI8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=PQFUNoXvwI8",
+          "file": "NAGUTHA NAGUTHA BAALU.mp3"
+        },
+        {
+          "id": "FKNLt_oPlSM",
+          "title": "Bolo Bolo Rani Full Song || Rowdy Alludu Telugu Movie || Chiranjeevi, Sobhana, Divya Bharati",
+          "artist": "Geetha Arts ",
+          "duration": 313,
+          "thumbnail": "https://i.ytimg.com/vi/FKNLt_oPlSM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/FKNLt_oPlSM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=FKNLt_oPlSM",
+          "file": "Bolo Bolo Rani Full Song \uff5c\uff5c Rowdy Alludu Telugu Movie \uff5c\uff5c Chiranjeevi, Sobhana, Divya Bharati.mp3"
+        },
+        {
+          "id": "tLnq184ZVIA",
+          "title": "Maari Kannu Video Song | \"A\" Kannada Movie Video Songs | Upendra, Chandini | Gurukiran | SPB",
+          "artist": "Lahari Music Kannada",
+          "duration": 245,
+          "thumbnail": "https://i.ytimg.com/vi/tLnq184ZVIA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/tLnq184ZVIA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=tLnq184ZVIA",
+          "file": "Maari Kannu Video Song \uff5c \uff02A\uff02 Kannada Movie Video Songs \uff5c Upendra, Chandini \uff5c Gurukiran \uff5c SPB.mp3"
+        },
+        {
+          "id": "wTqg3QFuIik",
+          "title": "Jorse Jorse",
+          "artist": "Release - Topic",
+          "duration": 280,
+          "thumbnail": "https://i.ytimg.com/vi/wTqg3QFuIik/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/wTqg3QFuIik/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=wTqg3QFuIik",
+          "file": "Jorse Jorse.mp3"
+        },
+        {
+          "id": "NvSknGXnCv4",
+          "title": "Andam Hindolam",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 288,
+          "thumbnail": "https://i.ytimg.com/vi/NvSknGXnCv4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/NvSknGXnCv4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=NvSknGXnCv4",
+          "file": "Andam Hindolam.mp3"
+        },
+        {
+          "id": "sS14hkYTb1E",
+          "title": "Thammudu (\u0c24\u0c2e\u0c4d\u0c2e\u0c41\u0c21\u0c41)Telugu Movie Songs Jukebox || Pawan Kalyan, Preethi Zingania",
+          "artist": "Aditya Music",
+          "duration": 2054,
+          "thumbnail": "https://i.ytimg.com/vi/sS14hkYTb1E/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/sS14hkYTb1E/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=sS14hkYTb1E",
+          "file": "Thammudu (\u0c24\u0c2e\u0c4d\u0c2e\u0c41\u0c21\u0c41)Telugu Movie Songs Jukebox \uff5c\uff5c Pawan Kalyan, Preethi Zingania.mp3"
+        },
+        {
+          "id": "OH-5Tt2fSIs",
+          "title": "Jai Jai Ganesha",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 342,
+          "thumbnail": "https://i.ytimg.com/vi/OH-5Tt2fSIs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/OH-5Tt2fSIs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=OH-5Tt2fSIs",
+          "file": "Jai Jai Ganesha.mp3"
+        },
+        {
+          "id": "n34o1HOoiu4",
+          "title": "Cheliya",
+          "artist": "Jeans Srinivas - Topic",
+          "duration": 341,
+          "thumbnail": "https://i.ytimg.com/vi/n34o1HOoiu4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/n34o1HOoiu4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=n34o1HOoiu4",
+          "file": "Cheliya.mp3"
+        },
+        {
+          "id": "o4pWBJp0cpw",
+          "title": "Kontegadni Kattuko",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 313,
+          "thumbnail": "https://i.ytimg.com/vi/o4pWBJp0cpw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/o4pWBJp0cpw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=o4pWBJp0cpw",
+          "file": "Kontegadni Kattuko.mp3"
+        },
+        {
+          "id": "_iyRFJya_dY",
+          "title": "Singarala",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 329,
+          "thumbnail": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_iyRFJya_dY",
+          "file": "Singarala.mp3"
+        },
+        {
+          "id": "d_kIV4jYfXM",
+          "title": "Pranaamam",
+          "artist": "Shankar Mahadevan - Topic",
+          "duration": 241,
+          "thumbnail": "https://i.ytimg.com/vi/d_kIV4jYfXM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/d_kIV4jYfXM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=d_kIV4jYfXM",
+          "file": "Pranaamam.mp3"
+        },
+        {
+          "id": "HBEtZk6_-vU",
+          "title": "Singam Ondru",
+          "artist": "Malaysia Vasudevan - Topic",
+          "duration": 286,
+          "thumbnail": "https://i.ytimg.com/vi/HBEtZk6_-vU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/HBEtZk6_-vU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=HBEtZk6_-vU",
+          "file": "Singam Ondru.mp3"
+        },
+        {
+          "id": "BS0lfhSUG6k",
+          "title": "Chikchik Cham",
+          "artist": "Mano - Topic",
+          "duration": 329,
+          "thumbnail": "https://i.ytimg.com/vi/BS0lfhSUG6k/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/BS0lfhSUG6k/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=BS0lfhSUG6k",
+          "file": "Chikchik Cham.mp3"
+        },
+        {
+          "id": "2ziOnXXjRfQ",
+          "title": "Chinna Papa",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 269,
+          "thumbnail": "https://i.ytimg.com/vi/2ziOnXXjRfQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/2ziOnXXjRfQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=2ziOnXXjRfQ",
+          "file": "Chinna Papa.mp3"
+        },
+        {
+          "id": "jZpLQj9khHc",
+          "title": "Atto Attamma",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 274,
+          "thumbnail": "https://i.ytimg.com/vi/jZpLQj9khHc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/jZpLQj9khHc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=jZpLQj9khHc",
+          "file": "Atto Attamma.mp3"
+        },
+        {
+          "id": "XGYaJrrffa4",
+          "title": "Unga Unga",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 285,
+          "thumbnail": "https://i.ytimg.com/vi/XGYaJrrffa4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/XGYaJrrffa4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=XGYaJrrffa4",
+          "file": "Unga Unga.mp3"
+        },
+        {
+          "id": "4aTPVjNY7zM",
+          "title": "Maa Voori Devudu",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 415,
+          "thumbnail": "https://i.ytimg.com/vi/4aTPVjNY7zM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/4aTPVjNY7zM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=4aTPVjNY7zM",
+          "file": "Maa Voori Devudu.mp3"
+        },
+        {
+          "id": "am3HO_hL7oE",
+          "title": "Pitta Kootha",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 297,
+          "thumbnail": "https://i.ytimg.com/vi/am3HO_hL7oE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/am3HO_hL7oE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=am3HO_hL7oE",
+          "file": "Pitta Kootha.mp3"
+        },
+        {
+          "id": "g0IxeHOBIYE",
+          "title": "Reddu Reddu",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 273,
+          "thumbnail": "https://i.ytimg.com/vi/g0IxeHOBIYE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/g0IxeHOBIYE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=g0IxeHOBIYE",
+          "file": "Reddu Reddu.mp3"
+        },
+        {
+          "id": "I0zU7A76Neg",
+          "title": "Andhanikey",
+          "artist": "Release - Topic",
+          "duration": 324,
+          "thumbnail": "https://i.ytimg.com/vi/I0zU7A76Neg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/I0zU7A76Neg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=I0zU7A76Neg",
+          "file": "Andhanikey.mp3"
+        },
+        {
+          "id": "I4hvyTTXbtw",
+          "title": "Yaare Neenu Roja Hoove",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 379,
+          "thumbnail": "https://i.ytimg.com/vi/I4hvyTTXbtw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/I4hvyTTXbtw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=I4hvyTTXbtw",
+          "file": "Yaare Neenu Roja Hoove.mp3"
+        },
+        {
+          "id": "cOwpHmUQGR4",
+          "title": "Urumochesindoi",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 291,
+          "thumbnail": "https://i.ytimg.com/vi/cOwpHmUQGR4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/cOwpHmUQGR4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=cOwpHmUQGR4",
+          "file": "Urumochesindoi.mp3"
+        },
+        {
+          "id": "kJ2fJCMt_DI",
+          "title": "I Am An Indian",
+          "artist": "Ramana Gogula - Topic",
+          "duration": 313,
+          "thumbnail": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=kJ2fJCMt_DI",
+          "file": "I Am An Indian.mp3"
+        },
+        {
+          "id": "zOdWvHeDNBk",
+          "title": "Maa Voori Devudamma (Siri Siri Muvva / Soundtrack Version)",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 270,
+          "thumbnail": "https://i.ytimg.com/vi/zOdWvHeDNBk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/zOdWvHeDNBk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=zOdWvHeDNBk",
+          "file": "Maa Voori Devudamma (Siri Siri Muvva \u29f8 Soundtrack Version).mp3"
+        },
+        {
+          "id": "1X5VrT9fmuk",
+          "title": "Cheppave Chirugali",
+          "artist": "Udit Narayan",
+          "duration": 331,
+          "thumbnail": "https://i.ytimg.com/vi/1X5VrT9fmuk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/1X5VrT9fmuk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=1X5VrT9fmuk",
+          "file": "Cheppave Chirugali.mp3"
+        },
+        {
+          "id": "g3ormdh_7PQ",
+          "title": "Pata Pata",
+          "artist": "Udit Narayan",
+          "duration": 274,
+          "thumbnail": "https://i.ytimg.com/vi/g3ormdh_7PQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/g3ormdh_7PQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=g3ormdh_7PQ",
+          "file": "Pata Pata.mp3"
+        },
+        {
+          "id": "dSqQkqqq8fM",
+          "title": "Huttidare Kannada Nadalli Huttabeku - HD Video Song | Aakasmika Kannada Movie Songs | Dr Rajkumar",
+          "artist": "SGV Music",
+          "duration": 258,
+          "thumbnail": "https://i.ytimg.com/vi/dSqQkqqq8fM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/dSqQkqqq8fM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=dSqQkqqq8fM",
+          "file": "Huttidare Kannada Nadalli Huttabeku - HD Video Song \uff5c Aakasmika Kannada Movie Songs \uff5c Dr Rajkumar.mp3"
+        },
+        {
+          "id": "s0ZoNU-Dq7w",
+          "title": "Huttidare Kannada ft. Dr.Rajkumar,Madhavi,Geetha",
+          "artist": "Rajkumar - Topic",
+          "duration": 285,
+          "thumbnail": "https://i.ytimg.com/vi/s0ZoNU-Dq7w/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/s0ZoNU-Dq7w/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=s0ZoNU-Dq7w",
+          "file": "Huttidare Kannada ft. Dr.Rajkumar,Madhavi,Geetha.mp3"
+        },
+        {
+          "id": "GUYUYdZbrfI",
+          "title": "Nodi Swamy Navirodu Heege Title Song | Shankarnag | HD Old Kannada Video Song | SPB",
+          "artist": "SGV Kannada Songs",
+          "duration": 265,
+          "thumbnail": "https://i.ytimg.com/vi/GUYUYdZbrfI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/GUYUYdZbrfI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=GUYUYdZbrfI",
+          "file": "Nodi Swamy Navirodu Heege Title Song \uff5c Shankarnag \uff5c HD Old Kannada Video Song \uff5c SPB.mp3"
+        },
+        {
+          "id": "ib-rCrvFYcE",
+          "title": "O Maria",
+          "artist": "Release - Topic",
+          "duration": 350,
+          "thumbnail": "https://i.ytimg.com/vi/ib-rCrvFYcE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ib-rCrvFYcE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ib-rCrvFYcE",
+          "file": "O Maria.mp3"
+        },
+        {
+          "id": "REPYkwe2-Bc",
+          "title": "TOP 10 MURUGAN PAADHAYATHIRAI PAADALGAL",
+          "artist": "VejayAudios",
+          "duration": 3445,
+          "thumbnail": "https://i.ytimg.com/vi/REPYkwe2-Bc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/REPYkwe2-Bc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=REPYkwe2-Bc",
+          "file": "TOP 10 MURUGAN PAADHAYATHIRAI PAADALGAL.mp3"
+        },
+        {
+          "id": "QgntfABExNs",
+          "title": "Bham Bham Bole",
+          "artist": "Hariharan - Topic",
+          "duration": 368,
+          "thumbnail": "https://i.ytimg.com/vi/QgntfABExNs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/QgntfABExNs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=QgntfABExNs",
+          "file": "Bham Bham Bole.mp3"
+        }
+      ]
+    },
+    {
       "id": "job_1783133096",
       "title": "\u0cb9\u0cbf\u0c82\u0ca6\u0cbf \u0cb9\u0cbe\u0ca1\u0cc1\u0c97\u0cb3\u0cc1",
       "playlist_title": "\u0cb9\u0cbf\u0c82\u0ca6\u0cbf \u0cb9\u0cbe\u0ca1\u0cc1\u0c97\u0cb3\u0cc1",
@@ -11684,549 +12034,18 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       ]
     },
     {
-      "id": "job_1783132972",
-      "title": "\u0ca8\u0cbe\u0c9f\u0ccd\u0caf",
-      "playlist_title": "\u0ca8\u0cbe\u0c9f\u0ccd\u0caf",
-      "thumbnail": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
-      "track_count": 53,
-      "tracks": [
-        {
-          "id": "lUOQ7Xrj0kI",
-          "title": "Unknown Title",
-          "artist": "Unknown Channel",
-          "duration": 0,
-          "thumbnail": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=lUOQ7Xrj0kI",
-          "file": "Unknown Title.mp3"
-        },
-        {
-          "id": "6yIKOlbYldo",
-          "title": "Rajashekara",
-          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
-          "duration": 289,
-          "thumbnail": "https://i.ytimg.com/vi/6yIKOlbYldo/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/6yIKOlbYldo/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=6yIKOlbYldo",
-          "file": "Rajashekara.mp3"
-        },
-        {
-          "id": "ENRb__nSo7w",
-          "title": "Jagadanandakaraka Song by Shreya Ghoshal | Sri Rama Rajyam Movie Songs HD | Balakrishna | Ilayaraja",
-          "artist": "Telugu Filmnagar",
-          "duration": 327,
-          "thumbnail": "https://i.ytimg.com/vi/ENRb__nSo7w/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/ENRb__nSo7w/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=ENRb__nSo7w",
-          "file": "Jagadanandakaraka Song by Shreya Ghoshal \uff5c Sri Rama Rajyam Movie Songs HD \uff5c Balakrishna \uff5c Ilayaraja.mp3"
-        },
-        {
-          "id": "-2Nw-rvogl4",
-          "title": "Balapam Patti Full Song With Lyrics - Bobbili Raja Songs - Venkatesh, Divya Bharati, Ilaiyaraaja",
-          "artist": "Aditya Music PLAYBACK",
-          "duration": 308,
-          "thumbnail": "https://i.ytimg.com/vi/-2Nw-rvogl4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/-2Nw-rvogl4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=-2Nw-rvogl4",
-          "file": "Balapam Patti Full Song With Lyrics - Bobbili Raja Songs - Venkatesh, Divya Bharati, Ilaiyaraaja.mp3"
-        },
-        {
-          "id": "cYLaLkKf2PM",
-          "title": "Ee Petaku Nene Mestri | Muta Mestri |  Chiranjeevi ,Roja, Meena| Raj - Koti",
-          "artist": "Lahari Music Telugu",
-          "duration": 399,
-          "thumbnail": "https://i.ytimg.com/vi/cYLaLkKf2PM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/cYLaLkKf2PM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=cYLaLkKf2PM",
-          "file": "Ee Petaku Nene Mestri \uff5c Muta Mestri \uff5c  Chiranjeevi ,Roja, Meena\uff5c Raj - Koti.mp3"
-        },
-        {
-          "id": "At599yZ_LX4",
-          "title": "LYRICAL : Na Kajre Ki Dhar-Jhankar Beats |Mohra |Pankaj Udhas & Sadhana Sargam | 90's Romantic Songs",
-          "artist": "Ishtar Music",
-          "duration": 320,
-          "thumbnail": "https://i.ytimg.com/vi/At599yZ_LX4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/At599yZ_LX4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=At599yZ_LX4",
-          "file": "LYRICAL \uff1a Na Kajre Ki Dhar-Jhankar Beats \uff5cMohra \uff5cPankaj Udhas & Sadhana Sargam \uff5c 90's Romantic Songs.mp3"
-        },
-        {
-          "id": "WTJSt4wP2ME",
-          "title": "K'NAAN - Wavin' Flag (Coca-Cola Celebration Mix)",
-          "artist": "Keinan A",
-          "duration": 225,
-          "thumbnail": "https://i.ytimg.com/vi/WTJSt4wP2ME/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/WTJSt4wP2ME/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=WTJSt4wP2ME",
-          "file": "K'NAAN - Wavin' Flag (Coca-Cola Celebration Mix).mp3"
-        },
-        {
-          "id": "oAL2Srr4JRk",
-          "title": "Unknown Title",
-          "artist": "Unknown Channel",
-          "duration": 0,
-          "thumbnail": "https://i.ytimg.com/vi/oAL2Srr4JRk/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/oAL2Srr4JRk/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=oAL2Srr4JRk",
-          "file": "Unknown Title.mp3"
-        },
-        {
-          "id": "y_u9DRClNeg",
-          "title": "Rasika- \"Ambaraveri Ambaraveri\" Audio Song I Ravichandran, Bhanupriya I Akash Audio",
-          "artist": "Akash Audio",
-          "duration": 299,
-          "thumbnail": "https://i.ytimg.com/vi/y_u9DRClNeg/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/y_u9DRClNeg/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=y_u9DRClNeg",
-          "file": "Rasika- \uff02Ambaraveri Ambaraveri\uff02 Audio Song I Ravichandran, Bhanupriya I Akash Audio.mp3"
-        },
-        {
-          "id": "eNRvTifC9Vo",
-          "title": "Chiranjeevi Birthday Special Songs || Jukebox",
-          "artist": "Lahari Music",
-          "duration": 2960,
-          "thumbnail": "https://i.ytimg.com/vi/eNRvTifC9Vo/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/eNRvTifC9Vo/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=eNRvTifC9Vo",
-          "file": "Chiranjeevi Birthday Special Songs \uff5c\uff5c Jukebox.mp3"
-        },
-        {
-          "id": "V4PsND7MUho",
-          "title": "Padayappa - Tamil Movie Songs | Audio Jukebox | Rajinikanth | Soundarya | A R Rahman",
-          "artist": "Star Music India",
-          "duration": 1808,
-          "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=V4PsND7MUho",
-          "file": "Padayappa - Tamil Movie Songs \uff5c Audio Jukebox \uff5c Rajinikanth \uff5c Soundarya \uff5c A R Rahman.mp3"
-        },
-        {
-          "id": "JexbxHwlHTE",
-          "title": "Gentleman Telugu Movie Songs | Gentleman Jukebox | Telugu Super Hit Songs",
-          "artist": "Lahari Music",
-          "duration": 1448,
-          "thumbnail": "https://i.ytimg.com/vi/JexbxHwlHTE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/JexbxHwlHTE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=JexbxHwlHTE",
-          "file": "Gentleman Telugu Movie Songs \uff5c Gentleman Jukebox \uff5c Telugu Super Hit Songs.mp3"
-        },
-        {
-          "id": "oLyjZtRlHZk",
-          "title": "Ek Pal Ka Jeena",
-          "artist": "Lucky Ali",
-          "duration": 395,
-          "thumbnail": "https://i.ytimg.com/vi/oLyjZtRlHZk/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/oLyjZtRlHZk/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=oLyjZtRlHZk",
-          "file": "Ek Pal Ka Jeena.mp3"
-        },
-        {
-          "id": "YbtoehZFh6Y",
-          "title": "Rama Shree Rama | Sathya In Love | Chitra | Shivrajkumar, Genelia | Gurukiran | Jhankar Music",
-          "artist": "Jhankar Music",
-          "duration": 321,
-          "thumbnail": "https://i.ytimg.com/vi/YbtoehZFh6Y/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/YbtoehZFh6Y/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=YbtoehZFh6Y",
-          "file": "Rama Shree Rama \uff5c Sathya In Love \uff5c Chitra \uff5c Shivrajkumar, Genelia \uff5c Gurukiran \uff5c Jhankar Music.mp3"
-        },
-        {
-          "id": "WDjIpZj-6Ko",
-          "title": "Priya Raagale Video Song | Hello Brother Telugu Movie Songs | Nagarjuna | Soundarya | Ramya Krishna",
-          "artist": "Mango Music",
-          "duration": 367,
-          "thumbnail": "https://i.ytimg.com/vi/WDjIpZj-6Ko/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/WDjIpZj-6Ko/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=WDjIpZj-6Ko",
-          "file": "Priya Raagale Video Song \uff5c Hello Brother Telugu Movie Songs \uff5c Nagarjuna \uff5c Soundarya \uff5c Ramya Krishna.mp3"
-        },
-        {
-          "id": "FktgEn6RedY",
-          "title": "Annayya Movie Video Songs Jukebox | Chiranjeevi, Soundarya, Simran | Mani Sharma",
-          "artist": "Geetha Arts ",
-          "duration": 1691,
-          "thumbnail": "https://i.ytimg.com/vi/FktgEn6RedY/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/FktgEn6RedY/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=FktgEn6RedY",
-          "file": "Annayya Movie Video Songs Jukebox | Chiranjeevi, Soundarya, Simran | Mani Sharma.mp3"
-        },
-        {
-          "id": "_f5w2ijPxkU",
-          "title": "Unknown Title",
-          "artist": "Unknown Channel",
-          "duration": 0,
-          "thumbnail": "https://i.ytimg.com/vi/_f5w2ijPxkU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/_f5w2ijPxkU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=_f5w2ijPxkU",
-          "file": "Unknown Title.mp3"
-        },
-        {
-          "id": "ZmPXTRr5-Y0",
-          "title": "Veedu Aradugula Bullettu Full Song With Lyrics - Attarintiki Daredi Songs- Pawan Kalyan Samantha DSP",
-          "artist": "Aditya Music PLAYBACK",
-          "duration": 291,
-          "thumbnail": "https://i.ytimg.com/vi/ZmPXTRr5-Y0/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/ZmPXTRr5-Y0/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=ZmPXTRr5-Y0",
-          "file": "Veedu Aradugula Bullettu Full Song With Lyrics - Attarintiki Daredi Songs- Pawan Kalyan Samantha DSP.mp3"
-        },
-        {
-          "id": "Ovwvj5GpNRw",
-          "title": "Siri Siri Muvva Movie Songs || Maa Voori Devudamma Video Song || Jaya Prada, Chandra Mohan",
-          "artist": "TeluguOne",
-          "duration": 282,
-          "thumbnail": "https://i.ytimg.com/vi/Ovwvj5GpNRw/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/Ovwvj5GpNRw/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=Ovwvj5GpNRw",
-          "file": "Siri Siri Muvva Movie Songs \uff5c\uff5c Maa Voori Devudamma Video Song \uff5c\uff5c Jaya Prada, Chandra Mohan.mp3"
-        },
-        {
-          "id": "UK1A-3Y9ubg",
-          "title": "Elu Male  Myaleri | S.P.Balasubrahmanyam | Jogi |Shiva Rajkumar |Prem's | Gurukiran |Full Video Song",
-          "artist": "Ashwini Recording Co",
-          "duration": 314,
-          "thumbnail": "https://i.ytimg.com/vi/UK1A-3Y9ubg/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/UK1A-3Y9ubg/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=UK1A-3Y9ubg",
-          "file": "Elu Male  Myaleri \uff5c S.P.Balasubrahmanyam \uff5c Jogi \uff5cShiva Rajkumar \uff5cPrem's \uff5c Gurukiran \uff5cFull Video Song.mp3"
-        },
-        {
-          "id": "n6FLVEWOWBg",
-          "title": "Priya Raagale",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 366,
-          "thumbnail": "https://i.ytimg.com/vi/n6FLVEWOWBg/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/n6FLVEWOWBg/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=n6FLVEWOWBg",
-          "file": "Priya Raagale.mp3"
-        },
-        {
-          "id": "PQFUNoXvwI8",
-          "title": "NAGUTHA NAGUTHA BAALU",
-          "artist": "Dr. Rajkumar - Topic",
-          "duration": 286,
-          "thumbnail": "https://i.ytimg.com/vi/PQFUNoXvwI8/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/PQFUNoXvwI8/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=PQFUNoXvwI8",
-          "file": "NAGUTHA NAGUTHA BAALU.mp3"
-        },
-        {
-          "id": "FKNLt_oPlSM",
-          "title": "Bolo Bolo Rani Full Song || Rowdy Alludu Telugu Movie || Chiranjeevi, Sobhana, Divya Bharati",
-          "artist": "Geetha Arts ",
-          "duration": 313,
-          "thumbnail": "https://i.ytimg.com/vi/FKNLt_oPlSM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/FKNLt_oPlSM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=FKNLt_oPlSM",
-          "file": "Bolo Bolo Rani Full Song \uff5c\uff5c Rowdy Alludu Telugu Movie \uff5c\uff5c Chiranjeevi, Sobhana, Divya Bharati.mp3"
-        },
-        {
-          "id": "tLnq184ZVIA",
-          "title": "Maari Kannu Video Song | \"A\" Kannada Movie Video Songs | Upendra, Chandini | Gurukiran | SPB",
-          "artist": "Lahari Music Kannada",
-          "duration": 245,
-          "thumbnail": "https://i.ytimg.com/vi/tLnq184ZVIA/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/tLnq184ZVIA/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=tLnq184ZVIA",
-          "file": "Maari Kannu Video Song \uff5c \uff02A\uff02 Kannada Movie Video Songs \uff5c Upendra, Chandini \uff5c Gurukiran \uff5c SPB.mp3"
-        },
-        {
-          "id": "wTqg3QFuIik",
-          "title": "Jorse Jorse",
-          "artist": "Release - Topic",
-          "duration": 280,
-          "thumbnail": "https://i.ytimg.com/vi/wTqg3QFuIik/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/wTqg3QFuIik/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=wTqg3QFuIik",
-          "file": "Jorse Jorse.mp3"
-        },
-        {
-          "id": "NvSknGXnCv4",
-          "title": "Andam Hindolam",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 288,
-          "thumbnail": "https://i.ytimg.com/vi/NvSknGXnCv4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/NvSknGXnCv4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=NvSknGXnCv4",
-          "file": "Andam Hindolam.mp3"
-        },
-        {
-          "id": "sS14hkYTb1E",
-          "title": "Thammudu (\u0c24\u0c2e\u0c4d\u0c2e\u0c41\u0c21\u0c41)Telugu Movie Songs Jukebox || Pawan Kalyan, Preethi Zingania",
-          "artist": "Aditya Music",
-          "duration": 2054,
-          "thumbnail": "https://i.ytimg.com/vi/sS14hkYTb1E/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/sS14hkYTb1E/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=sS14hkYTb1E",
-          "file": "Thammudu (\u0c24\u0c2e\u0c4d\u0c2e\u0c41\u0c21\u0c41)Telugu Movie Songs Jukebox \uff5c\uff5c Pawan Kalyan, Preethi Zingania.mp3"
-        },
-        {
-          "id": "OH-5Tt2fSIs",
-          "title": "Jai Jai Ganesha",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 342,
-          "thumbnail": "https://i.ytimg.com/vi/OH-5Tt2fSIs/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/OH-5Tt2fSIs/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=OH-5Tt2fSIs",
-          "file": "Jai Jai Ganesha.mp3"
-        },
-        {
-          "id": "n34o1HOoiu4",
-          "title": "Cheliya",
-          "artist": "Jeans Srinivas - Topic",
-          "duration": 341,
-          "thumbnail": "https://i.ytimg.com/vi/n34o1HOoiu4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/n34o1HOoiu4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=n34o1HOoiu4",
-          "file": "Cheliya.mp3"
-        },
-        {
-          "id": "o4pWBJp0cpw",
-          "title": "Kontegadni Kattuko",
-          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
-          "duration": 313,
-          "thumbnail": "https://i.ytimg.com/vi/o4pWBJp0cpw/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/o4pWBJp0cpw/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=o4pWBJp0cpw",
-          "file": "Kontegadni Kattuko.mp3"
-        },
-        {
-          "id": "_iyRFJya_dY",
-          "title": "Singarala",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 329,
-          "thumbnail": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=_iyRFJya_dY",
-          "file": "Singarala.mp3"
-        },
-        {
-          "id": "d_kIV4jYfXM",
-          "title": "Pranaamam",
-          "artist": "Shankar Mahadevan - Topic",
-          "duration": 241,
-          "thumbnail": "https://i.ytimg.com/vi/d_kIV4jYfXM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/d_kIV4jYfXM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=d_kIV4jYfXM",
-          "file": "Pranaamam.mp3"
-        },
-        {
-          "id": "HBEtZk6_-vU",
-          "title": "Singam Ondru",
-          "artist": "Malaysia Vasudevan - Topic",
-          "duration": 286,
-          "thumbnail": "https://i.ytimg.com/vi/HBEtZk6_-vU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/HBEtZk6_-vU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=HBEtZk6_-vU",
-          "file": "Singam Ondru.mp3"
-        },
-        {
-          "id": "BS0lfhSUG6k",
-          "title": "Chikchik Cham",
-          "artist": "Mano - Topic",
-          "duration": 329,
-          "thumbnail": "https://i.ytimg.com/vi/BS0lfhSUG6k/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/BS0lfhSUG6k/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=BS0lfhSUG6k",
-          "file": "Chikchik Cham.mp3"
-        },
-        {
-          "id": "2ziOnXXjRfQ",
-          "title": "Chinna Papa",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 269,
-          "thumbnail": "https://i.ytimg.com/vi/2ziOnXXjRfQ/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/2ziOnXXjRfQ/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=2ziOnXXjRfQ",
-          "file": "Chinna Papa.mp3"
-        },
-        {
-          "id": "jZpLQj9khHc",
-          "title": "Atto Attamma",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 274,
-          "thumbnail": "https://i.ytimg.com/vi/jZpLQj9khHc/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/jZpLQj9khHc/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=jZpLQj9khHc",
-          "file": "Atto Attamma.mp3"
-        },
-        {
-          "id": "XGYaJrrffa4",
-          "title": "Unga Unga",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 285,
-          "thumbnail": "https://i.ytimg.com/vi/XGYaJrrffa4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/XGYaJrrffa4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=XGYaJrrffa4",
-          "file": "Unga Unga.mp3"
-        },
-        {
-          "id": "4aTPVjNY7zM",
-          "title": "Maa Voori Devudu",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 415,
-          "thumbnail": "https://i.ytimg.com/vi/4aTPVjNY7zM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/4aTPVjNY7zM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=4aTPVjNY7zM",
-          "file": "Maa Voori Devudu.mp3"
-        },
-        {
-          "id": "am3HO_hL7oE",
-          "title": "Pitta Kootha",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 297,
-          "thumbnail": "https://i.ytimg.com/vi/am3HO_hL7oE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/am3HO_hL7oE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=am3HO_hL7oE",
-          "file": "Pitta Kootha.mp3"
-        },
-        {
-          "id": "g0IxeHOBIYE",
-          "title": "Reddu Reddu",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 273,
-          "thumbnail": "https://i.ytimg.com/vi/g0IxeHOBIYE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/g0IxeHOBIYE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=g0IxeHOBIYE",
-          "file": "Reddu Reddu.mp3"
-        },
-        {
-          "id": "I0zU7A76Neg",
-          "title": "Andhanikey",
-          "artist": "Release - Topic",
-          "duration": 324,
-          "thumbnail": "https://i.ytimg.com/vi/I0zU7A76Neg/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/I0zU7A76Neg/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=I0zU7A76Neg",
-          "file": "Andhanikey.mp3"
-        },
-        {
-          "id": "I4hvyTTXbtw",
-          "title": "Yaare Neenu Roja Hoove",
-          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
-          "duration": 379,
-          "thumbnail": "https://i.ytimg.com/vi/I4hvyTTXbtw/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/I4hvyTTXbtw/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=I4hvyTTXbtw",
-          "file": "Yaare Neenu Roja Hoove.mp3"
-        },
-        {
-          "id": "cOwpHmUQGR4",
-          "title": "Urumochesindoi",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 291,
-          "thumbnail": "https://i.ytimg.com/vi/cOwpHmUQGR4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/cOwpHmUQGR4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=cOwpHmUQGR4",
-          "file": "Urumochesindoi.mp3"
-        },
-        {
-          "id": "kJ2fJCMt_DI",
-          "title": "I Am An Indian",
-          "artist": "Ramana Gogula - Topic",
-          "duration": 313,
-          "thumbnail": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=kJ2fJCMt_DI",
-          "file": "I Am An Indian.mp3"
-        },
-        {
-          "id": "zOdWvHeDNBk",
-          "title": "Maa Voori Devudamma (Siri Siri Muvva / Soundtrack Version)",
-          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
-          "duration": 270,
-          "thumbnail": "https://i.ytimg.com/vi/zOdWvHeDNBk/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/zOdWvHeDNBk/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=zOdWvHeDNBk",
-          "file": "Maa Voori Devudamma (Siri Siri Muvva \u29f8 Soundtrack Version).mp3"
-        },
-        {
-          "id": "1X5VrT9fmuk",
-          "title": "Cheppave Chirugali",
-          "artist": "Udit Narayan",
-          "duration": 331,
-          "thumbnail": "https://i.ytimg.com/vi/1X5VrT9fmuk/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/1X5VrT9fmuk/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=1X5VrT9fmuk",
-          "file": "Cheppave Chirugali.mp3"
-        },
-        {
-          "id": "g3ormdh_7PQ",
-          "title": "Pata Pata",
-          "artist": "Udit Narayan",
-          "duration": 274,
-          "thumbnail": "https://i.ytimg.com/vi/g3ormdh_7PQ/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/g3ormdh_7PQ/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=g3ormdh_7PQ",
-          "file": "Pata Pata.mp3"
-        },
-        {
-          "id": "dSqQkqqq8fM",
-          "title": "Huttidare Kannada Nadalli Huttabeku - HD Video Song | Aakasmika Kannada Movie Songs | Dr Rajkumar",
-          "artist": "SGV Music",
-          "duration": 258,
-          "thumbnail": "https://i.ytimg.com/vi/dSqQkqqq8fM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/dSqQkqqq8fM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=dSqQkqqq8fM",
-          "file": "Huttidare Kannada Nadalli Huttabeku - HD Video Song \uff5c Aakasmika Kannada Movie Songs \uff5c Dr Rajkumar.mp3"
-        },
-        {
-          "id": "s0ZoNU-Dq7w",
-          "title": "Huttidare Kannada ft. Dr.Rajkumar,Madhavi,Geetha",
-          "artist": "Rajkumar - Topic",
-          "duration": 285,
-          "thumbnail": "https://i.ytimg.com/vi/s0ZoNU-Dq7w/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/s0ZoNU-Dq7w/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=s0ZoNU-Dq7w",
-          "file": "Huttidare Kannada ft. Dr.Rajkumar,Madhavi,Geetha.mp3"
-        },
-        {
-          "id": "GUYUYdZbrfI",
-          "title": "Nodi Swamy Navirodu Heege Title Song | Shankarnag | HD Old Kannada Video Song | SPB",
-          "artist": "SGV Kannada Songs",
-          "duration": 265,
-          "thumbnail": "https://i.ytimg.com/vi/GUYUYdZbrfI/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/GUYUYdZbrfI/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=GUYUYdZbrfI",
-          "file": "Nodi Swamy Navirodu Heege Title Song \uff5c Shankarnag \uff5c HD Old Kannada Video Song \uff5c SPB.mp3"
-        },
-        {
-          "id": "ib-rCrvFYcE",
-          "title": "O Maria",
-          "artist": "Release - Topic",
-          "duration": 350,
-          "thumbnail": "https://i.ytimg.com/vi/ib-rCrvFYcE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/ib-rCrvFYcE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=ib-rCrvFYcE",
-          "file": "O Maria.mp3"
-        },
-        {
-          "id": "REPYkwe2-Bc",
-          "title": "TOP 10 MURUGAN PAADHAYATHIRAI PAADALGAL",
-          "artist": "VejayAudios",
-          "duration": 3445,
-          "thumbnail": "https://i.ytimg.com/vi/REPYkwe2-Bc/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/REPYkwe2-Bc/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=REPYkwe2-Bc",
-          "file": "TOP 10 MURUGAN PAADHAYATHIRAI PAADALGAL.mp3"
-        },
-        {
-          "id": "QgntfABExNs",
-          "title": "Bham Bham Bole",
-          "artist": "Hariharan - Topic",
-          "duration": 368,
-          "thumbnail": "https://i.ytimg.com/vi/QgntfABExNs/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/QgntfABExNs/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=QgntfABExNs",
-          "file": "Bham Bham Bole.mp3"
-        }
-      ]
-    },
-    {
       "id": "individual_downloads",
       "title": "Individual Downloads",
       "playlist_title": "Individual Downloads",
+      "thumbnail": "gita_cover_logo.png",
+      "thumbnail_file": "gita_cover_logo.png",
+      "track_count": 0,
+      "tracks": []
+    },
+    {
+      "id": "job_1783080277",
+      "title": "All Songs",
+      "playlist_title": "All Songs",
       "thumbnail": "gita_cover_logo.png",
       "thumbnail_file": "gita_cover_logo.png",
       "track_count": 0,
@@ -12249,6 +12068,214 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi_webp/AsBRU8NXQgg/maxresdefault.webp",
           "url": "https://www.youtube.com/watch?v=AsBRU8NXQgg",
           "file": "Bangalore \uff5c\uff5c Old Bangalore In British India \uff5c\uff5c Bangalore in 1850 To 1920.mp3"
+        }
+      ]
+    },
+    {
+      "id": "job_1783039296",
+      "title": "Grid Diagnostic Run",
+      "playlist_title": "Grid Diagnostic Run",
+      "thumbnail": "gita_cover_logo.png",
+      "thumbnail_file": "gita_cover_logo.png",
+      "track_count": 0,
+      "tracks": []
+    },
+    {
+      "id": "job_1783038534",
+      "title": "Diagnostic Job",
+      "playlist_title": "Diagnostic Job",
+      "thumbnail": "gita_cover_logo.png",
+      "thumbnail_file": "gita_cover_logo.png",
+      "track_count": 0,
+      "tracks": []
+    },
+    {
+      "id": "job_1786719723",
+      "title": "Bhagavad Gita Translations - English",
+      "playlist_title": "Bhagavad Gita Translations - English",
+      "thumbnail": "gita_cover_logo.png",
+      "thumbnail_file": "gita_cover_logo.png",
+      "track_count": 18,
+      "tracks": [
+        {
+          "id": "M4Ga_L3Wy0g",
+          "title": "Bhagavad Gita Chapter 1 - Arjuna Vishada Yoga (The Despondency of Arjuna) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 1099,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=M4Ga_L3Wy0g",
+          "file": "Bhagavad Gita Chapter 1 - Arjuna Vishada Yoga (The Despondency of Arjuna) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "-bPqMYJ6Bw4",
+          "title": "Bhagavad Gita Chapter 2 - Sankhya Yoga (The Yoga of Knowledge) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 1982,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=-bPqMYJ6Bw4",
+          "file": "Bhagavad Gita Chapter 2 - Sankhya Yoga (The Yoga of Knowledge) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "wxj9f8fiFQY",
+          "title": "Bhagavad Gita Chapter 3 - Karma Yoga (The Yoga of Action) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 1200,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=wxj9f8fiFQY",
+          "file": "Bhagavad Gita Chapter 3 - Karma Yoga (The Yoga of Action) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "cRDwKHG_wDw",
+          "title": "Bhagavad Gita Chapter 4 - Jnana Karma Sannyasa Yoga (The Yoga of Wisdom and Deeds) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 1191,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=cRDwKHG_wDw",
+          "file": "Bhagavad Gita Chapter 4 - Jnana Karma Sannyasa Yoga (The Yoga of Wisdom and Deeds) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "UAEq0Opv_5o",
+          "title": "Bhagavad Gita Chapter 5 - Karma Sannyasa Yoga (The Yoga of Renunciation of Action) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 842,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=UAEq0Opv_5o",
+          "file": "Bhagavad Gita Chapter 5 - Karma Sannyasa Yoga (The Yoga of Renunciation of Action) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "f_txMdy29IY",
+          "title": "Bhagavad Gita Chapter 6 - Atma Samyama Yoga (The Yoga of Meditation) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 1340,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=f_txMdy29IY",
+          "file": "Bhagavad Gita Chapter 6 - Atma Samyama Yoga (The Yoga of Meditation) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "90kwnoudJtI",
+          "title": "Bhagavad Gita Chapter 7 - Jnana Vijnana Yoga (The Yoga of Wisdom and Realization) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 839,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=90kwnoudJtI",
+          "file": "Bhagavad Gita Chapter 7 - Jnana Vijnana Yoga (The Yoga of Wisdom and Realization) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "twHZejTilsI",
+          "title": "Bhagavad Gita Chapter 8 - Akshara Parabrahma Yoga (The Yoga of the Imperishable Brahman) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 821,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=twHZejTilsI",
+          "file": "Bhagavad Gita Chapter 8 - Akshara Parabrahma Yoga (The Yoga of the Imperishable Brahman) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "eJ5PI_TMddA",
+          "title": "Bhagavad Gita Chapter 9 - Raja Vidya Raja Guhya Yoga (The Yoga of Royal Knowledge and Royal Myste...",
+          "artist": "Holy Scriptures Translations",
+          "duration": 989,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=eJ5PI_TMddA",
+          "file": "Bhagavad Gita Chapter 9 - Raja Vidya Raja Guhya Yoga (The Yoga of Royal Knowledge and Royal Myste....mp3"
+        },
+        {
+          "id": "QYS1kC64DUs",
+          "title": "Bhagavad Gita Chapter 10 - Vibhuti Yoga (The Yoga of Divine Manifestations) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 1204,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=QYS1kC64DUs",
+          "file": "Bhagavad Gita Chapter 10 - Vibhuti Yoga (The Yoga of Divine Manifestations) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "tId2N6GuGe0",
+          "title": "Bhagavad Gita Chapter 11 - Vishvarupa Darshana Yoga (The Yoga of the Vision of the Cosmic Form) |...",
+          "artist": "Holy Scriptures Translations",
+          "duration": 1773,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=tId2N6GuGe0",
+          "file": "Bhagavad Gita Chapter 11 - Vishvarupa Darshana Yoga (The Yoga of the Vision of the Cosmic Form) \uff5c....mp3"
+        },
+        {
+          "id": "7Hl7e-djM2U",
+          "title": "Bhagavad Gita Chapter 12 - Bhakti Yoga (The Yoga of Devotion) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 555,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=7Hl7e-djM2U",
+          "file": "Bhagavad Gita Chapter 12 - Bhakti Yoga (The Yoga of Devotion) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "hhKdcjsDNYY",
+          "title": "Bhagavad Gita Chapter 13 - Kshetra Kshetrajna Vibhaga Yoga (The Yoga of Discrimination of the Fie...",
+          "artist": "Holy Scriptures Translations",
+          "duration": 959,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=hhKdcjsDNYY",
+          "file": "Bhagavad Gita Chapter 13 - Kshetra Kshetrajna Vibhaga Yoga (The Yoga of Discrimination of the Fie....mp3"
+        },
+        {
+          "id": "5_U2ByVAJMM",
+          "title": "Bhagavad Gita Chapter 14 - Gunatraya Vibhaga Yoga (The Yoga of the Three Gunas) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 769,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=5_U2ByVAJMM",
+          "file": "Bhagavad Gita Chapter 14 - Gunatraya Vibhaga Yoga (The Yoga of the Three Gunas) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "hkWmtq5YpUY",
+          "title": "Bhagavad Gita Chapter 15 - Purushottama Yoga (The Yoga of the Supreme Person) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 602,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=hkWmtq5YpUY",
+          "file": "Bhagavad Gita Chapter 15 - Purushottama Yoga (The Yoga of the Supreme Person) \uff5c Bilingual.mp3"
+        },
+        {
+          "id": "BurTkTGvojs",
+          "title": "Bhagavad Gita Chapter 16 - Daivasura Sampad Vibhaga Yoga (The Yoga of Division between Divine and...",
+          "artist": "Holy Scriptures Translations",
+          "duration": 694,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=BurTkTGvojs",
+          "file": "Bhagavad Gita Chapter 16 - Daivasura Sampad Vibhaga Yoga (The Yoga of Division between Divine and....mp3"
+        },
+        {
+          "id": "cTe6Rv9DCFQ",
+          "title": "Bhagavad Gita Chapter 17 - Shraddhatraya Vibhaga Yoga (The Yoga of Division of Threefold Faith) |...",
+          "artist": "Holy Scriptures Translations",
+          "duration": 811,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=cTe6Rv9DCFQ",
+          "file": "Bhagavad Gita Chapter 17 - Shraddhatraya Vibhaga Yoga (The Yoga of Division of Threefold Faith) \uff5c....mp3"
+        },
+        {
+          "id": "poDf2nt-tK0",
+          "title": "Bhagavad Gita Chapter 18 - Moksha Sannyasa Yoga (The Yoga of Liberation by Renunciation) | Bilingual",
+          "artist": "Holy Scriptures Translations",
+          "duration": 2183,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=poDf2nt-tK0",
+          "file": "Bhagavad Gita Chapter 18 - Moksha Sannyasa Yoga (The Yoga of Liberation by Renunciation) \uff5c Bilingual.mp3"
         }
       ]
     }
