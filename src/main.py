@@ -1623,6 +1623,8 @@ async def move_track(job_id: str, track_id: str, req: MoveRequest):
 
 @app.delete("/api/history/{job_id}")
 async def delete_job(job_id: str):
+    if job_id in ("ai_muted_vocals", "ai_instruments", "ai_vocals_only"):
+        raise HTTPException(status_code=400, detail="Dedicated AI playlists are non-deletable.")
     with history_lock:
         history = load_history()
         found = False
