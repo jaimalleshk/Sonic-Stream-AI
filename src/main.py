@@ -1161,6 +1161,8 @@ async def get_history():
         for job in history:
             if job.get("deleted") or job.get("id") == "deleted_tracks":
                 continue
+            if job.get("is_ai") or job.get("id", "").startswith("ai_"):
+                continue
             if job.get("format", "audio") != "audio":
                 continue
             for item in job.get("items", []):

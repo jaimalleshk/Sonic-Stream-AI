@@ -1621,7 +1621,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Handle AI Queue Auto-Apply
         const shouldApplyAI = (typeof aiQueueToggle !== 'undefined' && aiQueueToggle && aiQueueToggle.checked);
-        const activeAIMode = window.isLiveMuteOn ? "mute" : (window.isInstrumentOn ? "instrument" : (window.isVocalsOnlyOn ? "vocals" : null));
+        const modeToApply = shouldApplyAI ? window.activeAIQueueMode : null;
 
         // Reset AI states
         window.isLiveMuteOn = false;
@@ -1676,12 +1676,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             savePlaybackPosition(track.id, shuffleIndex, shuffleOrder);
 
-            if (shouldApplyAI && activeAIMode) {
-                if (activeAIMode === "mute" && typeof playerLiveMuteBtn !== 'undefined' && playerLiveMuteBtn) {
+            if (modeToApply) {
+                if (modeToApply === "mute" && typeof playerLiveMuteBtn !== 'undefined' && playerLiveMuteBtn) {
                     playerLiveMuteBtn.click();
-                } else if (activeAIMode === "instrument" && typeof playerInstrumentBtn !== 'undefined' && playerInstrumentBtn) {
+                } else if (modeToApply === "instrument" && typeof playerInstrumentBtn !== 'undefined' && playerInstrumentBtn) {
                     playerInstrumentBtn.click();
-                } else if (activeAIMode === "vocals" && typeof playerVocalsOnlyBtn !== 'undefined' && playerVocalsOnlyBtn) {
+                } else if (modeToApply === "vocals" && typeof playerVocalsOnlyBtn !== 'undefined' && playerVocalsOnlyBtn) {
                     playerVocalsOnlyBtn.click();
                 }
             }
@@ -1845,8 +1845,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Toggle state
             window.isLiveMuteOn = !window.isLiveMuteOn;
-            
             if (window.isLiveMuteOn) {
+                window.activeAIQueueMode = "mute";
+            } else {
+                if (window.activeAIQueueMode === "mute") window.activeAIQueueMode = null;
+            }
                 // Turn ON High-Quality Mute
                 playerLiveMuteBtn.style.color = "#ffb6c1"; // highlight pink
                 playerLiveMuteBtn.style.textShadow = "0 0 10px rgba(255,182,193,0.5)";
@@ -1936,8 +1939,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Toggle state
             window.isInstrumentOn = !window.isInstrumentOn;
-            
             if (window.isInstrumentOn) {
+                window.activeAIQueueMode = "instrument";
+            } else {
+                if (window.activeAIQueueMode === "instrument") window.activeAIQueueMode = null;
+            }
                 playerInstrumentBtn.style.color = "#a020f0"; // highlight purple
                 playerInstrumentBtn.style.textShadow = "0 0 10px rgba(160,32,240,0.5)";
                 logToTerminal(`[AI] 🎷 Voice-to-Instrument ON: Synthesizing MIDI replacement for "${item.title}"... This may take a minute.`);
@@ -2027,8 +2033,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             window.isVocalsOnlyOn = !window.isVocalsOnlyOn;
-            
             if (window.isVocalsOnlyOn) {
+                window.activeAIQueueMode = "vocals";
+            } else {
+                if (window.activeAIQueueMode === "vocals") window.activeAIQueueMode = null;
+            }
                 playerVocalsOnlyBtn.style.color = "var(--neon-blue)";
                 playerVocalsOnlyBtn.style.textShadow = "0 0 10px rgba(0,242,254,0.5)";
                 logToTerminal(`[AI] 🗣️ Human Vocals Only ON: Isolating voice for "${item.title}"... This may take a minute.`);
