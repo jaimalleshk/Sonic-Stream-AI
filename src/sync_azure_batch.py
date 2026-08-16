@@ -2,9 +2,19 @@ import os
 import sys
 import json
 import traceback
+import subprocess
 from azure.storage.blob import BlobServiceClient
 
-# Reconfigure stdout/stderr to UTF-8 on Windows to avoid 'charmap' UnicodeEncodeError
+# 1. Permanently patch subprocess.Popen to prevent any console window popup on Windows
+if os.name == 'nt':
+    _original_popen = subprocess.Popen
+    def _patched_popen(*args, **kwargs):
+        if 'creationflags' not in kwargs:
+            kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
+        return _original_popen(*args, **kwargs)
+    subprocess.Popen = _patched_popen
+
+# 2. Force stdout & stderr encoding to UTF-8 on Windows
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
     try:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -38,9 +48,29 @@ def is_gita_file(filename: str) -> bool:
     """Returns True if the file is a Gita audio file (exempt from 200MB limit)."""
     return "gita" in filename.lower()
 
+def get_audio_duration_seconds(local_path: str) -> float:
+    """Gets exact duration of media file using ffprobe with no console window."""
+    cmd = [
+        "ffprobe", "-v", "error",
+        "-show_entries", "format=duration",
+        "-of", "default=noprintwrappers=1:nokey=1",
+        local_path
+    ]
+    kwargs = {"stdout": subprocess.PIPE, "stderr": subprocess.PIPE}
+    if os.name == "nt":
+        kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW
+    try:
+        res = subprocess.run(cmd, text=True, **kwargs)
+        if res.returncode == 0 and res.stdout.strip():
+            return float(res.stdout.strip())
+    except Exception:
+        pass
+    return 0.0
+
 def trim_audio_if_exceeds_max(local_path: str, workspace_dir: str = AI_WORKSPACE_DIR, max_bytes: int = MAX_BLOB_SIZE_BYTES) -> tuple[str, bool]:
     """
-    If local_path file size exceeds max_bytes (200MB), clips the audio file to fit under max_bytes.
+    If local_path file size exceeds max_bytes (200MB), clips the audio/video file to fit strictly under max_bytes
+    using ultra-fast FFmpeg stream copy with zero console window popups.
     Returns (path_to_upload, was_trimmed).
     """
     if not os.path.exists(local_path):
@@ -54,42 +84,53 @@ def trim_audio_if_exceeds_max(local_path: str, workspace_dir: str = AI_WORKSPACE
     os.makedirs(trimmed_dir, exist_ok=True)
     trimmed_path = os.path.join(trimmed_dir, filename)
 
+    # 1. Try fast FFmpeg stream copy based on calculated duration ratio
+    duration = get_audio_duration_seconds(local_path)
+    if duration > 0:
+        ratio = float(max_bytes) / float(file_size)
+        target_duration = duration * ratio * 0.96  # 4% safety margin
+        
+        cmd = [
+            "ffmpeg", "-y", "-i", local_path,
+            "-ss", "0", "-t", f"{target_duration:.2f}",
+            "-c", "copy",
+            trimmed_path
+        ]
+        kwargs = {"stdout": subprocess.PIPE, "stderr": subprocess.PIPE}
+        if os.name == "nt":
+            kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW
+            
+        try:
+            subprocess.run(cmd, check=True, **kwargs)
+            if os.path.exists(trimmed_path) and 0 < os.path.getsize(trimmed_path) <= max_bytes:
+                safe_print(f"[Azure Sync] ✂️ FFmpeg trimmed '{filename}' ({file_size/(1024*1024):.1f}MB -> {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB)")
+                return trimmed_path, True
+        except Exception as fe:
+            safe_print(f"[Azure Sync] Warning: FFmpeg stream copy clip failed: {fe}")
+
+    # 2. Fallback to pydub if stream copy failed or exceeded
     try:
         from pydub import AudioSegment
         audio = AudioSegment.from_file(local_path)
         ratio = float(max_bytes) / float(file_size)
-        target_duration_ms = int(len(audio) * ratio * 0.97)  # 3% safety margin
+        target_duration_ms = int(len(audio) * ratio * 0.95)
         trimmed_audio = audio[:target_duration_ms]
 
         ext = os.path.splitext(filename)[1].lower().replace(".", "")
-        if ext in ["m4a", "aac"]:
-            fmt = "ipod"
-        elif ext in ["mp3", "wav", "ogg", "flac", "webm"]:
-            fmt = ext
-        else:
-            fmt = "mp3"
+        fmt = "ipod" if ext in ["m4a", "aac"] else (ext if ext in ["mp3", "wav", "ogg", "flac", "webm"] else "mp3")
 
         trimmed_audio.export(trimmed_path, format=fmt)
 
         if os.path.exists(trimmed_path) and os.path.getsize(trimmed_path) > max_bytes:
             ratio2 = float(max_bytes) / float(os.path.getsize(trimmed_path))
-            trimmed_audio = trimmed_audio[:int(len(trimmed_audio) * ratio2 * 0.95)]
+            trimmed_audio = trimmed_audio[:int(len(trimmed_audio) * ratio2 * 0.94)]
             trimmed_audio.export(trimmed_path, format=fmt)
 
         if os.path.exists(trimmed_path) and os.path.getsize(trimmed_path) > 0:
-            safe_print(f"[Azure Sync] ✂️ Trimmed '{filename}' ({file_size/(1024*1024):.1f}MB -> {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB)")
+            safe_print(f"[Azure Sync] ✂️ Pydub trimmed '{filename}' ({file_size/(1024*1024):.1f}MB -> {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB)")
             return trimmed_path, True
     except Exception as e:
-        safe_print(f"[Azure Sync] Warning: pydub trim failed ({e}), attempting ffmpeg stream clip...")
-        try:
-            import subprocess
-            cmd = ["ffmpeg", "-y", "-i", local_path, "-fs", str(max_bytes - 1000000), "-c", "copy", trimmed_path]
-            subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
-            if os.path.exists(trimmed_path) and os.path.getsize(trimmed_path) > 0:
-                safe_print(f"[Azure Sync] ✂️ FFmpeg trimmed '{filename}' to {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB")
-                return trimmed_path, True
-        except Exception as fe:
-            safe_print(f"[Azure Sync] FFmpeg trim failed: {fe}")
+        safe_print(f"[Azure Sync] Pydub fallback error: {e}")
 
     return local_path, False
 
@@ -138,24 +179,47 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
         for b in container_client.list_blobs():
             existing_blobs[b.name] = b.size or 0
 
-        # 1. Sync Media Files (trimming non-Gita files > 200MB unless keep_full is True)
-        files_to_upload = []
-        if os.path.exists(download_dir):
-            for f in os.listdir(download_dir):
-                if f.lower().endswith(('.mp3', '.mp4', '.mkv', '.webm', '.m4a')):
-                    local_p = os.path.join(download_dir, f)
-                    exempt = is_gita_file(f)
-                    
-                    if f not in existing_blobs:
-                        files_to_upload.append(f)
-                    elif (existing_blobs[f] > MAX_BLOB_SIZE_BYTES) and (not keep_full) and (not exempt):
-                        safe_print(f"[Azure Sync] Blob '{f}' in Azure is {existing_blobs[f]/(1024*1024):.1f}MB > 200MB. Re-uploading trimmed version...")
-                        files_to_upload.append(f)
+        # Collect local media files from download_dir AND all history.json playlist directories
+        dirs_to_check = set()
+        if download_dir and os.path.exists(download_dir):
+            dirs_to_check.add(os.path.abspath(download_dir))
+        if os.path.exists(HISTORY_PATH):
+            try:
+                with open(HISTORY_PATH, "r", encoding="utf-8") as hf:
+                    history_data = json.load(hf)
+                    for job in history_data:
+                        job_dir = job.get("download_dir") or job.get("folder_path")
+                        if job_dir and os.path.exists(job_dir):
+                            dirs_to_check.add(os.path.abspath(job_dir))
+            except Exception:
+                pass
+
+        local_files = {}  # filename -> full_local_path
+        for d in dirs_to_check:
+            for root, _, names in os.walk(d):
+                for f in names:
+                    if f.lower().endswith(('.mp3', '.mp4', '.mkv', '.webm', '.m4a')):
+                        if f not in local_files:
+                            local_files[f] = os.path.join(root, f)
+
+        # Build list of files needing upload (or re-upload due to trimming)
+        files_to_upload = []  # list of filenames
+        for fname, lpath in local_files.items():
+            exempt = is_gita_file(fname)
+            rem_size = existing_blobs.get(fname)
+            
+            if rem_size is None:
+                # File not in Azure yet
+                files_to_upload.append(fname)
+            elif (rem_size > MAX_BLOB_SIZE_BYTES) and (not keep_full) and (not exempt):
+                # File is in Azure but > 200MB -> needs trimming & replacing
+                safe_print(f"[Azure Sync] Blob '{fname}' in Azure is {rem_size/(1024*1024):.1f}MB > 200MB. Re-uploading trimmed version...")
+                files_to_upload.append(fname)
 
         total_files = len(files_to_upload)
         failed = []
         for idx, f in enumerate(files_to_upload):
-            local_path = os.path.join(download_dir, f)
+            local_path = local_files[f]
             blob_client = container_client.get_blob_client(f)
             
             exempt = is_gita_file(f)
