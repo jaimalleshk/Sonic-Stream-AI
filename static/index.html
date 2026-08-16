@@ -751,9 +751,9 @@
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
                     <!-- Stats Chips -->
                     <div id="azExpStats" style="display: flex; gap: 0.5rem; font-size: 0.72rem;"></div>
-                    <label style="display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: var(--text-muted); cursor: pointer; margin-right: 4px;" title="If checked, files > 200 MB will be uploaded full size without trimming. By default, files > 200 MB are trimmed to 200 MB max (except Gita audio files).">
-                        <input type="checkbox" id="keepFullLargeFilesToggle" style="accent-color: var(--neon-blue); cursor: pointer;">
-                        <span>Keep full files &gt; 200MB</span>
+                    <label style="display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: var(--text-muted); cursor: pointer; margin-right: 4px;" title="When checked, files > 200 MB (except Gita audio files) are automatically trimmed to 200 MB max before uploading to Azure Blob.">
+                        <input type="checkbox" id="trimLargeFilesToggle" checked style="accent-color: var(--neon-blue); cursor: pointer;">
+                        <span>Trim the files larger than 200MB</span>
                     </label>
                     <button id="btnConfirmAzSync" class="btn btn-primary" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; border-radius: 6px; display: flex; align-items: center; gap: 0.35rem;">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"/></svg>

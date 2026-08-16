@@ -3593,8 +3593,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnConfirmAzSync) {
         btnConfirmAzSync.addEventListener("click", async () => {
             const downloadDir = downloadDirInput ? downloadDirInput.value.trim() : "";
-            const keepFullToggle = document.getElementById("keepFullLargeFilesToggle");
-            const keepFull = keepFullToggle && keepFullToggle.checked ? "true" : "false";
+            const trimToggle = document.getElementById("trimLargeFilesToggle");
+            const keepFull = (trimToggle && !trimToggle.checked) ? "true" : "false";
             btnConfirmAzSync.disabled = true;
             try {
                 const res = await fetch(`/api/azure/sync?download_dir=${encodeURIComponent(downloadDir)}&keep_full=${keepFull}`, { method: "POST" });
