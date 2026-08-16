@@ -45,7 +45,8 @@ class AIVocalProcessor:
         kwargs = {
             'stdout': subprocess.PIPE,
             'stderr': subprocess.PIPE,
-            'env': env
+            'env': env,
+            'cwd': self.workspace_dir
         }
         if os.name == 'nt':
             kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
