@@ -103,10 +103,25 @@ def trim_audio_if_exceeds_max(local_path: str, workspace_dir: str = AI_WORKSPACE
         try:
             subprocess.run(cmd, check=True, **kwargs)
             if os.path.exists(trimmed_path) and 0 < os.path.getsize(trimmed_path) <= max_bytes:
-                safe_print(f"[Azure Sync] ✂️ FFmpeg trimmed '{filename}' ({file_size/(1024*1024):.1f}MB -> {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB)")
+                safe_print(f"[Azure Sync] ✂️ FFmpeg stream-copied '{filename}' ({file_size/(1024*1024):.1f}MB -> {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB)")
                 return trimmed_path, True
         except Exception as fe:
             safe_print(f"[Azure Sync] Warning: FFmpeg stream copy clip failed: {fe}")
+
+        # 1b. Try FFmpeg re-encode fallback
+        cmd_reencode = [
+            "ffmpeg", "-y", "-i", local_path,
+            "-ss", "0", "-t", f"{target_duration:.2f}",
+            "-b:a", "192k",
+            trimmed_path
+        ]
+        try:
+            subprocess.run(cmd_reencode, check=True, **kwargs)
+            if os.path.exists(trimmed_path) and 0 < os.path.getsize(trimmed_path) <= max_bytes:
+                safe_print(f"[Azure Sync] ✂️ FFmpeg re-encoded '{filename}' ({file_size/(1024*1024):.1f}MB -> {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB)")
+                return trimmed_path, True
+        except Exception as fe2:
+            safe_print(f"[Azure Sync] Warning: FFmpeg re-encode clip failed: {fe2}")
 
     # 2. Fallback to pydub if stream copy failed or exceeded
     try:
@@ -240,8 +255,21 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
                     try: os.remove(upload_path)
                     except Exception: pass
             except Exception as fe:
-                safe_print(f"[Azure Sync] FAILED {f}: {fe}")
-                failed.append(f)
+                # Handle InvalidBlockList or existing blob state issues by deleting blob first and retrying upload
+                safe_print(f"[Azure Sync] Initial upload failed ({fe}), attempting delete & re-upload for '{f}'...")
+                try:
+                    container_client.delete_blob(f)
+                except Exception:
+                    pass
+                try:
+                    with open(upload_path, "rb") as data:
+                        blob_client.upload_blob(data, overwrite=True)
+                    if was_trimmed and upload_path != local_path and os.path.exists(upload_path):
+                        try: os.remove(upload_path)
+                        except Exception: pass
+                except Exception as fe2:
+                    safe_print(f"[Azure Sync] FAILED {f}: {fe2}")
+                    failed.append(f)
 
         # 2. Regenerate and upload the PWA manifest.
         if progress_callback:
