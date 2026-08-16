@@ -44,6 +44,13 @@ AI_WORKSPACE_DIR = os.path.join(BASE_DIR, "ai_workspace")
 
 MAX_BLOB_SIZE_BYTES = 200 * 1024 * 1024  # 200 MB max rule
 
+AUDIO_EXTENSIONS = ('.mp3', '.m4a', '.wav', '.flac', '.ogg', '.aac')
+VIDEO_EXTENSIONS = ('.mp4', '.mkv', '.webm', '.avi', '.mov', '.flv', '.wmv')
+
+def is_video_file(filename: str) -> bool:
+    """Returns True if the file is a video file (strictly excluded from Azure Blob Storage)."""
+    return filename.lower().endswith(VIDEO_EXTENSIONS)
+
 def is_gita_file(filename: str) -> bool:
     """Returns True if the file is a Gita audio file (exempt from 200MB limit)."""
     return "gita" in filename.lower()
@@ -213,7 +220,7 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
         for d in dirs_to_check:
             for root, _, names in os.walk(d):
                 for f in names:
-                    if f.lower().endswith(('.mp3', '.mp4', '.mkv', '.webm', '.m4a')):
+                    if f.lower().endswith(AUDIO_EXTENSIONS):
                         if f not in local_files:
                             local_files[f] = os.path.join(root, f)
 

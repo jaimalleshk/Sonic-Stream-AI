@@ -3426,7 +3426,7 @@ async def trim_azure_blobs(req: AzureBlobBatchRequest, download_dir: Optional[st
         for d in dirs_to_check:
             for root, _, names in os.walk(d):
                 for f in names:
-                    if f.lower().endswith(('.mp3', '.mp4', '.mkv', '.webm', '.m4a')):
+                    if f.lower().endswith(('.mp3', '.m4a', '.wav', '.flac', '.ogg', '.aac')):
                         if f not in local_files:
                             local_files[f] = os.path.join(root, f)
                             
