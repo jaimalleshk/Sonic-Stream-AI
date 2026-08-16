@@ -3623,6 +3623,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Refresh buttons
+    async function handleAzRefresh() {
+        showToast("Refreshing Azure Blob Explorer...");
+        await loadAzExplorer();
+        showToast("Azure Explorer data updated.");
+    }
+    const btnAzRefreshExplorer = document.getElementById("btnAzRefreshExplorer");
+    if (btnAzRefreshExplorer) {
+        btnAzRefreshExplorer.addEventListener("click", handleAzRefresh);
+    }
+    const btnAzRefreshGrid = document.getElementById("btnAzRefreshGrid");
+    if (btnAzRefreshGrid) {
+        btnAzRefreshGrid.addEventListener("click", handleAzRefresh);
+    }
+
     // Master header checkbox
     const azHeaderCheckbox = document.getElementById("azHeaderCheckbox");
     if (azHeaderCheckbox) {
