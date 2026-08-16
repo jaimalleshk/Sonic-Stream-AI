@@ -140,6 +140,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load jobs history and populate left sidebar explorer
     let isAppInitialized = false;
+    function dismissSplashScreen() {
+        if (!isAppInitialized) {
+            isAppInitialized = true;
+            const splash = document.getElementById("appSplash");
+            if (splash) {
+                splash.style.opacity = "0";
+                splash.style.pointerEvents = "none";
+                setTimeout(() => { splash.style.display = "none"; }, 500);
+            }
+        }
+    }
+    // Safety fallback: dismiss splash after 1.5s regardless of network/API latency
+    setTimeout(dismissSplashScreen, 1500);
+
     async function loadSidebar() {
         try {
             const res = await fetch("/api/history");
@@ -152,20 +166,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     selectPlaylist(active);
                 }
             }
-            
-            // Fade out splash screen on first load
-            if (!isAppInitialized) {
-                isAppInitialized = true;
-                const splash = document.getElementById("appSplash");
-                if (splash) {
-                    splash.style.opacity = "0";
-                    setTimeout(() => { splash.style.display = "none"; }, 500);
-                }
-            }
-            
             renderSidebarList();
         } catch (e) {
             console.error("Failed to load history list:", e);
+        } finally {
+            dismissSplashScreen();
         }
     }
 

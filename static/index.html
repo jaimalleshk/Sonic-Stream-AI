@@ -15,21 +15,23 @@
 </head>
 <body>
     <!-- Splash Screen -->
-    <div id="appSplash" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-deep); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; color: var(--text-primary);">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: pulse 2s infinite;">
-            <defs>
-                <linearGradient id="splashLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#8a2be2" />
-                    <stop offset="100%" stop-color="#00f2fe" />
-                </linearGradient>
-            </defs>
-            <path d="M12 2v20M17 5v14M7 5v14M22 9v6M2 9v6" stroke="url(#splashLogoGrad)"/>
-        </svg>
-        <h2 style="margin-top: 1rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">Sonic Stream AI</h2>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; display: flex; align-items: center; gap: 8px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-            Loading library...
-        </p>
+    <div id="appSplash" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; color: var(--text-primary);">
+        <div style="background: var(--bg-card, #12121c); border: 1.5px solid rgba(160, 32, 240, 0.5); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 35px rgba(160, 32, 240, 0.25); border-radius: 20px; padding: 2.5rem 3.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 320px; text-align: center;">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: pulse 2s infinite; filter: drop-shadow(0 0 10px rgba(160, 32, 240, 0.6));">
+                <defs>
+                    <linearGradient id="splashLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#8a2be2" />
+                        <stop offset="100%" stop-color="#00f2fe" />
+                    </linearGradient>
+                </defs>
+                <path d="M12 2v20M17 5v14M7 5v14M22 9v6M2 9v6" stroke="url(#splashLogoGrad)"/>
+            </svg>
+            <h2 style="margin-top: 1.25rem; font-weight: 700; font-size: 1.5rem; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.5px; background: linear-gradient(135deg, #ffffff 0%, #a020f0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Sonic Stream AI</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.75rem; display: flex; align-items: center; gap: 8px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--neon-purple)" stroke-width="2.5" style="animation: spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                <span>Loading library...</span>
+            </p>
+        </div>
     </div>
 
     <!-- Background Blur Decorative Circles -->
