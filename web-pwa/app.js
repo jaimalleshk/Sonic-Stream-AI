@@ -790,44 +790,57 @@ document.addEventListener("DOMContentLoaded", () => {
             // ReferenceError (and `typeof` throws too in a temporal dead zone), so
             // read it inside a try and bail out quietly until the DB exists.
             let database = null;
-            try { database = db; } catch (_) { return resolve(0); }
-            if (!database || !database.objectStoreNames.contains("files")) return resolve(0);
+            try { database = db; } catch (_) { return resolve({ count: 0, bytes: 0, tiny: 0 }); }
+            if (!database || !database.objectStoreNames.contains("files")) return resolve({ count: 0, bytes: 0, tiny: 0 });
             try {
-                let n = 0;
+                let n = 0, bytes = 0, tiny = 0;
                 const req = database.transaction("files", "readonly").objectStore("files").openCursor();
                 req.onsuccess = (e) => {
                     const cur = e.target.result;
-                    if (!cur) return resolve(n);
+                    if (!cur) return resolve({ count: n, bytes: bytes, tiny: tiny });
                     const v = cur.value || {};
                     const b = v.blob || v.audio_blob;
-                    if (b instanceof Blob && b.size > 0) n++;
+                    if (b instanceof Blob && b.size > 0) {
+                        n++; bytes += b.size;
+                        // A real audio track is not 20 KB. Anything this small is a
+                        // truncated/failed download masquerading as a cached track,
+                        // which is what made "288 tracks / 5.7 MB" possible.
+                        if (b.size < 100 * 1024) tiny++;
+                    }
                     cur.continue();
                 };
-                req.onerror = () => resolve(n);
-            } catch (e) { resolve(0); }
+                req.onerror = () => resolve({ count: n, bytes: bytes, tiny: tiny });
+            } catch (e) { resolve({ count: 0, bytes: 0, tiny: 0 }); }
         });
     }
 
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v17";
+    const APP_BUILD = "v18";
 
     async function updateCacheUsageUI() {
-        const cachedCount = await countCachedTracks();
-        let usageStr = "";
+        const c = await countCachedTracks();
+        const fmt = (b) => {
+            const mb = b / (1024 * 1024);
+            return mb >= 1024 ? (mb / 1024).toFixed(2) + " GB" : mb.toFixed(1) + " MB";
+        };
+        // Report the SUM OF ACTUAL BLOB BYTES, not navigator.storage.estimate().
+        // estimate() is quantised/under-reported on iOS Safari, which is how
+        // "288 tracks cached · 5.7 MB" could appear — two numbers from different
+        // sources that could not both be true. This figure is measured directly
+        // from the cached blobs, so the count and the size always agree.
+        let line = `Build ${APP_BUILD} · ${c.count} track${c.count === 1 ? '' : 's'} cached · ${fmt(c.bytes)}`;
+        if (c.tiny > 0) line += ` · ⚠ ${c.tiny} suspiciously small (<100 KB)`;
         if (navigator.storage && navigator.storage.estimate) {
             try {
                 const est = await navigator.storage.estimate();
-                const usedMB = ((est.usage || 0) / (1024 * 1024));
-                const quotaMB = ((est.quota || 0) / (1024 * 1024));
-                const fmt = (mb) => mb >= 1024 ? (mb / 1024).toFixed(2) + " GB" : mb.toFixed(1) + " MB";
-                usageStr = quotaMB > 0 ? ` · ${fmt(usedMB)} of ${fmt(quotaMB)}` : ` · ${fmt(usedMB)} used`;
+                if (est.quota) line += ` · quota ${fmt(est.quota)}`;
             } catch (e) {}
         }
         if (cacheUsageText) {
-            cacheUsageText.textContent = `Build ${APP_BUILD} · ${cachedCount} track${cachedCount === 1 ? '' : 's'} cached offline${usageStr}`;
-            cacheUsageText.style.color = cachedCount > 0 ? "var(--neon-blue)" : "var(--text-secondary)";
+            cacheUsageText.textContent = line;
+            cacheUsageText.style.color = c.tiny > 0 ? "#ffb454" : (c.count > 0 ? "var(--neon-blue)" : "var(--text-secondary)");
         }
     }
 
@@ -1117,9 +1130,11 @@ document.addEventListener("DOMContentLoaded", () => {
         refreshPlaylistBtn.addEventListener("click", () => performFullSync(refreshPlaylistBtn));
     }
 
-    if (btnSyncMobile) {
-        btnSyncMobile.addEventListener("click", () => performFullSync(btnSyncMobile));
-    }
+    // NOTE: btnSyncMobile is bound ONCE, further below, to the mobile-specific
+    // handler (which also re-renders the mobile cards). It used to ALSO be bound to
+    // performFullSync here, so every Refresh tap ran two full syncs, fetched the
+    // ~600 KB manifest twice, popped an alert(), and the two handlers fought over
+    // the button label.
 
     if (playPlaylistBtn) {
         playPlaylistBtn.addEventListener("click", () => {
@@ -1300,6 +1315,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // --- Load Playlists & Sidebar Rendering ---
+    // Short-lived in-memory cache of the playlists manifest (~600 KB raw / ~60 KB
+    // brotli). Without this the same payload was downloaded and JSON-parsed
+    // several times per page load, which is slow on a phone.
+    let _manifestCache = null;
+    const MANIFEST_TTL_MS = 60 * 1000;
     async function syncDesktopPlaylists(onProgress = null) {
         try {
             if (onProgress) onProgress(0, 100, 5);
@@ -1316,16 +1336,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 "http://localhost:8765/api/playlists/list"
             ];
 
-            let res = null;
-            for (let url of apiEndpoints) {
-                try {
-                    res = await fetch(url, { cache: "no-cache" });
-                    if (res && res.ok) break;
-                } catch (e) {}
+            // Memoised: this manifest is ~600 KB raw and was being re-fetched on
+            // every sync — three times in a single page load. Reuse a recent copy
+            // instead; the Refresh button passes force=true via _manifestCache=null.
+            let data = null;
+            if (_manifestCache && (Date.now() - _manifestCache.at) < MANIFEST_TTL_MS) {
+                data = _manifestCache.data;
+            } else {
+                let res = null;
+                for (let url of apiEndpoints) {
+                    try {
+                        res = await fetch(url, { cache: "no-cache" });
+                        if (res && res.ok) break;
+                    } catch (e) {}
+                }
+                if (res && res.ok) {
+                    data = await res.json();
+                    _manifestCache = { at: Date.now(), data: data };
+                }
             }
-
-            if (res && res.ok) {
-                const data = await res.json();
+            if (data) {
                 desktopPlaylists = data.playlists || [];
             }
 
@@ -1757,10 +1787,14 @@ document.addEventListener("DOMContentLoaded", () => {
         btnSyncMobile.addEventListener("click", async () => {
             btnSyncMobile.disabled = true;
             btnSyncMobile.textContent = "⏳ Syncing...";
-            await syncDesktopPlaylists();
-            renderMobilePlaylists();
-            btnSyncMobile.disabled = false;
-            btnSyncMobile.textContent = "🔄 Refresh";
+            _manifestCache = null;   // explicit Refresh must bypass the memo
+            try {
+                await syncDesktopPlaylists();
+                renderMobilePlaylists();
+            } finally {
+                btnSyncMobile.disabled = false;
+                btnSyncMobile.textContent = "🔄 Refresh";
+            }
         });
     }
 
