@@ -193,8 +193,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:49",
-        "end_time": "23:21:49",
+        "start_time": "23:36:51",
+        "end_time": "23:36:52",
         "error_detail": ""
       },
       {
@@ -459,8 +459,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:33",
-        "end_time": "23:21:35",
+        "start_time": "23:36:40",
+        "end_time": "23:36:40",
         "error_detail": ""
       },
       {
@@ -529,8 +529,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:39",
-        "end_time": "23:21:40",
+        "start_time": "23:36:46",
+        "end_time": "23:36:47",
         "error_detail": ""
       },
       {
@@ -781,8 +781,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:36",
-        "end_time": "23:21:37",
+        "start_time": "--",
+        "end_time": "23:36:44",
         "error_detail": ""
       },
       {
@@ -795,8 +795,8 @@
         "status": "completed",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:19:29",
-        "end_time": "23:19:31",
+        "start_time": "23:36:35",
+        "end_time": "23:36:38",
         "error_detail": ""
       },
       {
@@ -1257,8 +1257,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:19:31",
-        "end_time": "23:21:10",
+        "start_time": "23:36:39",
+        "end_time": "23:36:39",
         "error_detail": ""
       },
       {
@@ -1957,8 +1957,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:50",
-        "end_time": "23:21:51",
+        "start_time": "23:36:52",
+        "end_time": "23:36:52",
         "error_detail": ""
       },
       {
@@ -1985,8 +1985,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:10",
-        "end_time": "23:21:33",
+        "start_time": "23:36:39",
+        "end_time": "23:36:40",
         "error_detail": ""
       },
       {
@@ -3385,8 +3385,8 @@
         "status": "completed",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:54",
-        "end_time": "23:21:57",
+        "start_time": "23:36:55",
+        "end_time": "23:36:59",
         "error_detail": ""
       },
       {
@@ -3455,8 +3455,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:41",
-        "end_time": "23:21:41",
+        "start_time": "23:36:47",
+        "end_time": "23:36:48",
         "error_detail": ""
       },
       {
@@ -5009,8 +5009,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:35",
-        "end_time": "23:21:36",
+        "start_time": "23:36:41",
+        "end_time": "23:36:42",
         "error_detail": ""
       },
       {
@@ -5541,8 +5541,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "23:21:53",
-        "end_time": "23:21:53",
+        "start_time": "23:36:54",
+        "end_time": "23:36:55",
         "error_detail": ""
       },
       {
