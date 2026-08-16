@@ -8666,10 +8666,70 @@
       "id": "ai_muted_vocals",
       "title": "AI Muted Vocals",
       "playlist_title": "AI Muted Vocals",
-      "thumbnail": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
-      "track_count": 10,
+      "thumbnail": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+      "track_count": 16,
       "tracks": [
+        {
+          "id": "_iyRFJya_dY_ai_muted_vocals",
+          "title": "Singarala - Karaoke",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 329,
+          "thumbnail": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_iyRFJya_dY",
+          "file": "Singarala - Karaoke.mp3"
+        },
+        {
+          "id": "8CPNApQBLVw_ai_muted_vocals",
+          "title": "Premante Yemitante - Karaoke",
+          "artist": "Hariharan - Topic",
+          "duration": 304,
+          "thumbnail": "https://i.ytimg.com/vi/8CPNApQBLVw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/8CPNApQBLVw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=8CPNApQBLVw",
+          "file": "Premante Yemitante - Karaoke.mp3"
+        },
+        {
+          "id": "dZcKkXudmXM_ai_muted_vocals",
+          "title": "Andhamyna Bhamalu - Karaoke",
+          "artist": "Devi Sri Prasad",
+          "duration": 259,
+          "thumbnail": "https://i.ytimg.com/vi/dZcKkXudmXM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/dZcKkXudmXM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=dZcKkXudmXM",
+          "file": "Andhamyna Bhamalu - Karaoke.mp3"
+        },
+        {
+          "id": "5doOdwiFmhE_ai_muted_vocals",
+          "title": "Naa Manasuney - Karaoke",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 247,
+          "thumbnail": "https://i.ytimg.com/vi/5doOdwiFmhE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/5doOdwiFmhE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=5doOdwiFmhE",
+          "file": "Naa Manasuney - Karaoke.mp3"
+        },
+        {
+          "id": "AIOCqlyRm7k_ai_muted_vocals",
+          "title": "Gupt Gupt Title - Karaoke",
+          "artist": "Viju Shah - Topic",
+          "duration": 295,
+          "thumbnail": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=AIOCqlyRm7k",
+          "file": "Gupt Gupt Title - Karaoke.mp3"
+        },
+        {
+          "id": "efv3iHUarxY_ai_muted_vocals",
+          "title": "Manasa Palakave - Karaoke",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/efv3iHUarxY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/efv3iHUarxY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=efv3iHUarxY",
+          "file": "Manasa Palakave - Karaoke.mp3"
+        },
         {
           "id": "RYVCXXVFnHE_ai_muted_vocals",
           "title": "Moosina Muthyalake - Karaoke",
@@ -8776,10 +8836,70 @@
       "id": "ai_vocals_only",
       "title": "AI Vocals Only",
       "playlist_title": "AI Vocals Only",
-      "thumbnail": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
-      "track_count": 9,
+      "thumbnail": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+      "track_count": 15,
       "tracks": [
+        {
+          "id": "_iyRFJya_dY_ai_vocals_only",
+          "title": "Singarala - AI Vocals Only",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 329,
+          "thumbnail": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_iyRFJya_dY",
+          "file": "Singarala - AI Vocals Only.mp3"
+        },
+        {
+          "id": "8CPNApQBLVw_ai_vocals_only",
+          "title": "Premante Yemitante - AI Vocals Only",
+          "artist": "Hariharan - Topic",
+          "duration": 304,
+          "thumbnail": "https://i.ytimg.com/vi/8CPNApQBLVw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/8CPNApQBLVw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=8CPNApQBLVw",
+          "file": "Premante Yemitante - AI Vocals Only.mp3"
+        },
+        {
+          "id": "dZcKkXudmXM_ai_vocals_only",
+          "title": "Andhamyna Bhamalu - AI Vocals Only",
+          "artist": "Devi Sri Prasad",
+          "duration": 259,
+          "thumbnail": "https://i.ytimg.com/vi/dZcKkXudmXM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/dZcKkXudmXM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=dZcKkXudmXM",
+          "file": "Andhamyna Bhamalu - AI Vocals Only.mp3"
+        },
+        {
+          "id": "5doOdwiFmhE_ai_vocals_only",
+          "title": "Naa Manasuney - AI Vocals Only",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 247,
+          "thumbnail": "https://i.ytimg.com/vi/5doOdwiFmhE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/5doOdwiFmhE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=5doOdwiFmhE",
+          "file": "Naa Manasuney - AI Vocals Only.mp3"
+        },
+        {
+          "id": "AIOCqlyRm7k_ai_vocals_only",
+          "title": "Gupt Gupt Title - AI Vocals Only",
+          "artist": "Viju Shah - Topic",
+          "duration": 295,
+          "thumbnail": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=AIOCqlyRm7k",
+          "file": "Gupt Gupt Title - AI Vocals Only.mp3"
+        },
+        {
+          "id": "efv3iHUarxY_ai_vocals_only",
+          "title": "Manasa Palakave - AI Vocals Only",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/efv3iHUarxY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/efv3iHUarxY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=efv3iHUarxY",
+          "file": "Manasa Palakave - AI Vocals Only.mp3"
+        },
         {
           "id": "RYVCXXVFnHE_ai_vocals_only",
           "title": "Moosina Muthyalake - AI Vocals Only",
