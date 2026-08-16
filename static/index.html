@@ -800,14 +800,22 @@
                             <h2 id="azGridTitle" style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0;">All Blob Files</h2>
                             <p id="azGridSubtitle" style="margin: 0; font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem;"></p>
                         </div>
-                        <div style="display: flex; gap: 0.5rem; align-items: center;">
-                            <input type="text" id="azGridSearch" placeholder="Search files..." style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.72rem; padding: 0.3rem 0.6rem; width: 180px;">
-                            <select id="azSyncFilter" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.72rem; padding: 0.3rem 0.6rem; cursor: pointer;">
+                        <div style="display: flex; gap: 0.4rem; align-items: center;">
+                            <input type="text" id="azGridSearch" placeholder="Search files..." style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.72rem; padding: 0.3rem 0.6rem; width: 150px;">
+                            <select id="azSyncFilter" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 0.72rem; padding: 0.3rem 0.5rem; cursor: pointer;">
                                 <option value="all">All Status</option>
                                 <option value="synced">✓ Synced</option>
                                 <option value="local_only">↑ Local Only</option>
                                 <option value="azure_only">☁ Azure Only</option>
                             </select>
+                            <button id="btnAzTrimSelected" class="btn btn-secondary" style="padding: 0.3rem 0.55rem; font-size: 0.7rem; border-radius: 6px; display: flex; align-items: center; gap: 0.25rem;" title="Trim selected audio/video files > 200MB down to 200MB max">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--neon-purple)" stroke-width="2.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.47" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+                                Trim Selected
+                            </button>
+                            <button id="btnAzDeleteSelected" class="btn btn-secondary" style="padding: 0.3rem 0.55rem; font-size: 0.7rem; border-radius: 6px; display: flex; align-items: center; gap: 0.25rem; color: #ff5252;" title="Delete selected blobs from Azure Storage">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                Delete Selected
+                            </button>
                         </div>
                     </div>
 
@@ -816,6 +824,7 @@
                         <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.72rem;">
                             <thead style="background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 10;">
                                 <tr>
+                                    <th style="padding: 0.45rem 0.5rem; width: 30px; text-align: center;"><input type="checkbox" id="azHeaderCheckbox" style="accent-color: var(--neon-blue); cursor: pointer;"></th>
                                     <th class="az-sortable" data-sort="index" style="padding: 0.45rem 0.5rem; width: 40px;">#</th>
                                     <th style="padding: 0.45rem 0.5rem; width: 36px;">Type</th>
                                     <th class="az-sortable" data-sort="name" style="padding: 0.45rem 0.5rem;">File Name</th>

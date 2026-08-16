@@ -3416,7 +3416,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (nextBtn) nextBtn.disabled = azGridPage >= totalPages;
 
         if (pageFiles.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 2rem; color: var(--text-muted);">No files found</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 2rem; color: var(--text-muted);">No files found</td></tr>`;
             return;
         }
 
@@ -3438,6 +3438,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "—";
 
             html += `<tr>
+                <td style="text-align: center;"><input type="checkbox" class="az-row-checkbox" data-filename="${f.name}" style="accent-color: var(--neon-blue); cursor: pointer;"></td>
                 <td style="color: var(--text-muted);">${idx}</td>
                 <td>${typeIcons[f.type] || typeIcons.other}</td>
                 <td style="color: var(--text-primary); max-width: 350px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${f.name}">${f.name}</td>
@@ -3447,6 +3448,10 @@ document.addEventListener("DOMContentLoaded", () => {
             </tr>`;
         });
         tbody.innerHTML = html;
+
+        // Reset master header checkbox
+        const azHeaderCheckbox = document.getElementById("azHeaderCheckbox");
+        if (azHeaderCheckbox) azHeaderCheckbox.checked = false;
     }
 
     // Lightweight toast notification.
@@ -3615,7 +3620,93 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnCancelAzSync) {
         btnCancelAzSync.addEventListener("click", () => {
             azBlobStatsModal.classList.add("hidden");
-            // Don't stop the sync, just close the modal. Sync continues in background.
+        });
+    }
+
+    // Master header checkbox
+    const azHeaderCheckbox = document.getElementById("azHeaderCheckbox");
+    if (azHeaderCheckbox) {
+        azHeaderCheckbox.addEventListener("change", (e) => {
+            const checked = e.target.checked;
+            document.querySelectorAll(".az-row-checkbox").forEach(cb => cb.checked = checked);
+        });
+    }
+
+    // Helper to get checked blob names
+    function getSelectedBlobNames() {
+        const checkboxes = document.querySelectorAll(".az-row-checkbox:checked");
+        const names = [];
+        checkboxes.forEach(cb => {
+            const fn = cb.getAttribute("data-filename");
+            if (fn) names.push(fn);
+        });
+        return names;
+    }
+
+    // Trim Selected Blobs
+    const btnAzTrimSelected = document.getElementById("btnAzTrimSelected");
+    if (btnAzTrimSelected) {
+        btnAzTrimSelected.addEventListener("click", async () => {
+            const selected = getSelectedBlobNames();
+            if (selected.length === 0) {
+                showToast("Please select at least one file to trim.", true);
+                return;
+            }
+            if (!confirm(`Trim ${selected.length} selected file(s) to 200MB max and update on Azure?`)) return;
+
+            btnAzTrimSelected.disabled = true;
+            btnAzTrimSelected.innerHTML = `<div class="spinner" style="width:11px;height:11px;display:inline-block;vertical-align:middle;margin-right:4px;"></div> Trimming...`;
+            const downloadDir = downloadDirInput ? downloadDirInput.value.trim() : "";
+            
+            try {
+                const res = await fetch(`/api/azure/blobs/trim?download_dir=${encodeURIComponent(downloadDir)}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ blob_names: selected })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || "Failed trimming blobs");
+                showToast(`Successfully trimmed & updated ${data.trimmed ? data.trimmed.length : selected.length} file(s) on Azure.`);
+                await loadAzExplorer();
+            } catch (err) {
+                showToast("Trim Error: " + err.message, true);
+            } finally {
+                btnAzTrimSelected.disabled = false;
+                btnAzTrimSelected.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--neon-purple)" stroke-width="2.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.47" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg> Trim Selected`;
+            }
+        });
+    }
+
+    // Delete Selected Blobs
+    const btnAzDeleteSelected = document.getElementById("btnAzDeleteSelected");
+    if (btnAzDeleteSelected) {
+        btnAzDeleteSelected.addEventListener("click", async () => {
+            const selected = getSelectedBlobNames();
+            if (selected.length === 0) {
+                showToast("Please select at least one file to delete.", true);
+                return;
+            }
+            if (!confirm(`Are you sure you want to delete ${selected.length} selected blob(s) from Azure Storage?`)) return;
+
+            btnAzDeleteSelected.disabled = true;
+            btnAzDeleteSelected.innerHTML = `<div class="spinner" style="width:11px;height:11px;display:inline-block;vertical-align:middle;margin-right:4px;"></div> Deleting...`;
+            
+            try {
+                const res = await fetch("/api/azure/blobs/delete", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ blob_names: selected })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || "Failed deleting blobs");
+                showToast(`Successfully deleted ${data.deleted ? data.deleted.length : selected.length} blob(s) from Azure.`);
+                await loadAzExplorer();
+            } catch (err) {
+                showToast("Delete Error: " + err.message, true);
+            } finally {
+                btnAzDeleteSelected.disabled = false;
+                btnAzDeleteSelected.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete Selected`;
+            }
         });
     }
 

@@ -3310,6 +3310,179 @@ async def get_azure_explorer(download_dir: Optional[str] = None):
     except Exception as e:
         return {"error": str(e)}
 
+class AzureBlobBatchRequest(BaseModel):
+    blob_names: List[str]
+
+@app.post("/api/azure/blobs/delete")
+async def delete_azure_blobs(req: AzureBlobBatchRequest):
+    """Deletes specified blob files from Azure Storage container."""
+    if not req.blob_names:
+        raise HTTPException(status_code=400, detail="No blob names specified for deletion.")
+        
+    try:
+        from azure.storage.blob import BlobServiceClient
+    except ImportError:
+        raise HTTPException(status_code=500, detail="Azure Storage library not installed.")
+        
+    try:
+        with open(os.path.join(BASE_DIR, "keys.json"), "r", encoding="utf-8") as f:
+            keys = json.load(f)
+            
+        account_name = keys.get("azure_storage_account")
+        sas_token = keys.get("azure_sas_token", "")
+        account_key = keys.get("azure_account_key")
+        container = keys.get("azure_container")
+        
+        if not account_name or not container:
+            raise HTTPException(status_code=500, detail="Azure credentials missing in keys.json")
+            
+        acc_url = f"https://{account_name}.blob.core.windows.net"
+        if account_key:
+            conn_str = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
+            blob_service = BlobServiceClient.from_connection_string(conn_str)
+        else:
+            if sas_token.startswith("?"): sas_token = sas_token[1:]
+            blob_service = BlobServiceClient(account_url=acc_url, credential=sas_token)
+            
+        container_client = blob_service.get_container_client(container)
+        
+        deleted = []
+        failed = []
+        for bname in req.blob_names:
+            try:
+                container_client.delete_blob(bname)
+                deleted.append(bname)
+            except Exception as e:
+                print(f"[Azure Blob Delete] Failed {bname}: {e}")
+                failed.append(bname)
+                
+        # Regenerate and upload playlists_manifest.json
+        try:
+            import deploy_pwa
+            deploy_pwa.generate_pwa_manifest()
+            manifest_path = os.path.join(BASE_DIR, "web-pwa", "playlists_manifest.json")
+            if os.path.exists(manifest_path):
+                with open(manifest_path, "rb") as data:
+                    container_client.get_blob_client("playlists_manifest.json").upload_blob(data, overwrite=True)
+        except Exception as me:
+            print(f"[Azure Blob Delete] Manifest upload warning: {me}")
+            
+        return {
+            "message": f"Deleted {len(deleted)} blob(s)",
+            "deleted": deleted,
+            "failed": failed
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/azure/blobs/trim")
+async def trim_azure_blobs(req: AzureBlobBatchRequest, download_dir: Optional[str] = None):
+    """Trims specified blob files to <= 200MB max and re-uploads them to Azure Storage."""
+    if not req.blob_names:
+        raise HTTPException(status_code=400, detail="No blob names specified for trimming.")
+        
+    try:
+        import sync_azure_batch
+        importlib.reload(sync_azure_batch)
+        
+        keys = sync_azure_batch.load_keys()
+        if not keys:
+            raise HTTPException(status_code=500, detail="keys.json not found.")
+            
+        account_name = keys.get("azure_storage_account")
+        account_key = keys.get("azure_account_key")
+        sas_token = keys.get("azure_sas_token", "")
+        container_name = keys.get("azure_container")
+        
+        from azure.storage.blob import BlobServiceClient
+        acc_url = f"https://{account_name}.blob.core.windows.net"
+        if account_key:
+            conn_str = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
+            blob_service = BlobServiceClient.from_connection_string(conn_str)
+        else:
+            if sas_token.startswith("?"): sas_token = sas_token[1:]
+            blob_service = BlobServiceClient(account_url=acc_url, credential=sas_token)
+            
+        container_client = blob_service.get_container_client(container_name)
+        
+        dirs_to_check = set()
+        target_dir = download_dir or DOWNLOAD_DIR
+        if target_dir and os.path.exists(target_dir):
+            dirs_to_check.add(os.path.abspath(target_dir))
+        if os.path.exists(HISTORY_PATH):
+            try:
+                with open(HISTORY_PATH, "r", encoding="utf-8") as hf:
+                    history_data = json.load(hf)
+                    for job in history_data:
+                        job_dir = job.get("download_dir") or job.get("folder_path")
+                        if job_dir and os.path.exists(job_dir):
+                            dirs_to_check.add(os.path.abspath(job_dir))
+            except Exception:
+                pass
+
+        local_files = {}
+        for d in dirs_to_check:
+            for root, _, names in os.walk(d):
+                for f in names:
+                    if f.lower().endswith(('.mp3', '.mp4', '.mkv', '.webm', '.m4a')):
+                        if f not in local_files:
+                            local_files[f] = os.path.join(root, f)
+                            
+        trimmed_uploaded = []
+        failed = []
+        skipped = []
+        
+        for bname in req.blob_names:
+            if sync_azure_batch.is_gita_file(bname):
+                skipped.append(bname)
+                continue
+                
+            if bname not in local_files:
+                failed.append(bname)
+                continue
+                
+            lpath = local_files[bname]
+            try:
+                trimmed_path, was_trimmed = sync_azure_batch.trim_audio_if_exceeds_max(lpath)
+                upload_path = trimmed_path if was_trimmed else lpath
+                
+                blob_client = container_client.get_blob_client(bname)
+                with open(upload_path, "rb") as data:
+                    blob_client.upload_blob(data, overwrite=True)
+                    
+                if was_trimmed and upload_path != lpath and os.path.exists(upload_path):
+                    try: os.remove(upload_path)
+                    except Exception: pass
+                    
+                trimmed_uploaded.append(bname)
+            except Exception as e:
+                print(f"[Azure Blob Trim] Failed {bname}: {e}")
+                failed.append(bname)
+                
+        # Regenerate and upload manifest
+        try:
+            import deploy_pwa
+            deploy_pwa.generate_pwa_manifest()
+            manifest_path = os.path.join(BASE_DIR, "web-pwa", "playlists_manifest.json")
+            if os.path.exists(manifest_path):
+                with open(manifest_path, "rb") as data:
+                    container_client.get_blob_client("playlists_manifest.json").upload_blob(data, overwrite=True)
+        except Exception as me:
+            print(f"[Azure Blob Trim] Manifest upload warning: {me}")
+            
+        return {
+            "message": f"Processed {len(trimmed_uploaded)} file(s)",
+            "trimmed": trimmed_uploaded,
+            "skipped": skipped,
+            "failed": failed
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/api/azure/sync/status")
 async def get_azure_sync_status():
     return AZURE_SYNC_STATUS
