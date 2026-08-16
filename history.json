@@ -795,8 +795,8 @@
         "status": "completed",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "00:06:24",
-        "end_time": "00:06:26",
+        "start_time": "00:14:50",
+        "end_time": "00:14:51",
         "error_detail": ""
       },
       {
@@ -1257,8 +1257,8 @@
         "status": "skipped",
         "percentage": 100.0,
         "speed": "--",
-        "start_time": "00:06:26",
-        "end_time": "00:06:27",
+        "start_time": "00:14:52",
+        "end_time": "00:15:37",
         "error_detail": ""
       },
       {
