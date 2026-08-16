@@ -2231,7 +2231,7 @@ async def generate_ai_instrumental(job_id: str, track_id: str, background_tasks:
         raise HTTPException(status_code=404, detail="Local file not found for processing. Make sure it's downloaded.")
 
     out_filename = f"{sanitize_filename(target_track['title'])} - AI Instrumental.mp3"
-    out_path = os.path.join(download_dir, out_filename)
+    out_path = os.path.join(AI_WORKSPACE_DIR, out_filename)
 
     if os.path.exists(out_path):
         _add_ai_track_to_playlist(target_track, "ai_instruments", "AI Synth Tune", out_path)
@@ -2262,7 +2262,7 @@ async def generate_ai_instrumental(job_id: str, track_id: str, background_tasks:
             with ai_jobs_lock:
                 ai_jobs_state[ai_job_id]["progress"] = "Caching Vocals Byproduct..."
             vocals_filename = f"{sanitize_filename(target_track['title'])} - AI Vocals Only.mp3"
-            vocals_out_path = os.path.join(download_dir, vocals_filename)
+            vocals_out_path = os.path.join(AI_WORKSPACE_DIR, vocals_filename)
             processor.export_audio(vocal_path, vocals_out_path, is_vocal_stem=True)
             _add_ai_track_to_playlist(target_track, "ai_vocals_only", "AI Vocals Only", vocals_out_path)
 
@@ -2320,7 +2320,7 @@ async def generate_ai_karaoke(job_id: str, track_id: str, background_tasks: Back
         raise HTTPException(status_code=404, detail="Local file not found for processing. Make sure it's downloaded.")
 
     out_filename = f"{sanitize_filename(target_track['title'])} - Karaoke.mp3"
-    out_path = os.path.join(download_dir, out_filename)
+    out_path = os.path.join(AI_WORKSPACE_DIR, out_filename)
 
     if os.path.exists(out_path):
         _add_ai_track_to_playlist(target_track, "ai_muted_vocals", "AI Muted Vocals", out_path)
@@ -2351,7 +2351,7 @@ async def generate_ai_karaoke(job_id: str, track_id: str, background_tasks: Back
             with ai_jobs_lock:
                 ai_jobs_state[ai_job_id]["progress"] = "Caching Vocals Byproduct..."
             vocals_filename = f"{sanitize_filename(target_track['title'])} - AI Vocals Only.mp3"
-            vocals_out_path = os.path.join(download_dir, vocals_filename)
+            vocals_out_path = os.path.join(AI_WORKSPACE_DIR, vocals_filename)
             processor.export_audio(vocal_path, vocals_out_path, is_vocal_stem=True)
             _add_ai_track_to_playlist(target_track, "ai_vocals_only", "AI Vocals Only", vocals_out_path)
 
@@ -2396,12 +2396,12 @@ async def process_ai_mute_stream(job_id: str, track_id: str, background_tasks: B
 
         # Check if already cached!
         cache_filename = f"{sanitize_filename(track_title)} - AI Muted Vocals.mp3"
-        cache_out_path = os.path.join(download_dir, cache_filename)
+        cache_out_path = os.path.join(AI_WORKSPACE_DIR, cache_filename)
         
         if os.path.exists(cache_out_path):
             # Return cached url
             title_encoded = urllib.parse.quote(f"{track_title} - AI Muted Vocals")
-            download_dir_encoded = urllib.parse.quote(download_dir)
+            download_dir_encoded = urllib.parse.quote(AI_WORKSPACE_DIR)
             url = f"/api/media/stream?video_url=local&title={title_encoded}&format=audio&download_dir={download_dir_encoded}"
             return {"url": url}
 
@@ -2440,12 +2440,12 @@ async def process_ai_instrument_stream(job_id: str, track_id: str, background_ta
 
         # Check if already cached!
         cache_filename = f"{sanitize_filename(track_title)} - AI Instrumental.mp3"
-        cache_out_path = os.path.join(download_dir, cache_filename)
+        cache_out_path = os.path.join(AI_WORKSPACE_DIR, cache_filename)
         
         if os.path.exists(cache_out_path):
             # Return cached url
             title_encoded = urllib.parse.quote(f"{track_title} - AI Instrumental")
-            download_dir_encoded = urllib.parse.quote(download_dir)
+            download_dir_encoded = urllib.parse.quote(AI_WORKSPACE_DIR)
             url = f"/api/media/stream?video_url=local&title={title_encoded}&format=audio&download_dir={download_dir_encoded}"
             return {"url": url}
 
@@ -2483,12 +2483,12 @@ async def process_ai_vocals_stream(job_id: str, track_id: str, background_tasks:
 
         # Check if already cached!
         cache_filename = f"{sanitize_filename(track_title)} - AI Vocals Only.mp3"
-        cache_out_path = os.path.join(download_dir, cache_filename)
+        cache_out_path = os.path.join(AI_WORKSPACE_DIR, cache_filename)
         
         if os.path.exists(cache_out_path):
             # Return cached url
             title_encoded = urllib.parse.quote(f"{track_title} - AI Vocals Only")
-            download_dir_encoded = urllib.parse.quote(download_dir)
+            download_dir_encoded = urllib.parse.quote(AI_WORKSPACE_DIR)
             url = f"/api/media/stream?video_url=local&title={title_encoded}&format=audio&download_dir={download_dir_encoded}"
             return {"url": url}
 
