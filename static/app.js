@@ -151,22 +151,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
-    // Safety fallback: dismiss splash after 1.5s regardless of network/API latency
-    setTimeout(dismissSplashScreen, 1500);
+    // Safety fallback: dismiss splash after 15s in case of severe network failure
+    setTimeout(dismissSplashScreen, 15000);
 
     async function loadSidebar() {
         try {
             const res = await fetch("/api/history");
             historyJobs = await res.json();
             
+            renderSidebarList();
+            
             // Auto select first active playlist if none active
             if (historyJobs.length > 0 && !currentPlaylistId) {
                 const active = historyJobs.find(job => !job.deleted && !job.is_virtual && job.is_playlist !== false);
                 if (active) {
-                    selectPlaylist(active);
+                    await selectPlaylist(active);
                 }
             }
-            renderSidebarList();
         } catch (e) {
             console.error("Failed to load history list:", e);
         } finally {
