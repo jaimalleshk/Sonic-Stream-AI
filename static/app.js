@@ -1850,11 +1850,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Toggle state
             window.isLiveMuteOn = !window.isLiveMuteOn;
+            
             if (window.isLiveMuteOn) {
                 window.activeAIQueueMode = "mute";
-            } else {
-                if (window.activeAIQueueMode === "mute") window.activeAIQueueMode = null;
-            }
                 // Turn ON High-Quality Mute
                 playerLiveMuteBtn.style.color = "#ffb6c1"; // highlight pink
                 playerLiveMuteBtn.style.textShadow = "0 0 10px rgba(255,182,193,0.5)";
@@ -1902,6 +1900,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
             } else {
+                if (window.activeAIQueueMode === "mute") window.activeAIQueueMode = null;
                 // Turn OFF Mute, revert to original stream
                 playerLiveMuteBtn.style.color = "var(--text-primary)"; // revert
                 playerLiveMuteBtn.style.textShadow = "none";
@@ -1944,11 +1943,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Toggle state
             window.isInstrumentOn = !window.isInstrumentOn;
+            
             if (window.isInstrumentOn) {
                 window.activeAIQueueMode = "instrument";
-            } else {
-                if (window.activeAIQueueMode === "instrument") window.activeAIQueueMode = null;
-            }
                 playerInstrumentBtn.style.color = "#a020f0"; // highlight purple
                 playerInstrumentBtn.style.textShadow = "0 0 10px rgba(160,32,240,0.5)";
                 logToTerminal(`[AI] 🎷 Voice-to-Instrument ON: Synthesizing MIDI replacement for "${item.title}"... This may take a minute.`);
@@ -1990,6 +1987,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     playerInstrumentBtn.style.textShadow = "none";
                 }
             } else {
+                if (window.activeAIQueueMode === "instrument") window.activeAIQueueMode = null;
                 playerInstrumentBtn.style.color = "var(--text-primary)";
                 playerInstrumentBtn.style.textShadow = "none";
                 logToTerminal("[AI] 🎷 Voice-to-Instrument OFF: Reverting to original track.");
@@ -2038,11 +2036,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             window.isVocalsOnlyOn = !window.isVocalsOnlyOn;
+            
             if (window.isVocalsOnlyOn) {
                 window.activeAIQueueMode = "vocals";
-            } else {
-                if (window.activeAIQueueMode === "vocals") window.activeAIQueueMode = null;
-            }
                 playerVocalsOnlyBtn.style.color = "var(--neon-blue)";
                 playerVocalsOnlyBtn.style.textShadow = "0 0 10px rgba(0,242,254,0.5)";
                 logToTerminal(`[AI] 🗣️ Human Vocals Only ON: Isolating voice for "${item.title}"... This may take a minute.`);
@@ -2081,6 +2077,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     playerVocalsOnlyBtn.style.textShadow = "none";
                 }
             } else {
+                if (window.activeAIQueueMode === "vocals") window.activeAIQueueMode = null;
                 playerVocalsOnlyBtn.style.color = "var(--text-primary)";
                 playerVocalsOnlyBtn.style.textShadow = "none";
                 logToTerminal("[AI] 🗣️ Human Vocals Only OFF: Reverting to original track.");
