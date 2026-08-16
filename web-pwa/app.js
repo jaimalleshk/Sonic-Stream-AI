@@ -710,6 +710,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 tx.oncomplete = () => {
                     updateCacheUsageUI();
+                    // Keep the cache within budget. checkStorageQuotaLimit() existed
+                    // but was NEVER CALLED from anywhere, so nothing ever bounded the
+                    // cache — it reached 3.81 GB / 288 tracks and slowed the device.
+                    checkStorageQuotaLimit();
                     resolve();
                 };
                 tx.onerror = () => resolve();
@@ -761,21 +765,82 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const MAX_INDEXEDB_BYTES = 10 * 1024 * 1024 * 1024; // 10 GB Max Storage Quota Lock
 
-    async function checkStorageQuotaLimit() {
-        if (!navigator.storage || !navigator.storage.estimate) return false;
-        try {
-            const est = await navigator.storage.estimate();
-            const usage = est.usage || 0;
-            const quota = est.quota || MAX_INDEXEDB_BYTES;
+    // Total cache budget. There was previously NO total cap at all (only a 60 MB
+    // per-file limit), and the guard below trusted navigator.storage.estimate(),
+    // which under-reports badly on iOS Safari - it claimed 5.7 MB while the cache
+    // actually held 3.81 GB across 288 tracks. So the guard never fired and the
+    // cache grew without bound until the device was under storage pressure, which
+    // is what made the app slow. The budget is enforced against MEASURED bytes.
+    const MAX_TOTAL_CACHE_BYTES = 2 * 1024 * 1024 * 1024; // 2 GB
 
-            if (usage >= MAX_INDEXEDB_BYTES || usage >= (quota * 0.95)) {
-                const usedGB = (usage / (1024 * 1024 * 1024)).toFixed(2);
-                alert(`⚠️ Storage Full Warning!\nIndexedDB Storage limit reached (${usedGB} GB used of 10GB max).\n\nCaching locked. Please clear offline cache in Settings to free space.`);
-                console.warn(`[PWA Storage Lock] Quota Limit Reached! Usage: ${usedGB} GB.`);
-                return true;
+    async function checkStorageQuotaLimit() {
+        try {
+            const c = await countCachedTracks();          // measured, not estimated
+            if (c.bytes >= MAX_TOTAL_CACHE_BYTES) {
+                console.warn("[PWA Storage] Cache at " + (c.bytes/1073741824).toFixed(2) + " GB - trimming.");
+                await enforceCacheBudget();
+            }
+            if (navigator.storage && navigator.storage.estimate) {
+                const est = await navigator.storage.estimate();
+                if (est.quota && c.bytes >= est.quota * 0.9) {
+                    console.warn("[PWA Storage] Near device quota - trimming.");
+                    await enforceCacheBudget(est.quota * 0.7);
+                }
             }
         } catch (e) {}
         return false;
+    }
+
+    // Evict the oldest cached audio until the cache fits the budget. Safe: every
+    // track is re-downloadable from Azure on demand, so only the local copy goes.
+    // The metadata row is KEPT (playlists join on it) - just the blobs are dropped.
+    async function enforceCacheBudget(budget = MAX_TOTAL_CACHE_BYTES) {
+        let database = null;
+        try { database = db; } catch (_) { return; }
+        if (!database || !database.objectStoreNames.contains("files")) return;
+        const rows = await new Promise((resolve) => {
+            const out = [];
+            try {
+                const req = database.transaction("files", "readonly").objectStore("files").openCursor();
+                req.onsuccess = (e) => {
+                    const cur = e.target.result;
+                    if (!cur) return resolve(out);
+                    const v = cur.value || {};
+                    const b = v.blob || v.audio_blob;
+                    if (b instanceof Blob && b.size > 0) out.push({ key: cur.primaryKey, size: b.size, ts: v.timestamp || 0 });
+                    cur.continue();
+                };
+                req.onerror = () => resolve(out);
+            } catch (_) { resolve(out); }
+        });
+        let total = rows.reduce((a, r) => a + r.size, 0);
+        if (total <= budget) return;
+        rows.sort((a, b) => a.ts - b.ts);
+        const doomed = [];
+        for (const r of rows) {
+            if (total <= budget) break;
+            doomed.push(r.key); total -= r.size;
+        }
+        if (!doomed.length) return;
+        await new Promise((resolve) => {
+            try {
+                const tx = database.transaction("files", "readwrite");
+                const st = tx.objectStore("files");
+                doomed.forEach(k => {
+                    const g = st.get(k);
+                    g.onsuccess = () => {
+                        const rec = g.result;
+                        if (!rec) return;
+                        delete rec.blob; delete rec.audio_blob;
+                        delete rec.thumb_blob; delete rec.thumbBlob;
+                        st.put(rec);
+                    };
+                });
+                tx.oncomplete = resolve; tx.onerror = resolve;
+            } catch (_) { resolve(); }
+        });
+        console.log("[PWA Storage] Evicted " + doomed.length + " cached track(s) to fit the budget.");
+        updateCacheUsageUI();
     }
 
     // Count how many track blobs are ACTUALLY cached in IndexedDB. This is the
@@ -817,7 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v18";
+    const APP_BUILD = "v19";
 
     async function updateCacheUsageUI() {
         const c = await countCachedTracks();
