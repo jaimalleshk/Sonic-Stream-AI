@@ -3335,9 +3335,17 @@ async def trigger_azure_sync(download_dir: str = "", keep_full: bool = False):
         AZURE_SYNC_STATUS["is_syncing"] = not is_done
         AZURE_SYNC_STATUS["progress"] = current
         AZURE_SYNC_STATUS["total"] = total
-        AZURE_SYNC_STATUS["current_file"] = filename
+        try:
+            safe_fn = str(filename)
+        except Exception:
+            safe_fn = str(filename).encode("ascii", errors="replace").decode("ascii")
+        AZURE_SYNC_STATUS["current_file"] = safe_fn
         if error:
-            AZURE_SYNC_STATUS["error"] = error
+            try:
+                safe_err = str(error)
+            except Exception:
+                safe_err = str(error).encode("ascii", errors="replace").decode("ascii")
+            AZURE_SYNC_STATUS["error"] = safe_err
         elif is_done:
             AZURE_SYNC_STATUS["error"] = None
             
@@ -3351,7 +3359,10 @@ async def trigger_azure_sync(download_dir: str = "", keep_full: bool = False):
             importlib.reload(sync_azure_batch)
             sync_azure_batch.run_sync(download_dir or DOWNLOAD_DIR, _progress_cb, keep_full=keep_full)
         except Exception as e:
-            print(f"Background azure sync error: {e}")
+            try:
+                print(f"Background azure sync error: {e}")
+            except Exception:
+                pass
             traceback.print_exc()
             _progress_cb(0, 0, "", is_done=True, error=str(e))
 

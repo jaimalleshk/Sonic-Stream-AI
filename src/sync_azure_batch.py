@@ -4,6 +4,29 @@ import json
 import traceback
 from azure.storage.blob import BlobServiceClient
 
+# Reconfigure stdout/stderr to UTF-8 on Windows to avoid 'charmap' UnicodeEncodeError
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+if sys.stderr and hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+def safe_print(*args, **kwargs):
+    """Prints output safely without throwing Windows cp1252 charmap encoding errors."""
+    try:
+        print(*args, **kwargs)
+    except Exception:
+        try:
+            cleaned = [str(a).encode("ascii", errors="replace").decode("ascii") for a in args]
+            print(*cleaned, **kwargs)
+        except Exception:
+            pass
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HISTORY_PATH = os.path.join(BASE_DIR, "history.json")
 KEYS_PATH = os.path.join(BASE_DIR, "keys.json")
@@ -54,19 +77,19 @@ def trim_audio_if_exceeds_max(local_path: str, workspace_dir: str = AI_WORKSPACE
             trimmed_audio.export(trimmed_path, format=fmt)
 
         if os.path.exists(trimmed_path) and os.path.getsize(trimmed_path) > 0:
-            print(f"[Azure Sync] ✂️ Trimmed '{filename}' ({file_size/(1024*1024):.1f}MB -> {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB)")
+            safe_print(f"[Azure Sync] ✂️ Trimmed '{filename}' ({file_size/(1024*1024):.1f}MB -> {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB)")
             return trimmed_path, True
     except Exception as e:
-        print(f"[Azure Sync] Warning: pydub trim failed ({e}), attempting ffmpeg stream clip...")
+        safe_print(f"[Azure Sync] Warning: pydub trim failed ({e}), attempting ffmpeg stream clip...")
         try:
             import subprocess
             cmd = ["ffmpeg", "-y", "-i", local_path, "-fs", str(max_bytes - 1000000), "-c", "copy", trimmed_path]
             subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
             if os.path.exists(trimmed_path) and os.path.getsize(trimmed_path) > 0:
-                print(f"[Azure Sync] ✂️ FFmpeg trimmed '{filename}' to {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB")
+                safe_print(f"[Azure Sync] ✂️ FFmpeg trimmed '{filename}' to {os.path.getsize(trimmed_path)/(1024*1024):.1f}MB")
                 return trimmed_path, True
         except Exception as fe:
-            print(f"[Azure Sync] FFmpeg trim failed: {fe}")
+            safe_print(f"[Azure Sync] FFmpeg trim failed: {fe}")
 
     return local_path, False
 
@@ -79,7 +102,7 @@ def load_keys():
 def run_sync(download_dir, progress_callback=None, keep_full=False):
     keys = load_keys()
     if not keys:
-        print("[Azure Sync] keys.json not found. Cannot sync.")
+        safe_print("[Azure Sync] keys.json not found. Cannot sync.")
         if progress_callback: progress_callback(0, 0, "", True, "keys.json not found")
         return
 
@@ -89,7 +112,7 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
     container_name = keys.get("azure_container")
 
     if not account_name or not container_name:
-        print("[Azure Sync] Missing azure credentials in keys.json.")
+        safe_print("[Azure Sync] Missing azure credentials in keys.json.")
         if progress_callback: progress_callback(0, 0, "", True, "Missing credentials")
         return
 
@@ -107,7 +130,7 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
         container_client = blob_service_client.get_container_client(container_name)
         if not container_client.exists():
             container_client.create_container()
-            print(f"[Azure Sync] Created container: {container_name}")
+            safe_print(f"[Azure Sync] Created container: {container_name}")
 
         # List all existing blobs and store their sizes
         existing_blobs = {}  # blob_name -> size in bytes
@@ -126,7 +149,7 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
                     if f not in existing_blobs:
                         files_to_upload.append(f)
                     elif (existing_blobs[f] > MAX_BLOB_SIZE_BYTES) and (not keep_full) and (not exempt):
-                        print(f"[Azure Sync] Blob '{f}' in Azure is {existing_blobs[f]/(1024*1024):.1f}MB > 200MB. Re-uploading trimmed version...")
+                        safe_print(f"[Azure Sync] Blob '{f}' in Azure is {existing_blobs[f]/(1024*1024):.1f}MB > 200MB. Re-uploading trimmed version...")
                         files_to_upload.append(f)
 
         total_files = len(files_to_upload)
@@ -144,7 +167,7 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
             
             status_msg = f"Uploading {f} (trimmed to <200MB)" if was_trimmed else f"Uploading {f}"
             if progress_callback: progress_callback(idx, total_files, status_msg, False)
-            print(f"[Azure Sync] Uploading media file: {f} ({os.path.getsize(upload_path)/(1024*1024):.1f} MB)")
+            safe_print(f"[Azure Sync] Uploading media file: {f} ({os.path.getsize(upload_path)/(1024*1024):.1f} MB)")
             
             try:
                 with open(upload_path, "rb") as data:
@@ -153,7 +176,7 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
                     try: os.remove(upload_path)
                     except Exception: pass
             except Exception as fe:
-                print(f"[Azure Sync] FAILED {f}: {fe}")
+                safe_print(f"[Azure Sync] FAILED {f}: {fe}")
                 failed.append(f)
 
         # 2. Regenerate and upload the PWA manifest.
@@ -165,28 +188,28 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
             import deploy_pwa
             deploy_pwa.generate_pwa_manifest()
         except Exception as me:
-            print(f"[Azure Sync] Manifest generation failed: {me}")
+            safe_print(f"[Azure Sync] Manifest generation failed: {me}")
 
         if os.path.exists(manifest_path):
             if progress_callback:
                 progress_callback(total_files, total_files, "Uploading playlists_manifest.json...", False)
-            print("[Azure Sync] Uploading playlists_manifest.json...")
+            safe_print("[Azure Sync] Uploading playlists_manifest.json...")
             with open(manifest_path, "rb") as data:
                 container_client.get_blob_client("playlists_manifest.json").upload_blob(data, overwrite=True)
         else:
-            print("[Azure Sync] WARNING: manifest not found; PWA library not updated.")
+            safe_print("[Azure Sync] WARNING: manifest not found; PWA library not updated.")
 
         if failed:
             msg = f"{len(failed)} file(s) failed to upload (first: {failed[0]})"
-            print(f"[Azure Sync] Completed with errors: {msg}")
+            safe_print(f"[Azure Sync] Completed with errors: {msg}")
             if progress_callback: progress_callback(total_files, total_files, "Done", True, msg)
             return
 
-        print("[Azure Sync] Batch sync completed successfully.")
+        safe_print("[Azure Sync] Batch sync completed successfully.")
         if progress_callback: progress_callback(total_files, total_files, "Done", True)
 
     except Exception as e:
-        print(f"[Azure Sync Error] {e}")
+        safe_print(f"[Azure Sync Error] {e}")
         traceback.print_exc()
         if progress_callback: progress_callback(0, 0, "", True, str(e))
 
@@ -200,4 +223,4 @@ if __name__ == "__main__":
     if args.download_dir:
         run_sync(args.download_dir, keep_full=args.keep_full)
     else:
-        print("[Azure Sync Error] Download directory not provided.")
+        safe_print("[Azure Sync Error] Download directory not provided.")
