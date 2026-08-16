@@ -3593,9 +3593,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnConfirmAzSync) {
         btnConfirmAzSync.addEventListener("click", async () => {
             const downloadDir = downloadDirInput ? downloadDirInput.value.trim() : "";
+            const keepFullToggle = document.getElementById("keepFullLargeFilesToggle");
+            const keepFull = keepFullToggle && keepFullToggle.checked ? "true" : "false";
             btnConfirmAzSync.disabled = true;
             try {
-                const res = await fetch("/api/azure/sync?download_dir=" + encodeURIComponent(downloadDir), { method: "POST" });
+                const res = await fetch(`/api/azure/sync?download_dir=${encodeURIComponent(downloadDir)}&keep_full=${keepFull}`, { method: "POST" });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.detail || "Failed to trigger sync");
                 // Start polling FIRST: polling owns re-enabling the button, so it

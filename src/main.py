@@ -3315,15 +3315,11 @@ async def get_azure_sync_status():
     return AZURE_SYNC_STATUS
 
 @app.post("/api/azure/sync")
-async def trigger_azure_sync(download_dir: str = ""):
+async def trigger_azure_sync(download_dir: str = "", keep_full: bool = False):
     """Triggers background sync of all local downloaded tracks to Azure Storage Blob."""
     if AZURE_SYNC_STATUS["is_syncing"]:
         return {"status": "started", "message": "Background Azure Sync is already running."}
 
-    # Mark as syncing BEFORE returning. The UI starts polling as soon as this
-    # responds; if the flag were still False when the first poll landed, the
-    # poller would take its "finished" branch and report "completed successfully"
-    # for a sync that had not even begun (and hide the progress bar).
     AZURE_SYNC_STATUS["is_syncing"] = True
     AZURE_SYNC_STATUS["progress"] = 0
     AZURE_SYNC_STATUS["total"] = 0
@@ -3353,7 +3349,7 @@ async def trigger_azure_sync(download_dir: str = ""):
                 sys.path.insert(0, src_dir)
             import sync_azure_batch
             importlib.reload(sync_azure_batch)
-            sync_azure_batch.run_sync(download_dir or DOWNLOAD_DIR, _progress_cb)
+            sync_azure_batch.run_sync(download_dir or DOWNLOAD_DIR, _progress_cb, keep_full=keep_full)
         except Exception as e:
             print(f"Background azure sync error: {e}")
             traceback.print_exc()
