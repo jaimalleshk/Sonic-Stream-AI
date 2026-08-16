@@ -11678,7 +11678,7 @@
         "error_detail": ""
       }
     ],
-    "last_played_track_id": "AIOCqlyRm7k",
+    "last_played_track_id": "urH2KdEgXPI",
     "last_played_shuffle": true,
     "shuffle_order": [
       "ABy95341Dto",
@@ -12301,7 +12301,7 @@
       "I0zU7A76Neg",
       "Y77s13RrnvY"
     ],
-    "shuffle_index": 194,
+    "shuffle_index": 195,
     "deleted": false
   },
   {
@@ -12801,6 +12801,20 @@
     "quality": "highest",
     "items": [
       {
+        "id": "AIOCqlyRm7k_ai_muted_vocals",
+        "title": "Gupt Gupt Title - Karaoke",
+        "uploader": "Viju Shah - Topic",
+        "duration": 295,
+        "thumbnail": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=AIOCqlyRm7k",
+        "status": "completed",
+        "percentage": 100.0,
+        "speed": "--",
+        "start_time": "22:23:22",
+        "end_time": "22:23:22",
+        "error_detail": ""
+      },
+      {
         "id": "efv3iHUarxY_ai_muted_vocals",
         "title": "Manasa Palakave - Karaoke",
         "uploader": "S.P.Balasubramanyam - Topic",
@@ -12955,13 +12969,13 @@
         "error_detail": ""
       }
     ],
-    "total_tracks": 11,
-    "success_count": 11,
+    "total_tracks": 12,
+    "success_count": 12,
     "failure_count": 0,
-    "completed_tracks": 11,
+    "completed_tracks": 12,
     "pinned": true,
     "deleted": false,
-    "timestamp": "2026-08-15T22:14:53.661072",
+    "timestamp": "2026-08-15T22:23:22.433036",
     "last_played_track_id": "4Kpl9vBrlIU_ai_muted_vocals",
     "last_played_shuffle": true,
     "shuffle_order": [
@@ -12982,6 +12996,20 @@
     "format": "audio",
     "quality": "highest",
     "items": [
+      {
+        "id": "AIOCqlyRm7k_ai_vocals_only",
+        "title": "Gupt Gupt Title - AI Vocals Only",
+        "uploader": "Viju Shah - Topic",
+        "duration": 295,
+        "thumbnail": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=AIOCqlyRm7k",
+        "status": "completed",
+        "percentage": 100.0,
+        "speed": "--",
+        "start_time": "22:23:15",
+        "end_time": "22:23:15",
+        "error_detail": ""
+      },
       {
         "id": "efv3iHUarxY_ai_vocals_only",
         "title": "Manasa Palakave - AI Vocals Only",
@@ -13123,21 +13151,21 @@
         "error_detail": ""
       }
     ],
-    "total_tracks": 10,
-    "success_count": 10,
+    "total_tracks": 11,
+    "success_count": 11,
     "failure_count": 0,
-    "completed_tracks": 10,
+    "completed_tracks": 11,
     "pinned": true,
     "deleted": false,
-    "timestamp": "2026-08-15T22:14:41.662833",
-    "last_played_track_id": "LF_1_hy2wXU_ai_vocals_only",
+    "timestamp": "2026-08-15T22:23:15.712230",
+    "last_played_track_id": "4Kpl9vBrlIU_ai_vocals_only",
     "last_played_shuffle": true,
     "shuffle_order": [
       "LF_1_hy2wXU_ai_vocals_only",
       "y5r5JL064Us_ai_vocals_only",
       "4Kpl9vBrlIU_ai_vocals_only"
     ],
-    "shuffle_index": 0
+    "shuffle_index": 2
   },
   {
     "id": "job_1783134359",
