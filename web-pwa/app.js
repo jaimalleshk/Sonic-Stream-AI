@@ -951,7 +951,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v30";
+    const APP_BUILD = "v31";
 
     // Memoised cache statistics.
     //
@@ -2455,6 +2455,20 @@ document.addEventListener("DOMContentLoaded", () => {
                             }
                         } catch (e) {
                             userDownloadActive = false;
+                            // A 404 means the track exists in the playlist but its audio
+                            // has not been uploaded to the blob yet (a new download or a
+                            // freshly generated AI track). That is NOT a reason to hide
+                            // the track — it may be uploaded later — but there is no
+                            // point grinding through the streaming fallbacks either:
+                            // they all hit the same missing file and cost ~2 s of error
+                            // noise per track. Skip straight to the next one.
+                            if (String(e && e.message || "").includes("404")) {
+                                console.warn(`[PWA Player] NOT UPLOADED YET (404): ${targetFile} — skipping to the next track.`);
+                                setPlaybackSource("error");
+                                if (playerStatusText) playerStatusText.textContent = "Not uploaded to cloud yet — skipping";
+                                setLoadingIndicator(false);
+                                if (playQueue.length > 1) { setTimeout(() => playNextTrack(), 250); return; }
+                            }
                             // Never leave the user with silence: fall back to the URL.
                             console.warn(`[PWA Player] Download FAILED (hidden=${document.hidden}, online=${navigator.onLine}) for ${targetFile} —`, e,
                                 document.hidden ? "| iOS blocks/throttles fetch while backgrounded, so an UNCACHED track cannot load with the screen off." : "");

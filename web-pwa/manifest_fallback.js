@@ -9,7 +9,7 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       "playlist_title": "All Songs",
       "thumbnail": "https://i.ytimg.com/vi/efv3iHUarxY/hqdefault.jpg",
       "thumbnail_file": "https://i.ytimg.com/vi/efv3iHUarxY/hqdefault.jpg",
-      "track_count": 833,
+      "track_count": 834,
       "tracks": [
         {
           "id": "efv3iHUarxY",
@@ -562,6 +562,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Bala Ganapana - Banna Banna Ganapa - Visuals Of Lord Sri Ganesha Devotional Songs \uff5c\uff5c Kannada.mp3"
         },
         {
+          "id": "NgbsRyl2cGQ",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/NgbsRyl2cGQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/NgbsRyl2cGQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=NgbsRyl2cGQ",
+          "file": "Unknown Title.mp3"
+        },
+        {
           "id": "i22CQ5_KrU4",
           "title": "Neelakandhara Divya Mandira  - SP Balu",
           "artist": "SriVenkateswara Swamy",
@@ -810,6 +820,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/DtSBLpQStT4/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=DtSBLpQStT4",
           "file": "Sri Lalitha Sahasranamam \uff5c Lalita Devi Stotram For Protection & Prosperity \uff5c Rajshri Soul.mp3"
+        },
+        {
+          "id": "b3ST34JW6dA",
+          "title": "Anju Karangale",
+          "artist": "VMD Infotainment",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/b3ST34JW6dA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/b3ST34JW6dA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=b3ST34JW6dA",
+          "file": "Anju Karangale.mp3"
         },
         {
           "id": "6XP-f7wPM0A",
@@ -1252,6 +1272,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Hang Drum + Tabla \uff5c\uff5c Pure Positive Energy Meditation Music \uff5c\uff5c Namaste Music, Yoga Music.mp3"
         },
         {
+          "id": "Re5h3EetEjw",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/Re5h3EetEjw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Re5h3EetEjw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Re5h3EetEjw",
+          "file": "Unknown Title.mp3"
+        },
+        {
           "id": "PszSx4HvKAA",
           "title": "Tibetan Music, Healing Music, Relaxation Music, Chakra, Relaxing Music for Stress Relief, \u273f3193C",
           "artist": "Yellow Brick Cinema - Relaxing Music",
@@ -1340,6 +1370,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/91iGTV2HNbY/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=91iGTV2HNbY",
           "file": "Divine Indian Flute Music.mp3"
+        },
+        {
+          "id": "JUqBtghZpg4",
+          "title": "Geethanjali Pushpanjali",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 272,
+          "thumbnail": "https://i.ytimg.com/vi/JUqBtghZpg4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/JUqBtghZpg4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=JUqBtghZpg4",
+          "file": "Geethanjali Pushpanjali.mp3"
         },
         {
           "id": "oWpZJV5AU-s",
@@ -1452,6 +1492,56 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Festive Shehnai Vol. 2 - Ustad Bismillah Khan \uff5c Hindustani Classical Instrumental Audio Jukebox.mp3"
         },
         {
+          "id": "kzeU8K8t6ps",
+          "title": "Shankara Shashidhara",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 366,
+          "thumbnail": "https://i.ytimg.com/vi/kzeU8K8t6ps/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/kzeU8K8t6ps/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=kzeU8K8t6ps",
+          "file": "Shankara Shashidhara Video Song \uff5c Shabarimale Swamy Ayyappa \uff5c Sridhar, Sreenivas Murthy, Geetha.mp3"
+        },
+        {
+          "id": "_sKpiNN6ldM",
+          "title": "Rebel Song",
+          "artist": "Release - Topic",
+          "duration": 200,
+          "thumbnail": "https://i.ytimg.com/vi/_sKpiNN6ldM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_sKpiNN6ldM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_sKpiNN6ldM",
+          "file": "Rebel Song.mp3"
+        },
+        {
+          "id": "IRfDCN84zGo",
+          "title": "Karma Song",
+          "artist": "Release - Topic",
+          "duration": 183,
+          "thumbnail": "https://i.ytimg.com/vi/IRfDCN84zGo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/IRfDCN84zGo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=IRfDCN84zGo",
+          "file": "Karma Song.mp3"
+        },
+        {
+          "id": "MXowBwfO3C4",
+          "title": "Vaa Poruluya",
+          "artist": "Release - Topic",
+          "duration": 200,
+          "thumbnail": "https://i.ytimg.com/vi/MXowBwfO3C4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/MXowBwfO3C4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=MXowBwfO3C4",
+          "file": "Vaa Poruluya.mp3"
+        },
+        {
+          "id": "s9njfa4s3Kk",
+          "title": "Vaa Poruluya (Tulu Version)",
+          "artist": "Release - Topic",
+          "duration": 195,
+          "thumbnail": "https://i.ytimg.com/vi/s9njfa4s3Kk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/s9njfa4s3Kk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=s9njfa4s3Kk",
+          "file": "Vaa Poruluya (Tulu Version).mp3"
+        },
+        {
           "id": "v8OSafjvYmM",
           "title": "CHINNADA GOMBEYYALLA",
           "artist": "Dr. Rajkumar - Topic",
@@ -1540,6 +1630,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/zK0bGIsZ-7A/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=zK0bGIsZ-7A",
           "file": "Sri Raja Rajeshwari Stotram - Ambha Shambhavi \uff5c Smitha, Nihal \uff5c Devotional Songs \uff5c #bakthisongs.mp3"
+        },
+        {
+          "id": "NgbsRyl2cGQ",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/NgbsRyl2cGQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/NgbsRyl2cGQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=NgbsRyl2cGQ",
+          "file": "Unknown Title.mp3"
         },
         {
           "id": "UALCPvt6tFM",
@@ -1792,6 +1892,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Singam Ondru.mp3"
         },
         {
+          "id": "t9KTRkc1YuY",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/t9KTRkc1YuY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/t9KTRkc1YuY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=t9KTRkc1YuY",
+          "file": "Unknown Title.mp3"
+        },
+        {
           "id": "bmA3UQf6X_Q",
           "title": "Rama Sakkani Thali Full Song ll Osey Ramulamma Movie ll Ramki, Vijayasanthi",
           "artist": "Aditya Music",
@@ -1810,6 +1920,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/K6ly59IxfX8/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=K6ly59IxfX8",
           "file": "Osey Ramulamma Full Song ll Osey Ramulamma Movie ll Ramki, Vijayasanthi.mp3"
+        },
+        {
+          "id": "6yIKOlbYldo",
+          "title": "Rajashekara",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 289,
+          "thumbnail": "https://i.ytimg.com/vi/6yIKOlbYldo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/6yIKOlbYldo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=6yIKOlbYldo",
+          "file": "Rajashekara.mp3"
         },
         {
           "id": "L_WJn8OyzMY",
@@ -1902,6 +2022,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "O Sukumari (\u0c13 \u0c38\u0c41\u0c15\u0c41\u0c2e\u0c3e\u0c30\u0c3f )  Full Song \uff5c Aparichithudu Movie \uff5c Vikram, Sadha.mp3"
         },
         {
+          "id": "GLHIBwGnCLo",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/GLHIBwGnCLo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/GLHIBwGnCLo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=GLHIBwGnCLo",
+          "file": "Unknown Title.mp3"
+        },
+        {
           "id": "mMvmAwnMBDk",
           "title": "Hrudayam Ekkadunnadi Full Song || Ghajini Telugu Movie || Surya, Aasin",
           "artist": "Aditya Music",
@@ -1940,6 +2070,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/U91jHTWqNzo/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=U91jHTWqNzo",
           "file": "Paddanandi Full Song \uff5c\uff5c Student No.1 Movie \uff5c\uff5c Jr.N.T.R, Ghajala.mp3"
+        },
+        {
+          "id": "UhXPODsMwww",
+          "title": "Oura Ammaka Chella",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 345,
+          "thumbnail": "https://i.ytimg.com/vi/UhXPODsMwww/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UhXPODsMwww/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UhXPODsMwww",
+          "file": "Oura Ammaka Chella.mp3"
         },
         {
           "id": "b18nMMQ2i7U",
@@ -1990,6 +2130,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/rsvPzDWFWg8/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=rsvPzDWFWg8",
           "file": "Ee Hasiru Siriyali.mp3"
+        },
+        {
+          "id": "NgbsRyl2cGQ",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/NgbsRyl2cGQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/NgbsRyl2cGQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=NgbsRyl2cGQ",
+          "file": "Unknown Title.mp3"
         },
         {
           "id": "6BCNeWqvna8",
@@ -2060,6 +2210,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/Q6FHJdamruA/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=Q6FHJdamruA",
           "file": "Kalabhairavashtakam.mp3"
+        },
+        {
+          "id": "yiIYjyIuoGA",
+          "title": "Baa Nanna Sangeetha",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 246,
+          "thumbnail": "https://i.ytimg.com/vi/yiIYjyIuoGA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/yiIYjyIuoGA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=yiIYjyIuoGA",
+          "file": "Baa Nanna Sangeetha.mp3"
         },
         {
           "id": "re88S-5fpmA",
@@ -2192,6 +2352,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Kushalave Kshemave.mp3"
         },
         {
+          "id": "kKzA3MkfJV0",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/kKzA3MkfJV0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/kKzA3MkfJV0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=kKzA3MkfJV0",
+          "file": "Unknown Title.mp3"
+        },
+        {
           "id": "Z_MvLsx1fOY",
           "title": "Banna Bannada Loka - Ekangi - Movie | Shankar Mahadevan | V. Ravichandran , Ramya | Jhankar Music",
           "artist": "Jhankar Music",
@@ -2212,6 +2382,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Hoova Roja Hoova - Kalavida \uff5c Mano \uff5c Hamsalekha \uff5c Crazy Star Ravichandran, Roja \uff5c Jhankar Music.mp3"
         },
         {
+          "id": "rgr2tXWDNXI",
+          "title": "Kelisade Kallukallinali",
+          "artist": "K S Chithra",
+          "duration": 293,
+          "thumbnail": "https://i.ytimg.com/vi/rgr2tXWDNXI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/rgr2tXWDNXI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=rgr2tXWDNXI",
+          "file": "Kelisade Kallukallinali.mp3"
+        },
+        {
           "id": "sKkPmvZFRxs",
           "title": "Narayana Nee Naamame - \u0c28\u0c3e\u0c30\u0c3e\u0c2f\u0c23\u0c3e \u0c28\u0c40 \u0c28\u0c3e\u0c2e\u0c2e\u0c47",
           "artist": "Balakrishna Prasad Garimella",
@@ -2230,6 +2410,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/QbE2mLrK1LM/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=QbE2mLrK1LM",
           "file": "Song \uff02Aakasha Deepavu Neenu ...(Happy)\uff02 from Kannada Movie \uff02Paavana Ganga\uff02.mp3"
+        },
+        {
+          "id": "tIi-j2JzZEA",
+          "title": "IBBANI THABBIDA",
+          "artist": "B.R. Chaya - Topic",
+          "duration": 282,
+          "thumbnail": "https://i.ytimg.com/vi/tIi-j2JzZEA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/tIi-j2JzZEA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=tIi-j2JzZEA",
+          "file": "Ibbani Thabbida Ileyali- B.R.Chaya.mp3"
         },
         {
           "id": "xdOliMl71qk",
@@ -2670,6 +2860,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/3D8B3y13Gzc/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=3D8B3y13Gzc",
           "file": "Karunamayi \u2013 \u0c95\u0cb0\u0cc1\u0ca3\u0cbe\u0cae\u0caf\u0cbf \uff5c Ooru Hegendu Oora Janaru Hegendu\uff5cFEAT.Vishnuvardhan, Bhavya, K S Ashwath.mp3"
+        },
+        {
+          "id": "MXNnp21YPM8",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/MXNnp21YPM8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/MXNnp21YPM8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=MXNnp21YPM8",
+          "file": "Unknown Title.mp3"
         },
         {
           "id": "UPULV1QBpNQ",
@@ -3132,6 +3332,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Kita Kita Talupulu.mp3"
         },
         {
+          "id": "Dk_jUGRFYz0",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/Dk_jUGRFYz0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Dk_jUGRFYz0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Dk_jUGRFYz0",
+          "file": "Unknown Title.mp3"
+        },
+        {
           "id": "BgqW3Gy-2hM",
           "title": "Bettadanta Manasu - Audio Song | Jamindaarru - Movie | M. M. Keeravani |Vishnuvardhan |Jhankar Music",
           "artist": "Jhankar Music",
@@ -3202,6 +3412,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Kanneeridu Raktha Kaneeeridu.mp3"
         },
         {
+          "id": "odSxFfPGlHk",
+          "title": "Ee Bhoomi Bannada Buguri",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 293,
+          "thumbnail": "https://i.ytimg.com/vi/odSxFfPGlHk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/odSxFfPGlHk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=odSxFfPGlHk",
+          "file": "Ee Bhoomi Bannada Buguri.mp3"
+        },
+        {
           "id": "X-k8JmfCulk",
           "title": "Priya Please Love Me",
           "artist": "Hamsalekha - Topic",
@@ -3240,6 +3460,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/a9AbGyfttUA/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=a9AbGyfttUA",
           "file": "Bala Ganapana - Banna Banna Ganapa - Visuals Of Lord Sri Ganesha Devotional Songs \uff5c\uff5c Kannada.mp3"
+        },
+        {
+          "id": "rgr2tXWDNXI",
+          "title": "Kelisade Kallukallinali",
+          "artist": "K S Chithra",
+          "duration": 293,
+          "thumbnail": "https://i.ytimg.com/vi/rgr2tXWDNXI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/rgr2tXWDNXI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=rgr2tXWDNXI",
+          "file": "Kelisade Kallukallinali.mp3"
         },
         {
           "id": "jRcfA9_IGWo",
@@ -3320,6 +3550,26 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/A2YblZaF498/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=A2YblZaF498",
           "file": "Deva Devam Bhaje I Annamacharya Kriti on Lord Rama I Rita Thyagarajan I Om Voices.mp3"
+        },
+        {
+          "id": "PUIeXpTTwRo",
+          "title": "Obbana Koralali",
+          "artist": "Kusuma - Topic",
+          "duration": 250,
+          "thumbnail": "https://i.ytimg.com/vi/PUIeXpTTwRo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/PUIeXpTTwRo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=PUIeXpTTwRo",
+          "file": "Obbana Koralali.mp3"
+        },
+        {
+          "id": "tIi-j2JzZEA",
+          "title": "IBBANI THABBIDA",
+          "artist": "B.R. Chaya - Topic",
+          "duration": 282,
+          "thumbnail": "https://i.ytimg.com/vi/tIi-j2JzZEA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/tIi-j2JzZEA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=tIi-j2JzZEA",
+          "file": "Ibbani Thabbida Ileyali- B.R.Chaya.mp3"
         },
         {
           "id": "KXw8CRapg7k",
@@ -3502,6 +3752,56 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Goruvanka Valaga.mp3"
         },
         {
+          "id": "ecRhNLEyA5Y",
+          "title": "HAALU JENU",
+          "artist": "Dr. Rajkumar - Topic",
+          "duration": 273,
+          "thumbnail": "https://i.ytimg.com/vi/ecRhNLEyA5Y/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ecRhNLEyA5Y/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ecRhNLEyA5Y",
+          "file": "Haalu Jenu Ondaada Haage  - Lyrical \uff5c Haalu Jenu  \uff5c Dr.Rajkumar, Madhavi Kannada Old Song.mp3"
+        },
+        {
+          "id": "L28WAfbvGlQ",
+          "title": "O PRIYATHAMA",
+          "artist": "Vani Jairam - Topic",
+          "duration": 367,
+          "thumbnail": "https://i.ytimg.com/vi/L28WAfbvGlQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/L28WAfbvGlQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=L28WAfbvGlQ",
+          "file": "O Priya.mp3"
+        },
+        {
+          "id": "PQFUNoXvwI8",
+          "title": "NAGUTHA NAGUTHA BAALU",
+          "artist": "Dr. Rajkumar - Topic",
+          "duration": 286,
+          "thumbnail": "https://i.ytimg.com/vi/PQFUNoXvwI8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/PQFUNoXvwI8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=PQFUNoXvwI8",
+          "file": "Nagutha Nagutha Baalu - Lyrical \uff5c Parashuram \uff5c Dr. Rajkumar, Mahalakshmi \uff5c Kannada Old Hit Song.mp3"
+        },
+        {
+          "id": "r4_Ob3MxXd0",
+          "title": "YUGA YUGAGALE SAGALI",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 266,
+          "thumbnail": "https://i.ytimg.com/vi/r4_Ob3MxXd0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/r4_Ob3MxXd0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=r4_Ob3MxXd0",
+          "file": "YUGA YUGAGALE SAGALI.mp3"
+        },
+        {
+          "id": "Jr36SXKfCBo",
+          "title": "Yaarivalu Yaarivalu",
+          "artist": "Mano - Topic",
+          "duration": 306,
+          "thumbnail": "https://i.ytimg.com/vi/Jr36SXKfCBo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Jr36SXKfCBo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Jr36SXKfCBo",
+          "file": "Yaarivalu Yaarivalu.mp3"
+        },
+        {
           "id": "Mays_Z5vw9A",
           "title": "Virha Nooru Nooru",
           "artist": "P.Susheela Official",
@@ -3520,6 +3820,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/q_R7NDyOGnA/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=q_R7NDyOGnA",
           "file": "Gaganadali Maleyadina ft. V.Ravichandra, Mohini.mp3"
+        },
+        {
+          "id": "ouHydmJq2z4",
+          "title": "SADAA KANNALI",
+          "artist": "Vani Jairam - Topic",
+          "duration": 240,
+          "thumbnail": "https://i.ytimg.com/vi/ouHydmJq2z4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ouHydmJq2z4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ouHydmJq2z4",
+          "file": "SADAA KANNALI.mp3"
         },
         {
           "id": "QLb9JvQL87M",
@@ -3582,6 +3892,56 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Nagutha Nagutha Baalu - Lyrical \uff5c Parashuram \uff5c Dr. Rajkumar, Mahalakshmi \uff5c Kannada Old Hit Song.mp3"
         },
         {
+          "id": "-ClgVjnEVS0",
+          "title": "ADHYADHARA",
+          "artist": "Dr. Rajkumar - Topic",
+          "duration": 454,
+          "thumbnail": "https://i.ytimg.com/vi/-ClgVjnEVS0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/-ClgVjnEVS0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=-ClgVjnEVS0",
+          "file": "ADHYADHARA.mp3"
+        },
+        {
+          "id": "eKVdc_RGo0o",
+          "title": "GHATO JANMANTHARAM",
+          "artist": "P.B.Srinivas - Topic",
+          "duration": 52,
+          "thumbnail": "https://i.ytimg.com/vi/eKVdc_RGo0o/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/eKVdc_RGo0o/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=eKVdc_RGo0o",
+          "file": "GHATO JANMANTHARAM.mp3"
+        },
+        {
+          "id": "59gXY7OhTF0",
+          "title": "PAUSHPANAM",
+          "artist": "Release - Topic",
+          "duration": 46,
+          "thumbnail": "https://i.ytimg.com/vi/59gXY7OhTF0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/59gXY7OhTF0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=59gXY7OhTF0",
+          "file": "PAUSHPANAM.mp3"
+        },
+        {
+          "id": "A8mcIJ2KiO4",
+          "title": "ALBYAD KANE",
+          "artist": "Dr. Rajkumar - Topic",
+          "duration": 195,
+          "thumbnail": "https://i.ytimg.com/vi/A8mcIJ2KiO4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/A8mcIJ2KiO4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=A8mcIJ2KiO4",
+          "file": "ALBYAD KANE.mp3"
+        },
+        {
+          "id": "r5HT-FD4yTA",
+          "title": "BELLI MOODITHU",
+          "artist": "Dr. Rajkumar - Topic",
+          "duration": 237,
+          "thumbnail": "https://i.ytimg.com/vi/r5HT-FD4yTA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/r5HT-FD4yTA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=r5HT-FD4yTA",
+          "file": "BELLI MOODITHU.mp3"
+        },
+        {
           "id": "y9O8LTCgbgs",
           "title": "Naaniruvudu Nimagaagi",
           "artist": "Dr. Rajkumar - Topic",
@@ -3632,6 +3992,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "KAMALADA MOGADOLE LYRICS  \u29f8 LAXMI SONG \u29f8 KANNADA LYRICS \u29f8 KANADA BHAKTI GEET \u29f8 KANNADA BHAJANS.mp3"
         },
         {
+          "id": "GTK7bLjJy1w",
+          "title": "KAMALADA MOGADOLE",
+          "artist": "S. Janaki - Topic",
+          "duration": 247,
+          "thumbnail": "https://i.ytimg.com/vi/GTK7bLjJy1w/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/GTK7bLjJy1w/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=GTK7bLjJy1w",
+          "file": "KAMALADA MOGADOLE LYRICS  \u29f8 LAXMI SONG \u29f8 KANNADA LYRICS \u29f8 KANADA BHAKTI GEET \u29f8 KANNADA BHAJANS.mp3"
+        },
+        {
           "id": "xmFzMmwlHEA",
           "title": "Jivvumani Kondagali",
           "artist": "Amauris ",
@@ -3652,6 +4022,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Singarala.mp3"
         },
         {
+          "id": "CDvSrqIE3dI",
+          "title": "Naa Perati Jam Chettu",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 305,
+          "thumbnail": "https://i.ytimg.com/vi/CDvSrqIE3dI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/CDvSrqIE3dI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=CDvSrqIE3dI",
+          "file": "Naa Perati Jam Chettu.mp3"
+        },
+        {
           "id": "xmFzMmwlHEA",
           "title": "Jivvumani Kondagali",
           "artist": "Amauris ",
@@ -3660,6 +4040,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/xmFzMmwlHEA/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=xmFzMmwlHEA",
           "file": "Jivvumani Kondagali.mp3"
+        },
+        {
+          "id": "G3j4ZoXa1zs",
+          "title": "Kotha Kothaga",
+          "artist": "Release - Topic",
+          "duration": 279,
+          "thumbnail": "https://i.ytimg.com/vi/G3j4ZoXa1zs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/G3j4ZoXa1zs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=G3j4ZoXa1zs",
+          "file": "Kotha Kothaga.mp3"
         },
         {
           "id": "Ad5qG5qWdLY",
@@ -3730,6 +4120,26 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/B-dbayqkvOY/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=B-dbayqkvOY",
           "file": "Ekkado Putti.mp3"
+        },
+        {
+          "id": "i6FURSbfDwU",
+          "title": "Panisasa",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 337,
+          "thumbnail": "https://i.ytimg.com/vi/i6FURSbfDwU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/i6FURSbfDwU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=i6FURSbfDwU",
+          "file": "Panisasa.mp3"
+        },
+        {
+          "id": "KhPEx3V6USs",
+          "title": "Entha Ghatu Premayo",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 312,
+          "thumbnail": "https://i.ytimg.com/vi/KhPEx3V6USs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/KhPEx3V6USs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=KhPEx3V6USs",
+          "file": "Entha Ghatu Premayo.mp3"
         },
         {
           "id": "1Imy7f8h3zg",
@@ -3922,6 +4332,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Elu Male  Myaleri \uff5c S.P.Balasubrahmanyam \uff5c Jogi \uff5cShiva Rajkumar \uff5cPrem's \uff5c Gurukiran \uff5cFull Video Song.mp3"
         },
         {
+          "id": "-PApfvAv0AA",
+          "title": "CHELUVEYE NINNA",
+          "artist": "S. Janaki - Topic",
+          "duration": 271,
+          "thumbnail": "https://i.ytimg.com/vi/-PApfvAv0AA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/-PApfvAv0AA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=-PApfvAv0AA",
+          "file": "CHELUVEYE NINNA.mp3"
+        },
+        {
           "id": "bVYmbY3p_7c",
           "title": "Lakshmi Songs | \u0c95\u0cae\u0cb2\u0ca6 \u0cae\u0cca\u0c97\u0ca6\u0cca\u0cb3\u0cc6 - Lyrical Video | Kamalada Mogadole | S.Janaki| Kannada Bhakthi Geethe",
           "artist": "MRT Music - Bhakthi Sagara",
@@ -3930,6 +4350,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/bVYmbY3p_7c/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=bVYmbY3p_7c",
           "file": "Lakshmi Songs \uff5c \u0c95\u0cae\u0cb2\u0ca6 \u0cae\u0cca\u0c97\u0ca6\u0cca\u0cb3\u0cc6 - Lyrical Video \uff5c Kamalada Mogadole \uff5c S.Janaki\uff5c Kannada Bhakthi Geethe.mp3"
+        },
+        {
+          "id": "lbEK0H9sg9Q",
+          "title": "Chandana Chandanadinda",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 292,
+          "thumbnail": "https://i.ytimg.com/vi/lbEK0H9sg9Q/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/lbEK0H9sg9Q/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=lbEK0H9sg9Q",
+          "file": "Chandana Chandanadinda.mp3"
         },
         {
           "id": "2UA41YP4TW0",
@@ -3960,6 +4390,36 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/H8D7VtYPYzQ/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=H8D7VtYPYzQ",
           "file": "Srigandada Gombe.mp3"
+        },
+        {
+          "id": "UDM3e6QDd_4",
+          "title": "Onamalu Nerpalani",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/UDM3e6QDd_4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UDM3e6QDd_4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UDM3e6QDd_4",
+          "file": "Onamalu Nerpalani.mp3"
+        },
+        {
+          "id": "dUD5YA2Wh5g",
+          "title": "Idhi Tholi Rathri",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 394,
+          "thumbnail": "https://i.ytimg.com/vi/dUD5YA2Wh5g/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/dUD5YA2Wh5g/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=dUD5YA2Wh5g",
+          "file": "Idhi Tholi Rathri.mp3"
+        },
+        {
+          "id": "ZA9aeDWzK2A",
+          "title": "ANURAGA YENAYTHU",
+          "artist": "Dr. Rajkumar - Topic",
+          "duration": 247,
+          "thumbnail": "https://i.ytimg.com/vi/ZA9aeDWzK2A/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ZA9aeDWzK2A/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ZA9aeDWzK2A",
+          "file": "ANURAGA YENAYTHU.mp3"
         },
         {
           "id": "hJa9BS_JBG0",
@@ -4070,6 +4530,36 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/5D5xecSLFdE/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=5D5xecSLFdE",
           "file": "Pranavalaya.mp3"
+        },
+        {
+          "id": "5cSpCUDC7R0",
+          "title": "SRIKANTA",
+          "artist": "Dr. Rajkumar - Topic",
+          "duration": 271,
+          "thumbnail": "https://i.ytimg.com/vi/5cSpCUDC7R0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/5cSpCUDC7R0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=5cSpCUDC7R0",
+          "file": "SRIKANTA.mp3"
+        },
+        {
+          "id": "0rQaQ2m5kUQ",
+          "title": "EE HRUDAYA HADIDE",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/0rQaQ2m5kUQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/0rQaQ2m5kUQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=0rQaQ2m5kUQ",
+          "file": "EE HRUDAYA HADIDE.mp3"
+        },
+        {
+          "id": "UDM3e6QDd_4",
+          "title": "Onamalu Nerpalani",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/UDM3e6QDd_4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UDM3e6QDd_4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UDM3e6QDd_4",
+          "file": "Onamalu Nerpalani.mp3"
         },
         {
           "id": "n6DEogtTQ-w",
@@ -4270,6 +4760,76 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/RRAK90PIOCc/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=RRAK90PIOCc",
           "file": "Nanu Preminchananu.mp3"
+        },
+        {
+          "id": "rJ_3pVACVC4",
+          "title": "Nava Manmathuda",
+          "artist": "K S Chithra",
+          "duration": 252,
+          "thumbnail": "https://i.ytimg.com/vi/rJ_3pVACVC4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/rJ_3pVACVC4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=rJ_3pVACVC4",
+          "file": "Nava Manmathuda.mp3"
+        },
+        {
+          "id": "gJy-0vLoqPA",
+          "title": "Hrudayamane",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 290,
+          "thumbnail": "https://i.ytimg.com/vi/gJy-0vLoqPA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/gJy-0vLoqPA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=gJy-0vLoqPA",
+          "file": "Hrudayamane.mp3"
+        },
+        {
+          "id": "Y_wWJFm9Jt4",
+          "title": "Kila - Kila - Kila",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 282,
+          "thumbnail": "https://i.ytimg.com/vi/Y_wWJFm9Jt4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Y_wWJFm9Jt4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Y_wWJFm9Jt4",
+          "file": "Kila - Kila - Kila.mp3"
+        },
+        {
+          "id": "rDsg0DeV9Eo",
+          "title": "Soundarya Lahari",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 273,
+          "thumbnail": "https://i.ytimg.com/vi/rDsg0DeV9Eo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/rDsg0DeV9Eo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=rDsg0DeV9Eo",
+          "file": "Soundarya Lahari.mp3"
+        },
+        {
+          "id": "cHFrpqUR6hU",
+          "title": "Sarigama Padanisa",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 305,
+          "thumbnail": "https://i.ytimg.com/vi/cHFrpqUR6hU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/cHFrpqUR6hU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=cHFrpqUR6hU",
+          "file": "Sarigama Padanisa.mp3"
+        },
+        {
+          "id": "n1K-iNdrXCo",
+          "title": "Na Cheli Rojave",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 297,
+          "thumbnail": "https://i.ytimg.com/vi/n1K-iNdrXCo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/n1K-iNdrXCo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=n1K-iNdrXCo",
+          "file": "Na Cheli Rojave.mp3"
+        },
+        {
+          "id": "d3otc4j-QgU",
+          "title": "Paruvam Vanaga",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 315,
+          "thumbnail": "https://i.ytimg.com/vi/d3otc4j-QgU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/d3otc4j-QgU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=d3otc4j-QgU",
+          "file": "Paruvam Vanaga.mp3"
         },
         {
           "id": "KQUS-phhM0Y",
@@ -4832,6 +5392,76 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Aaduvari.mp3"
         },
         {
+          "id": "98vLPoOSMpc",
+          "title": "Soniya Soniya",
+          "artist": "Release - Topic",
+          "duration": 333,
+          "thumbnail": "https://i.ytimg.com/vi/98vLPoOSMpc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/98vLPoOSMpc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=98vLPoOSMpc",
+          "file": "Soniya Soniya.mp3"
+        },
+        {
+          "id": "Ze87r1ouZTw",
+          "title": "Chandruni Takinadi",
+          "artist": "Hariharan - Topic",
+          "duration": 405,
+          "thumbnail": "https://i.ytimg.com/vi/Ze87r1ouZTw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Ze87r1ouZTw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Ze87r1ouZTw",
+          "file": "Chandruni Takinadi.mp3"
+        },
+        {
+          "id": "qKaQUws-85U",
+          "title": "Premaena Gaymayam Mana",
+          "artist": "Release - Topic",
+          "duration": 223,
+          "thumbnail": "https://i.ytimg.com/vi/qKaQUws-85U/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/qKaQUws-85U/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=qKaQUws-85U",
+          "file": "Premaena Gaymayam Mana.mp3"
+        },
+        {
+          "id": "QfEgVaut_Rw",
+          "title": "Nene Nine",
+          "artist": "Release - Topic",
+          "duration": 417,
+          "thumbnail": "https://i.ytimg.com/vi/QfEgVaut_Rw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/QfEgVaut_Rw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=QfEgVaut_Rw",
+          "file": "Nene Nine.mp3"
+        },
+        {
+          "id": "pYf7WhPW7Zc",
+          "title": "Mercury Poolu",
+          "artist": "Release - Topic",
+          "duration": 325,
+          "thumbnail": "https://i.ytimg.com/vi/pYf7WhPW7Zc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/pYf7WhPW7Zc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=pYf7WhPW7Zc",
+          "file": "Mercury Poolu.mp3"
+        },
+        {
+          "id": "2Ua2hRgV2I0",
+          "title": "Kalva Kane Kavala",
+          "artist": "Release - Topic",
+          "duration": 274,
+          "thumbnail": "https://i.ytimg.com/vi/2Ua2hRgV2I0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/2Ua2hRgV2I0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=2Ua2hRgV2I0",
+          "file": "Kalva Kane Kavala.mp3"
+        },
+        {
+          "id": "Arvv4uu3Z1E",
+          "title": "Bombay Madras Delhi",
+          "artist": "Release - Topic",
+          "duration": 302,
+          "thumbnail": "https://i.ytimg.com/vi/Arvv4uu3Z1E/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Arvv4uu3Z1E/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Arvv4uu3Z1E",
+          "file": "Bombay Madras Delhi.mp3"
+        },
+        {
           "id": "2ziOnXXjRfQ",
           "title": "Chinna Papa",
           "artist": "S.P.Balasubramanyam - Topic",
@@ -4950,6 +5580,56 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/g3ormdh_7PQ/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=g3ormdh_7PQ",
           "file": "Pata Pata.mp3"
+        },
+        {
+          "id": "Lr2L4yZh7mk",
+          "title": "Madikeri Sipaayi",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 283,
+          "thumbnail": "https://i.ytimg.com/vi/Lr2L4yZh7mk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Lr2L4yZh7mk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Lr2L4yZh7mk",
+          "file": "Madikeri Sipaayi.mp3"
+        },
+        {
+          "id": "n-BcNx6JsRo",
+          "title": "Kodaginolu Bedaginolu",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 316,
+          "thumbnail": "https://i.ytimg.com/vi/n-BcNx6JsRo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/n-BcNx6JsRo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=n-BcNx6JsRo",
+          "file": "Kodaginolu Bedaginolu.mp3"
+        },
+        {
+          "id": "ABRjuAVzvGM",
+          "title": "Huliya Haalina Mevu",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 359,
+          "thumbnail": "https://i.ytimg.com/vi/ABRjuAVzvGM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ABRjuAVzvGM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ABRjuAVzvGM",
+          "file": "Huliya Haalina Mevu.mp3"
+        },
+        {
+          "id": "LCIeNUYZsUs",
+          "title": "Devaru Hoseda Premada Daara",
+          "artist": "Dr M. Balamuralikrishna - Topic",
+          "duration": 362,
+          "thumbnail": "https://i.ytimg.com/vi/LCIeNUYZsUs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/LCIeNUYZsUs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=LCIeNUYZsUs",
+          "file": "Devaru Hoseda Premada Daara.mp3"
+        },
+        {
+          "id": "o4pWBJp0cpw",
+          "title": "Kontegadni Kattuko",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 313,
+          "thumbnail": "https://i.ytimg.com/vi/o4pWBJp0cpw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/o4pWBJp0cpw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=o4pWBJp0cpw",
+          "file": "Kontegadni Kattuko.mp3"
         },
         {
           "id": "tPc6r06Hu_Q",
@@ -5120,6 +5800,76 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/7PeXug41HQY/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=7PeXug41HQY",
           "file": "Gundenindagudi.mp3"
+        },
+        {
+          "id": "EPgbSblfrhI",
+          "title": "Made In Andhra",
+          "artist": "Ramana Gogula - Topic",
+          "duration": 419,
+          "thumbnail": "https://i.ytimg.com/vi/EPgbSblfrhI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/EPgbSblfrhI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=EPgbSblfrhI",
+          "file": "Made In Andhra.mp3"
+        },
+        {
+          "id": "FuAclHhGW6o",
+          "title": "Edolavundi",
+          "artist": "Ramana Gogula - Topic",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/FuAclHhGW6o/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/FuAclHhGW6o/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=FuAclHhGW6o",
+          "file": "Edolavundi.mp3"
+        },
+        {
+          "id": "eqsNd6YMnRU",
+          "title": "Pedavi Datani",
+          "artist": "Ramana Gogula - Topic",
+          "duration": 277,
+          "thumbnail": "https://i.ytimg.com/vi/eqsNd6YMnRU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/eqsNd6YMnRU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=eqsNd6YMnRU",
+          "file": "Pedavi Datani.mp3"
+        },
+        {
+          "id": "SMSoLjA9WMY",
+          "title": "Kala Kalalu",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/SMSoLjA9WMY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/SMSoLjA9WMY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=SMSoLjA9WMY",
+          "file": "Kala Kalalu.mp3"
+        },
+        {
+          "id": "lcozM9A6Y14",
+          "title": "College Blues",
+          "artist": "Ramana Gogula - Topic",
+          "duration": 128,
+          "thumbnail": "https://i.ytimg.com/vi/lcozM9A6Y14/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/lcozM9A6Y14/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=lcozM9A6Y14",
+          "file": "College Blues.mp3"
+        },
+        {
+          "id": "DfcSu7nUvok",
+          "title": "Travelling Soldier",
+          "artist": "Ramana Gogula - Topic",
+          "duration": 269,
+          "thumbnail": "https://i.ytimg.com/vi/DfcSu7nUvok/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/DfcSu7nUvok/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=DfcSu7nUvok",
+          "file": "Travelling Soldier.mp3"
+        },
+        {
+          "id": "8U5TuPD4P6M",
+          "title": "Vayari Bhama",
+          "artist": "Ramana Gogula - Topic",
+          "duration": 317,
+          "thumbnail": "https://i.ytimg.com/vi/8U5TuPD4P6M/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/8U5TuPD4P6M/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=8U5TuPD4P6M",
+          "file": "Vayari Bhama.mp3"
         },
         {
           "id": "nCRVvA027Ps",
@@ -5582,6 +6332,106 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "O Chandamama ft. Shivarajkumar, Charulatha, Vijayalakshmi.mp3"
         },
         {
+          "id": "Rqct4PhQedU",
+          "title": "Premalokadinda Banda",
+          "artist": "Hamsalekha - Topic",
+          "duration": 282,
+          "thumbnail": "https://i.ytimg.com/vi/Rqct4PhQedU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Rqct4PhQedU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Rqct4PhQedU",
+          "file": "Premalokadinda Banda.mp3"
+        },
+        {
+          "id": "jBg_ywFAohw",
+          "title": "Geleyare Nanna Gelathiyare",
+          "artist": "Hamsalekha - Topic",
+          "duration": 363,
+          "thumbnail": "https://i.ytimg.com/vi/jBg_ywFAohw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/jBg_ywFAohw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=jBg_ywFAohw",
+          "file": "Geleyare Nanna Gelathiyare.mp3"
+        },
+        {
+          "id": "GQm50iLDXkg",
+          "title": "Ee Nimbehanni Nantha",
+          "artist": "Hamsalekha - Topic",
+          "duration": 186,
+          "thumbnail": "https://i.ytimg.com/vi/GQm50iLDXkg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/GQm50iLDXkg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=GQm50iLDXkg",
+          "file": "Ee Nimbehanni Nantha.mp3"
+        },
+        {
+          "id": "grkU5QwWdb8",
+          "title": "Nodamma Hudugi",
+          "artist": "Hamsalekha - Topic",
+          "duration": 323,
+          "thumbnail": "https://i.ytimg.com/vi/grkU5QwWdb8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/grkU5QwWdb8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=grkU5QwWdb8",
+          "file": "Odam.mp3"
+        },
+        {
+          "id": "wg3e9csg5sU",
+          "title": "Chaluve Ondu Kelthini",
+          "artist": "Hamsalekha - Topic",
+          "duration": 264,
+          "thumbnail": "https://i.ytimg.com/vi/wg3e9csg5sU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/wg3e9csg5sU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=wg3e9csg5sU",
+          "file": "Chaluve Ondu Kelthini.mp3"
+        },
+        {
+          "id": "Qra0uBTS4xo",
+          "title": "Yaarivanu",
+          "artist": "Hamsalekha - Topic",
+          "duration": 297,
+          "thumbnail": "https://i.ytimg.com/vi/Qra0uBTS4xo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Qra0uBTS4xo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Qra0uBTS4xo",
+          "file": "Yaarivanu.mp3"
+        },
+        {
+          "id": "-8lgKs-GLWg",
+          "title": "Boy Friend Barthanantha",
+          "artist": "Hamsalekha - Topic",
+          "duration": 269,
+          "thumbnail": "https://i.ytimg.com/vi/-8lgKs-GLWg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/-8lgKs-GLWg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=-8lgKs-GLWg",
+          "file": "Boy Friend Barthanantha.mp3"
+        },
+        {
+          "id": "OXjBIzCMFV4",
+          "title": "Ye Gangu Ee Baiku",
+          "artist": "Hamsalekha - Topic",
+          "duration": 292,
+          "thumbnail": "https://i.ytimg.com/vi/OXjBIzCMFV4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/OXjBIzCMFV4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=OXjBIzCMFV4",
+          "file": "Ye Gangu Ee Baiku.mp3"
+        },
+        {
+          "id": "7CtG2aHmoAI",
+          "title": "Idu Nanna Ninna",
+          "artist": "Hamsalekha - Topic",
+          "duration": 280,
+          "thumbnail": "https://i.ytimg.com/vi/7CtG2aHmoAI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/7CtG2aHmoAI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=7CtG2aHmoAI",
+          "file": "Idu Nanna Ninna.mp3"
+        },
+        {
+          "id": "gI6jz8RIZ3c",
+          "title": "Mosa Garanaa",
+          "artist": "Hamsalekha - Topic",
+          "duration": 267,
+          "thumbnail": "https://i.ytimg.com/vi/gI6jz8RIZ3c/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/gI6jz8RIZ3c/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=gI6jz8RIZ3c",
+          "file": "Mosa Garanaa.mp3"
+        },
+        {
           "id": "NFADCq_qWik",
           "title": "Hare Rama",
           "artist": "Release - Topic",
@@ -5690,6 +6540,126 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/vZKtgOSkXAU/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=vZKtgOSkXAU",
           "file": "Te Le Phone.mp3"
+        },
+        {
+          "id": "D1J6aHhETyo",
+          "title": "Irul Konda Vaanil",
+          "artist": "Deepika - Topic",
+          "duration": 228,
+          "thumbnail": "https://i.ytimg.com/vi/D1J6aHhETyo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/D1J6aHhETyo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=D1J6aHhETyo",
+          "file": "Irul Konda Vaanil.mp3"
+        },
+        {
+          "id": "hAP_vFmCLx0",
+          "title": "Jeeva Nadhi",
+          "artist": "Geetha Madhuri - Topic",
+          "duration": 100,
+          "thumbnail": "https://i.ytimg.com/vi/hAP_vFmCLx0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/hAP_vFmCLx0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=hAP_vFmCLx0",
+          "file": "Jeeva Nadhi.mp3"
+        },
+        {
+          "id": "f838DdWmndw",
+          "title": "Deerane",
+          "artist": "Ramya Behara - Topic",
+          "duration": 327,
+          "thumbnail": "https://i.ytimg.com/vi/f838DdWmndw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/f838DdWmndw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=f838DdWmndw",
+          "file": "Deerane.mp3"
+        },
+        {
+          "id": "2F3E82Wmx5s",
+          "title": "Siva Sivaya Potri",
+          "artist": "Release - Topic",
+          "duration": 196,
+          "thumbnail": "https://i.ytimg.com/vi/2F3E82Wmx5s/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/2F3E82Wmx5s/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=2F3E82Wmx5s",
+          "file": "Siva Sivaya Potri.mp3"
+        },
+        {
+          "id": "CjXlYFzMBcU",
+          "title": "Pachchai Thee",
+          "artist": "Karthik - Topic",
+          "duration": 258,
+          "thumbnail": "https://i.ytimg.com/vi/CjXlYFzMBcU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/CjXlYFzMBcU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=CjXlYFzMBcU",
+          "file": "Pachchai Thee.mp3"
+        },
+        {
+          "id": "oB1-cFFSacQ",
+          "title": "Manogari",
+          "artist": "Haricharan Seshadri",
+          "duration": 215,
+          "thumbnail": "https://i.ytimg.com/vi/oB1-cFFSacQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/oB1-cFFSacQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=oB1-cFFSacQ",
+          "file": "Manogari.mp3"
+        },
+        {
+          "id": "UCAMUBsykqo",
+          "title": "Moochile Theeyumaay",
+          "artist": "Kailasa Records ",
+          "duration": 190,
+          "thumbnail": "https://i.ytimg.com/vi/UCAMUBsykqo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UCAMUBsykqo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UCAMUBsykqo",
+          "file": "Moochile Theeyumaay.mp3"
+        },
+        {
+          "id": "9EVnaRmGBdE",
+          "title": "Theeranae (English Version)",
+          "artist": "Ramya Behara - Topic",
+          "duration": 192,
+          "thumbnail": "https://i.ytimg.com/vi/9EVnaRmGBdE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/9EVnaRmGBdE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=9EVnaRmGBdE",
+          "file": "Theeranae (English Version).mp3"
+        },
+        {
+          "id": "eBi4zilItD0",
+          "title": "Sum Sumne",
+          "artist": "Rajesh Krishnan - Topic",
+          "duration": 295,
+          "thumbnail": "https://i.ytimg.com/vi/eBi4zilItD0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/eBi4zilItD0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=eBi4zilItD0",
+          "file": "Sum Sumne.mp3"
+        },
+        {
+          "id": "fhcz8MjYYII",
+          "title": "Chandini",
+          "artist": "L.N. Shastry - Topic",
+          "duration": 304,
+          "thumbnail": "https://i.ytimg.com/vi/fhcz8MjYYII/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/fhcz8MjYYII/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=fhcz8MjYYII",
+          "file": "Maari Kannu Video Song \uff5c \uff02A\uff02 Kannada Movie Video Songs \uff5c Upendra, Chandini \uff5c Gurukiran \uff5c SPB.mp3"
+        },
+        {
+          "id": "3PPCT_cYVKA",
+          "title": "Helkolakondooru",
+          "artist": "L. N. Shastri - Topic",
+          "duration": 309,
+          "thumbnail": "https://i.ytimg.com/vi/3PPCT_cYVKA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/3PPCT_cYVKA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=3PPCT_cYVKA",
+          "file": "Helkolakondooru.mp3"
+        },
+        {
+          "id": "r-Wa-o6i45I",
+          "title": "Maari Kannu",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 263,
+          "thumbnail": "https://i.ytimg.com/vi/r-Wa-o6i45I/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/r-Wa-o6i45I/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=r-Wa-o6i45I",
+          "file": "Maari Kannu Video Song \uff5c \uff02A\uff02 Kannada Movie Video Songs \uff5c Upendra, Chandini \uff5c Gurukiran \uff5c SPB.mp3"
         },
         {
           "id": "i1lBSVo6OUs",
@@ -5942,6 +6912,176 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Mandara Pushpavu Neenu.mp3"
         },
         {
+          "id": "yQuzBsxF7ow",
+          "title": "Nammoora Yuvarani",
+          "artist": "K.J. Yesudas - Topic",
+          "duration": 314,
+          "thumbnail": "https://i.ytimg.com/vi/yQuzBsxF7ow/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/yQuzBsxF7ow/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=yQuzBsxF7ow",
+          "file": "Nammoora Yuvarani.mp3"
+        },
+        {
+          "id": "N1ob-xMx3T4",
+          "title": "Aakashadaage Yaaro",
+          "artist": "Mano - Topic",
+          "duration": 308,
+          "thumbnail": "https://i.ytimg.com/vi/N1ob-xMx3T4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/N1ob-xMx3T4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=N1ob-xMx3T4",
+          "file": "Aakashadaage Yaaro.mp3"
+        },
+        {
+          "id": "wqfwFnPHq4w",
+          "title": "Kaadiruve Ninagaagi",
+          "artist": "S. Janaki - Topic",
+          "duration": 286,
+          "thumbnail": "https://i.ytimg.com/vi/wqfwFnPHq4w/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/wqfwFnPHq4w/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=wqfwFnPHq4w",
+          "file": "Kaadiruve Ninagaagi.mp3"
+        },
+        {
+          "id": "Q42RLYsXFyM",
+          "title": "Ramachari Haaduva",
+          "artist": "K.J. Yesudas - Topic",
+          "duration": 307,
+          "thumbnail": "https://i.ytimg.com/vi/Q42RLYsXFyM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Q42RLYsXFyM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Q42RLYsXFyM",
+          "file": "Ramachari Haaduva.mp3"
+        },
+        {
+          "id": "iOyYvvztWY8",
+          "title": "Ramachari Haaduva - Bit",
+          "artist": "K.J. Yesudas - Topic",
+          "duration": 144,
+          "thumbnail": "https://i.ytimg.com/vi/iOyYvvztWY8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/iOyYvvztWY8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=iOyYvvztWY8",
+          "file": "Ramachari Haaduva - Bit.mp3"
+        },
+        {
+          "id": "oQJ3YhDYmVo",
+          "title": "Burude Burude",
+          "artist": "Mano - Topic",
+          "duration": 281,
+          "thumbnail": "https://i.ytimg.com/vi/oQJ3YhDYmVo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/oQJ3YhDYmVo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=oQJ3YhDYmVo",
+          "file": "Burude Burude.mp3"
+        },
+        {
+          "id": "ZAS_AUA_xkQ",
+          "title": "Ramachari Haaduva",
+          "artist": "S. Janaki - Topic",
+          "duration": 288,
+          "thumbnail": "https://i.ytimg.com/vi/ZAS_AUA_xkQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ZAS_AUA_xkQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ZAS_AUA_xkQ",
+          "file": "Ramachari Haaduva.mp3"
+        },
+        {
+          "id": "XOvkRHB7Cks",
+          "title": "Sole Illa Ninna Haadu",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 279,
+          "thumbnail": "https://i.ytimg.com/vi/XOvkRHB7Cks/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/XOvkRHB7Cks/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=XOvkRHB7Cks",
+          "file": "Sole Illa Ninna Haadu.mp3"
+        },
+        {
+          "id": "PBEAxWdD1ko",
+          "title": "Mustafa Mustafa",
+          "artist": "A. R. Rahman",
+          "duration": 366,
+          "thumbnail": "https://i.ytimg.com/vi/PBEAxWdD1ko/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/PBEAxWdD1ko/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=PBEAxWdD1ko",
+          "file": "Mustafa Mustafa.mp3"
+        },
+        {
+          "id": "p3Bt53dkzb4",
+          "title": "Vennela",
+          "artist": "Mano - Topic",
+          "duration": 394,
+          "thumbnail": "https://i.ytimg.com/vi/p3Bt53dkzb4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/p3Bt53dkzb4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=p3Bt53dkzb4",
+          "file": "Sirivennela Songs - Vidhata Talapuna - K.Viswanath - TeluguOne.mp3"
+        },
+        {
+          "id": "JNx7spqW0Uw",
+          "title": "College Style",
+          "artist": "Kay Kay - Topic",
+          "duration": 326,
+          "thumbnail": "https://i.ytimg.com/vi/JNx7spqW0Uw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/JNx7spqW0Uw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=JNx7spqW0Uw",
+          "file": "College Style.mp3"
+        },
+        {
+          "id": "0vviQLA4mWs",
+          "title": "Prema Prema",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 340,
+          "thumbnail": "https://i.ytimg.com/vi/0vviQLA4mWs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/0vviQLA4mWs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=0vviQLA4mWs",
+          "file": "Prema Prema.mp3"
+        },
+        {
+          "id": "pxz9H6Hte4U",
+          "title": "Ee Manase Se Se",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 266,
+          "thumbnail": "https://i.ytimg.com/vi/pxz9H6Hte4U/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/pxz9H6Hte4U/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=pxz9H6Hte4U",
+          "file": "Ee Manase Se Se.mp3"
+        },
+        {
+          "id": "5M7U2BwKxU8",
+          "title": "Yemaindo Yemo Ee Vela",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 284,
+          "thumbnail": "https://i.ytimg.com/vi/5M7U2BwKxU8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/5M7U2BwKxU8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=5M7U2BwKxU8",
+          "file": "Yemaindo Yemo Ee Vela.mp3"
+        },
+        {
+          "id": "Myhtz51gB3A",
+          "title": "Emi Sodhara",
+          "artist": "Krishna Raj - Topic",
+          "duration": 267,
+          "thumbnail": "https://i.ytimg.com/vi/Myhtz51gB3A/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Myhtz51gB3A/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Myhtz51gB3A",
+          "file": "Emi Sodhara.mp3"
+        },
+        {
+          "id": "vcCvLsiZzrc",
+          "title": "Gagananiki Udayam Okate",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 356,
+          "thumbnail": "https://i.ytimg.com/vi/vcCvLsiZzrc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/vcCvLsiZzrc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=vcCvLsiZzrc",
+          "file": "Gagananiki Udayam Okate.mp3"
+        },
+        {
+          "id": "3j5tEPE49XM",
+          "title": "Romance Rythms",
+          "artist": "Suresh Peters - Topic",
+          "duration": 287,
+          "thumbnail": "https://i.ytimg.com/vi/3j5tEPE49XM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/3j5tEPE49XM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=3j5tEPE49XM",
+          "file": "Romance Rythms.mp3"
+        },
+        {
           "id": "DlFYDq5Go5E",
           "title": "Yemi Cheyamanduve",
           "artist": "Shankar Mahadevan - Topic",
@@ -5960,6 +7100,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/WWFSJalfYhE/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=WWFSJalfYhE",
           "file": "Bangala Kathamulo.mp3"
+        },
+        {
+          "id": "qMhTTLxwPuA",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/qMhTTLxwPuA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/qMhTTLxwPuA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=qMhTTLxwPuA",
+          "file": "Unknown Title.mp3"
         },
         {
           "id": "kJ2fJCMt_DI",
@@ -6250,6 +7400,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/_qu2f8TWtEE/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=_qu2f8TWtEE",
           "file": "Mangalam.mp3"
+        },
+        {
+          "id": "SGuhYMJhiiU",
+          "title": "Premalokadinda",
+          "artist": "K.J. Yesudas - Topic",
+          "duration": 275,
+          "thumbnail": "https://i.ytimg.com/vi/SGuhYMJhiiU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/SGuhYMJhiiU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=SGuhYMJhiiU",
+          "file": "Premalokadinda.mp3"
         },
         {
           "id": "gw9OWeHWlgI",
@@ -6632,6 +7792,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Hodimaga Hodimaga.mp3"
         },
         {
+          "id": "tMn6jGbaGbY",
+          "title": "Ganeshatharvasheersham",
+          "artist": "Challakere brothers - Topic",
+          "duration": 536,
+          "thumbnail": "https://i.ytimg.com/vi/tMn6jGbaGbY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/tMn6jGbaGbY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=tMn6jGbaGbY",
+          "file": "Ganeshatharvasheersham.mp3"
+        },
+        {
           "id": "YqwK_6y4D-I",
           "title": "Sri Annapurna Stothram",
           "artist": "Nitya Santhoshini - Topic",
@@ -6640,6 +7810,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/YqwK_6y4D-I/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=YqwK_6y4D-I",
           "file": "Sri Annapurna Stothram.mp3"
+        },
+        {
+          "id": "YTBYK8-3LvY",
+          "title": "Kanninda Nee Baana Beesidaaga",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 257,
+          "thumbnail": "https://i.ytimg.com/vi/YTBYK8-3LvY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/YTBYK8-3LvY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=YTBYK8-3LvY",
+          "file": "Kanninda Nee Baana Beesidaaga.mp3"
         },
         {
           "id": "wbTDWosN8iU",
@@ -6670,6 +7850,46 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/94XR74NRzN0/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=94XR74NRzN0",
           "file": "Kogile Haadide.mp3"
+        },
+        {
+          "id": "BOZozH4g0nM",
+          "title": "Baa Nalle Madhuchandrake",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 266,
+          "thumbnail": "https://i.ytimg.com/vi/BOZozH4g0nM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/BOZozH4g0nM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=BOZozH4g0nM",
+          "file": "Baa Nalle Madhuchandrake Songs Audio Jukebox \uff5c K.Shivram,Nandini Singh \uff5cHamsalekha\uff5c Kannada Old Hits.mp3"
+        },
+        {
+          "id": "JqehArH2_Tc",
+          "title": "Bandalo Bandalo",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 279,
+          "thumbnail": "https://i.ytimg.com/vi/JqehArH2_Tc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/JqehArH2_Tc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=JqehArH2_Tc",
+          "file": "Bandalo Bandalo.mp3"
+        },
+        {
+          "id": "TNdVVaVXk38",
+          "title": "Oho Himalaya",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 278,
+          "thumbnail": "https://i.ytimg.com/vi/TNdVVaVXk38/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/TNdVVaVXk38/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=TNdVVaVXk38",
+          "file": "Oho Himalaya.mp3"
+        },
+        {
+          "id": "yGHUgRAtMiI",
+          "title": "Aa Bettadalli Beladingalalli",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 346,
+          "thumbnail": "https://i.ytimg.com/vi/yGHUgRAtMiI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/yGHUgRAtMiI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=yGHUgRAtMiI",
+          "file": "Aa Bettadalli Beladingalalli.mp3"
         },
         {
           "id": "ADgaVAJXZxA",
@@ -6802,6 +8022,56 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Aralide Aralide.mp3"
         },
         {
+          "id": "hXyTqg4j8dk",
+          "title": "Ee Petaku Nene Mestri",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 397,
+          "thumbnail": "https://i.ytimg.com/vi/hXyTqg4j8dk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/hXyTqg4j8dk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=hXyTqg4j8dk",
+          "file": "Ee Petaku Nene Mestri \uff5c Muta Mestri \uff5c  Chiranjeevi ,Roja, Meena\uff5c Raj - Koti.mp3"
+        },
+        {
+          "id": "0shL50hjdxQ",
+          "title": "Anjanee Puthruda",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 312,
+          "thumbnail": "https://i.ytimg.com/vi/0shL50hjdxQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/0shL50hjdxQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=0shL50hjdxQ",
+          "file": "Anjanee Puthruda.mp3"
+        },
+        {
+          "id": "BS0lfhSUG6k",
+          "title": "Chikchik Cham",
+          "artist": "Mano - Topic",
+          "duration": 329,
+          "thumbnail": "https://i.ytimg.com/vi/BS0lfhSUG6k/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/BS0lfhSUG6k/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=BS0lfhSUG6k",
+          "file": "Chikchik Cham.mp3"
+        },
+        {
+          "id": "V1o4QItqCaw",
+          "title": "Jorugunnadi",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 300,
+          "thumbnail": "https://i.ytimg.com/vi/V1o4QItqCaw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/V1o4QItqCaw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=V1o4QItqCaw",
+          "file": "Jorugunnadi.mp3"
+        },
+        {
+          "id": "qsVXy-XKb2U",
+          "title": "Vana Gadiyaramlo",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 626,
+          "thumbnail": "https://i.ytimg.com/vi/qsVXy-XKb2U/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/qsVXy-XKb2U/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=qsVXy-XKb2U",
+          "file": "Vana Gadiyaramlo.mp3"
+        },
+        {
           "id": "XSXdprtshxE",
           "title": "Ambarada Taare",
           "artist": "Release - Topic",
@@ -6830,6 +8100,86 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/k3xyIyqsenI/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=k3xyIyqsenI",
           "file": "Nadha Vinodham Song - Sagara Sangamam Movie Songs \uff5c Kamal Haasan \uff5c Jayaprada \uff5c S P Sailaja \uff5c iDream.mp3"
+        },
+        {
+          "id": "qVfsA1hXX7U",
+          "title": "Mamatala Talli",
+          "artist": "Surya Yamini - Topic",
+          "duration": 227,
+          "thumbnail": "https://i.ytimg.com/vi/qVfsA1hXX7U/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/qVfsA1hXX7U/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=qVfsA1hXX7U",
+          "file": "Mamatala Talli.mp3"
+        },
+        {
+          "id": "ONTADb13ZyI",
+          "title": "Jeva Nadhi",
+          "artist": "Geetha Madhuri - Topic",
+          "duration": 100,
+          "thumbnail": "https://i.ytimg.com/vi/ONTADb13ZyI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ONTADb13ZyI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ONTADb13ZyI",
+          "file": "Jeva Nadhi.mp3"
+        },
+        {
+          "id": "MAF1oNHpM4A",
+          "title": "Dhivara",
+          "artist": "Ramya Behara - Topic",
+          "duration": 326,
+          "thumbnail": "https://i.ytimg.com/vi/MAF1oNHpM4A/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/MAF1oNHpM4A/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=MAF1oNHpM4A",
+          "file": "Dhivara.mp3"
+        },
+        {
+          "id": "3sJggtFDN3U",
+          "title": "Sivuni Aana",
+          "artist": "M. M. Keeravani - Topic",
+          "duration": 196,
+          "thumbnail": "https://i.ytimg.com/vi/3sJggtFDN3U/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/3sJggtFDN3U/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=3sJggtFDN3U",
+          "file": "Sivuni Aana.mp3"
+        },
+        {
+          "id": "zaB5oLWv2mo",
+          "title": "Pacha Bottasi",
+          "artist": "Karthik - Topic",
+          "duration": 257,
+          "thumbnail": "https://i.ytimg.com/vi/zaB5oLWv2mo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/zaB5oLWv2mo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=zaB5oLWv2mo",
+          "file": "Pacha Bottasi.mp3"
+        },
+        {
+          "id": "rQtt1f4_rgE",
+          "title": "Manohari",
+          "artist": "Mohana - Topic",
+          "duration": 215,
+          "thumbnail": "https://i.ytimg.com/vi/rQtt1f4_rgE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/rQtt1f4_rgE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=rQtt1f4_rgE",
+          "file": "Manohari.mp3"
+        },
+        {
+          "id": "fUP81PHZSgI",
+          "title": "Nippulaa Swasa Ga",
+          "artist": "M. M. Keeravani - Topic",
+          "duration": 190,
+          "thumbnail": "https://i.ytimg.com/vi/fUP81PHZSgI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/fUP81PHZSgI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=fUP81PHZSgI",
+          "file": "Nippulaa Swasa Ga.mp3"
+        },
+        {
+          "id": "2QsaizXCqCg",
+          "title": "Dheevara (English Version)",
+          "artist": "Ramya Behara - Topic",
+          "duration": 192,
+          "thumbnail": "https://i.ytimg.com/vi/2QsaizXCqCg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/2QsaizXCqCg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=2QsaizXCqCg",
+          "file": "Dheevara (English Version).mp3"
         },
         {
           "id": "CcMPz7tPtVA",
@@ -6990,6 +8340,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/SgAI_gzFJs4/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=SgAI_gzFJs4",
           "file": "Atthittha Nodadhiru Lyrical Video \uff5c Apoorva Sridhar \uff5c Mysore Ananthswamy \uff5c K S Narasimhaswamy.mp3"
+        },
+        {
+          "id": "pzWFRxKPbjk",
+          "title": "Dookudu (\u0c26\u0c42\u0c15\u0c41\u0c21\u0c41) Movie Full Songs Jukebox || Mahesh Babu, Samantha",
+          "artist": "Aditya Music",
+          "duration": 1517,
+          "thumbnail": "https://i.ytimg.com/vi/pzWFRxKPbjk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/pzWFRxKPbjk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=pzWFRxKPbjk",
+          "file": "Dookudu (\u0c26\u0c42\u0c15\u0c41\u0c21\u0c41) Movie Full Songs Jukebox \uff5c\uff5c Mahesh Babu, Samantha.mp3"
         }
       ]
     },
@@ -7317,10 +8677,300 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       "id": "ai_muted_vocals",
       "title": "AI Muted Vocals",
       "playlist_title": "AI Muted Vocals",
-      "thumbnail": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
-      "track_count": 29,
+      "thumbnail": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
+      "track_count": 45,
       "tracks": [
+        {
+          "id": "_cd-2S4ACSg_ai_muted_vocals",
+          "title": "Aaseya Bhaava Olavina Jeeva....S.P.B - Karaoke",
+          "artist": "anirudhk999",
+          "duration": 303,
+          "thumbnail": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_cd-2S4ACSg",
+          "file": "Aaseya Bhaava Olavina Jeeva....S.P.B.mp3"
+        },
+        {
+          "id": "6XBGjirZSO0_ai_muted_vocals",
+          "title": "Janani Janmabhoomi _ SP Balasubramanian songs in Telugu - Karaoke",
+          "artist": "Movie Classics",
+          "duration": 288,
+          "thumbnail": "https://i.ytimg.com/vi/6XBGjirZSO0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/6XBGjirZSO0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=6XBGjirZSO0",
+          "file": "Janani Janmabhoomi \uff5c SP Balasubramanian songs in Telugu.mp3"
+        },
+        {
+          "id": "Zi2uqSYLqeU_ai_muted_vocals",
+          "title": "Gupt Gupt - Title (Remix) - Karaoke",
+          "artist": "Kavita Krishnamurthy - Topic",
+          "duration": 344,
+          "thumbnail": "https://i.ytimg.com/vi/Zi2uqSYLqeU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Zi2uqSYLqeU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Zi2uqSYLqeU",
+          "file": "Gupt Gupt Title - Karaoke.mp3"
+        },
+        {
+          "id": "3jnb6WUD1hs_ai_muted_vocals",
+          "title": "Sivoham - Karaoke",
+          "artist": "Hariharan - Topic",
+          "duration": 195,
+          "thumbnail": "https://i.ytimg.com/vi/3jnb6WUD1hs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/3jnb6WUD1hs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=3jnb6WUD1hs",
+          "file": "Sivoham.mp3"
+        },
+        {
+          "id": "4xrJTAKJotg_ai_muted_vocals",
+          "title": "Sankarabharanam-Telugu Movie Songs _ Sankaraa Naadasareeraparaa Video Song _ TVNXT - Karaoke",
+          "artist": "Tvnxt Music",
+          "duration": 264,
+          "thumbnail": "https://i.ytimg.com/vi/4xrJTAKJotg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/4xrJTAKJotg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=4xrJTAKJotg",
+          "file": "Sankarabharanam-Telugu Movie Songs \uff5c Sankaraa Naadasareeraparaa Video Song \uff5c TVNXT.mp3"
+        },
+        {
+          "id": "ceKvyYE9G1s_ai_muted_vocals",
+          "title": "Karunada Tayi Sada Chinmayi Video Song _ Kannada Rajyotsava Songs _ SPB _ Ravichandran Hits - Karaoke",
+          "artist": "Sri Ganesh Videos",
+          "duration": 285,
+          "thumbnail": "https://i.ytimg.com/vi/ceKvyYE9G1s/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ceKvyYE9G1s/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ceKvyYE9G1s",
+          "file": "Karunada Tayi Sada Chinmayi Video Song \uff5c Kannada Rajyotsava Songs \uff5c SPB \uff5c Ravichandran Hits.mp3"
+        },
+        {
+          "id": "wIgHm-Pabtw_ai_muted_vocals",
+          "title": "Ye Swapnalokala Full Song _Suswagatham_Pawan Kalyan, Raj Kujmar Hits _ Aditya Music - Karaoke",
+          "artist": "Aditya Music",
+          "duration": 306,
+          "thumbnail": "https://i.ytimg.com/vi/wIgHm-Pabtw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/wIgHm-Pabtw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=wIgHm-Pabtw",
+          "file": "Ye Swapnalokala Full Song \uff5cSuswagatham\uff5cPawan Kalyan, Raj Kujmar Hits \uff5c Aditya Music.mp3"
+        },
+        {
+          "id": "hzsymN_4cKI_ai_muted_vocals",
+          "title": "Anathineeyara - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 430,
+          "thumbnail": "https://i.ytimg.com/vi/hzsymN_4cKI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/hzsymN_4cKI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=hzsymN_4cKI",
+          "file": "Anathineeyara.mp3"
+        },
+        {
+          "id": "yNMoaIiohzw_ai_muted_vocals",
+          "title": "Yelle Iru - Karaoke",
+          "artist": "P.Susheela Official",
+          "duration": 204,
+          "thumbnail": "https://i.ytimg.com/vi/yNMoaIiohzw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/yNMoaIiohzw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=yNMoaIiohzw",
+          "file": "Yelle Iru.mp3"
+        },
+        {
+          "id": "ZXVoUbaUgXs_ai_muted_vocals",
+          "title": "Pellichesukundam Movie __ Kokila Kokila Ku Annadi Video Song __ Venkatesh __ Shalimarcinema - Karaoke",
+          "artist": "Shalimar Telugu & Hindi Movies",
+          "duration": 272,
+          "thumbnail": "https://i.ytimg.com/vi/ZXVoUbaUgXs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ZXVoUbaUgXs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ZXVoUbaUgXs",
+          "file": "Kokila Kokila.mp3"
+        },
+        {
+          "id": "tPc6r06Hu_Q_ai_muted_vocals",
+          "title": "Lachulo Lachana - Karaoke",
+          "artist": "Vandemataram Srinivas - Topic",
+          "duration": 329,
+          "thumbnail": "https://i.ytimg.com/vi/tPc6r06Hu_Q/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/tPc6r06Hu_Q/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=tPc6r06Hu_Q",
+          "file": "Lachulo Lachana.mp3"
+        },
+        {
+          "id": "iKqFjJDkN2Q_ai_muted_vocals",
+          "title": "Emoko - Karaoke",
+          "artist": "Annamayya Keerthana - Topic",
+          "duration": 259,
+          "thumbnail": "https://i.ytimg.com/vi/iKqFjJDkN2Q/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/iKqFjJDkN2Q/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=iKqFjJDkN2Q",
+          "file": "Emoko.mp3"
+        },
+        {
+          "id": "CwdrtwZiQ9E_ai_muted_vocals",
+          "title": "Black Eyed Peas - I Gotta Feeling (Audio) - Karaoke",
+          "artist": "doong doong",
+          "duration": 290,
+          "thumbnail": "https://i.ytimg.com/vi/CwdrtwZiQ9E/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/CwdrtwZiQ9E/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=CwdrtwZiQ9E",
+          "file": "Black Eyed Peas - I Gotta Feeling (Audio).mp3"
+        },
+        {
+          "id": "r4O3pZT-UTA_ai_muted_vocals",
+          "title": "Gunde Gutiki - Karaoke",
+          "artist": "P Unnikrishnan Official",
+          "duration": 259,
+          "thumbnail": "https://i.ytimg.com/vi/r4O3pZT-UTA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/r4O3pZT-UTA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=r4O3pZT-UTA",
+          "file": "Gunde Gutiki.mp3"
+        },
+        {
+          "id": "4hBEP9_7aRQ_ai_muted_vocals",
+          "title": "Nanu Brovamani - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 175,
+          "thumbnail": "https://i.ytimg.com/vi/4hBEP9_7aRQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/4hBEP9_7aRQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=4hBEP9_7aRQ",
+          "file": "Nanu Brovamani.mp3"
+        },
+        {
+          "id": "_0ZqXV6x3zc_ai_muted_vocals",
+          "title": "Jagadame - Karaoke",
+          "artist": "Kunal Ganjawala - Topic",
+          "duration": 270,
+          "thumbnail": "https://i.ytimg.com/vi/_0ZqXV6x3zc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_0ZqXV6x3zc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_0ZqXV6x3zc",
+          "file": "Jagadame.mp3"
+        },
+        {
+          "id": "0mAU-PScDjs_ai_muted_vocals",
+          "title": "Cheppamma - Karaoke",
+          "artist": "K S Chithra",
+          "duration": 288,
+          "thumbnail": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=0mAU-PScDjs",
+          "file": "Cheppamma.mp3"
+        },
+        {
+          "id": "PGXEZf1Gyj8_ai_muted_vocals",
+          "title": "Ghana Ghana Sundaraa - Bhakta Tukaram songs - Akkineni Nageswara Rao,Anjali Devi, - Karaoke",
+          "artist": "Volga Video",
+          "duration": 319,
+          "thumbnail": "https://i.ytimg.com/vi/PGXEZf1Gyj8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/PGXEZf1Gyj8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=PGXEZf1Gyj8",
+          "file": "Ghana Ghana Sundaraa - Bhakta Tukaram songs - Akkineni Nageswara Rao,Anjali Devi,.mp3"
+        },
+        {
+          "id": "_qu2f8TWtEE_ai_muted_vocals",
+          "title": "Mangalam - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 50,
+          "thumbnail": "https://i.ytimg.com/vi/_qu2f8TWtEE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_qu2f8TWtEE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_qu2f8TWtEE",
+          "file": "Mangalam.mp3"
+        },
+        {
+          "id": "V4PsND7MUho_ai_muted_vocals",
+          "title": "Padayappa - Tamil Movie Songs _ Audio Jukebox _ Rajinikanth _ Soundarya _ A R Rahman - Karaoke",
+          "artist": "Star Music India",
+          "duration": 1808,
+          "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=V4PsND7MUho",
+          "file": "Padayappa - Tamil Movie Songs \uff5c Audio Jukebox \uff5c Rajinikanth \uff5c Soundarya \uff5c A R Rahman.mp3"
+        },
+        {
+          "id": "sYzuTdrfWi4_ai_muted_vocals",
+          "title": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song - Karaoke",
+          "artist": "Shemaroo Kannada",
+          "duration": 279,
+          "thumbnail": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=sYzuTdrfWi4",
+          "file": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song.mp3"
+        },
+        {
+          "id": "UDZvpSD3Q_M_ai_muted_vocals",
+          "title": "Podagantimayya - Karaoke",
+          "artist": "Annamayya Keerthana - Topic",
+          "duration": 249,
+          "thumbnail": "https://i.ytimg.com/vi/UDZvpSD3Q_M/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UDZvpSD3Q_M/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UDZvpSD3Q_M",
+          "file": "Podagantimayya.mp3"
+        },
+        {
+          "id": "kJ2fJCMt_DI_ai_muted_vocals",
+          "title": "I Am An Indian - Karaoke",
+          "artist": "Ramana Gogula - Topic",
+          "duration": 313,
+          "thumbnail": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=kJ2fJCMt_DI",
+          "file": "I Am An Indian.mp3"
+        },
+        {
+          "id": "Ievkvrit__Y_ai_muted_vocals",
+          "title": "Pranathi Pranathi (Male) - Karaoke",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 245,
+          "thumbnail": "https://i.ytimg.com/vi/Ievkvrit__Y/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Ievkvrit__Y/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Ievkvrit__Y",
+          "file": "Pranathi Pranathi (Male).mp3"
+        },
+        {
+          "id": "LkiuAtiTlyM_ai_muted_vocals",
+          "title": "Goruvanka Valaga - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 305,
+          "thumbnail": "https://i.ytimg.com/vi/LkiuAtiTlyM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/LkiuAtiTlyM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=LkiuAtiTlyM",
+          "file": "Goruvanka Valaga.mp3"
+        },
+        {
+          "id": "nI9OI0DyQ78_ai_muted_vocals",
+          "title": "Sri Raghavam - Karaoke",
+          "artist": "M. M. Keeravani - Topic",
+          "duration": 59,
+          "thumbnail": "https://i.ytimg.com/vi/nI9OI0DyQ78/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/nI9OI0DyQ78/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=nI9OI0DyQ78",
+          "file": "Sri Raghavam.mp3"
+        },
+        {
+          "id": "UBs6l3MUUaM_ai_muted_vocals",
+          "title": "Dhin Dhin Dhinak - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 205,
+          "thumbnail": "https://i.ytimg.com/vi/UBs6l3MUUaM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UBs6l3MUUaM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UBs6l3MUUaM",
+          "file": "Dhin Dhin Dhinak.mp3"
+        },
+        {
+          "id": "33RRyAnJ8j4_ai_muted_vocals",
+          "title": "Araluthiru - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 279,
+          "thumbnail": "https://i.ytimg.com/vi/33RRyAnJ8j4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/33RRyAnJ8j4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=33RRyAnJ8j4",
+          "file": "Araluthiru.mp3"
+        },
+        {
+          "id": "5YNngnXX-ag_ai_muted_vocals",
+          "title": "Sowndarya Lahari - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 156,
+          "thumbnail": "https://i.ytimg.com/vi/5YNngnXX-ag/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/5YNngnXX-ag/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=5YNngnXX-ag",
+          "file": "Sowndarya Lahari.mp3"
+        },
         {
           "id": "_iyRFJya_dY_ai_muted_vocals",
           "title": "Singarala - Karaoke",
@@ -7487,10 +9137,300 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       "id": "ai_vocals_only",
       "title": "AI Vocals Only",
       "playlist_title": "AI Vocals Only",
-      "thumbnail": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
-      "track_count": 28,
+      "thumbnail": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
+      "track_count": 44,
       "tracks": [
+        {
+          "id": "_cd-2S4ACSg_ai_vocals_only",
+          "title": "Aaseya Bhaava Olavina Jeeva....S.P.B - AI Vocals Only",
+          "artist": "anirudhk999",
+          "duration": 303,
+          "thumbnail": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_cd-2S4ACSg",
+          "file": "Aaseya Bhaava Olavina Jeeva....S.P.B.mp3"
+        },
+        {
+          "id": "6XBGjirZSO0_ai_vocals_only",
+          "title": "Janani Janmabhoomi _ SP Balasubramanian songs in Telugu - AI Vocals Only",
+          "artist": "Movie Classics",
+          "duration": 288,
+          "thumbnail": "https://i.ytimg.com/vi/6XBGjirZSO0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/6XBGjirZSO0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=6XBGjirZSO0",
+          "file": "Janani Janmabhoomi \uff5c SP Balasubramanian songs in Telugu.mp3"
+        },
+        {
+          "id": "Zi2uqSYLqeU_ai_vocals_only",
+          "title": "Gupt Gupt - Title (Remix) - AI Vocals Only",
+          "artist": "Kavita Krishnamurthy - Topic",
+          "duration": 344,
+          "thumbnail": "https://i.ytimg.com/vi/Zi2uqSYLqeU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Zi2uqSYLqeU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Zi2uqSYLqeU",
+          "file": "Gupt Gupt Title - AI Vocals Only.mp3"
+        },
+        {
+          "id": "3jnb6WUD1hs_ai_vocals_only",
+          "title": "Sivoham - AI Vocals Only",
+          "artist": "Hariharan - Topic",
+          "duration": 195,
+          "thumbnail": "https://i.ytimg.com/vi/3jnb6WUD1hs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/3jnb6WUD1hs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=3jnb6WUD1hs",
+          "file": "Sivoham.mp3"
+        },
+        {
+          "id": "4xrJTAKJotg_ai_vocals_only",
+          "title": "Sankarabharanam-Telugu Movie Songs _ Sankaraa Naadasareeraparaa Video Song _ TVNXT - AI Vocals Only",
+          "artist": "Tvnxt Music",
+          "duration": 264,
+          "thumbnail": "https://i.ytimg.com/vi/4xrJTAKJotg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/4xrJTAKJotg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=4xrJTAKJotg",
+          "file": "Sankarabharanam-Telugu Movie Songs \uff5c Sankaraa Naadasareeraparaa Video Song \uff5c TVNXT.mp3"
+        },
+        {
+          "id": "ceKvyYE9G1s_ai_vocals_only",
+          "title": "Karunada Tayi Sada Chinmayi Video Song _ Kannada Rajyotsava Songs _ SPB _ Ravichandran Hits - AI Vocals Only",
+          "artist": "Sri Ganesh Videos",
+          "duration": 285,
+          "thumbnail": "https://i.ytimg.com/vi/ceKvyYE9G1s/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ceKvyYE9G1s/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ceKvyYE9G1s",
+          "file": "Karunada Tayi Sada Chinmayi Video Song \uff5c Kannada Rajyotsava Songs \uff5c SPB \uff5c Ravichandran Hits.mp3"
+        },
+        {
+          "id": "wIgHm-Pabtw_ai_vocals_only",
+          "title": "Ye Swapnalokala Full Song _Suswagatham_Pawan Kalyan, Raj Kujmar Hits _ Aditya Music - AI Vocals Only",
+          "artist": "Aditya Music",
+          "duration": 306,
+          "thumbnail": "https://i.ytimg.com/vi/wIgHm-Pabtw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/wIgHm-Pabtw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=wIgHm-Pabtw",
+          "file": "Ye Swapnalokala Full Song \uff5cSuswagatham\uff5cPawan Kalyan, Raj Kujmar Hits \uff5c Aditya Music.mp3"
+        },
+        {
+          "id": "hzsymN_4cKI_ai_vocals_only",
+          "title": "Anathineeyara - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 430,
+          "thumbnail": "https://i.ytimg.com/vi/hzsymN_4cKI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/hzsymN_4cKI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=hzsymN_4cKI",
+          "file": "Anathineeyara.mp3"
+        },
+        {
+          "id": "yNMoaIiohzw_ai_vocals_only",
+          "title": "Yelle Iru - AI Vocals Only",
+          "artist": "P.Susheela Official",
+          "duration": 204,
+          "thumbnail": "https://i.ytimg.com/vi/yNMoaIiohzw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/yNMoaIiohzw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=yNMoaIiohzw",
+          "file": "Yelle Iru.mp3"
+        },
+        {
+          "id": "ZXVoUbaUgXs_ai_vocals_only",
+          "title": "Pellichesukundam Movie __ Kokila Kokila Ku Annadi Video Song __ Venkatesh __ Shalimarcinema - AI Vocals Only",
+          "artist": "Shalimar Telugu & Hindi Movies",
+          "duration": 272,
+          "thumbnail": "https://i.ytimg.com/vi/ZXVoUbaUgXs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ZXVoUbaUgXs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ZXVoUbaUgXs",
+          "file": "Kokila Kokila.mp3"
+        },
+        {
+          "id": "tPc6r06Hu_Q_ai_vocals_only",
+          "title": "Lachulo Lachana - AI Vocals Only",
+          "artist": "Vandemataram Srinivas - Topic",
+          "duration": 329,
+          "thumbnail": "https://i.ytimg.com/vi/tPc6r06Hu_Q/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/tPc6r06Hu_Q/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=tPc6r06Hu_Q",
+          "file": "Lachulo Lachana.mp3"
+        },
+        {
+          "id": "iKqFjJDkN2Q_ai_vocals_only",
+          "title": "Emoko - AI Vocals Only",
+          "artist": "Annamayya Keerthana - Topic",
+          "duration": 259,
+          "thumbnail": "https://i.ytimg.com/vi/iKqFjJDkN2Q/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/iKqFjJDkN2Q/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=iKqFjJDkN2Q",
+          "file": "Emoko.mp3"
+        },
+        {
+          "id": "CwdrtwZiQ9E_ai_vocals_only",
+          "title": "Black Eyed Peas - I Gotta Feeling (Audio) - AI Vocals Only",
+          "artist": "doong doong",
+          "duration": 290,
+          "thumbnail": "https://i.ytimg.com/vi/CwdrtwZiQ9E/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/CwdrtwZiQ9E/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=CwdrtwZiQ9E",
+          "file": "Black Eyed Peas - I Gotta Feeling (Audio).mp3"
+        },
+        {
+          "id": "r4O3pZT-UTA_ai_vocals_only",
+          "title": "Gunde Gutiki - AI Vocals Only",
+          "artist": "P Unnikrishnan Official",
+          "duration": 259,
+          "thumbnail": "https://i.ytimg.com/vi/r4O3pZT-UTA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/r4O3pZT-UTA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=r4O3pZT-UTA",
+          "file": "Gunde Gutiki.mp3"
+        },
+        {
+          "id": "4hBEP9_7aRQ_ai_vocals_only",
+          "title": "Nanu Brovamani - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 175,
+          "thumbnail": "https://i.ytimg.com/vi/4hBEP9_7aRQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/4hBEP9_7aRQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=4hBEP9_7aRQ",
+          "file": "Nanu Brovamani.mp3"
+        },
+        {
+          "id": "_0ZqXV6x3zc_ai_vocals_only",
+          "title": "Jagadame - AI Vocals Only",
+          "artist": "Kunal Ganjawala - Topic",
+          "duration": 270,
+          "thumbnail": "https://i.ytimg.com/vi/_0ZqXV6x3zc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_0ZqXV6x3zc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_0ZqXV6x3zc",
+          "file": "Jagadame.mp3"
+        },
+        {
+          "id": "0mAU-PScDjs_ai_vocals_only",
+          "title": "Cheppamma - AI Vocals Only",
+          "artist": "K S Chithra",
+          "duration": 288,
+          "thumbnail": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=0mAU-PScDjs",
+          "file": "Cheppamma.mp3"
+        },
+        {
+          "id": "PGXEZf1Gyj8_ai_vocals_only",
+          "title": "Ghana Ghana Sundaraa - Bhakta Tukaram songs - Akkineni Nageswara Rao,Anjali Devi, - AI Vocals Only",
+          "artist": "Volga Video",
+          "duration": 319,
+          "thumbnail": "https://i.ytimg.com/vi/PGXEZf1Gyj8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/PGXEZf1Gyj8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=PGXEZf1Gyj8",
+          "file": "Ghana Ghana Sundaraa - Bhakta Tukaram songs - Akkineni Nageswara Rao,Anjali Devi,.mp3"
+        },
+        {
+          "id": "_qu2f8TWtEE_ai_vocals_only",
+          "title": "Mangalam - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 50,
+          "thumbnail": "https://i.ytimg.com/vi/_qu2f8TWtEE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_qu2f8TWtEE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_qu2f8TWtEE",
+          "file": "Mangalam.mp3"
+        },
+        {
+          "id": "V4PsND7MUho_ai_vocals_only",
+          "title": "Padayappa - Tamil Movie Songs _ Audio Jukebox _ Rajinikanth _ Soundarya _ A R Rahman - AI Vocals Only",
+          "artist": "Star Music India",
+          "duration": 1808,
+          "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=V4PsND7MUho",
+          "file": "Padayappa - Tamil Movie Songs \uff5c Audio Jukebox \uff5c Rajinikanth \uff5c Soundarya \uff5c A R Rahman.mp3"
+        },
+        {
+          "id": "sYzuTdrfWi4_ai_vocals_only",
+          "title": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song - AI Vocals Only",
+          "artist": "Shemaroo Kannada",
+          "duration": 279,
+          "thumbnail": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=sYzuTdrfWi4",
+          "file": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song.mp3"
+        },
+        {
+          "id": "UDZvpSD3Q_M_ai_vocals_only",
+          "title": "Podagantimayya - AI Vocals Only",
+          "artist": "Annamayya Keerthana - Topic",
+          "duration": 249,
+          "thumbnail": "https://i.ytimg.com/vi/UDZvpSD3Q_M/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UDZvpSD3Q_M/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UDZvpSD3Q_M",
+          "file": "Podagantimayya.mp3"
+        },
+        {
+          "id": "kJ2fJCMt_DI_ai_vocals_only",
+          "title": "I Am An Indian - AI Vocals Only",
+          "artist": "Ramana Gogula - Topic",
+          "duration": 313,
+          "thumbnail": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=kJ2fJCMt_DI",
+          "file": "I Am An Indian.mp3"
+        },
+        {
+          "id": "Ievkvrit__Y_ai_vocals_only",
+          "title": "Pranathi Pranathi (Male) - AI Vocals Only",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 245,
+          "thumbnail": "https://i.ytimg.com/vi/Ievkvrit__Y/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Ievkvrit__Y/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Ievkvrit__Y",
+          "file": "Pranathi Pranathi (Male).mp3"
+        },
+        {
+          "id": "LkiuAtiTlyM_ai_vocals_only",
+          "title": "Goruvanka Valaga - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 305,
+          "thumbnail": "https://i.ytimg.com/vi/LkiuAtiTlyM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/LkiuAtiTlyM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=LkiuAtiTlyM",
+          "file": "Goruvanka Valaga.mp3"
+        },
+        {
+          "id": "nI9OI0DyQ78_ai_vocals_only",
+          "title": "Sri Raghavam - AI Vocals Only",
+          "artist": "M. M. Keeravani - Topic",
+          "duration": 59,
+          "thumbnail": "https://i.ytimg.com/vi/nI9OI0DyQ78/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/nI9OI0DyQ78/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=nI9OI0DyQ78",
+          "file": "Sri Raghavam.mp3"
+        },
+        {
+          "id": "UBs6l3MUUaM_ai_vocals_only",
+          "title": "Dhin Dhin Dhinak - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 205,
+          "thumbnail": "https://i.ytimg.com/vi/UBs6l3MUUaM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UBs6l3MUUaM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UBs6l3MUUaM",
+          "file": "Dhin Dhin Dhinak.mp3"
+        },
+        {
+          "id": "33RRyAnJ8j4_ai_vocals_only",
+          "title": "Araluthiru - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 279,
+          "thumbnail": "https://i.ytimg.com/vi/33RRyAnJ8j4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/33RRyAnJ8j4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=33RRyAnJ8j4",
+          "file": "Araluthiru.mp3"
+        },
+        {
+          "id": "5YNngnXX-ag_ai_vocals_only",
+          "title": "Sowndarya Lahari - AI Vocals Only",
+          "artist": "Release - Topic",
+          "duration": 156,
+          "thumbnail": "https://i.ytimg.com/vi/5YNngnXX-ag/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/5YNngnXX-ag/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=5YNngnXX-ag",
+          "file": "Sowndarya Lahari.mp3"
+        },
         {
           "id": "_iyRFJya_dY_ai_vocals_only",
           "title": "Singarala - AI Vocals Only",
@@ -8152,6 +10092,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Ganapathi Sankashta Stuthi \uff5c Audio Jukebox \uff5c Hamsalekha \uff5c Kannada Devotional Songs.mp3"
         },
         {
+          "id": "5wX_K0PdenM",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/5wX_K0PdenM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/5wX_K0PdenM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=5wX_K0PdenM",
+          "file": "Unknown Title.mp3"
+        },
+        {
           "id": "_69BtchVeV0",
           "title": "Amba Bhavani Sri Ganapathy Sachchidananda Swamiji",
           "artist": "Hanuman Hoffman",
@@ -8300,6 +10250,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/DtSBLpQStT4/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=DtSBLpQStT4",
           "file": "Sri Lalitha Sahasranamam \uff5c Lalita Devi Stotram For Protection & Prosperity \uff5c Rajshri Soul.mp3"
+        },
+        {
+          "id": "b3ST34JW6dA",
+          "title": "Anju Karangale",
+          "artist": "VMD Infotainment",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/b3ST34JW6dA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/b3ST34JW6dA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=b3ST34JW6dA",
+          "file": "Anju Karangale.mp3"
         },
         {
           "id": "6XP-f7wPM0A",
@@ -8612,6 +10572,26 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Super Low Frequency Healing Music \uff5c\uff5c Fall Asleep Faster \uff5c\uff5c 9 Hours Sleep Music.mp3"
         },
         {
+          "id": "kzeU8K8t6ps",
+          "title": "Shankara Shashidhara",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 366,
+          "thumbnail": "https://i.ytimg.com/vi/kzeU8K8t6ps/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/kzeU8K8t6ps/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=kzeU8K8t6ps",
+          "file": "Shankara Shashidhara Video Song \uff5c Shabarimale Swamy Ayyappa \uff5c Sridhar, Sreenivas Murthy, Geetha.mp3"
+        },
+        {
+          "id": "h_HbaLJpeDM",
+          "title": "Siva Sahasranama (from Rudra Yaamala Tantra)",
+          "artist": "Prof.Thiagarajan & Scholars - Topic",
+          "duration": 1965,
+          "thumbnail": "https://i.ytimg.com/vi/h_HbaLJpeDM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/h_HbaLJpeDM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=h_HbaLJpeDM",
+          "file": "Siva Sahasranama (from Rudra Yaamala Tantra).mp3"
+        },
+        {
           "id": "a57FF_y2WH4",
           "title": "Sri Rajarajeswari Stotram | Ambha Sambhavi Stotram Video Song | Friday Special #devotionalsongs",
           "artist": "Aditya Bhakthi",
@@ -8822,6 +10802,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Chiranjeevi About Jagadguru Aadi Shankara.mp3"
         },
         {
+          "id": "tMn6jGbaGbY",
+          "title": "Ganeshatharvasheersham",
+          "artist": "Challakere brothers - Topic",
+          "duration": 536,
+          "thumbnail": "https://i.ytimg.com/vi/tMn6jGbaGbY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/tMn6jGbaGbY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=tMn6jGbaGbY",
+          "file": "Ganeshatharvasheersham.mp3"
+        },
+        {
           "id": "Xm9kjceWeEc",
           "title": "Om Shiva Hom Full Song | Naan Kadavul Movie  Original Video Song",
           "artist": "Bravomovies",
@@ -8880,6 +10870,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/kC7micM_KVA/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=kC7micM_KVA",
           "file": "Sri Shiva Sahasranamam.mp3"
+        },
+        {
+          "id": "z5NmcoNiUcw",
+          "title": "Bhagavad Gita - all verses (Sanskrit & English) | Bhakti Yoga Mantras",
+          "artist": "Bhakti Marga Music",
+          "duration": 16721,
+          "thumbnail": "gita_cover_logo.png",
+          "thumbnail_file": "gita_cover_logo.png",
+          "url": "https://www.youtube.com/watch?v=z5NmcoNiUcw",
+          "file": "Bhagavad Gita - all verses (Sanskrit & English) | Bhakti Yoga Mantras.mp3"
         }
       ]
     },
@@ -8980,6 +10980,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/-tJYN-eG1zk/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=-tJYN-eG1zk",
           "file": "Queen - We Will Rock You (Official Video).mp3"
+        },
+        {
+          "id": "z1fadkdxAX0",
+          "title": "Michael jackson greatest hits da",
+          "artist": "\u05d3\u05e0\u05d9\u05d0\u05dc \u05d0\u05d7\u05d3\u05d5\u05ea",
+          "duration": 4519,
+          "thumbnail": "https://i.ytimg.com/vi/z1fadkdxAX0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/z1fadkdxAX0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=z1fadkdxAX0",
+          "file": "Michael jackson greatest hits da.mp3"
         },
         {
           "id": "WTJSt4wP2ME",
@@ -9270,6 +11280,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/hXdmYhb8oFs/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=hXdmYhb8oFs",
           "file": "Hang Drum + Tabla \uff5c\uff5c Pure Positive Energy Meditation Music \uff5c\uff5c Namaste Music, Yoga Music.mp3"
+        },
+        {
+          "id": "Re5h3EetEjw",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/Re5h3EetEjw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Re5h3EetEjw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Re5h3EetEjw",
+          "file": "Unknown Title.mp3"
         },
         {
           "id": "PszSx4HvKAA",
@@ -9722,6 +11742,26 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       "track_count": 53,
       "tracks": [
         {
+          "id": "lUOQ7Xrj0kI",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/lUOQ7Xrj0kI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=lUOQ7Xrj0kI",
+          "file": "Unknown Title.mp3"
+        },
+        {
+          "id": "6yIKOlbYldo",
+          "title": "Rajashekara",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 289,
+          "thumbnail": "https://i.ytimg.com/vi/6yIKOlbYldo/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/6yIKOlbYldo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=6yIKOlbYldo",
+          "file": "Rajashekara.mp3"
+        },
+        {
           "id": "ENRb__nSo7w",
           "title": "Jagadanandakaraka Song by Shreya Ghoshal | Sri Rama Rajyam Movie Songs HD | Balakrishna | Ilayaraja",
           "artist": "Telugu Filmnagar",
@@ -9770,6 +11810,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/WTJSt4wP2ME/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=WTJSt4wP2ME",
           "file": "K'NAAN - Wavin' Flag (Coca-Cola Celebration Mix).mp3"
+        },
+        {
+          "id": "oAL2Srr4JRk",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/oAL2Srr4JRk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/oAL2Srr4JRk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=oAL2Srr4JRk",
+          "file": "Unknown Title.mp3"
         },
         {
           "id": "y_u9DRClNeg",
@@ -9842,6 +11892,26 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Priya Raagale Video Song \uff5c Hello Brother Telugu Movie Songs \uff5c Nagarjuna \uff5c Soundarya \uff5c Ramya Krishna.mp3"
         },
         {
+          "id": "FktgEn6RedY",
+          "title": "Annayya Movie Video Songs Jukebox | Chiranjeevi, Soundarya, Simran | Mani Sharma",
+          "artist": "Geetha Arts ",
+          "duration": 1691,
+          "thumbnail": "https://i.ytimg.com/vi/FktgEn6RedY/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/FktgEn6RedY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=FktgEn6RedY",
+          "file": "Annayya Movie Video Songs Jukebox | Chiranjeevi, Soundarya, Simran | Mani Sharma.mp3"
+        },
+        {
+          "id": "_f5w2ijPxkU",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/_f5w2ijPxkU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/_f5w2ijPxkU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=_f5w2ijPxkU",
+          "file": "Unknown Title.mp3"
+        },
+        {
           "id": "ZmPXTRr5-Y0",
           "title": "Veedu Aradugula Bullettu Full Song With Lyrics - Attarintiki Daredi Songs- Pawan Kalyan Samantha DSP",
           "artist": "Aditya Music PLAYBACK",
@@ -9880,6 +11950,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/n6FLVEWOWBg/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=n6FLVEWOWBg",
           "file": "Priya Raagale.mp3"
+        },
+        {
+          "id": "PQFUNoXvwI8",
+          "title": "NAGUTHA NAGUTHA BAALU",
+          "artist": "Dr. Rajkumar - Topic",
+          "duration": 286,
+          "thumbnail": "https://i.ytimg.com/vi/PQFUNoXvwI8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/PQFUNoXvwI8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=PQFUNoXvwI8",
+          "file": "Nagutha Nagutha Baalu - Lyrical \uff5c Parashuram \uff5c Dr. Rajkumar, Mahalakshmi \uff5c Kannada Old Hit Song.mp3"
         },
         {
           "id": "FKNLt_oPlSM",
@@ -9952,6 +12032,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Cheliya.mp3"
         },
         {
+          "id": "o4pWBJp0cpw",
+          "title": "Kontegadni Kattuko",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 313,
+          "thumbnail": "https://i.ytimg.com/vi/o4pWBJp0cpw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/o4pWBJp0cpw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=o4pWBJp0cpw",
+          "file": "Kontegadni Kattuko.mp3"
+        },
+        {
           "id": "_iyRFJya_dY",
           "title": "Singarala",
           "artist": "S.P.Balasubramanyam - Topic",
@@ -9962,6 +12052,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Singarala.mp3"
         },
         {
+          "id": "d_kIV4jYfXM",
+          "title": "Pranaamam",
+          "artist": "Shankar Mahadevan - Topic",
+          "duration": 241,
+          "thumbnail": "https://i.ytimg.com/vi/d_kIV4jYfXM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/d_kIV4jYfXM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=d_kIV4jYfXM",
+          "file": "Janatha Garage Songs \uff5c Pranaamam Lyrical Video Song \uff5c Jr NTR \uff5c Samantha \uff5c Nithya Menen \uff5c DSP.mp3"
+        },
+        {
           "id": "HBEtZk6_-vU",
           "title": "Singam Ondru",
           "artist": "Malaysia Vasudevan - Topic",
@@ -9970,6 +12070,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/HBEtZk6_-vU/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=HBEtZk6_-vU",
           "file": "Singam Ondru.mp3"
+        },
+        {
+          "id": "BS0lfhSUG6k",
+          "title": "Chikchik Cham",
+          "artist": "Mano - Topic",
+          "duration": 329,
+          "thumbnail": "https://i.ytimg.com/vi/BS0lfhSUG6k/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/BS0lfhSUG6k/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=BS0lfhSUG6k",
+          "file": "Chikchik Cham.mp3"
         },
         {
           "id": "2ziOnXXjRfQ",
@@ -10362,6 +12472,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Dakshayagnam Movie Songs - Hara Hara Mahadeva Song - Hanumantha Rao Saluri Songs.mp3"
         },
         {
+          "id": "3jhONrF7DQU",
+          "title": "#RP Patnaik Heart Touching Telugu Hit Songs Jukebox",
+          "artist": "Malli Vibes",
+          "duration": 2502,
+          "thumbnail": "https://i.ytimg.com/vi/3jhONrF7DQU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/3jhONrF7DQU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=3jhONrF7DQU",
+          "file": "#RP Patnaik Heart Touching Telugu Hit Songs Jukebox.mp3"
+        },
+        {
           "id": "gdOHFPek_pY",
           "title": "Manasantha Nuvve Full Songs Jukebox || Uday Kiran, Reema Sen",
           "artist": "Aditya Music",
@@ -10390,6 +12510,16 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/b3EtE4k0G30/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=b3EtE4k0G30",
           "file": "Ramayan Background Music Flute \uff5c Vikram Kumar.mp3"
+        },
+        {
+          "id": "bmER_-mIM88",
+          "title": "Unknown Title",
+          "artist": "Unknown Channel",
+          "duration": 0,
+          "thumbnail": "https://i.ytimg.com/vi/bmER_-mIM88/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/bmER_-mIM88/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=bmER_-mIM88",
+          "file": "Unknown Title.mp3"
         },
         {
           "id": "eLvUvuLr-fI",

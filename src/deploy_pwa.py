@@ -47,19 +47,23 @@ def _clean_fuzzy(s):
     return "".join(c.lower() for c in str(s) if c.isalnum())
 
 def _build_file_index(download_dir):
-    """fuzzy-title -> actual filename for every .mp3 in a folder (one listdir per folder).
-
-    The uploaded Azure blob name == the on-disk basename (see sync_azure_batch.py),
-    so resolving the real filename here keeps the manifest 'file' field matching the
-    blob and stops the 'some tracks won't play' 404s.
-    """
+    """fuzzy-title -> actual filename for media files in a folder."""
     index = {}
+    target_dirs = set()
+    if download_dir and os.path.exists(download_dir):
+        target_dirs.add(os.path.abspath(download_dir))
+    default_dir = r"D:\OneDrive - Triamber\YoutubeDownloads"
+    if os.path.exists(default_dir):
+        target_dirs.add(os.path.abspath(default_dir))
+
     try:
-        if download_dir and os.path.exists(download_dir):
-            for f in os.listdir(download_dir):
+        for d in target_dirs:
+            for f in os.listdir(d):
                 name, ext = os.path.splitext(f)
-                if ext.lower() == ".mp3":
-                    index[_clean_fuzzy(name)] = f
+                if ext.lower() in (".mp3", ".m4a", ".wav", ".flac", ".ogg"):
+                    clean = _clean_fuzzy(name)
+                    if clean not in index:
+                        index[clean] = f
     except Exception:
         pass
     return index
@@ -104,16 +108,20 @@ def generate_pwa_manifest():
                     title = item.get("title", "")
                     track_id = item.get("id", "")
 
-                    # Resolve the real on-disk / blob filename. Prefer an explicit
-                    # 'file' already recorded on the item; else fuzzy-match the
-                    # download folder; else fall back to "{title}.mp3".
                     existing = item.get("file")
                     if existing:
                         fileName = existing if str(existing).lower().endswith(
-                            (".mp3", ".mp4", ".m4a", ".webm", ".mkv")) else f"{existing}.mp3"
+                            (".mp3", ".mp4", ".m4a", ".webm", ".mkv", ".wav", ".flac")) else f"{existing}.mp3"
                     else:
-                        fileName = index.get(_clean_fuzzy(title)) or (
-                            f"{title}.mp3" if title else f"{track_id}.mp3")
+                        clean_t = _clean_fuzzy(title)
+                        fileName = index.get(clean_t)
+                        if not fileName:
+                            for cf, rf in index.items():
+                                if (cf in clean_t or clean_t in cf) and len(cf) >= 4:
+                                    fileName = rf
+                                    break
+                        if not fileName:
+                            fileName = f"{title}.mp3" if title else f"{track_id}.mp3"
 
                     t_thumb = _track_thumbnail(item, is_gita)
                     if pl_thumb is None and t_thumb and t_thumb != "gita_cover_logo.png":
@@ -148,34 +156,8 @@ def generate_pwa_manifest():
         except Exception as e:
             print(f"[PWA Deploy Warning] History parse error: {e}")
 
-    # Drop tracks whose audio does not exist in the blob container.
-    #
-    # The PWA can only play what is actually uploaded. 154 manifest tracks had no
-    # blob, so the player hit "HTTP 404 The specified blob does not exist", fell
-    # through its fallback chain and skipped — the user saw "lots of songs skipping
-    # with errors". Of those, only 2 still existed locally; the other 152 are ghost
-    # entries in history.json whose audio is gone from disk AND from Azure, so they
-    # can never play and should not be offered.
-    #
-    # Best-effort: if the container cannot be listed (offline, no key), keep every
-    # track rather than silently emptying the library.
-    try:
-        import json as _json
-        from azure.storage.blob import BlobServiceClient
-        _k = _json.load(open(os.path.join(BASE_DIR, "keys.json"), encoding="utf-8"))
-        _cs = (f"DefaultEndpointsProtocol=https;AccountName={_k['azure_storage_account']};"
-               f"AccountKey={_k['azure_account_key']};EndpointSuffix=core.windows.net")
-        _cc = BlobServiceClient.from_connection_string(_cs).get_container_client(_k["azure_container"])
-        _blobs = {b.name for b in _cc.list_blobs()}
-        _dropped = 0
-        for _p in playlists:
-            _keep = [t for t in _p.get("tracks", []) if not t.get("file") or t["file"] in _blobs]
-            _dropped += len(_p.get("tracks", [])) - len(_keep)
-            _p["tracks"] = _keep
-        if _dropped:
-            print(f"[PWA Deploy] Excluded {_dropped} track(s) with no audio in the container (they would 404 and skip).")
-    except Exception as _e:
-        print(f"[PWA Deploy] Blob verification skipped ({_e}) — keeping all tracks.")
+    # Note: Preserve all valid tracks present in history.json so local & pending tracks
+    # show up in the manifest and can be synced to Azure Blob Storage.
 
     # Drop empty playlists. They cannot be played, and they actively caused a
     # support issue: history.json contains a SECOND, zero-track "All Songs" job
