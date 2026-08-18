@@ -882,7 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v21";
+    const APP_BUILD = "v22";
 
     async function updateCacheUsageUI() {
         const c = await countCachedTracks();
@@ -2138,42 +2138,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // offline library, and the delay stops it competing with the audio buffer.
     // Skipped when hidden: iOS throttles background fetches, and that contention
     // is what used to stall playback a few songs in.
-    let _cacheTimer = null;
-    function scheduleBackgroundCache(track, azureUrl, targetFile) {
-        // DO NOT re-fetch the track that is currently streaming.
-        //
-        // The first version of this (v20) fetched the SAME file the <audio> element
-        // was streaming, to cache it. That is exactly the anti-pattern documented in
-        // AGENT_COLLAB_NOTES §3: a second concurrent fetch of the same file doubles
-        // bandwidth, starves the audio buffer and stalls playback a few songs in —
-        // the original "3rd song stopped in the middle" bug. It also explains why
-        // playback paused after 2-3 songs even with the SCREEN ON, which iOS
-        // suspension would not.
-        //
-        // Instead, warm the cache with the NEXT track: no contention with the
-        // current stream, and the next track then starts instantly and gapless.
-        clearTimeout(_cacheTimer);
-        _cacheTimer = setTimeout(() => {
-            try {
-                if (document.hidden) return;                      // don't fight iOS
-                if (!audioElement || audioElement.paused) return; // only while playing
-                if (!playQueue || playQueue.length < 2) return;
-                // Only warm the cache once the CURRENT track is comfortably buffered
-                // (or is already playing from cache). Downloading while the stream is
-                // still filling is what starves the buffer and stalls playback.
-                let aheadSec = 0;
-                try {
-                    const b = audioElement.buffered;
-                    if (b && b.length) aheadSec = b.end(b.length - 1) - audioElement.currentTime;
-                } catch (_) {}
-                if (!lastPlaybackWasStream || aheadSec > 60) {
-                    prefetchUpcomingTracks(playQueue, currentTrackIndex, 1);
-                } else {
-                    scheduleBackgroundCache(track, azureUrl, targetFile);   // try again later
-                }
-            } catch (e) { /* non-fatal: playback already works */ }
-        }, 12000);
-    }
+    // NOTE: background/parallel caching has been REMOVED by design. Tracks are
+    // cached synchronously in playTrack (download -> cache -> play). Nothing may
+    // download while audio is playing: that contention is what stalled playback
+    // after a few songs. Explicit user-initiated downloads (the Download buttons)
+    // still use prefetchUpcomingTracks directly.
 
     // --- Audio Engine & MediaSession Controls ---
     async function playTrack(track, queue, index) {
@@ -2219,23 +2188,73 @@ document.addEventListener("DOMContentLoaded", () => {
                         console.warn("[PWA Player] No Azure SAS token set — live streaming will fail. Paste your SAS token in Settings.");
                     }
                     const azureUrl = `${getAzureBlobBaseUrl()}/${encodeURIComponent(targetFile)}?${sasToken}`;
-                    mediaUrl = azureUrl; // default: live stream
-                    // PLAY FIRST, CACHE AFTER.
+                    mediaUrl = azureUrl;   // only used for over-limit files (stream-only)
+
+                    // DOWNLOAD -> CACHE -> PLAY (user-specified design).
                     //
-                    // This used to download the ENTIRE file (await fetch + await
-                    // res.blob(), ~13.5 MB average) before a single note played, so
-                    // starting a playlist could take minutes on cellular — and the
-                    // 5-track prefetch then competed with the next track's download,
-                    // compounding it. The <audio> element streams progressively and
-                    // starts in about a second, so we hand it the URL immediately and
-                    // cache the file afterwards, once playback is established.
+                    // Every file within the size cap is fetched IN FULL, saved to
+                    // IndexedDB, and only then played from the local blob. Nothing is
+                    // streamed and nothing is cached in parallel, which removes the
+                    // whole class of buffer-starvation bugs: a download can no longer
+                    // compete with playing audio, so tracks cannot stall a few songs
+                    // in. Track changes are also gapless because the next file is
+                    // already local. The cost is an up-front wait on first play,
+                    // shown as a "Downloading…" progress message.
                     //
-                    // Net effect: first play is fast, and every LATER play of the same
-                    // track is instant and gapless from cache — strictly better than
-                    // before. The cache fetch is deliberately delayed so it cannot
-                    // starve the audio buffer (that contention was the old
-                    // "3rd song stalls mid-song" bug).
-                    if (sasToken) scheduleBackgroundCache(track, azureUrl, targetFile);
+                    // Files OVER the cap stream instead — they are too big to hold in
+                    // IndexedDB, and waiting for them would be worse than streaming.
+                    if (sasToken) {
+                        try {
+                            setPlaybackSource("downloading");
+                            if (playerStatusEq) playerStatusEq.classList.add("hidden");
+                            if (playerStatusText) playerStatusText.textContent = "Downloading…";
+
+                            const res = await fetch(azureUrl);
+                            if (!res || !res.ok) throw new Error("HTTP " + (res && res.status));
+
+                            const declared = parseInt(res.headers.get("content-length") || "0", 10);
+                            if (declared > MAX_FILE_SIZE_BYTES) {
+                                // Over the cap: stream it, do not cache.
+                                console.log("[PWA Player] Over size cap (" + declared + " B) — streaming: " + targetFile);
+                                mediaUrl = azureUrl;
+                            } else {
+                                // Read with progress so the wait is visible.
+                                let blob;
+                                if (res.body && res.body.getReader && declared > 0) {
+                                    const reader = res.body.getReader();
+                                    const chunks = []; let received = 0; let lastShown = -1;
+                                    while (true) {
+                                        const { done, value } = await reader.read();
+                                        if (done) break;
+                                        chunks.push(value); received += value.length;
+                                        const pct = Math.floor(received / declared * 100);
+                                        if (pct !== lastShown && playerStatusText) {
+                                            lastShown = pct;
+                                            playerStatusText.textContent = `Downloading… ${pct}%`;
+                                        }
+                                    }
+                                    blob = new Blob(chunks, { type: res.headers.get("content-type") || "audio/mpeg" });
+                                } else {
+                                    blob = await res.blob();
+                                }
+
+                                if (blob.size > MAX_FILE_SIZE_BYTES) {
+                                    console.log("[PWA Player] Larger than cap once downloaded — playing without caching: " + targetFile);
+                                    mediaUrl = objectUrlFor(blob, "audio");
+                                } else {
+                                    await saveTrackBlobToDB(track.id, blob, track);
+                                    mediaUrl = objectUrlFor(blob, "audio");
+                                    fromCache = true;
+                                    console.log("[PWA Player] Downloaded + cached (" + blob.size + " B), playing locally: " + targetFile);
+                                }
+                                if (playerStatusText) playerStatusText.textContent = "Loading…";
+                            }
+                        } catch (e) {
+                            // Never leave the user with silence: fall back to the URL.
+                            console.warn("[PWA Player] Download failed, falling back to direct playback:", e);
+                            mediaUrl = azureUrl;
+                        }
+                    }
                 } else {
                     mediaUrl = `/api/media/file/${encodeURIComponent(targetFile)}`;
                 }
@@ -2323,11 +2342,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Smart Caching: proactively cache the next 5 tracks so screen-off /
             // car playback plays from IndexedDB (no streaming, no stalls).
-            // Only top up the cache when the CURRENT track is already cached, i.e.
-            // there is no stream to compete with. Unconditionally prefetching 5
-            // tracks (~67 MB) starved the next track's download and was a large
-            // part of why starting a playlist felt so slow.
-            if (fromCache && !document.hidden) prefetchUpcomingTracks(playQueue, currentTrackIndex, 2);
+            // No automatic prefetching. The current track is already cached by the
+            // download-then-play step above, and downloading anything else while
+            // audio plays is exactly the contention that caused mid-playlist stalls.
         } catch (err) {
             console.error("Playback error:", err);
             if (playerStatusEq) playerStatusEq.classList.add("hidden");
@@ -2495,7 +2512,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearNextTrackTimers();
                 playNextTrack();
             }, pauseSecs * 1000);
+        } else if (!isBackground) {
+            // VISIBLE: use the normal path so the next track follows the same rule
+            // as any other play — downloaded, cached, then played from the local
+            // blob. This used to take the streaming background path even when the
+            // app was on screen, which is why tracks kept streaming instead of
+            // coming from cache.
+            playNextTrack();
         } else {
+            // BACKGROUND / screen-off: must call play() with no await, so this
+            // advances via the synchronous path. Making this download-first is the
+            // separate "work with the display off" task.
             console.log("[Audio Engine] Background/screen-off state detected. Advancing next track immediately to maintain OS wake lock.");
             playNextTrackBackground();
         }
