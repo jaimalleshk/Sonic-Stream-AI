@@ -882,7 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v22";
+    const APP_BUILD = "v23";
 
     async function updateCacheUsageUI() {
         const c = await countCachedTracks();
@@ -903,6 +903,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (est.quota) line += ` · quota ${fmt(est.quota)}`;
             } catch (e) {}
         }
+        // Surface the session's auto-advance tally: the quickest way to answer
+        // "how many songs did it get through with the screen off?".
+        try {
+            const log = window.__advanceLog || [];
+            if (log.length) {
+                const offCount = log.filter(e => e.screen !== "on").length;
+                const last = log[log.length - 1];
+                line += ` · ${log.length} auto-advance${log.length === 1 ? '' : 's'} this session`;
+                if (offCount) line += ` (${offCount} screen-off, last ${last.at})`;
+            }
+        } catch (_) {}
         if (cacheUsageText) {
             cacheUsageText.textContent = line;
             cacheUsageText.style.color = c.tiny > 0 ? "#ffb454" : (c.count > 0 ? "var(--neon-blue)" : "var(--text-secondary)");
@@ -2138,6 +2149,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // offline library, and the delay stops it competing with the audio buffer.
     // Skipped when hidden: iOS throttles background fetches, and that contention
     // is what used to stall playback a few songs in.
+    // Session counter for auto-advances, so "how many songs does screen-off
+    // playback survive?" can be answered from evidence instead of memory. Pure
+    // in-memory + one console line: no network, no IndexedDB, nothing that could
+    // compete with playback in the background. Read it afterwards via the header
+    // Trace Logs button, or window.__advanceLog in a console.
+    let autoAdvanceCount = 0;
+    window.__advanceLog = [];
+
     // NOTE: background/parallel caching has been REMOVED by design. Tracks are
     // cached synchronously in playTrack (download -> cache -> play). Nothing may
     // download while audio is playing: that contention is what stalled playback
@@ -2492,6 +2511,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const pauseInput = document.getElementById("playerPauseSeconds");
         const pauseSecs = pauseInput ? (parseInt(pauseInput.value) || 0) : 0;
         const isBackground = document.hidden || (typeof document.webkitHidden !== "undefined" && document.webkitHidden);
+
+        autoAdvanceCount++;
+        try {
+            const entry = {
+                n: autoAdvanceCount,
+                at: new Date().toLocaleTimeString(),
+                screen: isBackground ? "OFF/hidden" : "on",
+                from: (playQueue[currentTrackIndex] && playQueue[currentTrackIndex].title || "").slice(0, 40)
+            };
+            window.__advanceLog.push(entry);
+            console.log(`[Auto-Advance #${entry.n}] screen ${entry.screen} — finished: ${entry.from}`);
+        } catch (_) {}
 
         if (pauseSecs > 0 && !isBackground) {
             let count = pauseSecs;
