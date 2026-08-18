@@ -768,6 +768,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     timestamp: Date.now()
                 });
                 tx.oncomplete = () => {
+                    // Update the totals incrementally instead of rescanning the whole
+                    // store (see getCacheStats): this runs on every cached track.
+                    try { if (blob && blob.size) noteBlobCached(blob.size); } catch (_) {}
                     updateCacheUsageUI();
                     // Keep the cache within budget. checkStorageQuotaLimit() existed
                     // but was NEVER CALLED from anywhere, so nothing ever bounded the
@@ -834,7 +837,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function checkStorageQuotaLimit() {
         try {
-            const c = await countCachedTracks();          // measured, not estimated
+            const c = await getCacheStats();             // measured, and cheap after the first scan
             if (c.bytes >= MAX_TOTAL_CACHE_BYTES) {
                 console.warn("[PWA Storage] Cache at " + (c.bytes/1073741824).toFixed(2) + " GB - trimming.");
                 await enforceCacheBudget();
@@ -899,7 +902,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (_) { resolve(); }
         });
         console.log("[PWA Storage] Evicted " + doomed.length + " cached track(s) to fit the budget.");
-        updateCacheUsageUI();
+        updateCacheUsageUI(true);   // totals changed underneath us — rescan
     }
 
     // Count how many track blobs are ACTUALLY cached in IndexedDB. This is the
@@ -941,10 +944,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v27";
+    const APP_BUILD = "v28";
 
-    async function updateCacheUsageUI() {
-        const c = await countCachedTracks();
+    // Memoised cache statistics.
+    //
+    // countCachedTracks() opens a cursor over the WHOLE files store. That is cheap
+    // on a small database and expensive on a real one: with ~1283 records and 288
+    // audio blobs (multiple GB), it was being run TWICE per cached track — once by
+    // updateCacheUsageUI() and once by checkStorageQuotaLimit() — and the new
+    // 3-track cache-ahead multiplied that to six full scans per song. That is what
+    // made the player feel stuck on a well-populated phone while it was perfectly
+    // fine on a fresh install. Scan once, then keep the totals up to date
+    // incrementally; only rescan when something could have changed underneath us.
+    let _cacheStats = null;
+
+    async function getCacheStats(force = false) {
+        if (!_cacheStats || force) _cacheStats = await countCachedTracks();
+        return _cacheStats;
+    }
+    function noteBlobCached(size) {
+        if (!_cacheStats) return;
+        _cacheStats.count++; _cacheStats.bytes += size;
+        if (size < 100 * 1024) _cacheStats.tiny++;
+    }
+
+    async function updateCacheUsageUI(force = false) {
+        const c = await getCacheStats(force);
         const fmt = (b) => {
             const mb = b / (1024 * 1024);
             return mb >= 1024 ? (mb / 1024).toFixed(2) + " GB" : mb.toFixed(1) + " MB";
@@ -984,7 +1009,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!db || !db.objectStoreNames.contains("files") || !confirm("Clear all offline cached music tracks?")) return;
             const tx = db.transaction("files", "readwrite");
             tx.objectStore("files").clear();
-            updateCacheUsageUI();
+            _cacheStats = null;
+            updateCacheUsageUI(true);
             alert("Offline cache cleared.");
         });
     }
@@ -3240,9 +3266,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Settings Modal ---
     if (btnOpenSettings) btnOpenSettings.addEventListener("click", () => {
         if (settingsModal) settingsModal.classList.remove("hidden");
-        // Recompute on open — the figure was only calculated at page load, so it
-        // showed a stale value (e.g. "0 tracks") after caching tracks in a session.
-        updateCacheUsageUI();
+        // Force a real rescan when the user actually looks at it, so the number is
+        // authoritative even though playback uses the cheap incremental totals.
+        updateCacheUsageUI(true);
     });
     if (btnCloseSettings) btnCloseSettings.addEventListener("click", () => settingsModal && settingsModal.classList.add("hidden"));
     if (btnSaveSettings) {
