@@ -882,7 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v20";
+    const APP_BUILD = "v21";
 
     async function updateCacheUsageUI() {
         const c = await countCachedTracks();
@@ -2140,22 +2140,39 @@ document.addEventListener("DOMContentLoaded", () => {
     // is what used to stall playback a few songs in.
     let _cacheTimer = null;
     function scheduleBackgroundCache(track, azureUrl, targetFile) {
+        // DO NOT re-fetch the track that is currently streaming.
+        //
+        // The first version of this (v20) fetched the SAME file the <audio> element
+        // was streaming, to cache it. That is exactly the anti-pattern documented in
+        // AGENT_COLLAB_NOTES §3: a second concurrent fetch of the same file doubles
+        // bandwidth, starves the audio buffer and stalls playback a few songs in —
+        // the original "3rd song stopped in the middle" bug. It also explains why
+        // playback paused after 2-3 songs even with the SCREEN ON, which iOS
+        // suspension would not.
+        //
+        // Instead, warm the cache with the NEXT track: no contention with the
+        // current stream, and the next track then starts instantly and gapless.
         clearTimeout(_cacheTimer);
-        _cacheTimer = setTimeout(async () => {
+        _cacheTimer = setTimeout(() => {
             try {
-                if (document.hidden) return;                       // don't fight iOS
-                if (!audioElement || audioElement.paused) return;  // only while playing
-                const existing = await getTrackRecordFromDB(track.id, track.title);
-                if (existing && (existing.blob || existing.audio_blob)) return;  // already cached
-                const res = await fetch(azureUrl);
-                if (!res || !res.ok) return;
-                const blob = await res.blob();
-                if (blob.size > 0 && blob.size <= MAX_FILE_SIZE_BYTES) {
-                    await saveTrackBlobToDB(track.id, blob, track);
-                    console.log("[PWA Cache] Cached after playback started: " + targetFile);
+                if (document.hidden) return;                      // don't fight iOS
+                if (!audioElement || audioElement.paused) return; // only while playing
+                if (!playQueue || playQueue.length < 2) return;
+                // Only warm the cache once the CURRENT track is comfortably buffered
+                // (or is already playing from cache). Downloading while the stream is
+                // still filling is what starves the buffer and stalls playback.
+                let aheadSec = 0;
+                try {
+                    const b = audioElement.buffered;
+                    if (b && b.length) aheadSec = b.end(b.length - 1) - audioElement.currentTime;
+                } catch (_) {}
+                if (!lastPlaybackWasStream || aheadSec > 60) {
+                    prefetchUpcomingTracks(playQueue, currentTrackIndex, 1);
+                } else {
+                    scheduleBackgroundCache(track, azureUrl, targetFile);   // try again later
                 }
             } catch (e) { /* non-fatal: playback already works */ }
-        }, 10000);
+        }, 12000);
     }
 
     // --- Audio Engine & MediaSession Controls ---
@@ -2634,7 +2651,18 @@ document.addEventListener("DOMContentLoaded", () => {
             // "pause" stays registered: stopping audio is always permitted (it
             // demonstrably works in the background), and it is what lets us mark a
             // pause as deliberate so the interruption auto-resume never fights it.
-            navigator.mediaSession.setActionHandler("play", null);
+            // RESTORED. This was set to null on the theory that iOS forbids a
+            // non-visible page from starting playback. That theory was DISPROVEN:
+            // the real cause of silent resume was the Web Audio graph being built
+            // on the phone (landscape width guard) and its context being suspended
+            // — fixed separately. Removing this handler meant the lock screen and
+            // car had no play action at all. Keep it minimal and synchronous.
+            navigator.mediaSession.setActionHandler("play", () => {
+                userInitiatedPause = false;
+                resumeAfterInterruption = false;
+                ensureAudioContextRunning();
+                resumePlaybackWithRecovery();
+            });
             navigator.mediaSession.setActionHandler("pause", () => {
                 // A remote pause is DELIBERATE — never auto-resume it.
                 userInitiatedPause = true;
