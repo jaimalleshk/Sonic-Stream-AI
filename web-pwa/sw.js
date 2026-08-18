@@ -1,4 +1,4 @@
-const CACHE_NAME = "sonicstream-v23";
+const CACHE_NAME = "sonicstream-v26";
 // Precache the whole app shell so it LOADS OFFLINE. The pinned entry point is
 // mobile.html (index.html redirects to it), and it pulls in manifest_fallback.js
 // + config.js + settings.json — all of which must be cached or the offline

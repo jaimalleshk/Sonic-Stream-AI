@@ -6,9 +6,46 @@
     const origErr = console.error;
 
     function appendLogToUI(type, args) {
-        const msg = Array.from(args).map(a => (typeof a === "object" ? JSON.stringify(a, null, 2) : String(a))).join(" ");
+        // Serialise properly. JSON.stringify(new Error("boom")) returns "{}", which
+        // is why every error in the trace log read as an unhelpful empty object.
+        // Errors, DOMExceptions and MediaError all need explicit handling.
+        const describe = (a) => {
+            try {
+                if (a === null || a === undefined) return String(a);
+                if (a instanceof Error) return `${a.name}: ${a.message}`;
+                if (typeof MediaError !== "undefined" && a instanceof MediaError) {
+                    const codes = { 1: "ABORTED", 2: "NETWORK", 3: "DECODE", 4: "SRC_NOT_SUPPORTED" };
+                    return `MediaError ${a.code} (${codes[a.code] || "?"})${a.message ? ": " + a.message : ""}`;
+                }
+                if (typeof Event !== "undefined" && a instanceof Event) return `Event<${a.type}>`;
+                if (typeof a === "object") {
+                    const plain = JSON.stringify(a, null, 2);
+                    if (plain && plain !== "{}") return plain;
+                    // Fall back to own+inherited readable props (covers DOMException).
+                    const bits = [];
+                    for (const k of ["name", "message", "code", "reason", "type"]) {
+                        if (a[k] !== undefined) bits.push(`${k}=${a[k]}`);
+                    }
+                    return bits.length ? `{${bits.join(", ")}}` : Object.prototype.toString.call(a);
+                }
+                return String(a);
+            } catch (_) { return "[unserialisable]"; }
+        };
+        const msg = Array.from(args).map(describe).join(" ");
         const time = new Date().toLocaleTimeString();
         window.SONICSTREAM_LOGS.push({ type, time, msg });
+
+        // Queue the IMPORTANT lines for persistence. In-memory logs die with the
+        // page — precisely when we most need them (an eviction or self-reload
+        // mid-drive leaves no evidence at all). Only errors, warnings and playback
+        // milestones are kept, so the store stays small. Writing happens later, in
+        // batches, never on the playback path.
+        try {
+            if (type === "error" || type === "warn" ||
+                /Auto-Advance|Screen-off advance|Next track was|Download FAILED|Downloaded \+ cached|Superseded|Re-established|Service Worker registered|Topping up/.test(msg)) {
+                (window.__PERSIST_QUEUE = window.__PERSIST_QUEUE || []).push({ type, time, msg: msg.slice(0, 300), t: Date.now() });
+            }
+        } catch (_) {}
 
         const container = document.getElementById("liveConsoleBody");
         if (container) {
@@ -146,6 +183,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("liveConsoleBody");
         if (!container) return;
         container.innerHTML = "";
+        // Show persisted lines from EARLIER sessions first. If the app was evicted
+        // or reloaded mid-drive, this is the only surviving evidence of what
+        // happened — the in-memory log started empty after the reload.
+        const persisted = window.__PERSISTED_TRACE || [];
+        if (persisted.length) {
+            const hdr = document.createElement("div");
+            hdr.style.cssText = "padding:4px 0;color:var(--neon-blue);font-weight:700;border-bottom:1px solid rgba(255,255,255,0.15);";
+            hdr.textContent = `── ${persisted.length} saved line(s) from earlier sessions ──`;
+            container.appendChild(hdr);
+            persisted.forEach(l => {
+                const d = document.createElement("div");
+                d.style.cssText = "padding:3px 0;opacity:.75;border-bottom:1px solid rgba(255,255,255,0.05);";
+                d.textContent = `[${l.time}] [${String(l.type).toUpperCase()}] ${l.msg}`;
+                if (l.type === "error") d.style.color = "#ff5f56";
+                else if (l.type === "warn") d.style.color = "#ffb454";
+                container.appendChild(d);
+            });
+            const sep = document.createElement("div");
+            sep.style.cssText = "padding:4px 0;color:var(--neon-blue);font-weight:700;border-bottom:1px solid rgba(255,255,255,0.15);";
+            sep.textContent = "── this session ──";
+            container.appendChild(sep);
+        }
         const logs = window.SONICSTREAM_LOGS || [];
         if (logs.length === 0) {
             container.innerHTML = `<div style="color: var(--text-muted);">[System] Live Terminal initialized. No logs recorded yet. Perform actions to view real-time traces...</div>`;
@@ -882,7 +941,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v23";
+    const APP_BUILD = "v26";
 
     async function updateCacheUsageUI() {
         const c = await countCachedTracks();
@@ -2149,6 +2208,48 @@ document.addEventListener("DOMContentLoaded", () => {
     // offline library, and the delay stops it competing with the audio buffer.
     // Skipped when hidden: iOS throttles background fetches, and that contention
     // is what used to stall playback a few songs in.
+    // --- Persistent trace log -------------------------------------------------
+    // Stored as ONE key in the existing "settings" store, deliberately: adding an
+    // object store needs a DB version bump, and a botched upgrade would risk the
+    // user's multi-GB cache. No schema change, no upgrade path, no risk.
+    //
+    // Flushed in batches while VISIBLE, and on the way out (visibilitychange /
+    // pagehide) — never during background playback, since IndexedDB writes are
+    // exactly the kind of work that competes with audio when iOS is throttling us.
+    const TRACE_KEY = "__trace_log_v1";
+    const TRACE_MAX = 400;
+
+    async function flushTraceLog(reason) {
+        const q = window.__PERSIST_QUEUE || [];
+        if (!q.length) return;
+        let database = null;
+        try { database = db; } catch (_) { return; }
+        if (!database || !database.objectStoreNames.contains("settings")) return;
+        const batch = q.splice(0, q.length);
+        try {
+            const prev = (await getSettingFromDB(TRACE_KEY)) || [];
+            const merged = prev.concat(batch).slice(-TRACE_MAX);   // ring buffer
+            await saveSettingToDB(TRACE_KEY, merged);
+        } catch (e) {
+            // put them back so nothing is lost on a transient failure
+            window.__PERSIST_QUEUE = batch.concat(window.__PERSIST_QUEUE || []);
+        }
+    }
+
+    // Expose for diagnosis: window.dumpTraceLog() prints everything, including
+    // lines from PREVIOUS sessions that would otherwise have been lost.
+    window.dumpTraceLog = async () => {
+        const persisted = (await getSettingFromDB(TRACE_KEY)) || [];
+        const live = window.SONICSTREAM_LOGS || [];
+        console.log(`[Trace] ${persisted.length} persisted (previous + this session), ${live.length} in memory now.`);
+        return { persisted, live };
+    };
+    window.clearTraceLog = async () => { await saveSettingToDB(TRACE_KEY, []); return "cleared"; };
+
+    setInterval(() => { if (!document.hidden) flushTraceLog("interval"); }, 30000);
+    document.addEventListener("visibilitychange", () => flushTraceLog(document.hidden ? "going-hidden" : "returning"));
+    window.addEventListener("pagehide", () => flushTraceLog("pagehide"));
+
     // Session counter for auto-advances, so "how many songs does screen-off
     // playback survive?" can be answered from evidence instead of memory. Pure
     // in-memory + one console line: no network, no IndexedDB, nothing that could
@@ -2164,8 +2265,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // still use prefetchUpcomingTracks directly.
 
     // --- Audio Engine & MediaSession Controls ---
+    // Guards against two playTrack() calls running at once. The trace log showed
+    // two "Downloaded + cached" lines in the SAME second followed by "Playback
+    // error": two invocations were downloading in parallel and then fighting over
+    // audioElement.src, so whichever lost corrupted the other's playback. Each call
+    // takes a generation number; after every await it checks whether a newer call
+    // has superseded it and bails out silently if so.
+    let playGeneration = 0;
+
     async function playTrack(track, queue, index) {
         if (!track) return;
+        const myGeneration = ++playGeneration;
+        const superseded = () => {
+            if (playGeneration !== myGeneration) {
+                console.log(`[PWA Player] Superseded by a newer play request — abandoning: ${track.title}`);
+                return true;
+            }
+            return false;
+        };
 
         clearNextTrackTimers();
         playQueue = queue || [track];
@@ -2190,6 +2307,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let fromCache = false;
             let sasMissing = false;
             const cachedRecord = await getTrackRecordFromDB(track.id, track.title);
+            if (superseded()) return;
             if (cachedRecord && cachedRecord.blob) {
                 mediaUrl = objectUrlFor(cachedRecord.blob, "audio");
                 if (cachedRecord.thumbBlob) {
@@ -2228,13 +2346,16 @@ document.addEventListener("DOMContentLoaded", () => {
                             if (playerStatusEq) playerStatusEq.classList.add("hidden");
                             if (playerStatusText) playerStatusText.textContent = "Downloading…";
 
+                            const t0 = Date.now();
+                            console.log(`[PWA Player] Downloading (hidden=${document.hidden}, online=${navigator.onLine}): ${targetFile}`);
                             const res = await fetch(azureUrl);
-                            if (!res || !res.ok) throw new Error("HTTP " + (res && res.status));
+                            if (superseded()) return;
+                            if (!res || !res.ok) throw new Error("HTTP " + (res && res.status) + " " + (res && res.statusText));
 
                             const declared = parseInt(res.headers.get("content-length") || "0", 10);
                             if (declared > MAX_FILE_SIZE_BYTES) {
                                 // Over the cap: stream it, do not cache.
-                                console.log("[PWA Player] Over size cap (" + declared + " B) — streaming: " + targetFile);
+                                console.warn(`[PWA Player] STREAMING because content-length says ${(declared/1048576).toFixed(1)} MB > cap ${(MAX_FILE_SIZE_BYTES/1048576).toFixed(0)} MB: ${targetFile}`);
                                 mediaUrl = azureUrl;
                             } else {
                                 // Read with progress so the wait is visible.
@@ -2257,6 +2378,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                     blob = await res.blob();
                                 }
 
+                                if (superseded()) return;
+                                console.log(`[PWA Player] Download finished in ${((Date.now()-t0)/1000).toFixed(1)}s: ${targetFile}`);
                                 if (blob.size > MAX_FILE_SIZE_BYTES) {
                                     console.log("[PWA Player] Larger than cap once downloaded — playing without caching: " + targetFile);
                                     mediaUrl = objectUrlFor(blob, "audio");
@@ -2270,7 +2393,8 @@ document.addEventListener("DOMContentLoaded", () => {
                             }
                         } catch (e) {
                             // Never leave the user with silence: fall back to the URL.
-                            console.warn("[PWA Player] Download failed, falling back to direct playback:", e);
+                            console.warn(`[PWA Player] Download FAILED (hidden=${document.hidden}, online=${navigator.onLine}) for ${targetFile} —`, e,
+                                document.hidden ? "| iOS blocks/throttles fetch while backgrounded, so an UNCACHED track cannot load with the screen off." : "");
                             mediaUrl = azureUrl;
                         }
                     }
@@ -2283,10 +2407,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 mediaUrl = `/api/media/stream?video_url=${encodeURIComponent('https://www.youtube.com/watch?v=' + track.id)}&title=${encodeURIComponent(track.title)}&format=${streamFormat}`;
             }
 
+            if (superseded()) return;
             if (!mediaUrl) throw new Error("Media stream URL unavailable");
 
             lastPlaybackWasStream = !fromCache;
             setPlaybackSource(fromCache ? "cache" : (sasMissing ? "error-sas" : "stream"));
+            // One authoritative line per play: what is playing and WHY. If a track
+            // streams when it should have downloaded, this says which branch chose it.
+            console.log(`[PWA Player] NOW PLAYING "${(track.title||"").slice(0,40)}" — source=${fromCache ? "CACHE (local blob)" : "STREAM"}`
+                + `${fromCache ? "" : " | reason=" + (sasMissing ? "no SAS token" : (String(mediaUrl).startsWith("blob:") ? "downloaded but not cached (over cap)" : "download did not complete — see the warning above"))}`
+                + ` | hidden=${document.hidden} | urlType=${String(mediaUrl).startsWith("blob:") ? "blob" : "network"}`);
 
             if (mediaUrl.startsWith("/")) {
                 mediaUrl = (window.location.protocol.startsWith("http") ? window.location.origin : "http://127.0.0.1:8765") + mediaUrl;
@@ -2361,9 +2491,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Smart Caching: proactively cache the next 5 tracks so screen-off /
             // car playback plays from IndexedDB (no streaming, no stalls).
-            // No automatic prefetching. The current track is already cached by the
-            // download-then-play step above, and downloading anything else while
-            // audio plays is exactly the contention that caused mid-playlist stalls.
+            // KEEP THE CACHE AHEAD OF PLAYBACK — this is what makes screen-off
+            // playback survive.
+            //
+            // Evidence from a real drive: advances #3-#10 ran 8 songs over 28 minutes
+            // with the screen off and ZERO errors, because those tracks were already
+            // cached and needed no network. Every failure had the opposite shape —
+            // an UNCACHED next track, then "Download FAILED", because iOS blocks
+            // fetch while backgrounded. So the cache must be filled BEFORE the screen
+            // goes off.
+            //
+            // This is not the old "parallel caching" that was banned: that competed
+            // with a live audio STREAM for bandwidth. Playback is now entirely from a
+            // local blob and uses no network at all, so a top-up has nothing to
+            // contend with. Only runs while visible (fetch fails when hidden) and
+            // only when the current track is playing from cache.
+            if (fromCache && !document.hidden && playQueue.length > 1) {
+                const ahead = 3;
+                console.log(`[PWA Cache] Topping up ${ahead} track(s) ahead so screen-off playback has no network dependency.`);
+                prefetchUpcomingTracks(playQueue, currentTrackIndex, ahead);
+            }
         } catch (err) {
             console.error("Playback error:", err);
             if (playerStatusEq) playerStatusEq.classList.add("hidden");
@@ -2521,7 +2668,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 from: (playQueue[currentTrackIndex] && playQueue[currentTrackIndex].title || "").slice(0, 40)
             };
             window.__advanceLog.push(entry);
-            console.log(`[Auto-Advance #${entry.n}] screen ${entry.screen} — finished: ${entry.from}`);
+            const nxt = playQueue[(currentTrackIndex + 1) % Math.max(playQueue.length, 1)];
+            console.log(`[Auto-Advance #${entry.n}] screen ${entry.screen} | queue ${currentTrackIndex + 1}/${playQueue.length}`
+                + ` | finished: ${entry.from} | next: ${(nxt && nxt.title || "?").slice(0, 40)}`);
         } catch (_) {}
 
         if (pauseSecs > 0 && !isBackground) {
@@ -2554,8 +2703,20 @@ document.addEventListener("DOMContentLoaded", () => {
             // BACKGROUND / screen-off: must call play() with no await, so this
             // advances via the synchronous path. Making this download-first is the
             // separate "work with the display off" task.
-            console.log("[Audio Engine] Background/screen-off state detected. Advancing next track immediately to maintain OS wake lock.");
+            console.log("[Audio Engine] Screen-off advance (synchronous, no await — an await here suspends the iOS audio session).");
             playNextTrackBackground();
+            // Report afterwards whether that track was cached. This is the single
+            // most useful fact for diagnosing screen-off dropouts: cached tracks
+            // survive indefinitely, uncached ones cannot load because iOS blocks
+            // background fetch. Runs after play() so it cannot delay the handoff.
+            try {
+                const nt = playQueue[currentTrackIndex];
+                if (nt) getTrackRecordFromDB(nt.id, nt.title).then(r => {
+                    const cached = !!(r && (r.blob || r.audio_blob));
+                    console.log(`[Audio Engine] Next track was ${cached ? "CACHED (no network needed — should keep playing)"
+                        : "NOT CACHED (needs network; iOS blocks background fetch — expect this one to fail)"}: ${(nt.title||"").slice(0,40)}`);
+                }).catch(() => {});
+            } catch (_) {}
         }
     });
 
@@ -3164,7 +3325,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         const audioRes = await fetch(streamUrl).catch(() => null);
                         if (audioRes && audioRes.ok) {
                             const blob = await audioRes.blob();
-                            await saveTrackBlobToDB(upcomingTrack.id, blob, upcomingTrack.title);
+                            // Pass the TRACK OBJECT, not the title. saveTrackBlobToDB
+                            // keys the record on trackMeta.file when given an object,
+                            // but falls back to `${title}.mp3` for a bare string — so
+                            // prefetch was filing tracks under a DIFFERENT key than
+                            // playTrack uses (the real blob name, which yt-dlp may have
+                            // rewritten, e.g. "|" -> fullwidth). That produced duplicate
+                            // records and tracks being re-downloaded despite "already
+                            // being cached".
+                            await saveTrackBlobToDB(upcomingTrack.id, blob, upcomingTrack);
                             console.log(`[PWA High-Quality Cache] Saved HQ audio track (${downloadedCount + 1}/${count}): ${upcomingTrack.title}`);
                         }
                         upcomingTrack.status = "completed";
@@ -3203,6 +3372,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Startup Initialization ---
     initDB().then(async () => {
+        // Pull the saved trace so the console can show what happened BEFORE this
+        // load (evictions, self-reloads, overnight drives).
+        try { window.__PERSISTED_TRACE = (await getSettingFromDB(TRACE_KEY)) || []; } catch (_) {}
         await purgeLargeFilesFromDB();
         await persistEffectiveSettings();
         await loadPlaylistsFromDB();
