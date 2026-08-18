@@ -771,7 +771,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // actually held 3.81 GB across 288 tracks. So the guard never fired and the
     // cache grew without bound until the device was under storage pressure, which
     // is what made the app slow. The budget is enforced against MEASURED bytes.
-    const MAX_TOTAL_CACHE_BYTES = 2 * 1024 * 1024 * 1024; // 2 GB
+    const MAX_TOTAL_CACHE_BYTES = 10 * 1024 * 1024 * 1024; // 10 GB (user-set)
 
     async function checkStorageQuotaLimit() {
         try {
@@ -882,7 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v19";
+    const APP_BUILD = "v20";
 
     async function updateCacheUsageUI() {
         const c = await countCachedTracks();
@@ -2131,6 +2131,33 @@ document.addEventListener("DOMContentLoaded", () => {
         return currentAudioObjectUrl;
     }
 
+    // Cache the current track AFTER playback is established, never before.
+    //
+    // Blocking playback on a full download is what made starting a playlist take
+    // minutes. Delaying the fetch keeps the fast start while still building the
+    // offline library, and the delay stops it competing with the audio buffer.
+    // Skipped when hidden: iOS throttles background fetches, and that contention
+    // is what used to stall playback a few songs in.
+    let _cacheTimer = null;
+    function scheduleBackgroundCache(track, azureUrl, targetFile) {
+        clearTimeout(_cacheTimer);
+        _cacheTimer = setTimeout(async () => {
+            try {
+                if (document.hidden) return;                       // don't fight iOS
+                if (!audioElement || audioElement.paused) return;  // only while playing
+                const existing = await getTrackRecordFromDB(track.id, track.title);
+                if (existing && (existing.blob || existing.audio_blob)) return;  // already cached
+                const res = await fetch(azureUrl);
+                if (!res || !res.ok) return;
+                const blob = await res.blob();
+                if (blob.size > 0 && blob.size <= MAX_FILE_SIZE_BYTES) {
+                    await saveTrackBlobToDB(track.id, blob, track);
+                    console.log("[PWA Cache] Cached after playback started: " + targetFile);
+                }
+            } catch (e) { /* non-fatal: playback already works */ }
+        }, 10000);
+    }
+
     // --- Audio Engine & MediaSession Controls ---
     async function playTrack(track, queue, index) {
         if (!track) return;
@@ -2176,41 +2203,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                     const azureUrl = `${getAzureBlobBaseUrl()}/${encodeURIComponent(targetFile)}?${sasToken}`;
                     mediaUrl = azureUrl; // default: live stream
-                    // Download-then-play: only when the SCREEN IS ON (foreground) do we
-                    // fetch a normal-size file fully, cache it, then play from the blob
-                    // — reliable, builds the offline library, and the download time is
-                    // the natural gap between songs. SCREEN OFF (background) or a LARGE
-                    // file (> cap) streams live instead: a background fetch gets
-                    // throttled by iOS, and a big download would block playback too long.
-                    if (sasToken && !document.hidden) {
-                        try {
-                            if (playerStatusText) playerStatusText.textContent = "Downloading…";
-                            setPlaybackSource("downloading");
-                            const res = await fetch(azureUrl);
-                            // Decide by the REAL downloaded size, not the content-length
-                            // header: Azure often doesn't expose content-length on a
-                            // cross-origin fetch, so trusting the header skipped caching
-                            // entirely (storage stayed tiny). Only use the header as an
-                            // optimization to avoid downloading a KNOWN-huge file.
-                            const len = parseInt((res && res.headers.get("content-length")) || "0", 10);
-                            if (res && res.ok && !(len > MAX_FILE_SIZE_BYTES)) {
-                                const blob = await res.blob();
-                                if (blob.size <= MAX_FILE_SIZE_BYTES) {
-                                    await saveTrackBlobToDB(track.id, blob, track);
-                                    fromCache = true; // now playing from the freshly-cached blob
-                                    console.log("[PWA Player] Downloaded + cached (" + blob.size + " bytes): " + targetFile);
-                                } else {
-                                    console.log("[PWA Player] File over cap (" + blob.size + " bytes) — playing, not caching: " + targetFile);
-                                }
-                                mediaUrl = objectUrlFor(blob, "audio"); // play what we already downloaded
-                            } else {
-                                console.log("[PWA Player] Known-large file — streaming live: " + targetFile + " (" + len + " bytes)");
-                            }
-                        } catch (e) {
-                            console.warn("[PWA Player] Download-then-play failed, streaming live:", e);
-                            mediaUrl = azureUrl;
-                        }
-                    }
+                    // PLAY FIRST, CACHE AFTER.
+                    //
+                    // This used to download the ENTIRE file (await fetch + await
+                    // res.blob(), ~13.5 MB average) before a single note played, so
+                    // starting a playlist could take minutes on cellular — and the
+                    // 5-track prefetch then competed with the next track's download,
+                    // compounding it. The <audio> element streams progressively and
+                    // starts in about a second, so we hand it the URL immediately and
+                    // cache the file afterwards, once playback is established.
+                    //
+                    // Net effect: first play is fast, and every LATER play of the same
+                    // track is instant and gapless from cache — strictly better than
+                    // before. The cache fetch is deliberately delayed so it cannot
+                    // starve the audio buffer (that contention was the old
+                    // "3rd song stalls mid-song" bug).
+                    if (sasToken) scheduleBackgroundCache(track, azureUrl, targetFile);
                 } else {
                     mediaUrl = `/api/media/file/${encodeURIComponent(targetFile)}`;
                 }
@@ -2298,7 +2306,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Smart Caching: proactively cache the next 5 tracks so screen-off /
             // car playback plays from IndexedDB (no streaming, no stalls).
-            prefetchUpcomingTracks(playQueue, currentTrackIndex, 5);
+            // Only top up the cache when the CURRENT track is already cached, i.e.
+            // there is no stream to compete with. Unconditionally prefetching 5
+            // tracks (~67 MB) starved the next track's download and was a large
+            // part of why starting a playlist felt so slow.
+            if (fromCache && !document.hidden) prefetchUpcomingTracks(playQueue, currentTrackIndex, 2);
         } catch (err) {
             console.error("Playback error:", err);
             if (playerStatusEq) playerStatusEq.classList.add("hidden");
@@ -2408,14 +2420,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const p = audioElement.play();
         if (p && p.catch) p.catch(() => playTrack(nextTrack, playQueue, nextIdx));
 
+        // Everything below is bookkeeping — it must never delay or endanger the
+        // play() above. While the app is BACKGROUNDED (screen on but another app in
+        // front, e.g. Google Maps) keep it to the bare minimum: setting the
+        // thumbnail <img> and MediaSession artwork both trigger NETWORK fetches,
+        // and an IndexedDB write adds more work, all while iOS is already
+        // throttling us. That extra work is a strong suspect for playback dying a
+        // couple of tracks in. Foreground keeps the full UI update.
+        const hidden = document.hidden;
         updatePlayBtnUI();
-        updateMediaSession(nextTrack);
         setPlaybackSource("stream");
         lastPlaybackWasStream = true;
         if (playerTrackTitle) playerTrackTitle.textContent = nextTrack.title || "";
         if (playerTrackArtist) playerTrackArtist.textContent = nextTrack.artist || nextTrack.uploader || "SonicStream";
-        if (playerTrackThumb) playerTrackThumb.src = getTrackThumbnailUrl(nextTrack);
-        if (activePlaylistId) saveResumePosition(activePlaylistId, nextTrack.id, 0, nextIdx);
+        // Lock-screen metadata without artwork is cheap and has no network cost.
+        updateMediaSession(nextTrack, hidden /* skipArtwork */);
+        if (!hidden) {
+            if (playerTrackThumb) playerTrackThumb.src = getTrackThumbnailUrl(nextTrack);
+            if (activePlaylistId) saveResumePosition(activePlaylistId, nextTrack.id, 0, nextIdx);
+        }
     }
 
     // Referenced by audio error handlers but was never defined — prevents ReferenceError
@@ -2836,14 +2859,19 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener("pageshow", () => tryResumeAfterInterruption("pageshow"));
     }
 
-    function updateMediaSession(track) {
+    function updateMediaSession(track, skipArtwork = false) {
         if (!("mediaSession" in navigator) || !track) return;
         try {
             // Show real album art on the lockscreen / car head-unit. Prefer the
             // track thumbnail (YouTube hqdefault), then the gita cover, then the
             // app icon. (icon-512.png did not exist, so art never appeared.)
+            //
+            // skipArtwork: artwork URLs cause the browser to FETCH the image. While
+            // backgrounded that is avoidable network work competing with the audio
+            // stream, so the title/artist still update (lock screen stays correct)
+            // but the art is left as-is until we are visible again.
             const artwork = [];
-            const art = getTrackThumbnailUrl(track);
+            const art = skipArtwork ? null : getTrackThumbnailUrl(track);
             if (art && art !== "icon.svg") {
                 const type = art.endsWith(".png") ? "image/png" : "image/jpeg";
                 artwork.push({ src: art, sizes: "480x360", type });
