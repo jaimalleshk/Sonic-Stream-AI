@@ -246,6 +246,11 @@
             <div style="flex: 1; min-width: 0;">
                 <div id="playerTrackTitle" style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Select a track</div>
                 <div id="playerTrackArtist" style="font-size: 0.78rem; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">SonicStream Player</div>
+                <!-- Download/playback status. This element existed ONLY in desktop.html,
+                     so every "Downloading… NN%" update on mobile was written to null:
+                     a one-minute download looked identical to the app being stuck. -->
+                <div id="playerStatusText" style="font-size: 0.72rem; color: var(--neon-blue); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 0.9rem;"></div>
+                <span id="playerStatusEq" class="hidden"></span>
             </div>
 
             <!-- Transport Controls: Prev / Play-Pause / Next (square buttons) -->

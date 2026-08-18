@@ -585,30 +585,37 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!db || !db.objectStoreNames.contains("files") || !fileRecords || fileRecords.length === 0) return Promise.resolve();
         return new Promise((resolve) => {
             try {
+                // WRITE ONLY WHAT IS MISSING.
+                //
+                // This runs on every playlist sync with ~1283 records. It used to do a
+                // get() AND a put() for EVERY record — needed so a metadata-only write
+                // could not clobber a cached audio Blob (IndexedDB put() replaces the
+                // whole record). Correct, but ~2600 operations against a multi-GB store
+                // saturated IndexedDB for close to a MINUTE on a real phone, and a tap
+                // on Play could not be serviced until it finished. The user's trace
+                // showed exactly that: app opened 10:18:28, sync completed 10:19:26,
+                // and the track then downloaded in 1.4 s.
+                //
+                // Almost every record already exists and its metadata has not changed,
+                // so: read the KEYS once (keys only — no values, no blobs decoded) and
+                // write only genuinely new ones. Existing rows are left untouched,
+                // which also means a cached blob can never be clobbered — the original
+                // reason the merge existed, now achieved by not writing at all.
                 const tx = db.transaction("files", "readwrite");
                 const store = tx.objectStore("files");
-                fileRecords.forEach(rec => {
-                    if (!rec || !rec.file_id) return;
-                    // MERGE — never blind-put. These are metadata-only records from
-                    // playlist sync (no blob). IndexedDB put() REPLACES the whole
-                    // record, so a blind put wiped the cached audio Blob for every
-                    // synced track — i.e. every "Refresh" destroyed the entire
-                    // offline cache, which is why nothing ever stayed cached.
-                    const getReq = store.get(rec.file_id);
-                    getReq.onsuccess = () => {
-                        const existing = getReq.result;
-                        const merged = Object.assign({}, existing || {}, rec);
-                        // Belt-and-braces: explicitly carry over any cached binaries.
-                        if (existing) {
-                            if (existing.blob) merged.blob = existing.blob;
-                            if (existing.audio_blob) merged.audio_blob = existing.audio_blob;
-                            if (existing.thumb_blob) merged.thumb_blob = existing.thumb_blob;
-                            if (existing.thumbBlob) merged.thumbBlob = existing.thumbBlob;
-                        }
-                        store.put(merged);
-                    };
-                    getReq.onerror = () => { store.put(rec); };
-                });
+                const keyReq = store.getAllKeys();
+                keyReq.onsuccess = () => {
+                    const existing = new Set(keyReq.result || []);
+                    let added = 0;
+                    fileRecords.forEach(rec => {
+                        if (!rec || !rec.file_id) return;
+                        if (existing.has(rec.file_id)) return;   // keep the row (and its blob) as-is
+                        store.put(rec);
+                        added++;
+                    });
+                    if (added) console.log(`[PWA] Added ${added} new file record(s); ${existing.size} already present and left untouched.`);
+                };
+                keyReq.onerror = () => { /* fall through: nothing written, playback unaffected */ };
                 tx.oncomplete = () => resolve();
                 tx.onerror = () => resolve();
             } catch (e) {
@@ -944,7 +951,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v28";
+    const APP_BUILD = "v29";
 
     // Memoised cache statistics.
     //
@@ -2314,6 +2321,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // takes a generation number; after every await it checks whether a newer call
     // has superseded it and bails out silently if so.
     let playGeneration = 0;
+    // True while a track the user is actively waiting for is downloading.
+    let userDownloadActive = false;
 
     async function playTrack(track, queue, index) {
         if (!track) return;
@@ -2330,6 +2339,11 @@ document.addEventListener("DOMContentLoaded", () => {
         playQueue = queue || [track];
         currentTrackIndex = index !== undefined ? index : playQueue.findIndex(t => t.id === track.id);
 
+        // Immediate feedback. Playback now waits for a full download, so without
+        // this the button stayed on "play" for the whole wait and the app looked
+        // frozen — the user's exact report: "it does not even change to pause mode,
+        // oh it just started playing after a min".
+        setLoadingIndicator(true);
         playerTrackTitle.textContent = track.title;
         playerTrackArtist.textContent = track.artist || track.uploader || "SonicStream";
         
@@ -2389,6 +2403,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             if (playerStatusText) playerStatusText.textContent = "Downloading…";
 
                             const t0 = Date.now();
+                            // Tell any running cache-ahead to yield: the track the user
+                            // is WAITING FOR must not share bandwidth with speculative
+                            // downloads of later tracks. That contention is why a tap
+                            // could take a minute to produce sound.
+                            userDownloadActive = true;
                             console.log(`[PWA Player] Downloading (hidden=${document.hidden}, online=${navigator.onLine}): ${targetFile}`);
                             const res = await fetch(azureUrl);
                             if (superseded()) return;
@@ -2421,6 +2440,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 }
 
                                 if (superseded()) return;
+                                userDownloadActive = false;
                                 console.log(`[PWA Player] Download finished in ${((Date.now()-t0)/1000).toFixed(1)}s: ${targetFile}`);
                                 if (blob.size > MAX_FILE_SIZE_BYTES) {
                                     console.log("[PWA Player] Larger than cap once downloaded — playing without caching: " + targetFile);
@@ -2434,6 +2454,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 if (playerStatusText) playerStatusText.textContent = "Loading…";
                             }
                         } catch (e) {
+                            userDownloadActive = false;
                             // Never leave the user with silence: fall back to the URL.
                             console.warn(`[PWA Player] Download FAILED (hidden=${document.hidden}, online=${navigator.onLine}) for ${targetFile} —`, e,
                                 document.hidden ? "| iOS blocks/throttles fetch while backgrounded, so an UNCACHED track cannot load with the screen off." : "");
@@ -2554,6 +2575,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 prefetchUpcomingTracks(playQueue, currentTrackIndex, ahead);
             }
         } catch (err) {
+            setLoadingIndicator(false);
             console.error("Playback error:", err);
             if (playerStatusEq) playerStatusEq.classList.add("hidden");
             if (playerStatusText) playerStatusText.textContent = "Error Playing Track";
@@ -2562,7 +2584,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Shows a spinner in the play button while a track is being fetched.
+    function setLoadingIndicator(on) {
+        try {
+            if (!playIconSvg) return;
+            if (on) {
+                playIconSvg.innerHTML = `<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="42 14"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="0.9s" repeatCount="indefinite"/></circle>`;
+                playIconSvg.dataset.loading = "1";
+            } else if (playIconSvg.dataset.loading) {
+                delete playIconSvg.dataset.loading;
+                updatePlayBtnUI();
+            }
+        } catch (e) {}
+    }
+
     function updatePlayBtnUI() {
+        if (playIconSvg && playIconSvg.dataset && playIconSvg.dataset.loading) return; // keep the spinner
+
         if (playIconSvg) {
             if (isPlaying) {
                 playIconSvg.innerHTML = `<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>`;
@@ -3124,6 +3162,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Keep UI + lock screen in sync no matter WHO paused/played (native
         // lock-screen/car controls now drive the element directly).
         audioElement.addEventListener("play", () => {
+            setLoadingIndicator(false);
             isPlaying = true;
             userInitiatedPause = false;
             resumeAfterInterruption = false;
@@ -3349,6 +3388,12 @@ document.addEventListener("DOMContentLoaded", () => {
             scanOffset++;
 
             if (!upcomingTrack || upcomingTrack.isLocalBlob) continue;
+            // Yield to a track the user is waiting on, and never prefetch while
+            // hidden (iOS blocks background fetch anyway).
+            if (userDownloadActive || document.hidden) {
+                console.log("[PWA Cache] Cache-ahead yielding — a track the user is waiting for is downloading.");
+                break;
+            }
 
             const existingBlob = await getTrackBlobFromDB(upcomingTrack.id, upcomingTrack.title);
             if (existingBlob) {
