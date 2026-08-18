@@ -42,7 +42,7 @@
         // batches, never on the playback path.
         try {
             if (type === "error" || type === "warn" ||
-                /Auto-Advance|Screen-off advance|Next track was|Download FAILED|Downloaded \+ cached|Superseded|Re-established|Service Worker registered|Topping up/.test(msg)) {
+                /Auto-Advance|Screen-off advance|Next track was|Download FAILED|Downloaded \+ cached|Superseded|Re-established|Service Worker registered|Topping up|MediaSession\]|Audio:|\[Page\]|play\(\) (RESOLVED|REJECTED)|NOW PLAYING|STREAMING because/.test(msg)) {
                 (window.__PERSIST_QUEUE = window.__PERSIST_QUEUE || []).push({ type, time, msg: msg.slice(0, 300), t: Date.now() });
             }
         } catch (_) {}
@@ -941,7 +941,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v26";
+    const APP_BUILD = "v27";
 
     async function updateCacheUsageUI() {
         const c = await countCachedTracks();
@@ -2208,6 +2208,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // offline library, and the delay stops it competing with the audio buffer.
     // Skipped when hidden: iOS throttles background fetches, and that contention
     // is what used to stall playback a few songs in.
+    // One-line snapshot of the audio element + page state. Appended to every
+    // MediaSession and audio-element trace line so a failure can be read directly:
+    // paused/position/readyState/networkState tell you WHY a command did nothing.
+    //   ready: 0=nothing 1=metadata 2=current 3=future 4=enough
+    //   net:   0=empty 1=idle 2=loading 3=no-source
+    function audioSnapshot() {
+        try {
+            const a = audioElement;
+            if (!a) return "no-audio-element";
+            return `paused=${a.paused} t=${(a.currentTime||0).toFixed(1)} ready=${a.readyState} net=${a.networkState}`
+                 + ` hidden=${document.hidden} online=${navigator.onLine}`
+                 + (a.error ? ` MEDIA_ERR=${a.error.code}` : "")
+                 + ` src=${String(a.src||"").startsWith("blob:") ? "blob" : (a.src ? "network" : "none")}`;
+        } catch (e) { return "snapshot-failed"; }
+    }
+
     // --- Persistent trace log -------------------------------------------------
     // Stored as ONE key in the existing "settings" store, deliberately: adding an
     // object store needs a DB version bump, and a botched upgrade would risk the
@@ -2877,12 +2893,14 @@ document.addEventListener("DOMContentLoaded", () => {
             // — fixed separately. Removing this handler meant the lock screen and
             // car had no play action at all. Keep it minimal and synchronous.
             navigator.mediaSession.setActionHandler("play", () => {
+                console.log(`[MediaSession] PLAY action received (car/lock-screen) | ${audioSnapshot()}`);
                 userInitiatedPause = false;
                 resumeAfterInterruption = false;
                 ensureAudioContextRunning();
                 resumePlaybackWithRecovery();
             });
             navigator.mediaSession.setActionHandler("pause", () => {
+                console.log(`[MediaSession] PAUSE action received (car/lock-screen) | ${audioSnapshot()}`);
                 // A remote pause is DELIBERATE — never auto-resume it.
                 userInitiatedPause = true;
                 resumeAfterInterruption = false;
@@ -2890,10 +2908,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 audioElement.pause();   // "pause" event syncs isPlaying + playbackState
             });
             navigator.mediaSession.setActionHandler("previoustrack", () => {
+                console.log(`[MediaSession] PREVIOUS action received | ${audioSnapshot()}`);
                 clearNextTrackTimers();
                 playPrevTrack();
             });
             navigator.mediaSession.setActionHandler("nexttrack", () => {
+                console.log(`[MediaSession] NEXT action received | ${audioSnapshot()}`);
                 clearNextTrackTimers();
                 playNextTrack();
             });
@@ -3030,7 +3050,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const p = audioElement.play();
         if (!p || !p.then) { verifyProgress(reloadSeekPlay); return; }
-        p.then(() => verifyProgress(reloadSeekPlay)).catch(reloadSeekPlay);
+        p.then(() => {
+            console.log(`[Audio] play() RESOLVED | ${audioSnapshot()}`);
+            verifyProgress(reloadSeekPlay);
+        }).catch((err) => {
+            // The single most valuable line for a dead lock-screen button: it names
+            // exactly why the browser refused to start playback.
+            console.warn(`[Audio] play() REJECTED — ${err && err.name}: ${err && err.message} | ${audioSnapshot()}`);
+            reloadSeekPlay();
+        });
     }
 
     // Safety net for the "clock advances but no sound" failure: if a Web Audio
@@ -3048,6 +3076,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function initInterruptionRecovery() {
         if (!audioElement) return;
+
+        // Trace the element's own lifecycle. Together with the MediaSession lines
+        // this distinguishes the three possible failures for a Bluetooth/lock-screen
+        // control that "does nothing":
+        //   (a) no [MediaSession] line at all -> the command never reached our JS
+        //       (page frozen or handler not registered) -> fix is at registration.
+        //   (b) [MediaSession] line but no [Audio:play] -> play() was refused
+        //       -> the rejection reason is logged.
+        //   (c) [MediaSession] + [Audio:play] but no progress -> audio is running
+        //       into a dead output (session/routing), a different layer entirely.
+        ["play", "pause", "ended", "waiting", "stalled", "abort", "error"].forEach(ev => {
+            audioElement.addEventListener(ev, () => {
+                console.log(`[Audio:${ev}] ${audioSnapshot()}`);
+            });
+        });
+        document.addEventListener("visibilitychange", () => {
+            console.log(`[Page] became ${document.hidden ? "HIDDEN (screen off / app backgrounded)" : "VISIBLE"} | ${audioSnapshot()}`);
+        });
 
         // Keep UI + lock screen in sync no matter WHO paused/played (native
         // lock-screen/car controls now drive the element directly).
