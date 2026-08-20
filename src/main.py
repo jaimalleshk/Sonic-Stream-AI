@@ -1317,7 +1317,12 @@ async def get_history():
             for item in job.get("items", []):
                 if item.get("status") == "skipped":
                     title = item.get("title", "")
-                    item["file_missing"] = not (title and _clean_fuzzy_sync(title) in index)
+                    file_name = item.get("file", "")
+                    if file_name:
+                        name_no_ext = os.path.splitext(file_name)[0]
+                        item["file_missing"] = _clean_fuzzy_sync(name_no_ext) not in index
+                    else:
+                        item["file_missing"] = not (title and _clean_fuzzy_sync(title) in index)
 
         return [all_downloads_job] + history
 
@@ -2600,6 +2605,7 @@ class BatchAIOpsRequest(BaseModel):
     do_vocals: bool = False
     do_instrument: bool = False
     skip_duplicates: bool = True
+    trim_silence: bool = True
 
 @app.post("/api/history/{job_id}/batch-ai-ops")
 async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_tasks: BackgroundTasks):
@@ -2658,7 +2664,7 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                     if not (req.skip_duplicates and already_exists):
                         if not vocal_p or not accomp_p:
                             vocal_p, accomp_p = processor.separate_vocals(local_src)
-                        processor.export_audio(accomp_p, out_path, is_karaoke_stem=True, vocal_path=vocal_p)
+                        processor.export_audio(accomp_p, out_path, is_karaoke_stem=True, vocal_path=vocal_p, trim_silence=req.trim_silence)
 
                     # Quality Audit Gatekeeper
                     try:
@@ -2835,9 +2841,17 @@ async def serve_media_file(filename: str):
     return FileResponse(target_path, media_type=media_type)
 
 @app.get("/api/media/stream")
-async def stream_media(video_url: str, title: str, format: str, download_dir: Optional[str] = None):
+async def stream_media(video_url: str, title: str, format: str, download_dir: Optional[str] = None, filename: Optional[str] = None):
     target_dir = download_dir or DOWNLOAD_DIR
-    local_path = check_local_duplicate(title, format, target_dir)
+    local_path = None
+    if filename:
+        exact_path = os.path.join(target_dir, filename)
+        if os.path.exists(exact_path):
+            local_path = exact_path
+    
+    if not local_path:
+        local_path = check_local_duplicate(title, format, target_dir)
+        
     if local_path and os.path.exists(local_path):
         _, ext = os.path.splitext(local_path)
         m_type = "video/mp4" if ext in (".mp4", ".mkv", ".webm") else "audio/mpeg"

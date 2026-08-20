@@ -1706,7 +1706,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (playerStatusText) playerStatusText.textContent = "Loading...";
         
         try {
-            const streamUrl = `/api/media/stream?video_url=${encodeURIComponent(track.url)}&title=${encodeURIComponent(track.title)}&format=${format}&download_dir=${encodeURIComponent(downloadDir)}`;
+            const streamUrl = `/api/media/stream?video_url=${encodeURIComponent(track.url)}&title=${encodeURIComponent(track.title)}&format=${format}&download_dir=${encodeURIComponent(downloadDir)}${track.file ? '&filename=' + encodeURIComponent(track.file) : ''}`;
             
             playerVideo.src = streamUrl;
             playerVideo.load();
@@ -2765,7 +2765,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const autoplayActiveSub = document.getElementById("autoplayActiveSub");
     const autoplayUpcoming = document.getElementById("autoplayUpcoming");
 
-    const APP_BUILD = "v39";
+    const APP_BUILD = "v40";
     const DAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
     // --- date/time helpers (all local time; 0 = Monday) ---
