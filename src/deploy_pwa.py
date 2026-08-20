@@ -108,6 +108,7 @@ def generate_pwa_manifest():
                     title = item.get("title", "")
                     track_id = item.get("id", "")
 
+                    is_karaoke_item = "karaoke" in str(title).lower() or "karaoke" in str(pl_title).lower()
                     existing = item.get("file")
                     if existing:
                         fileName = existing if str(existing).lower().endswith(
@@ -117,6 +118,9 @@ def generate_pwa_manifest():
                         fileName = index.get(clean_t)
                         if not fileName:
                             for cf, rf in index.items():
+                                rf_is_karaoke = "karaoke" in str(rf).lower()
+                                if is_karaoke_item != rf_is_karaoke:
+                                    continue  # Never map Karaoke track to original file or vice versa
                                 if (cf in clean_t or clean_t in cf) and len(cf) >= 4:
                                     fileName = rf
                                     break
