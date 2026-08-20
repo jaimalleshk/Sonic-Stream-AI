@@ -963,7 +963,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v34";
+    const APP_BUILD = "v35";
 
     // Memoised cache statistics.
     //
@@ -2392,7 +2392,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         sasMissing = true;
                         console.warn("[PWA Player] No Azure SAS token set — live streaming will fail. Paste your SAS token in Settings.");
                     }
-                    const azureUrl = `${getAzureBlobBaseUrl()}/${encodeURIComponent(targetFile)}?${sasToken}`;
+                    const azureUrl = `${getAzureBlobBaseUrl()}/${encodeURIComponent(targetFile)}?${sasToken}&_v=${APP_BUILD}`;
                     mediaUrl = azureUrl;   // only used for over-limit files (stream-only)
 
                     // DOWNLOAD -> CACHE -> PLAY (user-specified design).
@@ -2421,7 +2421,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             // could take a minute to produce sound.
                             userDownloadActive = true;
                             console.log(`[PWA Player] Downloading (hidden=${document.hidden}, online=${navigator.onLine}): ${targetFile}`);
-                            const res = await fetch(azureUrl);
+                            const res = await fetch(azureUrl, { cache: "no-store" });
                             if (superseded()) return;
                             if (!res || !res.ok) throw new Error("HTTP " + (res && res.status) + " " + (res && res.statusText));
 
