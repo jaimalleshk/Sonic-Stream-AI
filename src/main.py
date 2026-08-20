@@ -2547,7 +2547,7 @@ async def process_ai_vocals_stream(job_id: str, track_id: str, background_tasks:
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}\nTraceback: {err_msg}")
 
 @app.post("/api/history/{job_id}/batch-ai-mute")
-async def batch_ai_mute_playlist(job_id: str, background_tasks: BackgroundTasks):
+async def batch_ai_mute_playlist(job_id: str, background_tasks: BackgroundTasks, trim_silence: bool = True):
     with history_lock:
         job = next((j for j in get_history() if j.get("id") == job_id), None)
     if not job:

@@ -392,26 +392,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 row.querySelector(".play-sidebar-btn").addEventListener("click", async (e) => {
                     e.stopPropagation();
                     await selectPlaylist(job);
-                    let tracks = playQueue.filter(t => isTrackDownloaded(t));
+                    let tracks = playQueue;
                     if (tracks.length > 0) {
-                        playTrack(tracks[0], playQueue, playQueue.findIndex(t => t.id === tracks[0].id));
+                        playTrack(tracks[0], playQueue, 0);
                     } else {
-                        alert("No downloaded tracks found in this playlist to play.");
+                        alert("No tracks found in this playlist to play.");
                     }
                 });
                 
                 row.querySelector(".shuffle-sidebar-btn").addEventListener("click", async (e) => {
                     e.stopPropagation();
                     await selectPlaylist(job);
-                    let tracks = playQueue.filter(t => isTrackDownloaded(t));
+                    let tracks = playQueue;
                     if (tracks.length > 0) {
                         isShuffle = true;
                         playerShuffleBtn.classList.add("active");
-                        const rand = Math.floor(Math.random() * tracks.length);
-                        const origIndex = playQueue.findIndex(t => t.id === tracks[rand].id);
-                        playTrack(tracks[rand], playQueue, origIndex);
+                        const order = generateShuffleOrder(tracks);
+                        const firstId = order[0] || tracks[0].id;
+                        const firstTrack = tracks.find(t => t.id === firstId) || tracks[0];
+                        const origIndex = tracks.findIndex(t => t.id === firstTrack.id);
+                        playTrack(firstTrack, tracks, origIndex, 0, order);
                     } else {
-                        alert("No downloaded tracks found in this playlist to shuffle.");
+                        alert("No tracks found in this playlist to shuffle.");
                     }
                 });
 
@@ -433,13 +435,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (lastPlayedId) {
                             targetTrack = tracks.find(t => t.id === lastPlayedId);
                         }
-                        if (!targetTrack || !isTrackDownloaded(targetTrack)) {
-                            const downloaded = tracks.filter(t => isTrackDownloaded(t));
-                            targetTrack = downloaded.length > 0 ? downloaded[0] : null;
+                        if (!targetTrack) {
+                            targetTrack = tracks[0];
                         }
                         
                         if (!targetTrack) {
-                            alert("No downloaded tracks available in this playlist to resume.");
+                            alert("No tracks available in this playlist to resume.");
                             return;
                         }
                         
@@ -762,6 +763,45 @@ document.addEventListener("DOMContentLoaded", () => {
             refreshPlaylistBtn.textContent = "Sync YouTube";
         }
     });
+
+    // Batch AI Mute Playlist button handler
+    const batchAIMuteBtn = document.getElementById("batchAIMuteBtn");
+    if (batchAIMuteBtn) {
+        batchAIMuteBtn.addEventListener("click", async () => {
+            if (!currentPlaylistId || currentPlaylistId === "all_downloads" || currentPlaylistId === "deleted_tracks") {
+                alert("Please select a playlist to batch mute.");
+                return;
+            }
+            if (currentPlaylistId.startsWith("ai_")) {
+                alert("This playlist is already AI processed.");
+                return;
+            }
+            
+            const trimSilenceEl = document.getElementById("trimSilenceCheckbox");
+            const trimSilence = trimSilenceEl ? trimSilenceEl.checked : true;
+            const origHtml = batchAIMuteBtn.innerHTML;
+            batchAIMuteBtn.disabled = true;
+            batchAIMuteBtn.textContent = "Queuing...";
+            logToTerminal(`[AI] ✨ Starting Batch AI Vocal Muting (trim_silence=${trimSilence})...`);
+            
+            try {
+                const res = await fetch(`/api/history/${currentPlaylistId}/batch-ai-mute?trim_silence=${trimSilence}`, { method: "POST" });
+                if (!res.ok) {
+                    const data = await res.json();
+                    throw new Error(data.detail || "Batch mute failed");
+                }
+                const resData = await res.json();
+                logToTerminal(`[AI] ✨ ${resData.message}`);
+                alert(`Batch AI Mute: ${resData.message}`);
+            } catch (err) {
+                logToTerminal(`[Error] Batch AI Mute failed: ${err.message}`, true);
+                alert(`Batch AI Mute failed: ${err.message}`);
+            } finally {
+                batchAIMuteBtn.disabled = false;
+                batchAIMuteBtn.innerHTML = origHtml;
+            }
+        });
+    }
 
     // Grid column sorting state (null key = original playlist order)
     let gridSortKey = null;
@@ -1577,10 +1617,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function generateShuffleOrder(tracks, currentTrackId = null) {
-        let downloadedTracks = tracks.filter(t => isTrackDownloaded(t));
-        if (downloadedTracks.length === 0) return [];
-        
-        let ids = downloadedTracks.map(t => t.id);
+        if (!tracks || tracks.length === 0) return [];
+        let ids = tracks.filter(t => t && t.id).map(t => t.id);
         
         // Fisher-Yates shuffle
         for (let i = ids.length - 1; i > 0; i--) {
@@ -1627,6 +1665,9 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Handle AI Queue Auto-Apply
         const shouldApplyAI = (typeof aiQueueToggle !== 'undefined' && aiQueueToggle && aiQueueToggle.checked);
+        if (shouldApplyAI && !window.activeAIQueueMode) {
+            window.activeAIQueueMode = "mute";
+        }
         const modeToApply = shouldApplyAI ? window.activeAIQueueMode : null;
 
         // Reset AI states
@@ -1882,18 +1923,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         logToTerminal("[AI] ✨ High-Quality Vocal Mute stream loaded successfully. It will play from the beginning.");
                         showAIStatus(""); // Clear status
                     } else {
-                        const data = await res.json();
-                        alert(`Failed to process vocal mute: ${data.detail}`);
+                        const data = await res.json().catch(() => ({ detail: "Stream error" }));
+                        console.warn("[AI] Vocal mute notice:", data.detail);
+                        logToTerminal(`[AI] 🎙️ Notice: ${data.detail || 'Playing original track.'}`);
                         showAIStatus("");
-                        // Revert UI
                         window.isLiveMuteOn = false;
                         playerLiveMuteBtn.style.color = "var(--text-primary)";
                         playerLiveMuteBtn.style.textShadow = "none";
-                        logToTerminal("[AI] 🎙️ Live Voice Mute Error.");
                     }
                 } catch (err) {
                     playerLiveMuteBtn.innerHTML = originalInnerHTML;
-                    alert(`Failed to process vocal mute: ${err.message}`);
+                    console.warn("[AI] Vocal mute notice:", err.message);
+                    logToTerminal(`[AI] 🎙️ Notice: ${err.message}`);
                     showAIStatus("");
                     window.isLiveMuteOn = false;
                     playerLiveMuteBtn.style.color = "var(--text-primary)";
@@ -1901,9 +1942,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
             } else {
-                if (window.activeAIQueueMode === "mute") window.activeAIQueueMode = null;
-                // Turn OFF Mute, revert to original stream
-                playerLiveMuteBtn.style.color = "var(--text-primary)"; // revert
+                const isAutoAI = (typeof aiQueueToggle !== 'undefined' && aiQueueToggle && aiQueueToggle.checked);
+                if (!isAutoAI && window.activeAIQueueMode === "mute") {
+                    window.activeAIQueueMode = null;
+                }
+                playerLiveMuteBtn.style.color = "var(--text-primary)";
                 playerLiveMuteBtn.style.textShadow = "none";
                 logToTerminal("[AI] 🎙️ Live Voice Mute OFF: Reverting to original track.");
                 
@@ -2127,22 +2170,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 resetPlayerStatusIdle();
             }
         } else {
-            let startIndex = currentTrackIndex;
-            let nextIndex = currentTrackIndex;
-            let found = false;
-            
-            for (let i = 1; i <= playQueue.length; i++) {
-                nextIndex = (startIndex + i) % playQueue.length;
-                if (isTrackDownloaded(playQueue[nextIndex])) {
-                    found = true;
-                    break;
-                }
-            }
-            
-            if (found) {
+            if (playQueue.length > 0) {
+                const nextIndex = (currentTrackIndex + 1) % playQueue.length;
                 playTrack(playQueue[nextIndex], playQueue, nextIndex);
             } else {
-                logToTerminal("[Player] No downloaded tracks in queue to skip to.");
+                logToTerminal("[Player] No tracks in queue to play next.");
                 resetPlayerStatusIdle();
             }
         }
@@ -2189,22 +2221,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 logToTerminal("[Player] Previous track not found in shuffle queue.");
             }
         } else {
-            let startIndex = currentTrackIndex;
-            let prevIndex = currentTrackIndex;
-            let found = false;
-            
-            for (let i = 1; i <= playQueue.length; i++) {
-                prevIndex = (startIndex - i + playQueue.length) % playQueue.length;
-                if (isTrackDownloaded(playQueue[prevIndex])) {
-                    found = true;
-                    break;
-                }
-            }
-            
-            if (found) {
+            if (playQueue.length > 0) {
+                const prevIndex = (currentTrackIndex - 1 + playQueue.length) % playQueue.length;
                 playTrack(playQueue[prevIndex], playQueue, prevIndex);
             } else {
-                logToTerminal("[Player] No downloaded tracks in queue to skip to.");
+                logToTerminal("[Player] No tracks in queue to play previous.");
             }
         }
     }
@@ -2871,9 +2892,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         await selectPlaylist(job);
 
-        const playable = playlistItems.filter(t => isTrackDownloaded(t));
+        const playable = playlistItems;
         if (playable.length === 0) {
-            logToTerminal(`[Auto Play] "${entry.title}" has no downloaded tracks to play.`, true);
+            logToTerminal(`[Auto Play] "${entry.title}" has no tracks in playlist to play.`, true);
             activeSchedule = null;
             activeScheduleEndsAt = null;
             return;
@@ -2881,8 +2902,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (entry.target_type === "track") {
             const track = playlistItems.find(t => t.id === entry.track_id);
-            if (!track || !isTrackDownloaded(track)) {
-                logToTerminal(`[Auto Play] "${entry.title}" — the scheduled file is not downloaded.`, true);
+            if (!track) {
+                logToTerminal(`[Auto Play] "${entry.title}" — the scheduled file is not found.`, true);
                 activeSchedule = null;
                 activeScheduleEndsAt = null;
                 return;
@@ -2894,14 +2915,14 @@ document.addEventListener("DOMContentLoaded", () => {
             isShuffle = true;
             playerShuffleBtn.classList.add("active");
             const order = generateShuffleOrder(playlistItems);
-            const firstId = order[0];
-            const first = playlistItems.find(t => t.id === firstId);
-            await playTrack(first, playlistItems, playlistItems.findIndex(t => t.id === firstId), 0, order);
+            const firstId = order[0] || playlistItems[0].id;
+            const first = playlistItems.find(t => t.id === firstId) || playlistItems[0];
+            await playTrack(first, playlistItems, playlistItems.findIndex(t => t.id === first.id), 0, order);
         } else {
             isShuffle = false;
             playerShuffleBtn.classList.remove("active");
             const first = playable[0];
-            await playTrack(first, playlistItems, playlistItems.findIndex(t => t.id === first.id));
+            await playTrack(first, playlistItems, 0);
         }
 
         // Autoplay policies block sound until the window has been interacted
@@ -3192,6 +3213,88 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target === schedulerModal) schedulerModal.classList.add("hidden");
     });
 
+    // Playlist AI Operations Modal Handlers
+    const modalPlaylistAIOps = document.getElementById("modalPlaylistAIOps");
+    const btnPlaylistAIOps = document.getElementById("btnPlaylistAIOps");
+    const btnClosePlaylistAIOpsModal = document.getElementById("btnClosePlaylistAIOpsModal");
+    const btnCancelPlaylistAIOps = document.getElementById("btnCancelPlaylistAIOps");
+    const btnStartBatchAIOps = document.getElementById("btnStartBatchAIOps");
+    const aiOpsPlaylistSelect = document.getElementById("aiOpsPlaylistSelect");
+
+    function openPlaylistAIOpsModal() {
+        if (!modalPlaylistAIOps || !aiOpsPlaylistSelect) return;
+        aiOpsPlaylistSelect.innerHTML = "";
+        
+        const optAll = document.createElement("option");
+        optAll.value = "all_downloads";
+        optAll.textContent = "All Songs (Entire Library)";
+        aiOpsPlaylistSelect.appendChild(optAll);
+
+        historyJobs.forEach(job => {
+            if (!job.deleted && job.id !== "deleted_tracks" && job.id !== "all_downloads" && !job.id.startsWith("ai_")) {
+                const opt = document.createElement("option");
+                opt.value = job.id;
+                opt.textContent = `${job.title || job.playlist_title} (${(job.items || []).length} tracks)`;
+                if (job.id === currentPlaylistId) opt.selected = true;
+                aiOpsPlaylistSelect.appendChild(opt);
+            }
+        });
+        
+        modalPlaylistAIOps.classList.remove("hidden");
+    }
+
+    btnPlaylistAIOps?.addEventListener("click", openPlaylistAIOpsModal);
+    btnClosePlaylistAIOpsModal?.addEventListener("click", () => modalPlaylistAIOps?.classList.add("hidden"));
+    btnCancelPlaylistAIOps?.addEventListener("click", () => modalPlaylistAIOps?.classList.add("hidden"));
+    modalPlaylistAIOps?.addEventListener("click", (e) => {
+        if (e.target === modalPlaylistAIOps) modalPlaylistAIOps.classList.add("hidden");
+    });
+
+    btnStartBatchAIOps?.addEventListener("click", async () => {
+        const targetJobId = aiOpsPlaylistSelect.value;
+        const doMute = document.getElementById("aiOpMuteCheck")?.checked || false;
+        const doVocals = document.getElementById("aiOpVocalsCheck")?.checked || false;
+        const doInstrument = document.getElementById("aiOpInstrumentCheck")?.checked || false;
+        const skipDuplicates = document.getElementById("aiOpSkipDuplicatesCheck")?.checked || true;
+
+        if (!doMute && !doVocals && !doInstrument) {
+            alert("Please select at least one AI operation to perform.");
+            return;
+        }
+
+        btnStartBatchAIOps.disabled = true;
+        btnStartBatchAIOps.textContent = "Starting Background Ops...";
+
+        try {
+            const res = await fetch(`/api/history/${targetJobId}/batch-ai-ops`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    do_mute: doMute,
+                    do_vocals: doVocals,
+                    do_instrument: doInstrument,
+                    skip_duplicates: skipDuplicates
+                })
+            });
+
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error(errData.detail || "Batch AI operations failed to start");
+            }
+
+            const data = await res.json();
+            logToTerminal(`[AI] ✨ ${data.message}`);
+            alert(`Playlist AI Operations: ${data.message}`);
+            modalPlaylistAIOps.classList.add("hidden");
+        } catch (err) {
+            logToTerminal(`[AI Error] ${err.message}`, true);
+            alert(`Error: ${err.message}`);
+        } finally {
+            btnStartBatchAIOps.disabled = false;
+            btnStartBatchAIOps.textContent = "Start Batch Operations";
+        }
+    });
+
     // Start-up initialization
     loadDefaultDir();
     loadSidebar();
@@ -3220,6 +3323,37 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (e) {}
     }
     setInterval(pollAIJobs, 3000);
+
+    let lastCompletedCount = -1;
+    async function pollAIBatchStatus() {
+        const btnText = document.getElementById("btnPlaylistAIOpsText");
+        const btn = document.getElementById("btnPlaylistAIOps");
+        if (!btnText || !btn) return;
+
+        try {
+            const res = await fetch('/api/ai-batch-status');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.is_running && data.total > 0) {
+                    btnText.textContent = `AI Ops (${data.completed}/${data.total})`;
+                    btn.style.borderColor = "var(--neon-pink)";
+                    btn.style.boxShadow = "0 0 10px rgba(255, 0, 127, 0.4)";
+                } else {
+                    btnText.textContent = "Playlist AI Ops";
+                    btn.style.borderColor = "rgba(160, 32, 240, 0.45)";
+                    btn.style.boxShadow = "none";
+                }
+
+                if (data.completed !== lastCompletedCount) {
+                    lastCompletedCount = data.completed;
+                    loadSidebar();
+                    updateAzHeaderButtonLabel();
+                }
+            }
+        } catch (e) {}
+    }
+    setInterval(pollAIBatchStatus, 2000);
+    pollAIBatchStatus();
     // Reattach to an in-flight download after a page reload/app restart so the
     // Active Job HUD keeps reporting progress (harmless when idle).
     startProgressStream();
@@ -3305,7 +3439,6 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const pl of pls) {
             const isActive = azSelectedPlaylistId === pl.id;
             const icon = /gita|bhagavad/i.test(pl.title || "") ? "📿" : "🎵";
-            // Show what is actually IN the blob, and flag anything not uploaded yet.
             const missing = pl.missing_count
                 ? ` <span style="color:var(--warning,#e3b341)" title="${pl.missing_count} track(s) not in blob storage">⚠${pl.missing_count}</span>`
                 : "";
@@ -3314,6 +3447,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="az-pl-count">${pl.in_azure_count}${missing}</span>
             </div>`;
         }
+
+        // Render Virtual Exclusions Playlist Item
+        const exPl = summaries.find(s => s.id === "__exclusions__");
+        const exCount = exPl ? exPl.track_count : 0;
+        const isExActive = azSelectedPlaylistId === "__exclusions__";
+
+        html += `<div class="az-playlist-row virtual-exclusions ${isExActive ? 'active' : ''}" data-az-pl="__exclusions__" title="${exCount} excluded track(s)">
+            <span class="az-pl-name" style="color: #ff9800; font-weight: 700;">🚫 Excluded Tracks</span>
+            <span class="az-pl-count" style="color: #ff9800; background: rgba(255, 152, 0, 0.18); font-weight: 800;">${exCount}</span>
+        </div>`;
+
         container.innerHTML = html;
 
         // Attach click handlers
@@ -3335,9 +3479,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let fileList;
         if (azSelectedPlaylistId) {
-            // Exact join computed by the backend (manifest track.file -> blob name).
-            // The previous approach guessed via a 30-char title substring match,
-            // which mixed unrelated files together and missed renamed/truncated ones.
             const summaries = (azExplorerData && azExplorerData.playlist_summaries) || [];
             const pl = summaries.find(p => p.id === azSelectedPlaylistId);
             if (pl) {
@@ -3349,7 +3490,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const titleEl = document.getElementById("azGridTitle");
             if (titleEl) {
                 titleEl.textContent = pl
-                    ? `${pl.title} — ${pl.in_azure_count} of ${pl.track_count} in Azure`
+                    ? (pl.is_virtual ? `🚫 Excluded Tracks (${pl.track_count})` : `${pl.title} — ${pl.in_azure_count} of ${pl.track_count} in Azure`)
                     : "Unknown Playlist";
             }
         } else {
@@ -3364,10 +3505,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Sync status filter
+        const btnExclude = document.getElementById("btnAzExcludeSelected");
+        const btnUnexclude = document.getElementById("btnAzUnexcludeSelected");
+
+        if (azSelectedPlaylistId === "__exclusions__" || azSyncStatusFilter === "excluded") {
+            if (btnExclude) btnExclude.classList.add("hidden");
+            if (btnUnexclude) btnUnexclude.classList.remove("hidden");
+        } else {
+            if (btnExclude) btnExclude.classList.remove("hidden");
+            if (btnUnexclude) btnUnexclude.classList.add("hidden");
+        }
+
         if (azSyncStatusFilter !== "all") {
-            if (azSyncStatusFilter === "synced") fileList = fileList.filter(f => f.in_local);
-            else if (azSyncStatusFilter === "local_only") fileList = fileList.filter(f => !f.in_local && false); // N/A in explorer (explorer only shows azure files)
-            else if (azSyncStatusFilter === "azure_only") fileList = fileList.filter(f => !f.in_local);
+            if (azSyncStatusFilter === "synced") fileList = fileList.filter(f => f.sync_status === "synced");
+            else if (azSyncStatusFilter === "local_only") fileList = fileList.filter(f => f.sync_status === "local_only");
+            else if (azSyncStatusFilter === "azure_only") fileList = fileList.filter(f => f.sync_status === "azure_only");
+            else if (azSyncStatusFilter === "excluded") fileList = fileList.filter(f => f.sync_status === "excluded");
         }
 
         // Search
@@ -3382,7 +3535,7 @@ document.addEventListener("DOMContentLoaded", () => {
             switch (azSortKey) {
                 case "name": va = a.name.toLowerCase(); vb = b.name.toLowerCase(); break;
                 case "size": va = a.size || 0; vb = b.size || 0; break;
-                case "sync": va = a.in_local ? 1 : 0; vb = b.in_local ? 1 : 0; break;
+                case "sync": va = a.sync_status || ""; vb = b.sync_status || ""; break;
                 case "modified": va = a.last_modified || ""; vb = b.last_modified || ""; break;
                 default: va = a.name; vb = b.name;
             }
@@ -3430,9 +3583,17 @@ document.addEventListener("DOMContentLoaded", () => {
         let html = "";
         pageFiles.forEach((f, i) => {
             const idx = start + i + 1;
-            const badge = f.in_local
-                ? '<span class="az-badge az-badge-synced">✓ Synced</span>'
-                : '<span class="az-badge az-badge-azure">☁ Azure</span>';
+            let badge = "";
+            if (f.sync_status === 'excluded') {
+                badge = '<span class="az-badge az-badge-excluded" title="Excluded from Azure sync">🚫 Excluded</span>';
+            } else if (f.sync_status === 'synced') {
+                badge = '<span class="az-badge az-badge-synced">✓ Synced</span>';
+            } else if (f.sync_status === 'local_only') {
+                badge = '<span class="az-badge" style="background: rgba(227,179,65,0.15); color: #e3b341; border: 1px solid rgba(227,179,65,0.3);">↑ Local Only</span>';
+            } else {
+                badge = '<span class="az-badge az-badge-azure">☁ Azure Only</span>';
+            }
+
             const modified = f.last_modified
                 ? new Date(f.last_modified).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
                 : "—";
@@ -3490,6 +3651,52 @@ document.addEventListener("DOMContentLoaded", () => {
         }, isError ? 6000 : 3200);
     }
 
+    // Helper function to update Azure Blob Header Button label & delta badge
+    async function updateAzHeaderButtonLabel() {
+        const btnText = document.getElementById("azBtnText");
+        const btnBadge = document.getElementById("azBtnBadge");
+        if (!btnText && !btnBadge) return;
+
+        try {
+            const res = await fetch("/api/azure/stats");
+            const data = await res.json();
+            
+            if (data.is_syncing || (data.sync_status && data.sync_status.is_syncing)) {
+                const s = data.sync_status || {};
+                const prog = s.progress || 0;
+                const tot = s.total || 0;
+                if (btnText) btnText.textContent = tot > 0 ? `Syncing ${prog}/${tot}` : "Syncing...";
+                if (btnBadge) {
+                    btnBadge.className = "az-delta-badge syncing";
+                    btnBadge.textContent = "Syncing";
+                    btnBadge.title = s.current_file || "Sync in progress...";
+                    btnBadge.classList.remove("hidden");
+                }
+            } else {
+                if (btnText) btnText.textContent = "Az Blob";
+                const delta = data.local_only_count || 0;
+                if (btnBadge) {
+                    btnBadge.classList.remove("hidden");
+                    if (delta > 0) {
+                        btnBadge.className = "az-delta-badge";
+                        btnBadge.textContent = `+${delta}`;
+                        btnBadge.title = `${delta} unsynced local file(s) pending Azure upload`;
+                    } else {
+                        btnBadge.className = "az-delta-badge synced";
+                        btnBadge.textContent = "✓";
+                        btnBadge.title = "All local files synced to Azure";
+                    }
+                }
+            }
+        } catch (err) {
+            console.error("Failed to update Azure button label:", err);
+        }
+    }
+
+    // Auto-refresh Azure Button Label & Delta Badge every 5 minutes (300,000 ms)
+    setInterval(updateAzHeaderButtonLabel, 5 * 60 * 1000);
+    setTimeout(updateAzHeaderButtonLabel, 1000);
+
     // Sync progress polling
     function startAzSyncPolling() {
         if (azSyncPollInterval) return;
@@ -3498,20 +3705,17 @@ document.addEventListener("DOMContentLoaded", () => {
         btnConfirmAzSync.disabled = true;
         btnConfirmAzSync.innerHTML = `<div class="spinner" style="width:12px;height:12px;display:inline-block;vertical-align:middle;margin-right:4px;"></div> Syncing...`;
 
-        // Only trust a "finished" reading AFTER the sync has actually been seen
-        // running. Otherwise a poll landing before the backend flips the flag is
-        // indistinguishable from completion, and we announce success for a sync
-        // that never ran (and hide the progress bar immediately).
         let sawSyncing = false;
-        // ...but do not wait forever: a sync with nothing to upload can finish
-        // before the first poll lands, in which case we would never observe it
-        // running. After a short grace period, accept the finished state.
         let graceCycles = 0;
 
         azSyncPollInterval = setInterval(async () => {
             try {
                 const res = await fetch("/api/azure/sync/status");
                 const data = await res.json();
+                
+                // Update header button label during sync
+                updateAzHeaderButtonLabel();
+
                 if (data.is_syncing) {
                     sawSyncing = true;
                     const fill = document.getElementById("azSyncProgressFill");
@@ -3522,15 +3726,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (fill) fill.style.width = pct + "%";
                         if (text) text.textContent = `${data.progress} / ${data.total}`;
                     } else {
-                        // Counting/scanning phase reports total=0. Showing "0 / 0"
-                        // with a 0%-wide bar looked like nothing was happening.
                         if (fill) fill.style.width = "100%";
                         if (text) text.textContent = "Scanning…";
                     }
                     if (file) file.textContent = data.current_file || "Working...";
                 } else if (!sawSyncing && graceCycles++ < 3) {
                     const file = document.getElementById("azSyncCurrentFile");
-                    if (file) file.textContent = "Starting…";   // keep waiting, don't claim success
+                    if (file) file.textContent = "Starting…";
                 } else {
                     clearInterval(azSyncPollInterval);
                     azSyncPollInterval = null;
@@ -3543,9 +3745,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         showToast("Sync error: " + data.error, true);
                     } else {
                         showToast("Azure Sync completed successfully!");
-                        // Refresh explorer data
                         loadAzExplorer();
                     }
+                    updateAzHeaderButtonLabel();
                 }
             } catch (e) {
                 console.error("Az sync poll error", e);
@@ -3567,6 +3769,7 @@ document.addEventListener("DOMContentLoaded", () => {
             azRenderStats(data.stats);
             azRenderSidebar(data.playlists || [], data.files || {});
             azApplyFilters();
+            updateAzHeaderButtonLabel();
         } catch (err) {
             console.error(err);
             if (gridBody) gridBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 2rem; color: var(--error);">Error: ${err.message}</td></tr>`;
@@ -3721,6 +3924,74 @@ document.addEventListener("DOMContentLoaded", () => {
             } finally {
                 btnAzDeleteSelected.disabled = false;
                 btnAzDeleteSelected.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete Selected`;
+            }
+        });
+    }
+
+    // Exclude Selected Tracks
+    const btnAzExcludeSelected = document.getElementById("btnAzExcludeSelected");
+    if (btnAzExcludeSelected) {
+        btnAzExcludeSelected.addEventListener("click", async () => {
+            const selected = getSelectedBlobNames();
+            if (selected.length === 0) {
+                showToast("Please select at least one track to exclude.", true);
+                return;
+            }
+            if (!confirm(`Exclude ${selected.length} selected track(s) from Azure Sync?\n\nThese tracks will never be uploaded to Azure. If already uploaded, they will be removed from Azure.`)) return;
+
+            btnAzExcludeSelected.disabled = true;
+            btnAzExcludeSelected.innerHTML = `<div class="spinner" style="width:11px;height:11px;display:inline-block;vertical-align:middle;margin-right:4px;"></div> Excluding...`;
+
+            try {
+                const res = await fetch("/api/azure/blobs/exclude", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ blob_names: selected })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || "Failed excluding tracks");
+                showToast(`Excluded ${selected.length} track(s) from Azure Sync.`);
+                await loadAzExplorer();
+                updateAzHeaderButtonLabel();
+            } catch (err) {
+                showToast("Exclude Error: " + err.message, true);
+            } finally {
+                btnAzExcludeSelected.disabled = false;
+                btnAzExcludeSelected.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg> Exclude Selected`;
+            }
+        });
+    }
+
+    // Restore / Un-exclude Selected Tracks
+    const btnAzUnexcludeSelected = document.getElementById("btnAzUnexcludeSelected");
+    if (btnAzUnexcludeSelected) {
+        btnAzUnexcludeSelected.addEventListener("click", async () => {
+            const selected = getSelectedBlobNames();
+            if (selected.length === 0) {
+                showToast("Please select at least one track to restore.", true);
+                return;
+            }
+            if (!confirm(`Restore ${selected.length} selected track(s) to normal Azure Sync?`)) return;
+
+            btnAzUnexcludeSelected.disabled = true;
+            btnAzUnexcludeSelected.innerHTML = `<div class="spinner" style="width:11px;height:11px;display:inline-block;vertical-align:middle;margin-right:4px;"></div> Restoring...`;
+
+            try {
+                const res = await fetch("/api/azure/blobs/unexclude", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ blob_names: selected })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || "Failed restoring tracks");
+                showToast(`Restored ${selected.length} track(s) to Azure Sync.`);
+                await loadAzExplorer();
+                updateAzHeaderButtonLabel();
+            } catch (err) {
+                showToast("Restore Error: " + err.message, true);
+            } finally {
+                btnAzUnexcludeSelected.disabled = false;
+                btnAzUnexcludeSelected.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Restore to Sync`;
             }
         });
     }

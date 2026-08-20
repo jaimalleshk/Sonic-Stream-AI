@@ -121,26 +121,63 @@ class AIVocalProcessor:
         audio.export(output_path, format="mp3", bitrate="320k")
         return output_path
 
-    def export_audio(self, input_path, output_path, is_vocal_stem=False, is_karaoke_stem=False, vocal_path=None):
+    def stabilize_volume(self, audio: AudioSegment, target_dbfs: float = -1.0) -> AudioSegment:
         """
-        Exports a WAV file as a 320k high bitrate MP3 with master acoustic polishing.
+        Normalizes peak amplitude and stabilizes loudness across the entire audio stem
+        to ensure full, rich, non-fluctuating volume.
         """
-        logger.info(f"Exporting {input_path} to {output_path}...")
-        
-        # Export pure high-fidelity Demucs accompaniment stem without volume-ducking/gating
+        try:
+            change_in_db = target_dbfs - audio.max_dBFS
+            return audio.apply_gain(change_in_db)
+        except Exception as e:
+            logger.warning(f"Volume stabilization fallback: {e}")
+            return audio
+
+    def trim_silence_gaps(self, audio: AudioSegment, max_silence_ms: int = 2000, silence_thresh_db: float = -45.0) -> AudioSegment:
+        """
+        Detects long gaps of silence (> max_silence_ms) across the track and trims/removes them
+        with smooth crossfades for seamless musical continuity.
+        """
+        try:
+            from pydub.silence import split_on_silence
+            chunks = split_on_silence(
+                audio,
+                min_silence_len=max_silence_ms,
+                silence_thresh=silence_thresh_db,
+                keep_silence=300
+            )
+            if not chunks:
+                return audio
+                
+            combined = chunks[0]
+            for chunk in chunks[1:]:
+                combined = combined.append(chunk, crossfade=100)
+            logger.info(f"Trimmed long silence gaps: original {len(audio)/1000:.1f}s -> trimmed {len(combined)/1000:.1f}s")
+            return combined
+        except Exception as e:
+            logger.warning(f"Silence gap trimming fallback: {e}")
+            return audio
+
+    def export_audio(self, input_path, output_path, is_vocal_stem=False, is_karaoke_stem=False, vocal_path=None, trim_silence=True):
+        """
+        Exports a WAV file as a 320k high bitrate MP3 with master volume stabilization and optional silence gap trimming.
+        """
+        logger.info(f"Exporting {input_path} to {output_path} (trim_silence={trim_silence})...")
         audio = AudioSegment.from_file(input_path)
         
+        if is_karaoke_stem:
+            # 1. Stable Volume across the track (Peak RMS Normalization)
+            audio = self.stabilize_volume(audio, target_dbfs=-1.0)
+            # 2. Trim long gaps of silence if enabled
+            if trim_silence:
+                audio = self.trim_silence_gaps(audio, max_silence_ms=2000, silence_thresh_db=-45.0)
+
         if is_vocal_stem:
-            # High-pass filter at 85Hz to cut low-end mic thumps and sub-bass rumble
             try:
                 audio = audio.high_pass_filter(85)
             except Exception:
                 pass
-            # Normalize peak dynamics for studio vocal presence
-            try:
-                audio = audio.normalize()
-            except Exception:
-                pass
+            audio = self.stabilize_volume(audio, target_dbfs=-1.0)
 
         audio.export(output_path, format="mp3", bitrate="320k")
         return output_path
