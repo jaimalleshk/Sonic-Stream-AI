@@ -3352,6 +3352,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     loadSidebar();
                     updateAzHeaderButtonLabel();
                 }
+
+                if (data.logs && Array.isArray(data.logs)) {
+                    data.logs.forEach(msg => {
+                        if (!window._seenAILogs) window._seenAILogs = new Set();
+                        if (!window._seenAILogs.has(msg)) {
+                            window._seenAILogs.add(msg);
+                            // Only log if it's running or if it's the completed message
+                            logToTerminal(`[AI] ${msg}`);
+                        }
+                    });
+                }
             }
         } catch (e) {}
     }

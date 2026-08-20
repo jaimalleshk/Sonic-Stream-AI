@@ -2626,12 +2626,39 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
     def _run_batch_worker():
         try:
             from services.ai_vocal_processor import AIVocalProcessor
+            from datetime import datetime
             processor = AIVocalProcessor(workspace_dir=os.path.join(BASE_DIR, "ai_workspace"))
             
             items = job.get("items", [])
             target_ddir = DOWNLOAD_DIR
             
-            for item in items:
+            logs_buffer = []
+            
+            def save_progress(idx, current_track, is_running=True):
+                try:
+                    progress_file = os.path.join(BASE_DIR, "ai_batch_progress.json")
+                    with open(progress_file, "w", encoding="utf-8") as pf:
+                        json.dump({
+                            "is_running": is_running,
+                            "completed": idx,
+                            "total": len(items),
+                            "current_track": current_track,
+                            "job_title": job.get("title", "Batch AI"),
+                            "logs": logs_buffer[-50:]  # Keep last 50 logs to prevent file bloat
+                        }, pf, indent=2, ensure_ascii=False)
+                except Exception:
+                    pass
+
+            def log_msg(msg):
+                stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                formatted = f"[{stamp}] {msg}".encode('utf-8', 'replace').decode('utf-8')
+                print(formatted)
+                logs_buffer.append(formatted)
+                
+            log_msg(f"Started Batch AI operations for job '{job.get('title')}' with {len(items)} tracks.")
+            save_progress(0, "Starting...", True)
+            
+            for idx, item in enumerate(items):
                 title = item.get("title", "")
                 track_id = item.get("id")
                 if not title or not track_id:
@@ -2639,9 +2666,12 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                 if any(k in title for k in (" - AI Muted Vocals", " - AI Instrumental", " - AI Vocals Only", " - Karaoke")):
                     continue
                     
+                log_msg(f"--- Processing Track {idx+1}/{len(items)}: '{title}' ---")
+                    
                 fn_clean = sanitize_filename(title)
                 local_src = check_local_duplicate(title, "audio", target_ddir)
                 if not local_src or not os.path.exists(local_src):
+                    log_msg(f"SKIPPED: Local file not found for '{title}'")
                     continue
 
                 # Pre-Validation Stage: Check if track actually contains human vocals
@@ -2649,10 +2679,12 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                     from services.ai_vocal_detector import AIVocalDetector
                     v_res = AIVocalDetector.has_vocals(title, local_src)
                     if not v_res.get("has_vocals", True):
-                        logger.info(f"[Pre-Validation Stage] SKIPPED '{title}': {v_res.get('reason')}")
+                        log_msg(f"[Pre-Validation Stage] SKIPPED: {v_res.get('reason')}")
                         continue
+                    else:
+                        log_msg(f"[Pre-Validation Stage] PASSED: Vocals detected.")
                 except Exception as v_err:
-                    logger.error(f"[Pre-Validation Stage] Notice: {v_err}")
+                    log_msg(f"[Pre-Validation Stage] Notice: {v_err}")
 
                 vocal_p, accomp_p = None, None
 
@@ -2662,23 +2694,26 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                     out_path = os.path.join(target_ddir, out_name)
                     already_exists = os.path.exists(out_path) and os.path.getsize(out_path) > 1000
                     if not (req.skip_duplicates and already_exists):
+                        log_msg(f"Generating AI Muted Vocals...")
                         if not vocal_p or not accomp_p:
                             vocal_p, accomp_p = processor.separate_vocals(local_src)
                         processor.export_audio(accomp_p, out_path, is_karaoke_stem=True, vocal_path=vocal_p, trim_silence=req.trim_silence)
 
-                    # Quality Audit Gatekeeper
-                    try:
-                        from services.ai_quality_auditor import AIQualityAuditor
-                        audit_res = AIQualityAuditor.verify_karaoke_quality(local_src, out_path)
-                        if not audit_res.get("is_valid", False):
-                            logger.warning(f"[AI Quality Auditor] REJECTED '{title}': {audit_res.get('reason')}")
-                            if os.path.exists(out_path):
-                                os.remove(out_path)
-                            continue
-                        else:
-                            logger.info(f"[AI Quality Auditor] PASSED '{title}': {audit_res.get('reason')}")
-                    except Exception as qerr:
-                        logger.error(f"[AI Quality Auditor] Notice: {qerr}")
+                        # Quality Audit Gatekeeper
+                        try:
+                            from services.ai_quality_auditor import AIQualityAuditor
+                            audit_res = AIQualityAuditor.verify_karaoke_quality(local_src, out_path)
+                            if not audit_res.get("is_valid", False):
+                                log_msg(f"[AI Quality Auditor] REJECTED: {audit_res.get('reason')}")
+                                if os.path.exists(out_path):
+                                    os.remove(out_path)
+                                continue
+                            else:
+                                log_msg(f"[AI Quality Auditor] PASSED: {audit_res.get('reason')}")
+                        except Exception as qerr:
+                            log_msg(f"[AI Quality Auditor] Notice: {qerr}")
+                    else:
+                        log_msg(f"SKIPPED (Duplicate): AI Muted Vocals already exists.")
 
                     _add_ai_track_to_playlist(item, "ai_muted_vocals", "AI Muted Vocals", out_path)
 
@@ -2688,9 +2723,12 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                     out_path = os.path.join(target_ddir, out_name)
                     already_exists = os.path.exists(out_path) and os.path.getsize(out_path) > 1000
                     if not (req.skip_duplicates and already_exists):
+                        log_msg(f"Generating AI Vocals Only...")
                         if not vocal_p or not accomp_p:
                             vocal_p, accomp_p = processor.separate_vocals(local_src)
                         processor.export_audio(vocal_p, out_path, is_vocal_stem=True)
+                    else:
+                        log_msg(f"SKIPPED (Duplicate): AI Vocals Only already exists.")
 
                     _add_ai_track_to_playlist(item, "ai_vocals_only", "AI Vocals Only", out_path)
 
@@ -2700,43 +2738,27 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                     out_path = os.path.join(target_ddir, out_name)
                     already_exists = os.path.exists(out_path) and os.path.getsize(out_path) > 1000
                     if not (req.skip_duplicates and already_exists):
+                        log_msg(f"Generating Voice-to-Instrument...")
                         if not vocal_p or not accomp_p:
                             vocal_p, accomp_p = processor.separate_vocals(local_src)
                         inst_stem = processor.vocal_to_instrument(vocal_p, instrument="sax")
                         processor.mix_audio(accomp_p, inst_stem, out_path)
+                    else:
+                        log_msg(f"SKIPPED (Duplicate): AI Instrumental already exists.")
 
                     _add_ai_track_to_playlist(item, "ai_instrumental", "AI Instrumental", out_path)
+
+                log_msg(f"--- Finished Track {idx+1}/{len(items)} ---")
 
                 import deploy_pwa
                 deploy_pwa.generate_pwa_manifest()
                 
                 # Update progress state file
-                try:
-                    progress_file = os.path.join(BASE_DIR, "ai_batch_progress.json")
-                    with open(progress_file, "w", encoding="utf-8") as pf:
-                        json.dump({
-                            "is_running": True,
-                            "completed": idx + 1,
-                            "total": len(items),
-                            "current_track": title,
-                            "job_title": job.get("title", "Batch AI")
-                        }, pf, indent=2, ensure_ascii=False)
-                except Exception:
-                    pass
+                save_progress(idx + 1, title, True)
 
             # Mark complete
-            try:
-                progress_file = os.path.join(BASE_DIR, "ai_batch_progress.json")
-                with open(progress_file, "w", encoding="utf-8") as pf:
-                    json.dump({
-                        "is_running": False,
-                        "completed": len(items),
-                        "total": len(items),
-                        "current_track": "Completed",
-                        "job_title": job.get("title", "Batch AI")
-                    }, pf, indent=2, ensure_ascii=False)
-            except Exception:
-                pass
+            log_msg("All tracks completed.")
+            save_progress(len(items), "Completed", False)
                 
         except Exception as e:
             traceback.print_exc()

@@ -1737,3 +1737,50 @@ th {
         display: none;
     }
 }
+
+/* Azure Sync Delta Badge & Button Status */
+.az-delta-badge {
+    background: var(--neon-blue, #00f2fe);
+    color: #050d1a;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.12rem 0.42rem;
+    border-radius: 12px;
+    margin-left: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+    transition: all 0.2s ease;
+    vertical-align: middle;
+}
+
+.az-delta-badge.synced {
+    background: rgba(46, 160, 67, 0.25);
+    color: #3fb950;
+    border: 1px solid rgba(63, 185, 80, 0.4);
+    box-shadow: none;
+}
+
+.az-delta-badge.syncing {
+    background: var(--neon-purple, #9d4edf);
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(157, 78, 223, 0.4);
+}
+
+.az-badge-excluded {
+    background: rgba(255, 152, 0, 0.15);
+    color: #ff9800;
+    border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.az-playlist-row.virtual-exclusions {
+    background: rgba(255, 152, 0, 0.05);
+    border: 1px dashed rgba(255, 152, 0, 0.3);
+    margin-top: 0.4rem;
+}
+
+.az-playlist-row.virtual-exclusions:hover {
+    background: rgba(255, 152, 0, 0.12);
+    border-color: rgba(255, 152, 0, 0.5);
+}

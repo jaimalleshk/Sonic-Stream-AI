@@ -16,7 +16,18 @@ Sonic Stream AI leverages state-of-the-art machine learning models to manipulate
 
 ---
 
-## 2. Independent AI Quality Auditor Module (`AIQualityAuditor`)
+## 2. Pre-Validation Gatekeeper (`AIVocalDetector`)
+**Purpose:** An intelligent pre-filter ([`src/services/ai_vocal_detector.py`](file:///D:/OneDrive/OneDrive-Projects/Sonic%20Stream%20AI/src/services/ai_vocal_detector.py)) that scans songs to determine if they actually contain human vocals *before* spinning up the heavy Demucs model.
+
+**How it works under the hood:**
+1. **Title Heuristics:** Instantly skips tracks with titles containing "Instrumental", "Karaoke", "BGM", or "Beat".
+2. **Spectral Audio Analysis:** Analyzes the first 60 seconds of the track using `librosa`.
+3. **MFCC Feature Extraction:** Extracts Mel-frequency cepstral coefficients (MFCCs) and checks the variance and mean. If the variance is very low, the track is deemed to lack human vocals.
+4. **Time Savings:** Skips purely instrumental tracks (like Classical or EDM beats) instantly during Batch AI Operations, saving ~3-5 minutes of processing time per track.
+
+---
+
+## 3. Independent AI Quality Auditor Module (`AIQualityAuditor`)
 **Purpose:** An independent signal-level quality gatekeeper ([`src/services/ai_quality_auditor.py`](file:///D:/OneDrive/OneDrive-Projects/Sonic%20Stream%20AI/src/services/ai_quality_auditor.py)) that audits every generated stem in real-time before accepting it into playlists or syncing to Azure Blob Storage.
 
 **How it works under the hood:**

@@ -8,11 +8,12 @@ from azure.storage.blob import BlobServiceClient
 # 1. Permanently patch subprocess.Popen to prevent any console window popup on Windows
 if os.name == 'nt':
     _original_popen = subprocess.Popen
-    def _patched_popen(*args, **kwargs):
-        if 'creationflags' not in kwargs:
-            kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
-        return _original_popen(*args, **kwargs)
-    subprocess.Popen = _patched_popen
+    class _PatchedPopen(_original_popen):
+        def __init__(self, *args, **kwargs):
+            if 'creationflags' not in kwargs:
+                kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
+            super().__init__(*args, **kwargs)
+    subprocess.Popen = _PatchedPopen
 
 # 2. Force stdout & stderr encoding to UTF-8 on Windows
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -52,8 +53,8 @@ def is_video_file(filename: str) -> bool:
     return filename.lower().endswith(VIDEO_EXTENSIONS)
 
 def is_gita_file(filename: str) -> bool:
-    """Returns True if the file is a Gita audio file (exempt from 200MB limit)."""
-    return "gita" in filename.lower()
+    """Gita exclusion cap removed per user request: all files > 200MB are trimmed for Azure sync."""
+    return False
 
 def get_audio_duration_seconds(local_path: str) -> float:
     """Gets exact duration of media file using ffprobe with no console window."""
@@ -181,14 +182,33 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
 
     account_url = f"https://{account_name}.blob.core.windows.net"
 
+    # Load persistent list of explicitly deleted blobs
+    deleted_blobs_path = os.path.join(BASE_DIR, "deleted_blobs.json")
+    deleted_blobs = set()
+    if os.path.exists(deleted_blobs_path):
+        try:
+            with open(deleted_blobs_path, "r", encoding="utf-8") as dbf:
+                deleted_blobs = set(json.load(dbf))
+        except Exception:
+            pass
+
     try:
         if account_key:
             conn_str = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
-            blob_service_client = BlobServiceClient.from_connection_string(conn_str)
+            blob_service_client = BlobServiceClient.from_connection_string(
+                conn_str,
+                max_single_put_size=2 * 1024 * 1024,
+                max_block_size=2 * 1024 * 1024
+            )
         else:
             if sas_token.startswith("?"):
                 sas_token = sas_token[1:]
-            blob_service_client = BlobServiceClient(account_url=account_url, credential=sas_token)
+            blob_service_client = BlobServiceClient(
+                account_url=account_url,
+                credential=sas_token,
+                max_single_put_size=2 * 1024 * 1024,
+                max_block_size=2 * 1024 * 1024
+            )
             
         container_client = blob_service_client.get_container_client(container_name)
         if not container_client.exists():
@@ -220,13 +240,17 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
         for d in dirs_to_check:
             for root, _, names in os.walk(d):
                 for f in names:
-                    if f.lower().endswith(AUDIO_EXTENSIONS):
+                    if f.lower().endswith(AUDIO_EXTENSIONS) and not is_video_file(f) and "AI Vocals Only" not in f:
                         if f not in local_files:
                             local_files[f] = os.path.join(root, f)
 
         # Build list of files needing upload (or re-upload due to trimming)
         files_to_upload = []  # list of filenames
         for fname, lpath in local_files.items():
+            if fname in deleted_blobs:
+                safe_print(f"[Azure Sync] Skipping '{fname}' (explicitly deleted from Azure)")
+                continue
+
             exempt = is_gita_file(fname)
             rem_size = existing_blobs.get(fname)
             
@@ -251,13 +275,14 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
             if not keep_full and not exempt:
                 upload_path, was_trimmed = trim_audio_if_exceeds_max(local_path, AI_WORKSPACE_DIR, MAX_BLOB_SIZE_BYTES)
             
-            status_msg = f"Uploading {f} (trimmed to <200MB)" if was_trimmed else f"Uploading {f}"
-            if progress_callback: progress_callback(idx, total_files, status_msg, False)
-            safe_print(f"[Azure Sync] Uploading media file: {f} ({os.path.getsize(upload_path)/(1024*1024):.1f} MB)")
+            status_msg = f"Uploading {idx+1}/{total_files}: {f} (trimmed <200MB)" if was_trimmed else f"Uploading {idx+1}/{total_files}: {f}"
+            if progress_callback: progress_callback(idx + 1, total_files, status_msg, False)
+            u_size = os.path.getsize(upload_path)
+            safe_print(f"[Azure Sync] Uploading media file ({idx+1}/{total_files}): {f} ({u_size/(1024*1024):.1f} MB)")
             
             try:
                 with open(upload_path, "rb") as data:
-                    blob_client.upload_blob(data, overwrite=True)
+                    blob_client.upload_blob(data, length=u_size, overwrite=True)
                 if was_trimmed and upload_path != local_path and os.path.exists(upload_path):
                     try: os.remove(upload_path)
                     except Exception: pass
@@ -270,7 +295,7 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
                     pass
                 try:
                     with open(upload_path, "rb") as data:
-                        blob_client.upload_blob(data, overwrite=True)
+                        blob_client.upload_blob(data, length=u_size, overwrite=True)
                     if was_trimmed and upload_path != local_path and os.path.exists(upload_path):
                         try: os.remove(upload_path)
                         except Exception: pass

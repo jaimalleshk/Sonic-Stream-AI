@@ -13,7 +13,7 @@
     "days": [],
     "start_time": "21:00",
     "end_time": "23:00",
-    "last_fired": "2026-08-15T21:00",
+    "last_fired": "2026-08-19T21:00",
     "created_at": "2026-08-13T20:54:36.269053"
   },
   {
@@ -21,7 +21,7 @@
     "title": "Instruments week days- 2pm",
     "enabled": true,
     "target_type": "playlist",
-    "playlist_id": "job_1783134296",
+    "playlist_id": "ai_muted_vocals",
     "track_id": null,
     "track_title": null,
     "mode": "shuffle",
@@ -41,10 +41,10 @@
   },
   {
     "id": "sched_1786673448309",
-    "title": "Instrumental week days 4pm",
+    "title": "AI Muted Vocals week days 4pm",
     "enabled": true,
     "target_type": "playlist",
-    "playlist_id": "job_1783134296",
+    "playlist_id": "ai_muted_vocals",
     "track_id": null,
     "track_title": null,
     "mode": "shuffle",
@@ -59,7 +59,7 @@
     ],
     "start_time": "16:00",
     "end_time": "18:00",
-    "last_fired": "2026-08-14T16:00",
+    "last_fired": "2026-08-20T16:00",
     "created_at": "2026-08-13T21:10:48.309661"
   }
 ]
