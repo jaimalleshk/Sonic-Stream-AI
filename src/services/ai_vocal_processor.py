@@ -127,9 +127,7 @@ class AIVocalProcessor:
         """
         logger.info(f"Exporting {input_path} to {output_path}...")
         
-        if is_karaoke_stem and vocal_path and os.path.exists(vocal_path):
-            return self.suppress_residual_vocals(input_path, vocal_path, output_path)
-
+        # Export pure high-fidelity Demucs accompaniment stem without volume-ducking/gating
         audio = AudioSegment.from_file(input_path)
         
         if is_vocal_stem:
