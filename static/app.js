@@ -2765,6 +2765,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const autoplayActiveSub = document.getElementById("autoplayActiveSub");
     const autoplayUpcoming = document.getElementById("autoplayUpcoming");
 
+    const APP_BUILD = "v39";
     const DAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
     // --- date/time helpers (all local time; 0 = Monday) ---
@@ -3255,7 +3256,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const doMute = document.getElementById("aiOpMuteCheck")?.checked || false;
         const doVocals = document.getElementById("aiOpVocalsCheck")?.checked || false;
         const doInstrument = document.getElementById("aiOpInstrumentCheck")?.checked || false;
-        const skipDuplicates = document.getElementById("aiOpSkipDuplicatesCheck")?.checked || true;
+        const skipDuplicates = document.getElementById("aiOpSkipDuplicatesCheck")?.checked ?? true;
+        const trimSilence = document.getElementById("aiOpTrimSilenceCheck")?.checked ?? true;
 
         if (!doMute && !doVocals && !doInstrument) {
             alert("Please select at least one AI operation to perform.");
@@ -3273,7 +3275,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     do_mute: doMute,
                     do_vocals: doVocals,
                     do_instrument: doInstrument,
-                    skip_duplicates: skipDuplicates
+                    skip_duplicates: skipDuplicates,
+                    trim_silence: trimSilence
                 })
             });
 

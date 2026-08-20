@@ -946,6 +946,14 @@
                         <span>Skip already processed / existing files (0 Duplicates)</span>
                     </label>
                 </div>
+
+                <!-- Trim Silence option -->
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; background: rgba(0,0,0,0.2); padding: 0.6rem 0.8rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;" title="Automatically trim & remove long gaps of silence (>2s) from generated AI Vocal Muted tracks">
+                        <input type="checkbox" id="aiOpTrimSilenceCheck" checked style="accent-color: var(--neon-purple); width: 16px; height: 16px; cursor: pointer;">
+                        <span>Trim long gaps of silence (> 2 seconds)</span>
+                    </label>
+                </div>
                 
                 <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0; line-height: 1.4; text-align: center;">
                     ⚡ Batch operations run pure 100% in the background. Output files save directly to <code>D:\OneDrive - Triamber\YoutubeDownloads</code> without interrupting media playback.
