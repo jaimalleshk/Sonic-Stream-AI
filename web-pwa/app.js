@@ -100,8 +100,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("./sw.js").then((reg) => {
             console.log("[PWA] Service Worker registered successfully:", reg.scope);
+            reg.update();
         }).catch((err) => {
             console.error("[PWA] Service Worker registration failed:", err);
+        });
+
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+            if (!refreshing) {
+                refreshing = true;
+                console.log("[PWA] New Service Worker activated! Reloading page...");
+                window.location.reload();
+            }
         });
     }
 
@@ -963,7 +973,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v35";
+    const APP_BUILD = "v36";
 
     // Memoised cache statistics.
     //
