@@ -1,7 +1,8 @@
-{
+// Auto-generated configuration for SonicStream Web PWA
+window.SONICSTREAM_CONFIG = {
   "azure_storage_account": "stsonicstream",
   "azure_container": "media",
   "azure_sas_token": "se=2027-12-31T23%3A59%3A59Z&sp=r&sv=2026-02-06&sr=c&sig=H/HspdXEDQJzFXLonI%2BzotSjj3DRjJgTrKaIcPSTIgs%3D",
   "azure_client_id": "51f81489-12ee-4a9e-aaae-a2591f45987d",
   "onedrive_share_link": "https://traimber-my.sharepoint.com/:f:/g/personal/jai_triamber_com/IgBxqpLqUcUJQ6pnQWDVENoiAZsIB5bXL9QVvJKF1KZPl2s?e=Ufep0O"
-}
+};
