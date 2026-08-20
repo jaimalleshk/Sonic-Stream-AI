@@ -1,14 +1,12 @@
 # Sonic Stream AI - AI Features Documentation
 
-Sonic Stream AI leverages state-of-the-art machine learning models to manipulate and isolate audio stems directly on your machine. The architecture utilizes Meta's **Demucs** engine (specifically the `htdemucs_ft` model) combined with a real-time chunked streaming pipeline to provide zero-wait-time audio processing.
-
-There are three primary AI features integrated into the platform:
+Sonic Stream AI leverages state-of-the-art machine learning models to manipulate and isolate audio stems directly on your machine. The architecture utilizes Meta's **Demucs** engine (specifically the `htdemucs_ft` model) combined with a real-time chunked streaming pipeline, independent signal quality auditing, and automated Azure cloud synchronization.
 
 ---
 
 ## 1. Live Voice Mute (Real-time Instrumental Streaming)
 **Purpose:** Instantly strips vocals from a playing track, allowing you to listen to a pristine instrumental version without waiting for the entire song to process.
-**Quality:** **Average to Good**. The separation removes the vast majority of vocals cleanly, though slight artifacts or backing vocal bleeds may occasionally be present depending on the song.
+**Quality:** **Good to Excellent**. Demucs `no_vocals.wav` stem is exported directly as a 320k high-bitrate MP3 instrumental.
 
 **How it works under the hood:**
 1. **Chunking Engine:** When you activate Live Voice Mute, the Python backend intercepts the raw downloaded MP3 and slices it into 30-second segments (`chunks`) using `pydub`.
@@ -18,23 +16,37 @@ There are three primary AI features integrated into the platform:
 
 ---
 
-## 2. Voice-to-Instrument AI (Synthesized Replacement)
-**Purpose:** Instead of just muting the vocals, this feature completely replaces the human singer's voice with a synthesized MIDI instrument (defaulting to a Flute, MIDI program 73, for maximum harmony and versatility).
-**Quality:** **Not Good** *(Tracked as an open defect)*. The raw pitch extraction captures unwanted vocal artifacts (like breath and excessive vibrato), which translates poorly to MIDI, making the synthesized instrument sound choppy or disjointed.
+## 2. Independent AI Quality Auditor Module (`AIQualityAuditor`)
+**Purpose:** An independent signal-level quality gatekeeper ([`src/services/ai_quality_auditor.py`](file:///D:/OneDrive/OneDrive-Projects/Sonic%20Stream%20AI/src/services/ai_quality_auditor.py)) that audits every generated stem in real-time before accepting it into playlists or syncing to Azure Blob Storage.
 
 **How it works under the hood:**
-1. **Vocal Isolation:** Like Live Voice Mute, the track is chunked into 30-second segments, and the vocals are isolated from the accompaniment.
-2. **Pitch Extraction:** The isolated vocal waveform is passed through an algorithmic pitch detector (e.g., Basic Pitch or an internal fundamental frequency extractor). This converts the human voice's pitch, vibrato, and timing into a raw MIDI sequence.
-3. **FluidSynth Synthesis:** The backend utilizes FluidSynth and the `TimGM6mb.sf2` soundfont to synthesize the extracted MIDI notes into a pristine flute track.
-4. **Re-Mixing & Streaming:** The newly synthesized flute track is merged back onto the original accompaniment track using `pydub`, and the resulting MP3 bytes are streamed continuously to the frontend player.
+1. **Vocal Band Energy Reduction Test:** Measures RMS energy reduction in human vocal frequencies ($300\text{ Hz} - 3400\text{ Hz}$). Requires a minimum $\ge 6.0\text{ dB}$ reduction drop.
+2. **Spectral Cross-Correlation Fingerprint:** Computes amplitude similarity between the generated stem and original song. Rejects stems with correlation $> 0.80$ to prevent unseparated or fake tracks.
+3. **Real-Time Gatekeeper Interception:** Intercepts each track immediately after export. If the quality audit **FAILS**, the file is deleted on the spot before it can enter the playlist or Azure Blob Storage.
+4. **On-Demand Audit API (`POST /api/ai/audit-quality`):** Allows running an on-demand audit across any AI playlist to produce an itemized pass/fail report.
 
 ---
 
-## 3. Intelligent Caching & Dedicated Playlists
-**Purpose:** Ensure that AI processing is only ever done once per track, and that the resulting byproduct is permanently saved and cataloged for immediate playback in the future.
+## 3. Batch AI Operations & 4-Layer Deduplication Safety
+**Purpose:** Allows batch processing an entire playlist into AI Muted Vocals with 100% guarantee against duplicate AI processing or duplicate playlist entries.
 
-**How it works under the hood:**
-1. **Background Caching:** When you stream an AI-manipulated track (e.g. using Live Voice Mute), the backend not only streams the chunked response to you, but also triggers a `BackgroundTasks` thread.
-2. **Permanent Storage:** This background thread sequentially processes the entire track and saves the byproduct (e.g., `[Title] - AI Muted Vocals.mp3`) to your local storage.
-3. **Dedicated Playlists:** Once the background process finishes, the new track is appended to a dedicated, un-deletable AI playlist in `history.json` (such as `ai_muted_vocals`, `ai_instruments`, or `ai_vocals_only`).
-4. **Cache Lookup:** The next time you attempt to play or manipulate that same track, the system performs a `_check_ai_cache_exists` lookup. If the byproduct already exists, it instantly streams the cached file instead of spinning up the AI engine, providing zero latency and preventing duplicate work.
+**The 4 Deduplication Guards:**
+1. **Existing File Skip:** Checks if `... - Karaoke.mp3` exists on disk ($>100\text{ KB}$). If present, AI separation is skipped instantly.
+2. **Playlist ID Deduplication:** Checks `new_track_id` in `_add_ai_track_to_playlist()` to ensure no track is ever added to a playlist twice.
+3. **AI Suffix Filter:** Skips any track whose title already contains `- Karaoke`, `- AI Muted Vocals`, or `- AI Vocals Only`.
+4. **Quality Auditor Gatekeeper:** Evaluates newly generated stems immediately upon export. Corrupt or unseparated stems are rejected and removed on the spot.
+
+---
+
+## 4. Voice-to-Instrument AI (Synthesized Replacement)
+**Purpose:** Replaces the human singer's voice with a synthesized MIDI instrument (defaulting to a Flute, MIDI program 73).
+**Quality:** **Experimental / Open Defect**. Raw pitch extraction captures vocal breath and vibrato, which can translate to choppy MIDI synthesis.
+
+---
+
+## 5. Intelligent Caching, PWA Manifest & Cloud Sync Rules
+**Purpose:** Ensure AI processing is done once per track, and byproducts are cataloged according to strict cloud/PWA privacy rules.
+
+**Sync Rules:**
+1. **`AI Muted Vocals` Playlist:** Cataloged in `history.json`, exported to `playlists_manifest.json`, and synced directly to Azure Blob Storage container `media`.
+2. **`AI Vocals Only` Playlist:** Strictly local to the desktop application. Excluded from `playlists_manifest.json` generation and skipped during Azure Blob Sync.

@@ -90,7 +90,7 @@ def generate_pwa_manifest():
 
             dir_indexes = {}
             for job in history:
-                if job.get("deleted") or job.get("id") in ("all_downloads", "deleted_tracks"):
+                if job.get("deleted") or job.get("id") in ("all_downloads", "deleted_tracks", "ai_vocals_only", "ai_instrumental"):
                     continue
                 tracks = []
                 items = job.get("items", [])
@@ -186,6 +186,23 @@ def generate_pwa_manifest():
         f.write(fallback_js)
 
     print(f"[PWA Deploy] SUCCESS: Generated playlists_manifest.json and manifest_fallback.js ({len(playlists)} playlists, {sum(len(p['tracks']) for p in playlists)} tracks)")
+
+    # Sync updated manifest to Azure Blob Storage
+    try:
+        keys = load_keys()
+        acc = keys.get("azure_storage_account")
+        k = keys.get("azure_account_key")
+        c = keys.get("azure_container")
+        if acc and k and c:
+            from azure.storage.blob import BlobServiceClient
+            conn_str = f"DefaultEndpointsProtocol=https;AccountName={acc};AccountKey={k};EndpointSuffix=core.windows.net"
+            bs = BlobServiceClient.from_connection_string(conn_str)
+            cc = bs.get_container_client(c)
+            with open(target_manifest, "rb") as mf:
+                cc.upload_blob(name="playlists_manifest.json", data=mf, overwrite=True)
+            print("[PWA Deploy] Synced clean playlists_manifest.json to Azure Blob Storage.")
+    except Exception as ze:
+        pass
 
 def inject_public_config():
     """Write ONLY the non-secret deployment config into the PWA before deploying.

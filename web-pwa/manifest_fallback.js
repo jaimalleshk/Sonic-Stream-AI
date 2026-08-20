@@ -8029,7 +8029,7 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail": "https://i.ytimg.com/vi/hXyTqg4j8dk/hqdefault.jpg",
           "thumbnail_file": "https://i.ytimg.com/vi/hXyTqg4j8dk/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=hXyTqg4j8dk",
-          "file": "Ee Petaku Nene Mestri \uff5c Muta Mestri \uff5c  Chiranjeevi ,Roja, Meena\uff5c Raj - Koti.mp3"
+          "file": "Ee Petaku Nene Mestri  Muta Mestri   Chiranjeevi Roja Meena Raj - Koti - AI Vocals Only.mp3"
         },
         {
           "id": "0shL50hjdxQ",
@@ -8677,300 +8677,10 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
       "id": "ai_muted_vocals",
       "title": "AI Muted Vocals",
       "playlist_title": "AI Muted Vocals",
-      "thumbnail": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
-      "track_count": 45,
+      "thumbnail": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
+      "track_count": 46,
       "tracks": [
-        {
-          "id": "_cd-2S4ACSg_ai_muted_vocals",
-          "title": "Aaseya Bhaava Olavina Jeeva....S.P.B - Karaoke",
-          "artist": "anirudhk999",
-          "duration": 303,
-          "thumbnail": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=_cd-2S4ACSg",
-          "file": "Aaseya Bhaava Olavina Jeeva....S.P.B.mp3"
-        },
-        {
-          "id": "6XBGjirZSO0_ai_muted_vocals",
-          "title": "Janani Janmabhoomi _ SP Balasubramanian songs in Telugu - Karaoke",
-          "artist": "Movie Classics",
-          "duration": 288,
-          "thumbnail": "https://i.ytimg.com/vi/6XBGjirZSO0/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/6XBGjirZSO0/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=6XBGjirZSO0",
-          "file": "Janani Janmabhoomi \uff5c SP Balasubramanian songs in Telugu.mp3"
-        },
-        {
-          "id": "Zi2uqSYLqeU_ai_muted_vocals",
-          "title": "Gupt Gupt - Title (Remix) - Karaoke",
-          "artist": "Kavita Krishnamurthy - Topic",
-          "duration": 344,
-          "thumbnail": "https://i.ytimg.com/vi/Zi2uqSYLqeU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/Zi2uqSYLqeU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=Zi2uqSYLqeU",
-          "file": "Gupt Gupt Title - Karaoke.mp3"
-        },
-        {
-          "id": "3jnb6WUD1hs_ai_muted_vocals",
-          "title": "Sivoham - Karaoke",
-          "artist": "Hariharan - Topic",
-          "duration": 195,
-          "thumbnail": "https://i.ytimg.com/vi/3jnb6WUD1hs/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/3jnb6WUD1hs/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=3jnb6WUD1hs",
-          "file": "Sivoham.mp3"
-        },
-        {
-          "id": "4xrJTAKJotg_ai_muted_vocals",
-          "title": "Sankarabharanam-Telugu Movie Songs _ Sankaraa Naadasareeraparaa Video Song _ TVNXT - Karaoke",
-          "artist": "Tvnxt Music",
-          "duration": 264,
-          "thumbnail": "https://i.ytimg.com/vi/4xrJTAKJotg/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/4xrJTAKJotg/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=4xrJTAKJotg",
-          "file": "Sankarabharanam-Telugu Movie Songs \uff5c Sankaraa Naadasareeraparaa Video Song \uff5c TVNXT.mp3"
-        },
-        {
-          "id": "ceKvyYE9G1s_ai_muted_vocals",
-          "title": "Karunada Tayi Sada Chinmayi Video Song _ Kannada Rajyotsava Songs _ SPB _ Ravichandran Hits - Karaoke",
-          "artist": "Sri Ganesh Videos",
-          "duration": 285,
-          "thumbnail": "https://i.ytimg.com/vi/ceKvyYE9G1s/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/ceKvyYE9G1s/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=ceKvyYE9G1s",
-          "file": "Karunada Tayi Sada Chinmayi Video Song \uff5c Kannada Rajyotsava Songs \uff5c SPB \uff5c Ravichandran Hits.mp3"
-        },
-        {
-          "id": "wIgHm-Pabtw_ai_muted_vocals",
-          "title": "Ye Swapnalokala Full Song _Suswagatham_Pawan Kalyan, Raj Kujmar Hits _ Aditya Music - Karaoke",
-          "artist": "Aditya Music",
-          "duration": 306,
-          "thumbnail": "https://i.ytimg.com/vi/wIgHm-Pabtw/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/wIgHm-Pabtw/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=wIgHm-Pabtw",
-          "file": "Ye Swapnalokala Full Song \uff5cSuswagatham\uff5cPawan Kalyan, Raj Kujmar Hits \uff5c Aditya Music.mp3"
-        },
-        {
-          "id": "hzsymN_4cKI_ai_muted_vocals",
-          "title": "Anathineeyara - Karaoke",
-          "artist": "Release - Topic",
-          "duration": 430,
-          "thumbnail": "https://i.ytimg.com/vi/hzsymN_4cKI/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/hzsymN_4cKI/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=hzsymN_4cKI",
-          "file": "Anathineeyara.mp3"
-        },
-        {
-          "id": "yNMoaIiohzw_ai_muted_vocals",
-          "title": "Yelle Iru - Karaoke",
-          "artist": "P.Susheela Official",
-          "duration": 204,
-          "thumbnail": "https://i.ytimg.com/vi/yNMoaIiohzw/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/yNMoaIiohzw/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=yNMoaIiohzw",
-          "file": "Yelle Iru.mp3"
-        },
-        {
-          "id": "ZXVoUbaUgXs_ai_muted_vocals",
-          "title": "Pellichesukundam Movie __ Kokila Kokila Ku Annadi Video Song __ Venkatesh __ Shalimarcinema - Karaoke",
-          "artist": "Shalimar Telugu & Hindi Movies",
-          "duration": 272,
-          "thumbnail": "https://i.ytimg.com/vi/ZXVoUbaUgXs/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/ZXVoUbaUgXs/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=ZXVoUbaUgXs",
-          "file": "Kokila Kokila.mp3"
-        },
-        {
-          "id": "tPc6r06Hu_Q_ai_muted_vocals",
-          "title": "Lachulo Lachana - Karaoke",
-          "artist": "Vandemataram Srinivas - Topic",
-          "duration": 329,
-          "thumbnail": "https://i.ytimg.com/vi/tPc6r06Hu_Q/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/tPc6r06Hu_Q/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=tPc6r06Hu_Q",
-          "file": "Lachulo Lachana.mp3"
-        },
-        {
-          "id": "iKqFjJDkN2Q_ai_muted_vocals",
-          "title": "Emoko - Karaoke",
-          "artist": "Annamayya Keerthana - Topic",
-          "duration": 259,
-          "thumbnail": "https://i.ytimg.com/vi/iKqFjJDkN2Q/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/iKqFjJDkN2Q/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=iKqFjJDkN2Q",
-          "file": "Emoko.mp3"
-        },
-        {
-          "id": "CwdrtwZiQ9E_ai_muted_vocals",
-          "title": "Black Eyed Peas - I Gotta Feeling (Audio) - Karaoke",
-          "artist": "doong doong",
-          "duration": 290,
-          "thumbnail": "https://i.ytimg.com/vi/CwdrtwZiQ9E/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/CwdrtwZiQ9E/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=CwdrtwZiQ9E",
-          "file": "Black Eyed Peas - I Gotta Feeling (Audio).mp3"
-        },
-        {
-          "id": "r4O3pZT-UTA_ai_muted_vocals",
-          "title": "Gunde Gutiki - Karaoke",
-          "artist": "P Unnikrishnan Official",
-          "duration": 259,
-          "thumbnail": "https://i.ytimg.com/vi/r4O3pZT-UTA/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/r4O3pZT-UTA/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=r4O3pZT-UTA",
-          "file": "Gunde Gutiki.mp3"
-        },
-        {
-          "id": "4hBEP9_7aRQ_ai_muted_vocals",
-          "title": "Nanu Brovamani - Karaoke",
-          "artist": "Release - Topic",
-          "duration": 175,
-          "thumbnail": "https://i.ytimg.com/vi/4hBEP9_7aRQ/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/4hBEP9_7aRQ/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=4hBEP9_7aRQ",
-          "file": "Nanu Brovamani.mp3"
-        },
-        {
-          "id": "_0ZqXV6x3zc_ai_muted_vocals",
-          "title": "Jagadame - Karaoke",
-          "artist": "Kunal Ganjawala - Topic",
-          "duration": 270,
-          "thumbnail": "https://i.ytimg.com/vi/_0ZqXV6x3zc/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/_0ZqXV6x3zc/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=_0ZqXV6x3zc",
-          "file": "Jagadame.mp3"
-        },
-        {
-          "id": "0mAU-PScDjs_ai_muted_vocals",
-          "title": "Cheppamma - Karaoke",
-          "artist": "K S Chithra",
-          "duration": 288,
-          "thumbnail": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=0mAU-PScDjs",
-          "file": "Cheppamma.mp3"
-        },
-        {
-          "id": "PGXEZf1Gyj8_ai_muted_vocals",
-          "title": "Ghana Ghana Sundaraa - Bhakta Tukaram songs - Akkineni Nageswara Rao,Anjali Devi, - Karaoke",
-          "artist": "Volga Video",
-          "duration": 319,
-          "thumbnail": "https://i.ytimg.com/vi/PGXEZf1Gyj8/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/PGXEZf1Gyj8/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=PGXEZf1Gyj8",
-          "file": "Ghana Ghana Sundaraa - Bhakta Tukaram songs - Akkineni Nageswara Rao,Anjali Devi,.mp3"
-        },
-        {
-          "id": "_qu2f8TWtEE_ai_muted_vocals",
-          "title": "Mangalam - Karaoke",
-          "artist": "Release - Topic",
-          "duration": 50,
-          "thumbnail": "https://i.ytimg.com/vi/_qu2f8TWtEE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/_qu2f8TWtEE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=_qu2f8TWtEE",
-          "file": "Mangalam.mp3"
-        },
-        {
-          "id": "V4PsND7MUho_ai_muted_vocals",
-          "title": "Padayappa - Tamil Movie Songs _ Audio Jukebox _ Rajinikanth _ Soundarya _ A R Rahman - Karaoke",
-          "artist": "Star Music India",
-          "duration": 1808,
-          "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=V4PsND7MUho",
-          "file": "Padayappa - Tamil Movie Songs \uff5c Audio Jukebox \uff5c Rajinikanth \uff5c Soundarya \uff5c A R Rahman.mp3"
-        },
-        {
-          "id": "sYzuTdrfWi4_ai_muted_vocals",
-          "title": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song - Karaoke",
-          "artist": "Shemaroo Kannada",
-          "duration": 279,
-          "thumbnail": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=sYzuTdrfWi4",
-          "file": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song.mp3"
-        },
-        {
-          "id": "UDZvpSD3Q_M_ai_muted_vocals",
-          "title": "Podagantimayya - Karaoke",
-          "artist": "Annamayya Keerthana - Topic",
-          "duration": 249,
-          "thumbnail": "https://i.ytimg.com/vi/UDZvpSD3Q_M/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/UDZvpSD3Q_M/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=UDZvpSD3Q_M",
-          "file": "Podagantimayya.mp3"
-        },
-        {
-          "id": "kJ2fJCMt_DI_ai_muted_vocals",
-          "title": "I Am An Indian - Karaoke",
-          "artist": "Ramana Gogula - Topic",
-          "duration": 313,
-          "thumbnail": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=kJ2fJCMt_DI",
-          "file": "I Am An Indian.mp3"
-        },
-        {
-          "id": "Ievkvrit__Y_ai_muted_vocals",
-          "title": "Pranathi Pranathi (Male) - Karaoke",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 245,
-          "thumbnail": "https://i.ytimg.com/vi/Ievkvrit__Y/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/Ievkvrit__Y/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=Ievkvrit__Y",
-          "file": "Pranathi Pranathi (Male).mp3"
-        },
-        {
-          "id": "LkiuAtiTlyM_ai_muted_vocals",
-          "title": "Goruvanka Valaga - Karaoke",
-          "artist": "Release - Topic",
-          "duration": 305,
-          "thumbnail": "https://i.ytimg.com/vi/LkiuAtiTlyM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/LkiuAtiTlyM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=LkiuAtiTlyM",
-          "file": "Goruvanka Valaga.mp3"
-        },
-        {
-          "id": "nI9OI0DyQ78_ai_muted_vocals",
-          "title": "Sri Raghavam - Karaoke",
-          "artist": "M. M. Keeravani - Topic",
-          "duration": 59,
-          "thumbnail": "https://i.ytimg.com/vi/nI9OI0DyQ78/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/nI9OI0DyQ78/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=nI9OI0DyQ78",
-          "file": "Sri Raghavam.mp3"
-        },
-        {
-          "id": "UBs6l3MUUaM_ai_muted_vocals",
-          "title": "Dhin Dhin Dhinak - Karaoke",
-          "artist": "Release - Topic",
-          "duration": 205,
-          "thumbnail": "https://i.ytimg.com/vi/UBs6l3MUUaM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/UBs6l3MUUaM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=UBs6l3MUUaM",
-          "file": "Dhin Dhin Dhinak.mp3"
-        },
-        {
-          "id": "33RRyAnJ8j4_ai_muted_vocals",
-          "title": "Araluthiru - Karaoke",
-          "artist": "Release - Topic",
-          "duration": 279,
-          "thumbnail": "https://i.ytimg.com/vi/33RRyAnJ8j4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/33RRyAnJ8j4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=33RRyAnJ8j4",
-          "file": "Araluthiru.mp3"
-        },
-        {
-          "id": "5YNngnXX-ag_ai_muted_vocals",
-          "title": "Sowndarya Lahari - Karaoke",
-          "artist": "Release - Topic",
-          "duration": 156,
-          "thumbnail": "https://i.ytimg.com/vi/5YNngnXX-ag/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/5YNngnXX-ag/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=5YNngnXX-ag",
-          "file": "Sowndarya Lahari.mp3"
-        },
         {
           "id": "_iyRFJya_dY_ai_muted_vocals",
           "title": "Singarala - Karaoke",
@@ -9010,16 +8720,6 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/5doOdwiFmhE/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=5doOdwiFmhE",
           "file": "Naa Manasuney - Karaoke.mp3"
-        },
-        {
-          "id": "AIOCqlyRm7k_ai_muted_vocals",
-          "title": "Gupt Gupt Title - Karaoke",
-          "artist": "Viju Shah - Topic",
-          "duration": 295,
-          "thumbnail": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=AIOCqlyRm7k",
-          "file": "Gupt Gupt Title - Karaoke.mp3"
         },
         {
           "id": "efv3iHUarxY_ai_muted_vocals",
@@ -9062,36 +8762,6 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "file": "Hadondu Hadabeku ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - Karaoke.mp3"
         },
         {
-          "id": "MgbBo9u2U3U_ai_muted_vocals_ai_muted_vocals",
-          "title": "Om Guru -Slokam - Karaoke - Karaoke",
-          "artist": "Release - Topic",
-          "duration": 113,
-          "thumbnail": "https://i.ytimg.com/vi/MgbBo9u2U3U/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/MgbBo9u2U3U/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=MgbBo9u2U3U",
-          "file": "Om Guru -Slokam - Karaoke - Karaoke.mp3"
-        },
-        {
-          "id": "rsvPzDWFWg8_ai_muted_vocals",
-          "title": "Ee Hasiru Siriyali - Karaoke",
-          "artist": "C. Aswath  - Topic",
-          "duration": 309,
-          "thumbnail": "https://i.ytimg.com/vi/rsvPzDWFWg8/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/rsvPzDWFWg8/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=rsvPzDWFWg8",
-          "file": "Ee Hasiru Siriyali - Karaoke.mp3"
-        },
-        {
-          "id": "Pa_HuoZ93RU_ai_muted_vocals",
-          "title": "Sparsha - _Oho Chenne Chenne_ Audio Song _ Sudeep, Rekha _ Hariharan, K S Chitra _ Akash Audio - Karaoke",
-          "artist": "Akash Audio",
-          "duration": 310,
-          "thumbnail": "https://i.ytimg.com/vi/Pa_HuoZ93RU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/Pa_HuoZ93RU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=Pa_HuoZ93RU",
-          "file": "Sparsha - _Oho Chenne Chenne_ Audio Song _ Sudeep, Rekha _ Hariharan, K S Chitra _ Akash Audio - Karaoke.mp3"
-        },
-        {
           "id": "0OMjQgxdxIE_ai_muted_vocals",
           "title": "Ivanu Geleyanalla - Karaoke",
           "artist": "Release - Topic",
@@ -9100,16 +8770,6 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/0OMjQgxdxIE/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=0OMjQgxdxIE",
           "file": "Ivanu Geleyanalla - Karaoke.mp3"
-        },
-        {
-          "id": "LF_1_hy2wXU_ai_muted_vocals",
-          "title": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - Karaoke",
-          "artist": "Tamil Music Video",
-          "duration": 269,
-          "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=LF_1_hy2wXU",
-          "file": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - Karaoke.mp3"
         },
         {
           "id": "y5r5JL064Us_ai_muted_vocals",
@@ -9130,456 +8790,356 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "https://i.ytimg.com/vi/4Kpl9vBrlIU/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=4Kpl9vBrlIU",
           "file": "Chittegale - Karaoke.mp3"
-        }
-      ]
-    },
-    {
-      "id": "ai_vocals_only",
-      "title": "AI Vocals Only",
-      "playlist_title": "AI Vocals Only",
-      "thumbnail": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
-      "track_count": 44,
-      "tracks": [
-        {
-          "id": "_cd-2S4ACSg_ai_vocals_only",
-          "title": "Aaseya Bhaava Olavina Jeeva....S.P.B - AI Vocals Only",
-          "artist": "anirudhk999",
-          "duration": 303,
-          "thumbnail": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/_cd-2S4ACSg/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=_cd-2S4ACSg",
-          "file": "Aaseya Bhaava Olavina Jeeva....S.P.B.mp3"
         },
         {
-          "id": "6XBGjirZSO0_ai_vocals_only",
-          "title": "Janani Janmabhoomi _ SP Balasubramanian songs in Telugu - AI Vocals Only",
-          "artist": "Movie Classics",
-          "duration": 288,
-          "thumbnail": "https://i.ytimg.com/vi/6XBGjirZSO0/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/6XBGjirZSO0/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=6XBGjirZSO0",
-          "file": "Janani Janmabhoomi \uff5c SP Balasubramanian songs in Telugu.mp3"
+          "id": "ai_mute_E6LH2RvZVLs",
+          "title": "choodarama - Karaoke",
+          "artist": "Art1Space",
+          "duration": 348,
+          "thumbnail": "https://i.ytimg.com/vi/E6LH2RvZVLs/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/E6LH2RvZVLs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=E6LH2RvZVLs",
+          "file": "choodarama - Karaoke.mp3"
         },
         {
-          "id": "Zi2uqSYLqeU_ai_vocals_only",
-          "title": "Gupt Gupt - Title (Remix) - AI Vocals Only",
-          "artist": "Kavita Krishnamurthy - Topic",
-          "duration": 344,
-          "thumbnail": "https://i.ytimg.com/vi/Zi2uqSYLqeU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/Zi2uqSYLqeU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=Zi2uqSYLqeU",
-          "file": "Gupt Gupt Title - AI Vocals Only.mp3"
+          "id": "ai_mute_oSeJ0j0oZ3s",
+          "title": "Kokila Kokila - Karaoke",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 254,
+          "thumbnail": "https://i.ytimg.com/vi/oSeJ0j0oZ3s/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/oSeJ0j0oZ3s/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=oSeJ0j0oZ3s",
+          "file": "Kokila Kokila - Karaoke.mp3"
         },
         {
-          "id": "3jnb6WUD1hs_ai_vocals_only",
-          "title": "Sivoham - AI Vocals Only",
-          "artist": "Hariharan - Topic",
-          "duration": 195,
-          "thumbnail": "https://i.ytimg.com/vi/3jnb6WUD1hs/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/3jnb6WUD1hs/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=3jnb6WUD1hs",
-          "file": "Sivoham.mp3"
-        },
-        {
-          "id": "4xrJTAKJotg_ai_vocals_only",
-          "title": "Sankarabharanam-Telugu Movie Songs _ Sankaraa Naadasareeraparaa Video Song _ TVNXT - AI Vocals Only",
-          "artist": "Tvnxt Music",
-          "duration": 264,
-          "thumbnail": "https://i.ytimg.com/vi/4xrJTAKJotg/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/4xrJTAKJotg/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=4xrJTAKJotg",
-          "file": "Sankarabharanam-Telugu Movie Songs \uff5c Sankaraa Naadasareeraparaa Video Song \uff5c TVNXT.mp3"
-        },
-        {
-          "id": "ceKvyYE9G1s_ai_vocals_only",
-          "title": "Karunada Tayi Sada Chinmayi Video Song _ Kannada Rajyotsava Songs _ SPB _ Ravichandran Hits - AI Vocals Only",
-          "artist": "Sri Ganesh Videos",
-          "duration": 285,
-          "thumbnail": "https://i.ytimg.com/vi/ceKvyYE9G1s/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/ceKvyYE9G1s/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=ceKvyYE9G1s",
-          "file": "Karunada Tayi Sada Chinmayi Video Song \uff5c Kannada Rajyotsava Songs \uff5c SPB \uff5c Ravichandran Hits.mp3"
-        },
-        {
-          "id": "wIgHm-Pabtw_ai_vocals_only",
-          "title": "Ye Swapnalokala Full Song _Suswagatham_Pawan Kalyan, Raj Kujmar Hits _ Aditya Music - AI Vocals Only",
-          "artist": "Aditya Music",
-          "duration": 306,
-          "thumbnail": "https://i.ytimg.com/vi/wIgHm-Pabtw/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/wIgHm-Pabtw/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=wIgHm-Pabtw",
-          "file": "Ye Swapnalokala Full Song \uff5cSuswagatham\uff5cPawan Kalyan, Raj Kujmar Hits \uff5c Aditya Music.mp3"
-        },
-        {
-          "id": "hzsymN_4cKI_ai_vocals_only",
-          "title": "Anathineeyara - AI Vocals Only",
+          "id": "ai_mute_DB03dQ8MlgQ",
+          "title": "Sukhibhava Sumangali - Karaoke",
           "artist": "Release - Topic",
-          "duration": 430,
-          "thumbnail": "https://i.ytimg.com/vi/hzsymN_4cKI/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/hzsymN_4cKI/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=hzsymN_4cKI",
-          "file": "Anathineeyara.mp3"
+          "duration": 255,
+          "thumbnail": "https://i.ytimg.com/vi/DB03dQ8MlgQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/DB03dQ8MlgQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=DB03dQ8MlgQ",
+          "file": "Sukhibhava Sumangali - Karaoke.mp3"
         },
         {
-          "id": "yNMoaIiohzw_ai_vocals_only",
-          "title": "Yelle Iru - AI Vocals Only",
-          "artist": "P.Susheela Official",
-          "duration": 204,
-          "thumbnail": "https://i.ytimg.com/vi/yNMoaIiohzw/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/yNMoaIiohzw/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=yNMoaIiohzw",
-          "file": "Yelle Iru.mp3"
+          "id": "ai_mute_AxfFDcSHxIw",
+          "title": "Kadile Kalama - Karaoke",
+          "artist": "K.J. Yesudas - Topic",
+          "duration": 295,
+          "thumbnail": "https://i.ytimg.com/vi/AxfFDcSHxIw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/AxfFDcSHxIw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=AxfFDcSHxIw",
+          "file": "Kadile Kalama - Karaoke.mp3"
         },
         {
-          "id": "ZXVoUbaUgXs_ai_vocals_only",
-          "title": "Pellichesukundam Movie __ Kokila Kokila Ku Annadi Video Song __ Venkatesh __ Shalimarcinema - AI Vocals Only",
-          "artist": "Shalimar Telugu & Hindi Movies",
-          "duration": 272,
-          "thumbnail": "https://i.ytimg.com/vi/ZXVoUbaUgXs/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/ZXVoUbaUgXs/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=ZXVoUbaUgXs",
-          "file": "Kokila Kokila.mp3"
+          "id": "ai_mute_AliD9PCsymg",
+          "title": "Thelusa Manasa - Karaoke",
+          "artist": "M. M. Keeravani - Topic",
+          "duration": 374,
+          "thumbnail": "https://i.ytimg.com/vi/AliD9PCsymg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/AliD9PCsymg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=AliD9PCsymg",
+          "file": "Thelusa Manasa - Karaoke.mp3"
         },
         {
-          "id": "tPc6r06Hu_Q_ai_vocals_only",
-          "title": "Lachulo Lachana - AI Vocals Only",
-          "artist": "Vandemataram Srinivas - Topic",
-          "duration": 329,
-          "thumbnail": "https://i.ytimg.com/vi/tPc6r06Hu_Q/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/tPc6r06Hu_Q/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=tPc6r06Hu_Q",
-          "file": "Lachulo Lachana.mp3"
+          "id": "ai_mute_lo1PeFoojnw",
+          "title": "Dakshayagnam Movie Songs - Hara Hara Mahadeva Song - Hanumantha Rao Saluri Songs - Karaoke",
+          "artist": "iDream Music",
+          "duration": 247,
+          "thumbnail": "https://i.ytimg.com/vi/lo1PeFoojnw/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/lo1PeFoojnw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=lo1PeFoojnw",
+          "file": "Dakshayagnam Movie Songs - Hara Hara Mahadeva Song - Hanumantha Rao Saluri Songs - Karaoke.mp3"
         },
         {
-          "id": "iKqFjJDkN2Q_ai_vocals_only",
-          "title": "Emoko - AI Vocals Only",
-          "artist": "Annamayya Keerthana - Topic",
-          "duration": 259,
-          "thumbnail": "https://i.ytimg.com/vi/iKqFjJDkN2Q/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/iKqFjJDkN2Q/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=iKqFjJDkN2Q",
-          "file": "Emoko.mp3"
+          "id": "ai_mute_uKZ3SdFrMcI",
+          "title": "Guru Paduka Stotram by Rishi Nitya Pragya - Art of Living Bhajan - Karaoke",
+          "artist": "Soulful Mantra",
+          "duration": 771,
+          "thumbnail": "https://i.ytimg.com/vi/uKZ3SdFrMcI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/uKZ3SdFrMcI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=uKZ3SdFrMcI",
+          "file": "Guru Paduka Stotram by Rishi Nitya Pragya - Art of Living Bhajan - Karaoke.mp3"
         },
         {
-          "id": "CwdrtwZiQ9E_ai_vocals_only",
-          "title": "Black Eyed Peas - I Gotta Feeling (Audio) - AI Vocals Only",
-          "artist": "doong doong",
-          "duration": 290,
-          "thumbnail": "https://i.ytimg.com/vi/CwdrtwZiQ9E/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/CwdrtwZiQ9E/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=CwdrtwZiQ9E",
-          "file": "Black Eyed Peas - I Gotta Feeling (Audio).mp3"
+          "id": "ai_mute_gR44ua9SeWg",
+          "title": "Saranu Ganadhipa - Mooshika Vahana - Karaoke",
+          "artist": "telugubhaktisongs",
+          "duration": 254,
+          "thumbnail": "https://i.ytimg.com/vi/gR44ua9SeWg/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/gR44ua9SeWg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=gR44ua9SeWg",
+          "file": "Saranu Ganadhipa - Mooshika Vahana - Karaoke.mp3"
         },
         {
-          "id": "r4O3pZT-UTA_ai_vocals_only",
-          "title": "Gunde Gutiki - AI Vocals Only",
-          "artist": "P Unnikrishnan Official",
-          "duration": 259,
-          "thumbnail": "https://i.ytimg.com/vi/r4O3pZT-UTA/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/r4O3pZT-UTA/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=r4O3pZT-UTA",
-          "file": "Gunde Gutiki.mp3"
+          "id": "ai_mute_S4ESt20YnhM",
+          "title": "Vinaro bhagyamu vishnu katha by balakrishna prasad - Karaoke",
+          "artist": "Murthy Jn",
+          "duration": 386,
+          "thumbnail": "https://i.ytimg.com/vi/S4ESt20YnhM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/S4ESt20YnhM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=S4ESt20YnhM",
+          "file": "Vinaro bhagyamu vishnu katha by balakrishna prasad - Karaoke.mp3"
         },
         {
-          "id": "4hBEP9_7aRQ_ai_vocals_only",
-          "title": "Nanu Brovamani - AI Vocals Only",
-          "artist": "Release - Topic",
-          "duration": 175,
-          "thumbnail": "https://i.ytimg.com/vi/4hBEP9_7aRQ/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/4hBEP9_7aRQ/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=4hBEP9_7aRQ",
-          "file": "Nanu Brovamani.mp3"
+          "id": "ai_mute_lRnP0N4QVg8",
+          "title": "Shyam Ne Murli Madhur Bajai ( Suresh Wadekar)- HD.mp4 - Karaoke",
+          "artist": "myfamilypriest",
+          "duration": 342,
+          "thumbnail": "https://i.ytimg.com/vi/lRnP0N4QVg8/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/lRnP0N4QVg8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=lRnP0N4QVg8",
+          "file": "Shyam Ne Murli Madhur Bajai ( Suresh Wadekar)- HD.mp4 - Karaoke.mp3"
         },
         {
-          "id": "_0ZqXV6x3zc_ai_vocals_only",
-          "title": "Jagadame - AI Vocals Only",
-          "artist": "Kunal Ganjawala - Topic",
-          "duration": 270,
-          "thumbnail": "https://i.ytimg.com/vi/_0ZqXV6x3zc/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/_0ZqXV6x3zc/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=_0ZqXV6x3zc",
-          "file": "Jagadame.mp3"
+          "id": "ai_mute_crVvBQiMOW0",
+          "title": "Sivananda Lahari - Devotional Album - Adi Shankaracharya Bhakthi Songs - Karaoke",
+          "artist": "Siri Music",
+          "duration": 3833,
+          "thumbnail": "https://i.ytimg.com/vi/crVvBQiMOW0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/crVvBQiMOW0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=crVvBQiMOW0",
+          "file": "Sivananda Lahari - Devotional Album - Adi Shankaracharya Bhakthi Songs - Karaoke.mp3"
         },
         {
-          "id": "0mAU-PScDjs_ai_vocals_only",
-          "title": "Cheppamma - AI Vocals Only",
-          "artist": "K S Chithra",
-          "duration": 288,
-          "thumbnail": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/0mAU-PScDjs/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=0mAU-PScDjs",
-          "file": "Cheppamma.mp3"
+          "id": "ai_mute_ZQ-ckcMnRUA",
+          "title": "Ikshvakukula Thilaka - Karaoke",
+          "artist": "Dr M. Balamuralikrishna - Topic",
+          "duration": 428,
+          "thumbnail": "https://i.ytimg.com/vi/ZQ-ckcMnRUA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ZQ-ckcMnRUA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ZQ-ckcMnRUA",
+          "file": "Ikshvakukula Thilaka - Karaoke.mp3"
         },
         {
-          "id": "PGXEZf1Gyj8_ai_vocals_only",
-          "title": "Ghana Ghana Sundaraa - Bhakta Tukaram songs - Akkineni Nageswara Rao,Anjali Devi, - AI Vocals Only",
-          "artist": "Volga Video",
-          "duration": 319,
-          "thumbnail": "https://i.ytimg.com/vi/PGXEZf1Gyj8/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/PGXEZf1Gyj8/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=PGXEZf1Gyj8",
-          "file": "Ghana Ghana Sundaraa - Bhakta Tukaram songs - Akkineni Nageswara Rao,Anjali Devi,.mp3"
+          "id": "ai_mute_L1LYmOtwtsI",
+          "title": "Ea Theeruga Nanu Dhaya Choochedhavo - Karaoke",
+          "artist": "Dr M. Balamuralikrishna - Topic",
+          "duration": 376,
+          "thumbnail": "https://i.ytimg.com/vi/L1LYmOtwtsI/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/L1LYmOtwtsI/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=L1LYmOtwtsI",
+          "file": "Ea Theeruga Nanu Dhaya Choochedhavo - Karaoke.mp3"
         },
         {
-          "id": "_qu2f8TWtEE_ai_vocals_only",
-          "title": "Mangalam - AI Vocals Only",
-          "artist": "Release - Topic",
-          "duration": 50,
-          "thumbnail": "https://i.ytimg.com/vi/_qu2f8TWtEE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/_qu2f8TWtEE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=_qu2f8TWtEE",
-          "file": "Mangalam.mp3"
+          "id": "ai_mute_i22CQ5_KrU4",
+          "title": "Neelakandhara Divya Mandira  - SP Balu - Karaoke",
+          "artist": "SriVenkateswara Swamy",
+          "duration": 354,
+          "thumbnail": "https://i.ytimg.com/vi/i22CQ5_KrU4/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/i22CQ5_KrU4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=i22CQ5_KrU4",
+          "file": "Neelakandhara Divya Mandira  - SP Balu - Karaoke.mp3"
         },
         {
-          "id": "V4PsND7MUho_ai_vocals_only",
-          "title": "Padayappa - Tamil Movie Songs _ Audio Jukebox _ Rajinikanth _ Soundarya _ A R Rahman - AI Vocals Only",
-          "artist": "Star Music India",
-          "duration": 1808,
-          "thumbnail": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/V4PsND7MUho/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=V4PsND7MUho",
-          "file": "Padayappa - Tamil Movie Songs \uff5c Audio Jukebox \uff5c Rajinikanth \uff5c Soundarya \uff5c A R Rahman.mp3"
+          "id": "ai_mute_4gPv2rTdefQ",
+          "title": "Sri Subramanya Bhujanga Stotra (Raga Hamsadhwani) - Karaoke",
+          "artist": "Ravi Amur",
+          "duration": 671,
+          "thumbnail": "https://i.ytimg.com/vi/4gPv2rTdefQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/4gPv2rTdefQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=4gPv2rTdefQ",
+          "file": "Sri Subramanya Bhujanga Stotra (Raga Hamsadhwani) - Karaoke.mp3"
         },
         {
-          "id": "sYzuTdrfWi4_ai_vocals_only",
-          "title": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song - AI Vocals Only",
-          "artist": "Shemaroo Kannada",
-          "duration": 279,
-          "thumbnail": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/sYzuTdrfWi4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=sYzuTdrfWi4",
-          "file": "Naavaduva Nudiya - Gandhada Gudi - Rajkumar - Shivaraj Kumar - Kannada Superhit Song.mp3"
+          "id": "ai_mute_Q6FHJdamruA",
+          "title": "Kalabhairavashtakam - Karaoke",
+          "artist": "Dr M. Balamuralikrishna - Topic",
+          "duration": 311,
+          "thumbnail": "https://i.ytimg.com/vi/Q6FHJdamruA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Q6FHJdamruA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Q6FHJdamruA",
+          "file": "Kalabhairavashtakam - Karaoke.mp3"
         },
         {
-          "id": "UDZvpSD3Q_M_ai_vocals_only",
-          "title": "Podagantimayya - AI Vocals Only",
-          "artist": "Annamayya Keerthana - Topic",
-          "duration": 249,
-          "thumbnail": "https://i.ytimg.com/vi/UDZvpSD3Q_M/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/UDZvpSD3Q_M/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=UDZvpSD3Q_M",
-          "file": "Podagantimayya.mp3"
+          "id": "ai_mute_A2YblZaF498",
+          "title": "Deva Devam Bhaje I Annamacharya Kriti on Lord Rama I Rita Thyagarajan I Om Voices - Karaoke",
+          "artist": "Strumm Spiritual",
+          "duration": 388,
+          "thumbnail": "https://i.ytimg.com/vi/A2YblZaF498/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/A2YblZaF498/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=A2YblZaF498",
+          "file": "Deva Devam Bhaje I Annamacharya Kriti on Lord Rama I Rita Thyagarajan I Om Voices - Karaoke.mp3"
         },
         {
-          "id": "kJ2fJCMt_DI_ai_vocals_only",
-          "title": "I Am An Indian - AI Vocals Only",
-          "artist": "Ramana Gogula - Topic",
-          "duration": 313,
-          "thumbnail": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/kJ2fJCMt_DI/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=kJ2fJCMt_DI",
-          "file": "I Am An Indian.mp3"
+          "id": "ai_mute_6XP-f7wPM0A",
+          "title": "Tina Turner - Sarvesham Svastir Bhavatu (Peace Mantra) - Karaoke",
+          "artist": "TINA Turner Blog",
+          "duration": 296,
+          "thumbnail": "https://i.ytimg.com/vi/6XP-f7wPM0A/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/6XP-f7wPM0A/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=6XP-f7wPM0A",
+          "file": "Tina Turner - Sarvesham Svastir Bhavatu (Peace Mantra) - Karaoke.mp3"
         },
         {
-          "id": "Ievkvrit__Y_ai_vocals_only",
-          "title": "Pranathi Pranathi (Male) - AI Vocals Only",
-          "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 245,
-          "thumbnail": "https://i.ytimg.com/vi/Ievkvrit__Y/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/Ievkvrit__Y/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=Ievkvrit__Y",
-          "file": "Pranathi Pranathi (Male).mp3"
+          "id": "ai_mute_YtfPsFYOssc",
+          "title": "Rigveda - Karaoke",
+          "artist": "Vijay Prakash Sharma",
+          "duration": 847,
+          "thumbnail": "https://i.ytimg.com/vi/YtfPsFYOssc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/YtfPsFYOssc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=YtfPsFYOssc",
+          "file": "Rigveda - Karaoke.mp3"
         },
         {
-          "id": "LkiuAtiTlyM_ai_vocals_only",
-          "title": "Goruvanka Valaga - AI Vocals Only",
+          "id": "ai_mute_WPCusCxWb3w",
+          "title": "Bangaru Kalla - Karaoke",
+          "artist": "Udit Narayan",
+          "duration": 301,
+          "thumbnail": "https://i.ytimg.com/vi/WPCusCxWb3w/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/WPCusCxWb3w/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=WPCusCxWb3w",
+          "file": "Bangaru Kalla - Karaoke.mp3"
+        },
+        {
+          "id": "ai_mute_Z7WIpukhBM0",
+          "title": "Boom Boom - Karaoke",
           "artist": "Release - Topic",
           "duration": 305,
-          "thumbnail": "https://i.ytimg.com/vi/LkiuAtiTlyM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/LkiuAtiTlyM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=LkiuAtiTlyM",
-          "file": "Goruvanka Valaga.mp3"
+          "thumbnail": "https://i.ytimg.com/vi/Z7WIpukhBM0/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Z7WIpukhBM0/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Z7WIpukhBM0",
+          "file": "Boom Boom - Karaoke.mp3"
         },
         {
-          "id": "nI9OI0DyQ78_ai_vocals_only",
-          "title": "Sri Raghavam - AI Vocals Only",
-          "artist": "M. M. Keeravani - Topic",
-          "duration": 59,
-          "thumbnail": "https://i.ytimg.com/vi/nI9OI0DyQ78/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/nI9OI0DyQ78/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=nI9OI0DyQ78",
-          "file": "Sri Raghavam.mp3"
+          "id": "ai_mute_c3INYtAsOXE",
+          "title": "Pacific Lo - Karaoke",
+          "artist": "Udit Narayan",
+          "duration": 258,
+          "thumbnail": "https://i.ytimg.com/vi/c3INYtAsOXE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/c3INYtAsOXE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=c3INYtAsOXE",
+          "file": "Pacific Lo - Karaoke.mp3"
         },
         {
-          "id": "UBs6l3MUUaM_ai_vocals_only",
-          "title": "Dhin Dhin Dhinak - AI Vocals Only",
-          "artist": "Release - Topic",
-          "duration": 205,
-          "thumbnail": "https://i.ytimg.com/vi/UBs6l3MUUaM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/UBs6l3MUUaM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=UBs6l3MUUaM",
-          "file": "Dhin Dhin Dhinak.mp3"
-        },
-        {
-          "id": "33RRyAnJ8j4_ai_vocals_only",
-          "title": "Araluthiru - AI Vocals Only",
-          "artist": "Release - Topic",
-          "duration": 279,
-          "thumbnail": "https://i.ytimg.com/vi/33RRyAnJ8j4/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/33RRyAnJ8j4/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=33RRyAnJ8j4",
-          "file": "Araluthiru.mp3"
-        },
-        {
-          "id": "5YNngnXX-ag_ai_vocals_only",
-          "title": "Sowndarya Lahari - AI Vocals Only",
-          "artist": "Release - Topic",
-          "duration": 156,
-          "thumbnail": "https://i.ytimg.com/vi/5YNngnXX-ag/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/5YNngnXX-ag/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=5YNngnXX-ag",
-          "file": "Sowndarya Lahari.mp3"
-        },
-        {
-          "id": "_iyRFJya_dY_ai_vocals_only",
-          "title": "Singarala - AI Vocals Only",
+          "id": "ai_mute_epLjSRk-t00",
+          "title": "Manasu Manasu - Karaoke",
           "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 329,
-          "thumbnail": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/_iyRFJya_dY/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=_iyRFJya_dY",
-          "file": "Singarala - AI Vocals Only.mp3"
+          "duration": 278,
+          "thumbnail": "https://i.ytimg.com/vi/epLjSRk-t00/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/epLjSRk-t00/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=epLjSRk-t00",
+          "file": "Manasu Manasu - Karaoke.mp3"
         },
         {
-          "id": "8CPNApQBLVw_ai_vocals_only",
-          "title": "Premante Yemitante - AI Vocals Only",
-          "artist": "Hariharan - Topic",
-          "duration": 304,
-          "thumbnail": "https://i.ytimg.com/vi/8CPNApQBLVw/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/8CPNApQBLVw/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=8CPNApQBLVw",
-          "file": "Premante Yemitante - AI Vocals Only.mp3"
+          "id": "ai_mute_wteY411nHAk",
+          "title": "Kalisunte Kaladu - Karaoke",
+          "artist": "Release - Topic",
+          "duration": 280,
+          "thumbnail": "https://i.ytimg.com/vi/wteY411nHAk/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/wteY411nHAk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=wteY411nHAk",
+          "file": "Kalisunte Kaladu - Karaoke.mp3"
         },
         {
-          "id": "dZcKkXudmXM_ai_vocals_only",
-          "title": "Andhamyna Bhamalu - AI Vocals Only",
-          "artist": "Devi Sri Prasad",
-          "duration": 259,
-          "thumbnail": "https://i.ytimg.com/vi/dZcKkXudmXM/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/dZcKkXudmXM/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=dZcKkXudmXM",
-          "file": "Andhamyna Bhamalu - AI Vocals Only.mp3"
-        },
-        {
-          "id": "5doOdwiFmhE_ai_vocals_only",
-          "title": "Naa Manasuney - AI Vocals Only",
+          "id": "ai_mute_y2u36SdxGPc",
+          "title": "Aatadukundhama - Karaoke",
           "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 247,
-          "thumbnail": "https://i.ytimg.com/vi/5doOdwiFmhE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/5doOdwiFmhE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=5doOdwiFmhE",
-          "file": "Naa Manasuney - AI Vocals Only.mp3"
+          "duration": 308,
+          "thumbnail": "https://i.ytimg.com/vi/y2u36SdxGPc/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/y2u36SdxGPc/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=y2u36SdxGPc",
+          "file": "Aatadukundhama - Karaoke.mp3"
         },
         {
-          "id": "AIOCqlyRm7k_ai_vocals_only",
-          "title": "Gupt Gupt Title - AI Vocals Only",
-          "artist": "Viju Shah - Topic",
-          "duration": 295,
-          "thumbnail": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/AIOCqlyRm7k/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=AIOCqlyRm7k",
-          "file": "Gupt Gupt Title - AI Vocals Only.mp3"
-        },
-        {
-          "id": "efv3iHUarxY_ai_vocals_only",
-          "title": "Manasa Palakave - AI Vocals Only",
+          "id": "ai_mute_NMPlZrSl144",
+          "title": "Om Namaha - Karaoke",
           "artist": "S.P.Balasubramanyam - Topic",
-          "duration": 311,
-          "thumbnail": "https://i.ytimg.com/vi/efv3iHUarxY/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/efv3iHUarxY/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=efv3iHUarxY",
-          "file": "Manasa Palakave - AI Vocals Only.mp3"
+          "duration": 244,
+          "thumbnail": "https://i.ytimg.com/vi/NMPlZrSl144/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/NMPlZrSl144/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=NMPlZrSl144",
+          "file": "Om Namaha - Karaoke.mp3"
         },
         {
-          "id": "RYVCXXVFnHE_ai_vocals_only",
-          "title": "Moosina Muthyalake - AI Vocals Only",
-          "artist": "Annamayya Keerthana - Topic",
-          "duration": 200,
-          "thumbnail": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/RYVCXXVFnHE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=RYVCXXVFnHE",
-          "file": "Moosina Muthyalake - AI Vocals Only.mp3"
-        },
-        {
-          "id": "w-cGHBhx-dE_ai_vocals_only",
-          "title": "Yavvo Yaako ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - AI Vocals Only",
+          "id": "ai_mute_lsg9kOVEq_E",
+          "title": "Yegire Paavuramaa - Karaoke",
           "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 274,
+          "thumbnail": "https://i.ytimg.com/vi/lsg9kOVEq_E/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/lsg9kOVEq_E/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=lsg9kOVEq_E",
+          "file": "Yegire Paavuramaa - Karaoke.mp3"
+        },
+        {
+          "id": "ai_mute_zkXVL6EiNdA",
+          "title": "Brahmalu Guru Brahmalu - Karaoke",
+          "artist": "SP Balasubrahmanyam (SpBaluofficial)",
+          "duration": 266,
+          "thumbnail": "https://i.ytimg.com/vi/zkXVL6EiNdA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/zkXVL6EiNdA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=zkXVL6EiNdA",
+          "file": "Brahmalu Guru Brahmalu - Karaoke.mp3"
+        },
+        {
+          "id": "ai_mute_RAM_KXG1R9U",
+          "title": "Ramma Chilakamma - Karaoke",
+          "artist": "Udit Narayan",
+          "duration": 286,
+          "thumbnail": "https://i.ytimg.com/vi/RAM_KXG1R9U/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/RAM_KXG1R9U/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=RAM_KXG1R9U",
+          "file": "Ramma Chilakamma - Karaoke.mp3"
+        },
+        {
+          "id": "ai_mute_SDuJF2KpoZM",
+          "title": "Siggu Thochi - Karaoke",
+          "artist": "Hariharan - Topic",
+          "duration": 299,
+          "thumbnail": "https://i.ytimg.com/vi/SDuJF2KpoZM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/SDuJF2KpoZM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=SDuJF2KpoZM",
+          "file": "Siggu Thochi - Karaoke.mp3"
+        },
+        {
+          "id": "ai_mute_Ix2Sm1s89VU",
+          "title": "Hallo Guru - Karaoke",
+          "artist": "Release - Topic",
           "duration": 302,
-          "thumbnail": "https://i.ytimg.com/vi/w-cGHBhx-dE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/w-cGHBhx-dE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=w-cGHBhx-dE",
-          "file": "Yavvo Yaako ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - AI Vocals Only.mp3"
+          "thumbnail": "https://i.ytimg.com/vi/Ix2Sm1s89VU/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/Ix2Sm1s89VU/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Ix2Sm1s89VU",
+          "file": "Hallo Guru - Karaoke.mp3"
         },
         {
-          "id": "0MrR0lo1uaY_ai_vocals_only",
-          "title": "Hadondu Hadabeku ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - AI Vocals Only",
+          "id": "ai_mute_FeM3sfowxJE",
+          "title": "Vanajallu Gillutunte - Karaoke",
+          "artist": "S.P.Balasubramanyam - Topic",
+          "duration": 283,
+          "thumbnail": "https://i.ytimg.com/vi/FeM3sfowxJE/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/FeM3sfowxJE/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=FeM3sfowxJE",
+          "file": "Vanajallu Gillutunte - Karaoke.mp3"
+        },
+        {
+          "id": "ai_mute_ACQufoFLxiM",
+          "title": "Meghale Takindi - Karaoke",
           "artist": "Release - Topic",
-          "duration": 228,
-          "thumbnail": "https://i.ytimg.com/vi/0MrR0lo1uaY/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/0MrR0lo1uaY/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=0MrR0lo1uaY",
-          "file": "Hadondu Hadabeku ft. V.Ravichandran, Bhanupriya, Jayanthi, Dwarkish, Rockline Venkatesh - AI Vocals Only.mp3"
+          "duration": 265,
+          "thumbnail": "https://i.ytimg.com/vi/ACQufoFLxiM/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/ACQufoFLxiM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ACQufoFLxiM",
+          "file": "Meghale Takindi - Karaoke.mp3"
         },
         {
-          "id": "MgbBo9u2U3U_ai_muted_vocals_ai_vocals_only",
-          "title": "Om Guru -Slokam - Karaoke - AI Vocals Only",
-          "artist": "Release - Topic",
-          "duration": 113,
-          "thumbnail": "https://i.ytimg.com/vi/MgbBo9u2U3U/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/MgbBo9u2U3U/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=MgbBo9u2U3U",
-          "file": "Om Guru -Slokam - Karaoke - AI Vocals Only.mp3"
+          "id": "ai_mute_QDvXOym4UmA",
+          "title": "Naa Paata - Karaoke",
+          "artist": "Sunitha - Topic",
+          "duration": 345,
+          "thumbnail": "https://i.ytimg.com/vi/QDvXOym4UmA/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/QDvXOym4UmA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=QDvXOym4UmA",
+          "file": "Naa Paata - Karaoke.mp3"
         },
         {
-          "id": "Pa_HuoZ93RU_ai_vocals_only",
-          "title": "Sparsha - _Oho Chenne Chenne_ Audio Song _ Sudeep, Rekha _ Hariharan, K S Chitra _ Akash Audio - AI Vocals Only",
-          "artist": "Akash Audio",
-          "duration": 310,
-          "thumbnail": "https://i.ytimg.com/vi/Pa_HuoZ93RU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/Pa_HuoZ93RU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=Pa_HuoZ93RU",
-          "file": "Sparsha - _Oho Chenne Chenne_ Audio Song _ Sudeep, Rekha _ Hariharan, K S Chitra _ Akash Audio - AI Vocals Only.mp3"
-        },
-        {
-          "id": "0OMjQgxdxIE_ai_vocals_only",
-          "title": "Ivanu Geleyanalla - AI Vocals Only",
-          "artist": "Release - Topic",
-          "duration": 229,
-          "thumbnail": "https://i.ytimg.com/vi/0OMjQgxdxIE/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/0OMjQgxdxIE/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=0OMjQgxdxIE",
-          "file": "Ivanu Geleyanalla - AI Vocals Only.mp3"
-        },
-        {
-          "id": "LF_1_hy2wXU_ai_vocals_only",
-          "title": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - AI Vocals Only",
-          "artist": "Tamil Music Video",
-          "duration": 269,
-          "thumbnail": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/LF_1_hy2wXU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=LF_1_hy2wXU",
-          "file": "Minnalai Pidithu Song - Shajahan Tamil Movie _ Vijay _ Richa Pallod _ Unni Menon _ Mani Sharma - AI Vocals Only.mp3"
-        },
-        {
-          "id": "y5r5JL064Us_ai_vocals_only",
-          "title": "Evvarineppudu - AI Vocals Only",
-          "artist": "Release - Topic",
-          "duration": 88,
-          "thumbnail": "https://i.ytimg.com/vi/y5r5JL064Us/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/y5r5JL064Us/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=y5r5JL064Us",
-          "file": "Evvarineppudu - AI Vocals Only.mp3"
-        },
-        {
-          "id": "4Kpl9vBrlIU_ai_vocals_only",
-          "title": "Chittegale - AI Vocals Only",
-          "artist": "Hamsalekha - Topic",
-          "duration": 268,
-          "thumbnail": "https://i.ytimg.com/vi/4Kpl9vBrlIU/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/4Kpl9vBrlIU/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=4Kpl9vBrlIU",
-          "file": "Chittegale - AI Vocals Only.mp3"
+          "id": "ai_mute_UEWCCSuHsuQ",
+          "title": "Sound Tracker - Gamelan (Indonesia) - Karaoke",
+          "artist": "Genelec Music Channel",
+          "duration": 526,
+          "thumbnail": "https://i.ytimg.com/vi/UEWCCSuHsuQ/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/UEWCCSuHsuQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=UEWCCSuHsuQ",
+          "file": "Sound Tracker - Gamelan (Indonesia) - Karaoke.mp3"
         }
       ]
     },
@@ -12059,7 +11619,7 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail": "https://i.ytimg.com/vi/d_kIV4jYfXM/hqdefault.jpg",
           "thumbnail_file": "https://i.ytimg.com/vi/d_kIV4jYfXM/hqdefault.jpg",
           "url": "https://www.youtube.com/watch?v=d_kIV4jYfXM",
-          "file": "Janatha Garage Songs \uff5c Pranaamam Lyrical Video Song \uff5c Jr NTR \uff5c Samantha \uff5c Nithya Menen \uff5c DSP.mp3"
+          "file": "Janatha Garage Songs  Pranaamam Lyrical Video Song  Jr NTR  Samantha  Nithya Menen  DSP - AI Vocals Only.mp3"
         },
         {
           "id": "HBEtZk6_-vU",
@@ -13080,236 +12640,6 @@ window.SONICSTREAM_MANIFEST_FALLBACK = {
           "thumbnail_file": "gita_cover_logo.png",
           "url": "https://www.youtube.com/watch?v=poDf2nt-tK0",
           "file": "Bhagavad Gita Chapter 18 - Moksha Sannyasa Yoga (The Yoga of Liberation by Renunciation) \uff5c Bilingual.mp3"
-        }
-      ]
-    },
-    {
-      "id": "job_1787000295",
-      "title": "Mahabharat BR Chopra",
-      "playlist_title": "Mahabharat BR Chopra",
-      "thumbnail": "https://i.ytimg.com/vi/mb_suite_01/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_01/hqdefault.jpg",
-      "track_count": 22,
-      "tracks": [
-        {
-          "id": "mb_suite_01",
-          "title": "Unique Master Suite Part 01",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 897,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_01/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_01/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_01",
-          "file": "Unique_Master_Suite_Part_01.mp3"
-        },
-        {
-          "id": "mb_suite_02",
-          "title": "Unique Master Suite Part 02",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 824,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_02/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_02/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_02",
-          "file": "Unique_Master_Suite_Part_02.mp3"
-        },
-        {
-          "id": "mb_suite_03",
-          "title": "Unique Master Suite Part 03",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 636,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_03/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_03/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_03",
-          "file": "Unique_Master_Suite_Part_03.mp3"
-        },
-        {
-          "id": "mb_suite_04",
-          "title": "Unique Master Suite Part 04",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 842,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_04/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_04/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_04",
-          "file": "Unique_Master_Suite_Part_04.mp3"
-        },
-        {
-          "id": "mb_suite_05",
-          "title": "Unique Master Suite Part 05",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 621,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_05/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_05/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_05",
-          "file": "Unique_Master_Suite_Part_05.mp3"
-        },
-        {
-          "id": "mb_suite_06",
-          "title": "Unique Master Suite Part 06",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 649,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_06/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_06/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_06",
-          "file": "Unique_Master_Suite_Part_06.mp3"
-        },
-        {
-          "id": "mb_suite_07",
-          "title": "Unique Master Suite Part 07",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 618,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_07/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_07/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_07",
-          "file": "Unique_Master_Suite_Part_07.mp3"
-        },
-        {
-          "id": "mb_suite_08",
-          "title": "Unique Master Suite Part 08",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 654,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_08/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_08/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_08",
-          "file": "Unique_Master_Suite_Part_08.mp3"
-        },
-        {
-          "id": "mb_suite_09",
-          "title": "Unique Master Suite Part 09",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 1115,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_09/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_09/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_09",
-          "file": "Unique_Master_Suite_Part_09.mp3"
-        },
-        {
-          "id": "mb_suite_10",
-          "title": "Unique Master Suite Part 10",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 740,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_10/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_10/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_10",
-          "file": "Unique_Master_Suite_Part_10.mp3"
-        },
-        {
-          "id": "mb_suite_11",
-          "title": "Unique Master Suite Part 11",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 636,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_11/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_11/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_11",
-          "file": "Unique_Master_Suite_Part_11.mp3"
-        },
-        {
-          "id": "mb_suite_12",
-          "title": "Unique Master Suite Part 12",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 933,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_12/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_12/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_12",
-          "file": "Unique_Master_Suite_Part_12.mp3"
-        },
-        {
-          "id": "mb_suite_13",
-          "title": "Unique Master Suite Part 13",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 800,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_13/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_13/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_13",
-          "file": "Unique_Master_Suite_Part_13.mp3"
-        },
-        {
-          "id": "mb_suite_14",
-          "title": "Unique Master Suite Part 14",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 933,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_14/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_14/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_14",
-          "file": "Unique_Master_Suite_Part_14.mp3"
-        },
-        {
-          "id": "mb_suite_15",
-          "title": "Unique Master Suite Part 15",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 650,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_15/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_15/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_15",
-          "file": "Unique_Master_Suite_Part_15.mp3"
-        },
-        {
-          "id": "mb_suite_16",
-          "title": "Unique Master Suite Part 16",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 636,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_16/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_16/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_16",
-          "file": "Unique_Master_Suite_Part_16.mp3"
-        },
-        {
-          "id": "mb_suite_17",
-          "title": "Unique Master Suite Part 17",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 845,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_17/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_17/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_17",
-          "file": "Unique_Master_Suite_Part_17.mp3"
-        },
-        {
-          "id": "mb_suite_18",
-          "title": "Unique Master Suite Part 18",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 632,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_18/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_18/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_18",
-          "file": "Unique_Master_Suite_Part_18.mp3"
-        },
-        {
-          "id": "mb_suite_19",
-          "title": "Unique Master Suite Part 19",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 778,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_19/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_19/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_19",
-          "file": "Unique_Master_Suite_Part_19.mp3"
-        },
-        {
-          "id": "mb_suite_20",
-          "title": "Unique Master Suite Part 20",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 609,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_20/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_20/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_20",
-          "file": "Unique_Master_Suite_Part_20.mp3"
-        },
-        {
-          "id": "mb_suite_21",
-          "title": "Unique Master Suite Part 21",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 212,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_21/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_21/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_21",
-          "file": "Unique_Master_Suite_Part_21.mp3"
-        },
-        {
-          "id": "mb_suite_22",
-          "title": "Unique Master Suite Part 22",
-          "artist": "BR Chopra - Mahabharat",
-          "duration": 369,
-          "thumbnail": "https://i.ytimg.com/vi/mb_suite_22/hqdefault.jpg",
-          "thumbnail_file": "https://i.ytimg.com/vi/mb_suite_22/hqdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=mb_suite_22",
-          "file": "Unique_Master_Suite_Part_22.mp3"
         }
       ]
     }

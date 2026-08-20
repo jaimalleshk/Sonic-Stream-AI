@@ -792,33 +792,45 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    async function getTrackRecordFromDB(trackId, title = "") {
+    async function getTrackRecordFromDB(trackId, title = "", targetFile = "") {
         if (!db || !db.objectStoreNames.contains("files")) return null;
-        const normKey = normalizeTitleKey(title);
-        const fileId = title ? `${title}.mp3` : trackId;
+        const exactFile = targetFile || (title ? (title.toLowerCase().endsWith(".mp3") ? title : `${title}.mp3`) : trackId);
+        const isKaraokeReq = exactFile.toLowerCase().includes("karaoke");
+
+        const isValidMatch = (rec) => {
+            if (!rec || (!rec.blob && !rec.audio_blob)) return false;
+            const recFile = (rec.file_id || rec.file || rec.title || "").toLowerCase();
+            const isRecKaraoke = recFile.includes("karaoke");
+            return isKaraokeReq === isRecKaraoke;
+        };
 
         return new Promise((resolve) => {
             try {
                 const tx = db.transaction("files", "readonly");
                 const filesStore = tx.objectStore("files");
-                const req = filesStore.get(fileId);
+
+                // 1. Primary lookup: exact filename (e.g. "Manasa Palakave - Karaoke.mp3")
+                const req = filesStore.get(exactFile);
                 req.onsuccess = () => {
-                    if (req.result) resolve(req.result);
-                    else {
-                        const req2 = filesStore.get(trackId);
-                        req2.onsuccess = () => {
-                            if (req2.result) resolve(req2.result);
-                            else {
-                                const allReq = filesStore.getAll();
-                                allReq.onsuccess = () => {
-                                    const match = (allReq.result || []).find(item => item.normKey === normKey || item.id === trackId);
-                                    resolve(match || null);
-                                };
-                                allReq.onerror = () => resolve(null);
-                            }
+                    if (isValidMatch(req.result)) return resolve(req.result);
+                    
+                    // 2. Secondary lookup: trackId
+                    const req2 = filesStore.get(trackId);
+                    req2.onsuccess = () => {
+                        if (isValidMatch(req2.result)) return resolve(req2.result);
+
+                        // 3. Fallback cursor lookup strictly matching exactFile
+                        const allReq = filesStore.getAll();
+                        allReq.onsuccess = () => {
+                            const match = (allReq.result || []).find(item => {
+                                const itemFile = item.file_id || item.file || "";
+                                return itemFile === exactFile && isValidMatch(item);
+                            });
+                            resolve(match || null);
                         };
-                        req2.onerror = () => resolve(null);
-                    }
+                        allReq.onerror = () => resolve(null);
+                    };
+                    req2.onerror = () => resolve(null);
                 };
                 req.onerror = () => resolve(null);
             } catch (e) {
@@ -827,8 +839,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    async function getTrackBlobFromDB(trackId, title = "") {
-        const record = await getTrackRecordFromDB(trackId, title);
+    async function getTrackBlobFromDB(trackId, title = "", targetFile = "") {
+        const record = await getTrackRecordFromDB(trackId, title, targetFile);
         return record ? record.blob : null;
     }
 
@@ -951,7 +963,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v31";
+    const APP_BUILD = "v33";
 
     // Memoised cache statistics.
     //
@@ -2362,7 +2374,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // 1. Check IndexedDB for High-Quality cached Blob (100% offline driving playback!)
             let fromCache = false;
             let sasMissing = false;
-            const cachedRecord = await getTrackRecordFromDB(track.id, track.title);
+            const cachedRecord = await getTrackRecordFromDB(track.id, track.title, targetFile);
             if (superseded()) return;
             if (cachedRecord && cachedRecord.blob) {
                 mediaUrl = objectUrlFor(cachedRecord.blob, "audio");
@@ -2805,7 +2817,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // background fetch. Runs after play() so it cannot delay the handoff.
             try {
                 const nt = playQueue[currentTrackIndex];
-                if (nt) getTrackRecordFromDB(nt.id, nt.title).then(r => {
+                if (nt) getTrackRecordFromDB(nt.id, nt.title, nt.file).then(r => {
                     const cached = !!(r && (r.blob || r.audio_blob));
                     console.log(`[Audio Engine] Next track was ${cached ? "CACHED (no network needed — should keep playing)"
                         : "NOT CACHED (needs network; iOS blocks background fetch — expect this one to fail)"}: ${(nt.title||"").slice(0,40)}`);
@@ -3409,7 +3421,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 break;
             }
 
-            const existingBlob = await getTrackBlobFromDB(upcomingTrack.id, upcomingTrack.title);
+            const existingBlob = await getTrackBlobFromDB(upcomingTrack.id, upcomingTrack.title, upcomingTrack.file);
             if (existingBlob) {
                 upcomingTrack.status = "completed";
                 downloadedCount++;

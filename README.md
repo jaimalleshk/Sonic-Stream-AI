@@ -9,6 +9,8 @@ Sonic Stream AI is a modern, high-speed media downloader equipped with state-of-
 ### 🧠 Next-Gen AI Audio Processing
 Sonic Stream AI leverages Meta's **Demucs** architecture (`htdemucs_ft`) combined with real-time chunking to offer zero-wait-time audio manipulation:
 - **Live Voice Mute**: Instantly strip vocals from a playing track to listen to pristine instrumentals.
+- **Independent AI Quality Auditor**: Automated signal gatekeeper ([`src/services/ai_quality_auditor.py`](file:///D:/OneDrive/OneDrive-Projects/Sonic%20Stream%20AI/src/services/ai_quality_auditor.py)) evaluating vocal band suppression ($\ge 6\text{dB}$ drop) and spectral correlation ($<0.80$) in real-time before accepting stems.
+- **4-Layer Deduplication Safety**: Ensures batch AI operations never re-process existing stems or create duplicate playlist items.
 - **Voice-to-Instrument**: Synthesizes the human singer's pitch and vibrato into a MIDI instrument (e.g., Flute) in real-time.
 - **Intelligent Caching & Dedicated Playlists**: Whenever you stream an AI-manipulated track, the system seamlessly saves the byproduct in the background. The track is permanently added to a dedicated AI playlist (`AI Muted Vocals`, `AI Instruments`, or `AI Vocals Only`), ensuring instant playback on all future listens without re-processing.
 

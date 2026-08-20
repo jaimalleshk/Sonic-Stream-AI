@@ -76,7 +76,7 @@ class AIVocalProcessor:
         """
         try:
             import numpy as np
-            logger.info("Applying Fast Vectorized Zero-Bleed Residual Vocal Suppression...")
+            logger.info("Applying Zero-Bleed Residual Vocal Suppression Filter...")
             acc = AudioSegment.from_file(accompaniment_path)
             voc = AudioSegment.from_file(vocals_path)
             
@@ -95,12 +95,12 @@ class AIVocalProcessor:
                 # Compute RMS per chunk vectorized
                 voc_rms = np.sqrt(np.mean(voc_trunc.astype(np.float32)**2, axis=1))
                 
-                # Active vocal frames (voc_rms > 120)
-                active_mask = voc_rms > 120.0
+                # Active vocal frames (voc_rms > 40.0 catches low-volume residual vocal bleed & reverb)
+                active_mask = voc_rms > 40.0
                 
-                # Build smooth gain reduction array
+                # Build zero-bleed gain array (0.06 multiplier = -24.4dB suppression during active vocals)
                 gains = np.ones(n_chunks, dtype=np.float32)
-                gains[active_mask] = 0.70  # -3.1dB ducking during active vocal phrases
+                gains[active_mask] = 0.06
                 
                 gain_expanded = np.repeat(gains, chunk_len)
                 cleaned_samples = (acc_trunc.reshape(-1) * gain_expanded).astype(acc_samples.dtype)
@@ -112,6 +112,7 @@ class AIVocalProcessor:
                     channels=channels
                 )
                 cleaned_acc.export(output_path, format="mp3", bitrate="320k")
+                logger.info(f"Successfully exported zero-bleed Karaoke track to {output_path}")
                 return output_path
         except Exception as e:
             logger.error(f"Residual vocal suppression fallback: {e}")

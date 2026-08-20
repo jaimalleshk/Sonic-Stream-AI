@@ -7,6 +7,16 @@ import socket
 import queue
 import asyncio
 import subprocess
+
+# Permanently patch subprocess.Popen to prevent any console window popup on Windows
+if os.name == 'nt':
+    _original_popen = subprocess.Popen
+    class _PatchedPopen(_original_popen):
+        def __init__(self, *args, **kwargs):
+            if 'creationflags' not in kwargs:
+                kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
+            super().__init__(*args, **kwargs)
+    subprocess.Popen = _PatchedPopen
 import threading
 import re
 import importlib
@@ -294,6 +304,9 @@ def load_history():
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             if isinstance(data, list):
+                for job in data:
+                    if isinstance(job, dict) and "items" in job and isinstance(job["items"], list):
+                        job["total_tracks"] = len(job["items"])
                 if path != HISTORY_FILE:
                     print(f"[History] Main file unreadable - recovered from backup {path}")
                 return data
@@ -2194,6 +2207,27 @@ def _add_ai_track_to_playlist(target_track, playlist_id, playlist_title, out_pat
             ai_playlist["completed_tracks"] = len(ai_playlist["items"])
             ai_playlist["timestamp"] = datetime.now().isoformat()
             save_history(current_history)
+
+            # Immediately push exported audio file to Azure Blob Storage (except AI Vocals Only)
+            try:
+                if os.path.exists(out_path) and playlist_id != "ai_vocals_only" and "AI Vocals Only" not in out_path:
+                    with open(os.path.join(BASE_DIR, "keys.json"), "r", encoding="utf-8") as kf:
+                        keys = json.load(kf)
+                    acc = keys.get("azure_storage_account")
+                    k = keys.get("azure_account_key")
+                    c = keys.get("azure_container")
+                    if acc and k and c:
+                        from azure.storage.blob import BlobServiceClient
+                        conn_str = f"DefaultEndpointsProtocol=https;AccountName={acc};AccountKey={k};EndpointSuffix=core.windows.net"
+                        bs = BlobServiceClient.from_connection_string(conn_str)
+                        cc = bs.get_container_client(c)
+                        bname = os.path.basename(out_path)
+                        with open(out_path, "rb") as bdata:
+                            cc.upload_blob(name=bname, data=bdata, overwrite=True)
+                        print(f"[Azure Auto Sync] ☁️ Uploaded '{bname}' to Azure Blob Container '{c}'")
+            except Exception as aze:
+                print(f"[Azure Auto Sync Notice] {aze}")
+
         return new_track_id
 
 def _get_target_track(job_id, track_id):
@@ -2395,13 +2429,20 @@ async def process_ai_mute_stream(job_id: str, track_id: str, background_tasks: B
             raise HTTPException(status_code=404, detail="Local file not found for processing. Make sure it's downloaded.")
 
         # Check if already cached!
-        cache_filename = f"{sanitize_filename(track_title)} - AI Muted Vocals.mp3"
-        cache_out_path = os.path.join(AI_WORKSPACE_DIR, cache_filename)
+        fn_clean = sanitize_filename(track_title)
+        cache_candidates = [
+            os.path.join(AI_WORKSPACE_DIR, f"{fn_clean} - Karaoke.mp3"),
+            os.path.join(AI_WORKSPACE_DIR, f"{fn_clean} - AI Muted Vocals.mp3"),
+            os.path.join(DOWNLOAD_DIR, f"{fn_clean} - Karaoke.mp3"),
+            os.path.join(DOWNLOAD_DIR, f"{fn_clean} - AI Muted Vocals.mp3")
+        ]
         
-        if os.path.exists(cache_out_path):
-            # Return cached url
-            title_encoded = urllib.parse.quote(f"{track_title} - AI Muted Vocals")
-            download_dir_encoded = urllib.parse.quote(AI_WORKSPACE_DIR)
+        found_cache = next((p for p in cache_candidates if os.path.exists(p)), None)
+        if found_cache:
+            cache_title = os.path.splitext(os.path.basename(found_cache))[0]
+            cache_dir = os.path.dirname(found_cache)
+            title_encoded = urllib.parse.quote(cache_title)
+            download_dir_encoded = urllib.parse.quote(cache_dir)
             url = f"/api/media/stream?video_url=local&title={title_encoded}&format=audio&download_dir={download_dir_encoded}"
             return {"url": url}
 
@@ -2504,6 +2545,221 @@ async def process_ai_vocals_stream(job_id: str, track_id: str, background_tasks:
         import traceback
         err_msg = traceback.format_exc()
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}\nTraceback: {err_msg}")
+
+@app.post("/api/history/{job_id}/batch-ai-mute")
+async def batch_ai_mute_playlist(job_id: str, background_tasks: BackgroundTasks):
+    with history_lock:
+        job = next((j for j in get_history() if j.get("id") == job_id), None)
+    if not job:
+        raise HTTPException(status_code=404, detail="Playlist not found")
+    
+    items = job.get("items", [])
+    if not items:
+        return {"status": "success", "message": "Playlist is empty", "queued": 0}
+        
+    download_dir = job.get("download_dir", DOWNLOAD_DIR)
+    format_type = job.get("request", {}).get("format", "audio")
+    
+    queued_count = 0
+    skipped_count = 0
+    
+    for item in items:
+        title = item.get("title", "")
+        track_id = item.get("id")
+        if not title or not track_id:
+            continue
+        if " - AI Muted Vocals" in title or " - AI Instrumental" in title or " - AI Vocals Only" in title:
+            skipped_count += 1
+            continue
+            
+        fn_clean = sanitize_filename(title)
+        cache_candidates = [
+            os.path.join(AI_WORKSPACE_DIR, f"{fn_clean} - Karaoke.mp3"),
+            os.path.join(AI_WORKSPACE_DIR, f"{fn_clean} - AI Muted Vocals.mp3"),
+            os.path.join(DOWNLOAD_DIR, f"{fn_clean} - Karaoke.mp3"),
+            os.path.join(DOWNLOAD_DIR, f"{fn_clean} - AI Muted Vocals.mp3")
+        ]
+        if any(os.path.exists(p) for p in cache_candidates):
+            skipped_count += 1
+            continue
+            
+        local_path = check_local_duplicate(title, format_type, download_dir)
+        if local_path and os.path.exists(local_path):
+            await generate_ai_karaoke(job_id, track_id, background_tasks)
+            queued_count += 1
+            
+    return {
+        "status": "started",
+        "message": f"Queued {queued_count} tracks for background AI vocal muting ({skipped_count} already cached/skipped).",
+        "queued": queued_count,
+        "skipped": skipped_count
+    }
+
+class BatchAIOpsRequest(BaseModel):
+    do_mute: bool = True
+    do_vocals: bool = False
+    do_instrument: bool = False
+    skip_duplicates: bool = True
+
+@app.post("/api/history/{job_id}/batch-ai-ops")
+async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_tasks: BackgroundTasks):
+    with history_lock:
+        history = load_history()
+        if job_id == "all_downloads":
+            items = []
+            for j in history:
+                if not j.get("deleted") and j.get("id") not in ("deleted_tracks", "all_downloads"):
+                    items.extend(j.get("items", []))
+            job = {"id": "all_downloads", "title": "All Songs", "items": items}
+        else:
+            job = next((j for j in history if j.get("id") == job_id), None)
+            
+    if not job:
+        raise HTTPException(status_code=404, detail="Playlist not found")
+        
+    def _run_batch_worker():
+        try:
+            from services.ai_vocal_processor import AIVocalProcessor
+            processor = AIVocalProcessor(workspace_dir=os.path.join(BASE_DIR, "ai_workspace"))
+            
+            items = job.get("items", [])
+            target_ddir = DOWNLOAD_DIR
+            
+            for item in items:
+                title = item.get("title", "")
+                track_id = item.get("id")
+                if not title or not track_id:
+                    continue
+                if any(k in title for k in (" - AI Muted Vocals", " - AI Instrumental", " - AI Vocals Only", " - Karaoke")):
+                    continue
+                    
+                fn_clean = sanitize_filename(title)
+                local_src = check_local_duplicate(title, "audio", target_ddir)
+                if not local_src or not os.path.exists(local_src):
+                    continue
+
+                # Pre-Validation Stage: Check if track actually contains human vocals
+                try:
+                    from services.ai_vocal_detector import AIVocalDetector
+                    v_res = AIVocalDetector.has_vocals(title, local_src)
+                    if not v_res.get("has_vocals", True):
+                        logger.info(f"[Pre-Validation Stage] SKIPPED '{title}': {v_res.get('reason')}")
+                        continue
+                except Exception as v_err:
+                    logger.error(f"[Pre-Validation Stage] Notice: {v_err}")
+
+                vocal_p, accomp_p = None, None
+
+                # 1. Mute
+                if req.do_mute:
+                    out_name = f"{fn_clean} - Karaoke.mp3"
+                    out_path = os.path.join(target_ddir, out_name)
+                    already_exists = os.path.exists(out_path) and os.path.getsize(out_path) > 1000
+                    if not (req.skip_duplicates and already_exists):
+                        if not vocal_p or not accomp_p:
+                            vocal_p, accomp_p = processor.separate_vocals(local_src)
+                        processor.export_audio(accomp_p, out_path, is_karaoke_stem=True, vocal_path=vocal_p)
+
+                    # Quality Audit Gatekeeper
+                    try:
+                        from services.ai_quality_auditor import AIQualityAuditor
+                        audit_res = AIQualityAuditor.verify_karaoke_quality(local_src, out_path)
+                        if not audit_res.get("is_valid", False):
+                            logger.warning(f"[AI Quality Auditor] REJECTED '{title}': {audit_res.get('reason')}")
+                            if os.path.exists(out_path):
+                                os.remove(out_path)
+                            continue
+                        else:
+                            logger.info(f"[AI Quality Auditor] PASSED '{title}': {audit_res.get('reason')}")
+                    except Exception as qerr:
+                        logger.error(f"[AI Quality Auditor] Notice: {qerr}")
+
+                    _add_ai_track_to_playlist(item, "ai_muted_vocals", "AI Muted Vocals", out_path)
+
+                # 2. Vocals Only
+                if req.do_vocals:
+                    out_name = f"{fn_clean} - AI Vocals Only.mp3"
+                    out_path = os.path.join(target_ddir, out_name)
+                    already_exists = os.path.exists(out_path) and os.path.getsize(out_path) > 1000
+                    if not (req.skip_duplicates and already_exists):
+                        if not vocal_p or not accomp_p:
+                            vocal_p, accomp_p = processor.separate_vocals(local_src)
+                        processor.export_audio(vocal_p, out_path, is_vocal_stem=True)
+
+                    _add_ai_track_to_playlist(item, "ai_vocals_only", "AI Vocals Only", out_path)
+
+                # 3. Voice to Instrument
+                if req.do_instrument:
+                    out_name = f"{fn_clean} - AI Instrumental.mp3"
+                    out_path = os.path.join(target_ddir, out_name)
+                    already_exists = os.path.exists(out_path) and os.path.getsize(out_path) > 1000
+                    if not (req.skip_duplicates and already_exists):
+                        if not vocal_p or not accomp_p:
+                            vocal_p, accomp_p = processor.separate_vocals(local_src)
+                        inst_stem = processor.vocal_to_instrument(vocal_p, instrument="sax")
+                        processor.mix_audio(accomp_p, inst_stem, out_path)
+
+                    _add_ai_track_to_playlist(item, "ai_instrumental", "AI Instrumental", out_path)
+
+                import deploy_pwa
+                deploy_pwa.generate_pwa_manifest()
+                
+                # Update progress state file
+                try:
+                    progress_file = os.path.join(BASE_DIR, "ai_batch_progress.json")
+                    with open(progress_file, "w", encoding="utf-8") as pf:
+                        json.dump({
+                            "is_running": True,
+                            "completed": idx + 1,
+                            "total": len(items),
+                            "current_track": title,
+                            "job_title": job.get("title", "Batch AI")
+                        }, pf, indent=2, ensure_ascii=False)
+                except Exception:
+                    pass
+
+            # Mark complete
+            try:
+                progress_file = os.path.join(BASE_DIR, "ai_batch_progress.json")
+                with open(progress_file, "w", encoding="utf-8") as pf:
+                    json.dump({
+                        "is_running": False,
+                        "completed": len(items),
+                        "total": len(items),
+                        "current_track": "Completed",
+                        "job_title": job.get("title", "Batch AI")
+                    }, pf, indent=2, ensure_ascii=False)
+            except Exception:
+                pass
+                
+        except Exception as e:
+            traceback.print_exc()
+
+    background_tasks.add_task(_run_batch_worker)
+    return {"status": "started", "message": f"Started background AI operations for '{job.get('title')}'"}
+
+@app.get("/api/ai-batch-status")
+def get_ai_batch_status():
+    progress_file = os.path.join(BASE_DIR, "ai_batch_progress.json")
+    if os.path.exists(progress_file):
+        try:
+            with open(progress_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {"is_running": False, "completed": 0, "total": 0, "current_track": "", "job_title": ""}
+
+@app.post("/api/ai/audit-quality")
+def audit_ai_quality_endpoint(playlist_id: str = "ai_muted_vocals"):
+    """
+    Runs an independent AI quality audit on all tracks in the specified AI playlist.
+    """
+    try:
+        from services.ai_quality_auditor import AIQualityAuditor
+        report = AIQualityAuditor.audit_playlist(HISTORY_FILE, DOWNLOAD_DIR, playlist_id=playlist_id)
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/stream/ai/{job_id}/{track_id}")
 def stream_ai_processed_audio(job_id: str, track_id: str, mode: str = "mute"):
@@ -3106,25 +3362,57 @@ async def get_azure_stats(download_dir: Optional[str] = None):
         except Exception as e:
             return {"error": f"Failed to list Azure blobs: {str(e)}"}
             
+        # Load deleted_blobs list to exclude explicitly deleted files
+        deleted_blobs_path = os.path.join(BASE_DIR, "deleted_blobs.json")
+        deleted_blobs = set()
+        if os.path.exists(deleted_blobs_path):
+            try:
+                with open(deleted_blobs_path, "r", encoding="utf-8") as dbf:
+                    deleted_blobs = set(json.load(dbf))
+            except Exception: pass
+
+        # Collect local audio files across download_dir AND history playlist folders
+        dirs_to_check = set()
         target_dir = download_dir or DOWNLOAD_DIR
+        history_file_path = os.path.join(BASE_DIR, "history.json")
+        if target_dir and os.path.exists(target_dir):
+            dirs_to_check.add(os.path.abspath(target_dir))
+        if os.path.exists(history_file_path):
+            try:
+                with open(history_file_path, "r", encoding="utf-8") as hf:
+                    history_data = json.load(hf)
+                    for job in history_data:
+                        jdir = job.get("download_dir") or job.get("folder_path")
+                        if jdir and os.path.exists(jdir):
+                            dirs_to_check.add(os.path.abspath(jdir))
+            except Exception: pass
+
+        audio_exts = ('.mp3', '.m4a', '.wav', '.flac', '.ogg', '.aac')
+        video_exts = ('.mp4', '.mkv', '.webm', '.avi', '.mov', '.flv', '.wmv')
+        
         local_files = {}
-        if os.path.exists(target_dir):
-            for f in os.listdir(target_dir):
-                full = os.path.join(target_dir, f)
-                if os.path.isfile(full):
-                    local_files[f] = {"size": os.path.getsize(full)}
-                    
+        for d in dirs_to_check:
+            for root, _, names in os.walk(d):
+                for f in names:
+                    ext = os.path.splitext(f)[1].lower()
+                    if ext in audio_exts and ext not in video_exts and f not in deleted_blobs:
+                        if f not in local_files:
+                            full = os.path.join(root, f)
+                            local_files[f] = {"size": os.path.getsize(full)}
+
         # Build combined file list
         all_names = set(list(azure_files.keys()) + list(local_files.keys()))
         files = []
         for name in sorted(all_names):
+            if name in deleted_blobs:
+                continue
             in_azure = name in azure_files
             in_local = name in local_files
             ext = os.path.splitext(name)[1].lower()
             
-            if ext in ('.mp3', '.m4a', '.wav', '.flac', '.ogg', '.aac'):
+            if ext in audio_exts:
                 ftype = 'audio'
-            elif ext in ('.mp4', '.mkv', '.webm', '.avi'):
+            elif ext in video_exts:
                 ftype = 'video'
             elif ext in ('.json',):
                 ftype = 'data'
@@ -3157,6 +3445,8 @@ async def get_azure_stats(download_dir: Optional[str] = None):
         total_azure_size = sum(azure_files[n]["size"] or 0 for n in azure_files)
         
         return {
+            "is_syncing": AZURE_SYNC_STATUS["is_syncing"],
+            "sync_status": AZURE_SYNC_STATUS,
             "local_count": local_count,
             "azure_count": azure_count,
             "synced_count": synced_count,
@@ -3220,6 +3510,7 @@ async def get_azure_explorer(download_dir: Optional[str] = None):
         # The previous code read the wrong blob AND required a list, so `playlists`
         # was always empty and the explorer's left panel showed nothing.
         playlists = []
+        azure_playlist_ids = set()
         manifest_error = None
         try:
             manifest_client = container_client.get_blob_client("playlists_manifest.json")
@@ -3229,47 +3520,107 @@ async def get_azure_explorer(download_dir: Optional[str] = None):
                     playlists = manifest_data.get("playlists", []) or []
                 elif isinstance(manifest_data, list):
                     playlists = manifest_data          # tolerate a bare list
+                for p in playlists:
+                    if isinstance(p, dict) and p.get("id"):
+                        azure_playlist_ids.add(p["id"])
             else:
-                manifest_error = "playlists_manifest.json not found in the container - run Sync to publish it."
+                manifest_error = "playlists_manifest.json not found in container."
         except Exception as e:
             manifest_error = f"Could not read playlists_manifest.json: {e}"
             print(f"[Azure Explorer] {manifest_error}")
 
-        # 3) Local files for comparison
-        target_dir = download_dir or DOWNLOAD_DIR
-        local_files = set()
-        if os.path.exists(target_dir):
-            for f in os.listdir(target_dir):
-                if os.path.isfile(os.path.join(target_dir, f)):
-                    local_files.add(f)
+        # Merge local playlists from local playlists_manifest.json so local-only playlists show in left pane
+        try:
+            local_manifest_path = os.path.join(BASE_DIR, "web-pwa", "playlists_manifest.json")
+            if os.path.exists(local_manifest_path):
+                with open(local_manifest_path, "r", encoding="utf-8") as lmf:
+                    local_manifest = json.load(lmf)
+                    local_pls = local_manifest.get("playlists", []) or []
+                    for lp in local_pls:
+                        if isinstance(lp, dict) and lp.get("title") not in [p.get("title") for p in playlists if isinstance(p, dict)]:
+                            playlists.append(lp)
+        except Exception as le:
+            print(f"[Azure Explorer] Local manifest merge notice: {le}")
 
-        # 4) Build file list with sync status
+        # Load deleted_blobs (exclusion list)
+        deleted_blobs_path = os.path.join(BASE_DIR, "deleted_blobs.json")
+        deleted_blobs = set()
+        if os.path.exists(deleted_blobs_path):
+            try:
+                with open(deleted_blobs_path, "r", encoding="utf-8") as dbf:
+                    deleted_blobs = set(json.load(dbf))
+            except Exception: pass
+
+        # 3) Local files for comparison across download_dir and history folders
+        dirs_to_check = set()
+        target_dir = download_dir or DOWNLOAD_DIR
+        history_file_path = os.path.join(BASE_DIR, "history.json")
+        if target_dir and os.path.exists(target_dir):
+            dirs_to_check.add(os.path.abspath(target_dir))
+        if os.path.exists(history_file_path):
+            try:
+                with open(history_file_path, "r", encoding="utf-8") as hf:
+                    history_data = json.load(hf)
+                    for job in history_data:
+                        jdir = job.get("download_dir") or job.get("folder_path")
+                        if jdir and os.path.exists(jdir):
+                            dirs_to_check.add(os.path.abspath(jdir))
+            except Exception: pass
+
+        local_files = {}  # name -> size
+        for d in dirs_to_check:
+            for root, _, names in os.walk(d):
+                for f in names:
+                    if f not in local_files:
+                        full = os.path.join(root, f)
+                        try: local_files[f] = os.path.getsize(full)
+                        except Exception: local_files[f] = 0
+
+        # 4) Build complete file list with sync status (including local-only & excluded)
+        all_names = set(list(azure_blobs.keys()) + list(local_files.keys()) + list(deleted_blobs))
         files = {}
-        for name, meta in azure_blobs.items():
+        for name in sorted(all_names):
+            in_azure = name in azure_blobs
+            in_local = name in local_files
+            is_excluded = name in deleted_blobs
             ext = os.path.splitext(name)[1].lower()
+            
             if ext in ('.mp3', '.m4a', '.wav', '.flac', '.ogg', '.aac'):
                 ftype = 'audio'
-            elif ext in ('.mp4', '.mkv', '.webm', '.avi'):
+            elif ext in ('.mp4', '.mkv', '.webm', '.avi', '.mov', '.flv', '.wmv'):
                 ftype = 'video'
             elif ext in ('.json',):
                 ftype = 'data'
             else:
                 ftype = 'other'
+                
+            if is_excluded:
+                sync_status = 'excluded'
+            elif in_azure and in_local:
+                sync_status = 'synced'
+            elif in_local and not in_azure:
+                sync_status = 'local_only'
+            else:
+                sync_status = 'azure_only'
+                
+            size = azure_blobs[name]["size"] if in_azure else (local_files.get(name) or 0)
+            last_mod = azure_blobs[name]["last_modified"] if in_azure else None
+            
             files[name] = {
                 "name": name,
-                "size": meta["size"],
+                "size": size,
                 "type": ftype,
                 "ext": ext,
-                "in_local": name in local_files,
-                "last_modified": meta["last_modified"],
+                "in_local": in_local,
+                "in_azure": in_azure,
+                "is_excluded": is_excluded,
+                "sync_status": sync_status,
+                "last_modified": last_mod,
             }
 
         total_size = sum(v["size"] or 0 for v in azure_blobs.values())
 
-        # 5) Join each manifest playlist to its actual blobs so the UI can show
-        #    "playlists as they are in the blob" on the left and that playlist's
-        #    files on the right. Tracks whose blob is absent are reported honestly
-        #    via missing_count rather than silently dropped.
+        # 5) Join each manifest playlist to its actual blobs
         playlist_summaries = []
         for pl in playlists:
             tracks = pl.get("tracks", []) or []
@@ -3290,9 +3641,23 @@ async def get_azure_explorer(download_dir: Optional[str] = None):
                 "track_count": len(tracks),
                 "in_azure_count": len(names),
                 "missing_count": missing,
-                "size": sum((azure_blobs[n]["size"] or 0) for n in names),
+                "size": sum((azure_blobs[n]["size"] or 0) for n in names if n in azure_blobs),
                 "files": names,
             })
+
+        # Add virtual Exclusions Playlist Summary
+        excluded_files_list = sorted(list(deleted_blobs))
+        playlist_summaries.append({
+            "id": "__exclusions__",
+            "title": "🚫 Excluded Tracks",
+            "is_virtual": True,
+            "thumbnail": None,
+            "track_count": len(excluded_files_list),
+            "in_azure_count": sum(1 for f in excluded_files_list if f in azure_blobs),
+            "missing_count": 0,
+            "size": sum((files[f]["size"] or 0) for f in excluded_files_list if f in files),
+            "files": excluded_files_list,
+        })
 
         return {
             "playlists": playlists,
@@ -3304,6 +3669,7 @@ async def get_azure_explorer(download_dir: Optional[str] = None):
                 "total_size": total_size,
                 "local_count": len(local_files),
                 "synced": sum(1 for n in azure_blobs if n in local_files),
+                "excluded": len(deleted_blobs),
                 "playlists": len(playlist_summaries),
             }
         }
@@ -3354,8 +3720,20 @@ async def delete_azure_blobs(req: AzureBlobBatchRequest):
                 deleted.append(bname)
             except Exception as e:
                 print(f"[Azure Blob Delete] Failed {bname}: {e}")
-                failed.append(bname)
-                
+        # Persistently record deleted blob names so Sync never re-uploads them
+        if deleted:
+            deleted_blobs_path = os.path.join(BASE_DIR, "deleted_blobs.json")
+            deleted_set = set()
+            if os.path.exists(deleted_blobs_path):
+                try:
+                    with open(deleted_blobs_path, "r", encoding="utf-8") as dbf:
+                        deleted_set = set(json.load(dbf))
+                except Exception:
+                    pass
+            deleted_set.update(deleted)
+            with open(deleted_blobs_path, "w", encoding="utf-8") as dbf:
+                json.dump(sorted(list(deleted_set)), dbf, indent=2)
+
         # Regenerate and upload playlists_manifest.json
         try:
             import deploy_pwa
@@ -3376,6 +3754,106 @@ async def delete_azure_blobs(req: AzureBlobBatchRequest):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/azure/blobs/exclude")
+async def exclude_azure_blobs(req: AzureBlobBatchRequest):
+    """Excludes specified tracks from Azure Sync: adds them to deleted_blobs.json and deletes them from Azure if present."""
+    if not req.blob_names:
+        raise HTTPException(status_code=400, detail="No blob names specified for exclusion.")
+
+    deleted_blobs_path = os.path.join(BASE_DIR, "deleted_blobs.json")
+    deleted_set = set()
+    if os.path.exists(deleted_blobs_path):
+        try:
+            with open(deleted_blobs_path, "r", encoding="utf-8") as dbf:
+                deleted_set = set(json.load(dbf))
+        except Exception:
+            pass
+
+    deleted_set.update(req.blob_names)
+    with open(deleted_blobs_path, "w", encoding="utf-8") as dbf:
+        json.dump(sorted(list(deleted_set)), dbf, indent=2)
+
+    # Delete from Azure if currently uploaded
+    deleted_from_azure = []
+    try:
+        with open(os.path.join(BASE_DIR, "keys.json"), "r", encoding="utf-8") as f:
+            keys = json.load(f)
+        account_name = keys.get("azure_storage_account")
+        sas_token = keys.get("azure_sas_token", "")
+        account_key = keys.get("azure_account_key")
+        container = keys.get("azure_container")
+
+        if account_name and container:
+            from azure.storage.blob import BlobServiceClient
+            acc_url = f"https://{account_name}.blob.core.windows.net"
+            if account_key:
+                conn_str = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
+                blob_service = BlobServiceClient.from_connection_string(conn_str)
+            else:
+                if sas_token.startswith("?"): sas_token = sas_token[1:]
+                blob_service = BlobServiceClient(account_url=acc_url, credential=sas_token)
+
+            container_client = blob_service.get_container_client(container)
+            for bname in req.blob_names:
+                try:
+                    container_client.delete_blob(bname)
+                    deleted_from_azure.append(bname)
+                except Exception:
+                    pass
+
+            # Regenerate manifest
+            try:
+                import deploy_pwa
+                deploy_pwa.generate_pwa_manifest()
+                manifest_path = os.path.join(BASE_DIR, "web-pwa", "playlists_manifest.json")
+                if os.path.exists(manifest_path):
+                    with open(manifest_path, "rb") as data:
+                        container_client.get_blob_client("playlists_manifest.json").upload_blob(data, overwrite=True)
+            except Exception: pass
+    except Exception as e:
+        print(f"[Azure Exclude Notice] {e}")
+
+    return {
+        "message": f"Excluded {len(req.blob_names)} track(s) from Azure sync",
+        "excluded": req.blob_names,
+        "deleted_from_azure": deleted_from_azure
+    }
+
+@app.post("/api/azure/blobs/unexclude")
+async def unexclude_azure_blobs(req: AzureBlobBatchRequest):
+    """Restores specified tracks back to normal sync status by removing them from deleted_blobs.json."""
+    if not req.blob_names:
+        raise HTTPException(status_code=400, detail="No blob names specified for restoration.")
+
+    deleted_blobs_path = os.path.join(BASE_DIR, "deleted_blobs.json")
+    deleted_set = set()
+    if os.path.exists(deleted_blobs_path):
+        try:
+            with open(deleted_blobs_path, "r", encoding="utf-8") as dbf:
+                deleted_set = set(json.load(dbf))
+        except Exception:
+            pass
+
+    restored = []
+    for fname in req.blob_names:
+        if fname in deleted_set:
+            deleted_set.remove(fname)
+            restored.append(fname)
+
+    with open(deleted_blobs_path, "w", encoding="utf-8") as dbf:
+        json.dump(sorted(list(deleted_set)), dbf, indent=2)
+
+    # Regenerate manifest
+    try:
+        import deploy_pwa
+        deploy_pwa.generate_pwa_manifest()
+    except Exception: pass
+
+    return {
+        "message": f"Restored {len(restored)} track(s) to sync",
+        "restored": restored
+    }
 
 @app.post("/api/azure/blobs/trim")
 async def trim_azure_blobs(req: AzureBlobBatchRequest, download_dir: Optional[str] = None):

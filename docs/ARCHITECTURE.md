@@ -136,3 +136,21 @@ The frontend utilizes pure CSS styling to construct a premium, desktop-grade lay
   position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
   ```
 * **Scrollbars**: Customized browser scrollbars using matching slate colors to look unified inside the wrapped wrapper.
+
+---
+
+## 5. AI Quality Auditor & Deduplication Architecture
+
+### A. Independent AI Quality Auditor (`src/services/ai_quality_auditor.py`)
+SonicStream AI implements an automated, signal-level quality gatekeeper that intercepts AI-generated stems immediately upon export.
+1. **Vocal Band Drop Test**: Evaluates energy drop in human vocal frequencies ($300\text{ Hz} - 3400\text{ Hz}$) requiring a drop of $\ge 6.0\text{ dB}$.
+2. **Amplitude Cross-Correlation Fingerprint**: Computes similarity between stem and original audio, rejecting stems with correlation $> 0.80$ to eliminate fake or unseparated files.
+3. **Automatic Rejection**: Stems failing quality validation are deleted immediately before touching `history.json` or Azure Blob Storage.
+
+### B. 4-Layer Deduplication & Safety Architecture
+To guarantee that batch AI operations never re-process existing stems or create duplicate playlist items:
+1. **Existing File Guard**: Skips Demucs separation if `... - Karaoke.mp3` exists ($>100\text{ KB}$).
+2. **Playlist ID Deduplication**: Checks `new_track_id` in `_add_ai_track_to_playlist()` before inserting.
+3. **AI Suffix Filter**: Ignores tracks containing `- Karaoke`, `- AI Muted Vocals`, or `- AI Vocals Only`.
+4. **Real-time Quality Auditor**: Rejects corrupt or invalid outputs on the spot.
+
