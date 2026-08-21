@@ -2201,6 +2201,7 @@ def _add_ai_track_to_playlist(target_track, playlist_id, playlist_title, out_pat
             new_item = dict(target_track)
             new_item["id"] = new_track_id
             new_item["title"] = os.path.splitext(os.path.basename(out_path))[0]
+            new_item["file"] = os.path.basename(out_path)
             new_item["status"] = "completed"
             new_item["percentage"] = 100.0
             new_item["speed"] = "--"
@@ -2676,6 +2677,36 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                 if not local_src or not os.path.exists(local_src):
                     log_msg(f"SKIPPED: Local file not found for '{title}'")
                     continue
+
+                # Early Duplicate Check (Saves ~3s per track by skipping AIVocalDetector)
+                if req.skip_duplicates:
+                    needs_generation = False
+                    if req.do_mute:
+                        out_name = f"{fn_clean} - Karaoke.mp3"
+                        if not (os.path.exists(os.path.join(target_ddir, out_name)) and os.path.getsize(os.path.join(target_ddir, out_name)) > 1000):
+                            needs_generation = True
+                    if req.do_vocals_only:
+                        out_name = f"{fn_clean} - AI Vocals Only.mp3"
+                        if not (os.path.exists(os.path.join(target_ddir, out_name)) and os.path.getsize(os.path.join(target_ddir, out_name)) > 1000):
+                            needs_generation = True
+                    if req.do_instrumental:
+                        out_name = f"{fn_clean} - AI Instrumental.mp3"
+                        if not (os.path.exists(os.path.join(target_ddir, out_name)) and os.path.getsize(os.path.join(target_ddir, out_name)) > 1000):
+                            needs_generation = True
+                            
+                    if not needs_generation:
+                        # Files exist on disk. Ensure they are in the playlist.
+                        if req.do_mute:
+                            _add_ai_track_to_playlist(item, "ai_muted_vocals", "AI Muted Vocals", os.path.join(target_ddir, f"{fn_clean} - Karaoke.mp3"))
+                        if req.do_vocals_only:
+                            _add_ai_track_to_playlist(item, "ai_vocals_only", "AI Vocals Only", os.path.join(target_ddir, f"{fn_clean} - AI Vocals Only.mp3"))
+                        if req.do_instrumental:
+                            _add_ai_track_to_playlist(item, "ai_instrumental", "AI Instrumental", os.path.join(target_ddir, f"{fn_clean} - AI Instrumental.mp3"))
+                        
+                        log_msg(f"SKIPPED (Duplicate): All AI stems already exist.")
+                        log_msg(f"--- Finished Track {idx+1}/{len(items)} ---")
+                        save_progress(idx + 1, title, True)
+                        continue
 
                 # Pre-Validation Stage: Check if track actually contains human vocals
                 try:
