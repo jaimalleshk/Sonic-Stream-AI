@@ -50,8 +50,9 @@ class AIQualityAuditor:
             dur_k = len(audio_k) / 1000.0
             dur_o = len(audio_o) / 1000.0
 
-            # Duration match check (must be within 3.0 seconds)
-            if abs(dur_k - dur_o) > 3.0:
+            # Duration match check (must be within reasonable bounds because trim_silence strips dead air)
+            # Fail if the karaoke track is significantly truncated (< 70% of original) or somehow longer
+            if dur_k < (dur_o * 0.70) or dur_k > dur_o + 30.0:
                 return {
                     "is_valid": False,
                     "reason": f"Duration mismatch: Karaoke stem {dur_k:.1f}s vs Original {dur_o:.1f}s."
