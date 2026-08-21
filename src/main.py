@@ -2651,8 +2651,11 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
 
             def log_msg(msg):
                 stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                formatted = f"[{stamp}] {msg}".encode('utf-8', 'replace').decode('utf-8')
-                print(formatted)
+                formatted = f"[{stamp}] {msg}"
+                try:
+                    print(formatted)
+                except UnicodeEncodeError:
+                    print(formatted.encode('ascii', 'replace').decode('ascii'))
                 logs_buffer.append(formatted)
                 
             log_msg(f"Started Batch AI operations for job '{job.get('title')}' with {len(items)} tracks.")
@@ -2761,6 +2764,10 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
             save_progress(len(items), "Completed", False)
                 
         except Exception as e:
+            err_msg = traceback.format_exc()
+            log_msg(f"FATAL ERROR: {str(e)}")
+            log_msg(f"TRACE: {err_msg}")
+            save_progress(len(items), "Crashed", False)
             traceback.print_exc()
 
     background_tasks.add_task(_run_batch_worker)
