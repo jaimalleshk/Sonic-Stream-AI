@@ -2685,11 +2685,11 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                         out_name = f"{fn_clean} - Karaoke.mp3"
                         if not (os.path.exists(os.path.join(target_ddir, out_name)) and os.path.getsize(os.path.join(target_ddir, out_name)) > 1000):
                             needs_generation = True
-                    if req.do_vocals_only:
+                    if req.do_vocals:
                         out_name = f"{fn_clean} - AI Vocals Only.mp3"
                         if not (os.path.exists(os.path.join(target_ddir, out_name)) and os.path.getsize(os.path.join(target_ddir, out_name)) > 1000):
                             needs_generation = True
-                    if req.do_instrumental:
+                    if req.do_instrument:
                         out_name = f"{fn_clean} - AI Instrumental.mp3"
                         if not (os.path.exists(os.path.join(target_ddir, out_name)) and os.path.getsize(os.path.join(target_ddir, out_name)) > 1000):
                             needs_generation = True
@@ -2698,9 +2698,9 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                         # Files exist on disk. Ensure they are in the playlist.
                         if req.do_mute:
                             _add_ai_track_to_playlist(item, "ai_muted_vocals", "AI Muted Vocals", os.path.join(target_ddir, f"{fn_clean} - Karaoke.mp3"))
-                        if req.do_vocals_only:
+                        if req.do_vocals:
                             _add_ai_track_to_playlist(item, "ai_vocals_only", "AI Vocals Only", os.path.join(target_ddir, f"{fn_clean} - AI Vocals Only.mp3"))
-                        if req.do_instrumental:
+                        if req.do_instrument:
                             _add_ai_track_to_playlist(item, "ai_instrumental", "AI Instrumental", os.path.join(target_ddir, f"{fn_clean} - AI Instrumental.mp3"))
                         
                         log_msg(f"SKIPPED (Duplicate): All AI stems already exist.")
