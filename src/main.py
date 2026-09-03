@@ -3937,7 +3937,6 @@ async def trim_azure_blobs(req: AzureBlobBatchRequest, download_dir: Optional[st
         
     try:
         import sync_azure_batch
-        importlib.reload(sync_azure_batch)
         
         keys = sync_azure_batch.load_keys()
         if not keys:
@@ -4081,7 +4080,6 @@ async def trigger_azure_sync(download_dir: str = "", keep_full: bool = False):
             if src_dir not in sys.path:
                 sys.path.insert(0, src_dir)
             import sync_azure_batch
-            importlib.reload(sync_azure_batch)
             sync_azure_batch.run_sync(download_dir or DOWNLOAD_DIR, _progress_cb, keep_full=keep_full)
         except Exception as e:
             try:
