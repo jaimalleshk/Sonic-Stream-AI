@@ -1516,11 +1516,11 @@ document.addEventListener("DOMContentLoaded", () => {
             let desktopPlaylists = [];
             
             const sasToken = getAzureSASToken();
-            const azureCloudManifestUrl = `${getAzureBlobBaseUrl()}/playlists_manifest.json?${sasToken}`;
+            const azureCloudManifestUrl = `${getAzureBlobBaseUrl()}/playlists_manifest.json?${sasToken}&_t=${Date.now()}`;
             
             const apiEndpoints = [
-                "./playlists_manifest.json",
                 azureCloudManifestUrl,
+                "./playlists_manifest.json",
                 "/api/playlists/list",
                 "http://127.0.0.1:8765/api/playlists/list",
                 "http://localhost:8765/api/playlists/list"
