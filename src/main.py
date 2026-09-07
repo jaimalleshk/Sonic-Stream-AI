@@ -2163,6 +2163,20 @@ async def save_last_played(job_id: str, req: LastPlayedRequest):
         save_history(history)
     return {"message": "Playback position saved successfully"}
 
+class TrackPlayedRequest(BaseModel):
+    timestamp: int
+
+@app.post("/api/track/{track_id}/played")
+async def track_played(track_id: str, req: TrackPlayedRequest):
+    with history_lock:
+        history = load_history()
+        for job in history:
+            for item in job.get("items", []):
+                if item.get("id") == track_id:
+                    item["lastPlayed"] = req.timestamp
+        save_history(history)
+    return {"message": "Track played stamped"}
+
 @app.get("/api/ai-jobs")
 async def get_ai_jobs():
     with ai_jobs_lock:

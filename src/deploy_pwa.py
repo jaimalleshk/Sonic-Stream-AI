@@ -179,6 +179,27 @@ def generate_pwa_manifest():
         "playlists": playlists
     }
 
+    # Inject Write SAS Token for PWA Sync
+    try:
+        from datetime import datetime, timedelta, timezone
+        from azure.storage.blob import generate_container_sas, ContainerSasPermissions
+        with open(KEYS_FILE, 'r') as kf:
+            keys = json.load(kf)
+        acc_name = keys.get("azure_storage_account")
+        acc_key = keys.get("azure_account_key")
+        container = keys.get("azure_container")
+        if acc_name and acc_key and container:
+            sas_token = generate_container_sas(
+                account_name=acc_name,
+                container_name=container,
+                account_key=acc_key,
+                permission=ContainerSasPermissions(read=True, write=True, create=True, add=True, delete=True, list=True),
+                expiry=datetime.now(timezone.utc) + timedelta(days=365)
+            )
+            manifest_data["write_sas_token"] = sas_token
+    except Exception as e:
+        print(f"[PWA Deploy Warning] Failed to generate write_sas_token: {e}")
+
     target_manifest = os.path.join(BASE_DIR, "web-pwa", "playlists_manifest.json")
     target_fallback = os.path.join(BASE_DIR, "web-pwa", "manifest_fallback.js")
 

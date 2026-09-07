@@ -303,6 +303,36 @@ def run_sync(download_dir, progress_callback=None, keep_full=False):
                     safe_print(f"[Azure Sync] FAILED {f}: {fe2}")
                     failed.append(f)
 
+        # 1.5 Sync PWA playback history from Azure
+        try:
+            if progress_callback:
+                progress_callback(total_files, total_files, "Syncing PWA playback history...", False)
+            pwa_hist_blob = container_client.get_blob_client("pwa_playback_history.json")
+            if pwa_hist_blob.exists():
+                hist_data = pwa_hist_blob.download_blob().readall()
+                pwa_updates = json.loads(hist_data)
+                
+                # Merge into local history.json
+                if pwa_updates:
+                    import main
+                    with main.history_lock:
+                        history = main.load_history()
+                        updated = False
+                        for job in history:
+                            for item in job.get("items", []):
+                                tid = item.get("id")
+                                if tid and tid in pwa_updates:
+                                    existing = item.get("lastPlayed", 0)
+                                    new_ts = pwa_updates[tid]
+                                    if new_ts > existing:
+                                        item["lastPlayed"] = new_ts
+                                        updated = True
+                        if updated:
+                            main.save_history(history)
+                            safe_print("[Azure Sync] Merged PWA playback history into desktop.")
+        except Exception as sync_e:
+            safe_print(f"[Azure Sync] Failed to sync PWA playback history: {sync_e}")
+
         # 2. Regenerate and upload the PWA manifest.
         if progress_callback:
             progress_callback(total_files, total_files, "Building playlist manifest...", False)

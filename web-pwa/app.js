@@ -1326,10 +1326,29 @@ document.addEventListener("DOMContentLoaded", () => {
     // ~600 KB manifest twice, popped an alert(), and the two handlers fought over
     // the button label.
 
+    // Helper to sort tracks by oldest played first (or never played)
+    function sortTracksByOldestPlayed(tracks) {
+        return [...tracks].sort((a, b) => {
+            let tA = a.lastPlayed || 0;
+            let tB = b.lastPlayed || 0;
+            if (tA === tB) return Math.random() - 0.5; // randomize if same timestamp
+            return tA - tB;
+        });
+    }
+
     if (playPlaylistBtn) {
         playPlaylistBtn.addEventListener("click", () => {
             if (!activePlaylistItems || activePlaylistItems.length === 0) return;
-            playTrack(activePlaylistItems[0], activePlaylistItems, 0);
+            const sorted = sortTracksByOldestPlayed(activePlaylistItems);
+            playTrack(sorted[0], sorted, 0);
+        });
+    }
+
+    if (shufflePlaylistBtn) {
+        shufflePlaylistBtn.addEventListener("click", () => {
+            if (!activePlaylistItems || activePlaylistItems.length === 0) return;
+            const sorted = sortTracksByOldestPlayed(activePlaylistItems);
+            playTrack(sorted[0], sorted, 0);
         });
     }
 
@@ -1769,7 +1788,7 @@ document.addEventListener("DOMContentLoaded", () => {
             row.querySelector(".shuffle-sidebar-btn")?.addEventListener("click", () => {
                 selectPlaylist(pl);
                 if (pl.tracks && pl.tracks.length > 0) {
-                    const shuffled = [...pl.tracks].sort(() => Math.random() - 0.5);
+                    const shuffled = sortTracksByOldestPlayed(pl.tracks);
                     playTrack(shuffled[0], shuffled, 0);
                 }
             });
@@ -1861,7 +1880,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         on(".pa-play", () => { selectPlaylist(pl); if (pl.tracks && pl.tracks.length) playTrack(pl.tracks[0], pl.tracks, 0); });
         on(".pa-resume", () => { selectPlaylist(pl); resumePlaylist(pl); });
-        on(".pa-shuffle", () => { selectPlaylist(pl); if (pl.tracks && pl.tracks.length) { const s = [...pl.tracks].sort(() => Math.random() - 0.5); playTrack(s[0], s, 0); } });
+        on(".pa-shuffle", () => { selectPlaylist(pl); if (pl.tracks && pl.tracks.length) { const s = sortTracksByOldestPlayed(pl.tracks); playTrack(s[0], s, 0); } });
         on(".pa-pin", () => { pl.isPinned = !pl.isPinned; savePlaylistToDB(pl); renderSidebarList(); renderMobilePlaylists(); });
         on(".pa-delete", () => {
             if (confirm(`Delete playlist "${pl.title}"?`)) {
@@ -2335,6 +2354,63 @@ document.addEventListener("DOMContentLoaded", () => {
     // after a few songs. Explicit user-initiated downloads (the Download buttons)
     // still use prefetchUpcomingTracks directly.
 
+    let pwaHistorySyncInProgress = false;
+    let pwaHistoryQueue = {}; // track_id -> timestamp
+    
+    async function syncPlaybackHistoryToCloud(trackId, timestamp) {
+        if (!trackId || !timestamp) return;
+        pwaHistoryQueue[trackId] = timestamp;
+        
+        if (pwaHistorySyncInProgress) return;
+        
+        // Wait briefly to batch multiple skips
+        pwaHistorySyncInProgress = true;
+        setTimeout(async () => {
+            try {
+                if (!window.SONICSTREAM_MANIFEST_FALLBACK || !window.SONICSTREAM_MANIFEST_FALLBACK.write_sas_token) {
+                    pwaHistorySyncInProgress = false;
+                    return; // No write token available
+                }
+                
+                const token = window.SONICSTREAM_MANIFEST_FALLBACK.write_sas_token;
+                const baseUrl = azureCloudManifestUrl.split("?")[0].replace("playlists_manifest.json", "");
+                const historyUrl = `${baseUrl}pwa_playback_history.json?${token}`;
+                
+                let currentHistory = {};
+                try {
+                    const getRes = await fetch(historyUrl, { method: "GET" });
+                    if (getRes.ok) {
+                        currentHistory = await getRes.json();
+                    }
+                } catch(e) { /* might not exist yet */ }
+                
+                // Merge queue
+                for (const [tid, ts] of Object.entries(pwaHistoryQueue)) {
+                    if (!currentHistory[tid] || currentHistory[tid] < ts) {
+                        currentHistory[tid] = ts;
+                    }
+                }
+                
+                // Upload
+                const putRes = await fetch(historyUrl, {
+                    method: "PUT",
+                    headers: { "x-ms-blob-type": "BlockBlob", "Content-Type": "application/json" },
+                    body: JSON.stringify(currentHistory)
+                });
+                
+                if (putRes.ok) {
+                    // Clear queue of exactly the things we just successfully uploaded
+                    for (const tid of Object.keys(currentHistory)) {
+                        delete pwaHistoryQueue[tid];
+                    }
+                }
+            } catch (err) {
+                console.error("[PWA Sync] Failed to sync playback history to cloud:", err);
+            }
+            pwaHistorySyncInProgress = false;
+        }, 3000);
+    }
+
     // --- Audio Engine & MediaSession Controls ---
     // Guards against two playTrack() calls running at once. The trace log showed
     // two "Downloaded + cached" lines in the SAME second followed by "Playback
@@ -2360,6 +2436,20 @@ document.addEventListener("DOMContentLoaded", () => {
         clearNextTrackTimers();
         playQueue = queue || [track];
         currentTrackIndex = index !== undefined ? index : playQueue.findIndex(t => t.id === track.id);
+
+        // Stamp playback history
+        track.lastPlayed = Date.now();
+        if (activePlaylistId) {
+            const pl = (playlistsCache || []).find(p => p.id === activePlaylistId);
+            if (pl && pl.source === "desktop") {
+                const tr = pl.tracks.find(t => t.id === track.id);
+                if (tr) {
+                    tr.lastPlayed = track.lastPlayed;
+                    savePlaylistToDB(pl).catch(e => console.warn("Failed to update track lastPlayed in DB", e));
+                }
+            }
+        }
+        syncPlaybackHistoryToCloud(track.id, track.lastPlayed);
 
         // Immediate feedback. Playback now waits for a full download, so without
         // this the button stayed on "play" for the whole wait and the app looked

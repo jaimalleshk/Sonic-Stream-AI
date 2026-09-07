@@ -569,7 +569,13 @@ document.addEventListener("DOMContentLoaded", () => {
             selectedItemIds.add(item.id);
         });
         
-        playQueue = playlistItems;
+        // Sort by oldest played first for queue order
+        playQueue = [...playlistItems].sort((a, b) => {
+            let tA = a.lastPlayed || 0;
+            let tB = b.lastPlayed || 0;
+            if (tA === tB) return Math.random() - 0.5;
+            return tA - tB;
+        });
         currentTrackIndex = 0;
         
         currentPage = 1;
@@ -1618,13 +1624,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function generateShuffleOrder(tracks, currentTrackId = null) {
         if (!tracks || tracks.length === 0) return [];
-        let ids = tracks.filter(t => t && t.id).map(t => t.id);
         
-        // Fisher-Yates shuffle
-        for (let i = ids.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [ids[i], ids[j]] = [ids[j], ids[i]];
-        }
+        // Smart Shuffle: Sort by oldest played first.
+        // Add a tiny random offset to tracks never played so they don't always play in the exact same order.
+        let sortedTracks = [...tracks].sort((a, b) => {
+            let tA = a.lastPlayed || 0;
+            let tB = b.lastPlayed || 0;
+            if (tA === tB) return Math.random() - 0.5;
+            return tA - tB;
+        });
+
+        let ids = sortedTracks.filter(t => t && t.id).map(t => t.id);
         
         // If currentTrackId is specified, place it at index 0
         if (currentTrackId) {
@@ -1662,6 +1672,14 @@ document.addEventListener("DOMContentLoaded", () => {
         playerTrackThumb.src = track.thumbnail || `https://i.ytimg.com/vi/${track.id}/hqdefault.jpg`;
         
         updateMediaSessionMetadata(track);
+
+        // Stamp playback history
+        track.lastPlayed = Date.now();
+        fetch(`/api/track/${track.id}/played`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ timestamp: track.lastPlayed })
+        }).catch(err => console.warn("Failed to update track lastPlayed", err));
         
         // Handle AI Queue Auto-Apply
         const shouldApplyAI = (typeof aiQueueToggle !== 'undefined' && aiQueueToggle && aiQueueToggle.checked);
