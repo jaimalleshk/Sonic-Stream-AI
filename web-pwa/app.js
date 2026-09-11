@@ -2354,62 +2354,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // after a few songs. Explicit user-initiated downloads (the Download buttons)
     // still use prefetchUpcomingTracks directly.
 
-    let pwaHistorySyncInProgress = false;
-    let pwaHistoryQueue = {}; // track_id -> timestamp
-    
-    async function syncPlaybackHistoryToCloud(trackId, timestamp) {
-        if (!trackId || !timestamp) return;
-        pwaHistoryQueue[trackId] = timestamp;
-        
-        if (pwaHistorySyncInProgress) return;
-        
-        // Wait briefly to batch multiple skips
-        pwaHistorySyncInProgress = true;
-        setTimeout(async () => {
-            try {
-                if (!window.SONICSTREAM_MANIFEST_FALLBACK || !window.SONICSTREAM_MANIFEST_FALLBACK.write_sas_token) {
-                    pwaHistorySyncInProgress = false;
-                    return; // No write token available
-                }
-                
-                const token = window.SONICSTREAM_MANIFEST_FALLBACK.write_sas_token;
-                const baseUrl = `${getAzureBlobBaseUrl()}/`;
-                const historyUrl = `${baseUrl}pwa_playback_history.json?${token}`;
-                
-                let currentHistory = {};
-                try {
-                    const getRes = await fetch(historyUrl, { method: "GET" });
-                    if (getRes.ok) {
-                        currentHistory = await getRes.json();
-                    }
-                } catch(e) { /* might not exist yet */ }
-                
-                // Merge queue
-                for (const [tid, ts] of Object.entries(pwaHistoryQueue)) {
-                    if (!currentHistory[tid] || currentHistory[tid] < ts) {
-                        currentHistory[tid] = ts;
-                    }
-                }
-                
-                // Upload
-                const putRes = await fetch(historyUrl, {
-                    method: "PUT",
-                    headers: { "x-ms-blob-type": "BlockBlob", "Content-Type": "application/json" },
-                    body: JSON.stringify(currentHistory)
-                });
-                
-                if (putRes.ok) {
-                    // Clear queue of exactly the things we just successfully uploaded
-                    for (const tid of Object.keys(currentHistory)) {
-                        delete pwaHistoryQueue[tid];
-                    }
-                }
-            } catch (err) {
-                console.error("[PWA Sync] Failed to sync playback history to cloud:", err);
-            }
-            pwaHistorySyncInProgress = false;
-        }, 3000);
-    }
+
 
     // --- Audio Engine & MediaSession Controls ---
     // Guards against two playTrack() calls running at once. The trace log showed
@@ -2449,7 +2394,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
-        syncPlaybackHistoryToCloud(track.id, track.lastPlayed);
 
         // Immediate feedback. Playback now waits for a full download, so without
         // this the button stayed on "play" for the whole wait and the app looked
