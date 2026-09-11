@@ -2385,7 +2385,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Stamp playback history
         track.lastPlayed = Date.now();
         if (activePlaylistId) {
-            const pl = (playlistsCache || []).find(p => p.id === activePlaylistId);
+            const pl = (playlists || []).find(p => p.id === activePlaylistId);
             if (pl && pl.source === "desktop") {
                 const tr = pl.tracks.find(t => t.id === track.id);
                 if (tr) {
