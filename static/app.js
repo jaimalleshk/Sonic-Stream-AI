@@ -128,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Terminal Logging
+    const aiLogs = document.getElementById("aiLogs");
     function logToTerminal(msg, isError = false) {
         const p = document.createElement("p");
         p.textContent = msg;
@@ -136,6 +137,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         consoleLogs.appendChild(p);
         consoleLogs.scrollTop = consoleLogs.scrollHeight;
+    }
+
+    function logToAITerminal(msg, isError = false) {
+        if (!aiLogs) return;
+        const p = document.createElement("p");
+        p.textContent = msg;
+        if (isError) {
+            p.style.color = "var(--error)";
+        }
+        aiLogs.appendChild(p);
+        aiLogs.scrollTop = aiLogs.scrollHeight;
     }
 
     // Load jobs history and populate left sidebar explorer
@@ -566,7 +578,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 error_detail: item.error_detail || "",
                 file_missing: item.file_missing || false
             };
-            selectedItemIds.add(item.id);
         });
         
         // Sort by oldest played first for queue order
@@ -980,11 +991,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
             }
 
+            const aiMutedSet = new Set();
+            const aiVocalsSet = new Set();
+            const aiInstSet = new Set();
+            historyJobs.forEach(job => {
+                if (job.id === "ai_muted_vocals") (job.items || []).forEach(t => aiMutedSet.add(t.id));
+                if (job.id === "ai_vocals_only") (job.items || []).forEach(t => aiVocalsSet.add(t.id));
+                if (job.id === "ai_instrumentals") (job.items || []).forEach(t => aiInstSet.add(t.id));
+            });
+
+            const hasMuted = aiMutedSet.has(`${item.id}_ai_muted_vocals`);
+            const hasVocals = aiVocalsSet.has(`${item.id}_ai_vocals_only`);
+            const hasInst = aiInstSet.has(`${item.id}_ai_instrumentals`);
+            
+            const aiFlags = `
+                <div style="display: flex; gap: 4px; justify-content: center; align-items: center; font-size: 0.65rem; font-weight: bold;">
+                    <span style="color: ${hasMuted ? '#ffb6c1' : 'rgba(255,255,255,0.1)'};" title="Muted Vocals (Karaoke)">M</span>
+                    <span style="color: ${hasVocals ? '#ff9800' : 'rgba(255,255,255,0.1)'};" title="Vocals Only">V</span>
+                    <span style="color: ${hasInst ? '#b19cd9' : 'rgba(255,255,255,0.1)'};" title="Instrumental">I</span>
+                </div>
+            `;
+
             row.innerHTML = `
                 <td><input type="checkbox" class="video-checkbox" ${isChecked ? 'checked' : ''} data-id="${item.id}"></td>
                 <td style="font-weight: bold; color: var(--text-muted);">${startIdx + idx + 1}</td>
                 <td class="thumb-cell"><img src="${item.thumbnail || 'https://i.ytimg.com/vi/default/hqdefault.jpg'}" alt="Thumb" style="width: 40px; height: 30px; object-fit: cover; border-radius: 4px;"></td>
                 <td class="title-cell" title="${item.title}" style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600;">${item.title}</td>
+                <td style="text-align: center;">${aiFlags}</td>
                 <td style="text-align: center;">
                     <div style="display: flex; gap: 0.35rem; justify-content: center; align-items: center;">
                         ${actionButtons}
@@ -2610,7 +2643,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     end_time: "--",
                     error_detail: ""
                 };
-                selectedItemIds.add(item.id);
             });
 
             playQueue = playlistItems;
@@ -3244,9 +3276,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!modalPlaylistAIOps || !aiOpsPlaylistSelect) return;
         aiOpsPlaylistSelect.innerHTML = "";
         
+        if (selectedItemIds.size > 0) {
+            const optSelected = document.createElement("option");
+            optSelected.value = "_selected_tracks";
+            optSelected.textContent = `Selected Tracks (${selectedItemIds.size} items)`;
+            optSelected.selected = true;
+            aiOpsPlaylistSelect.appendChild(optSelected);
+        }
+        
         const optAll = document.createElement("option");
         optAll.value = "all_downloads";
         optAll.textContent = "All Songs (Entire Library)";
+        if (selectedItemIds.size === 0) optAll.selected = true;
         aiOpsPlaylistSelect.appendChild(optAll);
 
         historyJobs.forEach(job => {
@@ -3254,7 +3295,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const opt = document.createElement("option");
                 opt.value = job.id;
                 opt.textContent = `${job.title || job.playlist_title} (${(job.items || []).length} tracks)`;
-                if (job.id === currentPlaylistId) opt.selected = true;
+                if (selectedItemIds.size === 0 && job.id === currentPlaylistId) opt.selected = true;
                 aiOpsPlaylistSelect.appendChild(opt);
             }
         });
@@ -3270,16 +3311,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     btnStartBatchAIOps?.addEventListener("click", async () => {
-        const targetJobId = aiOpsPlaylistSelect.value;
+        let targetJobId = aiOpsPlaylistSelect.value;
         const doMute = document.getElementById("aiOpMuteCheck")?.checked || false;
         const doVocals = document.getElementById("aiOpVocalsCheck")?.checked || false;
         const doInstrument = document.getElementById("aiOpInstrumentCheck")?.checked || false;
         const skipDuplicates = document.getElementById("aiOpSkipDuplicatesCheck")?.checked ?? true;
         const trimSilence = document.getElementById("aiOpTrimSilenceCheck")?.checked ?? true;
+        const maxDurationEl = document.getElementById("aiOpMaxDuration");
+        const maxDurationMins = maxDurationEl ? parseFloat(maxDurationEl.value) : 30;
 
         if (!doMute && !doVocals && !doInstrument) {
             alert("Please select at least one AI operation to perform.");
             return;
+        }
+
+        let trackIds = null;
+        if (targetJobId === "_selected_tracks") {
+            targetJobId = currentPlaylistId || "all_downloads";
+            trackIds = Array.from(selectedItemIds);
         }
 
         btnStartBatchAIOps.disabled = true;
@@ -3294,7 +3343,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     do_vocals: doVocals,
                     do_instrument: doInstrument,
                     skip_duplicates: skipDuplicates,
-                    trim_silence: trimSilence
+                    trim_silence: trimSilence,
+                    max_duration_mins: maxDurationMins,
+                    track_ids: trackIds
                 })
             });
 
@@ -3377,7 +3428,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (!window._seenAILogs.has(msg)) {
                             window._seenAILogs.add(msg);
                             // Only log if it's running or if it's the completed message
-                            logToTerminal(`[AI] ${msg}`);
+                            logToAITerminal(`[AI] ${msg}`);
                         }
                     });
                 }
@@ -4495,4 +4546,145 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     initMediaSessionControls();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const btnAuditAIOps = document.getElementById('btnAuditAIOps');
+    const modalAIAuditReport = document.getElementById('modalAIAuditReport');
+    const btnCloseAIAuditReport = document.getElementById('btnCloseAIAuditReport');
+    const btnCancelAIAudit = document.getElementById('btnCancelAIAudit');
+    const btnStartRegeneration = document.getElementById('btnStartRegeneration');
+    const aiAuditSummaryText = document.getElementById('aiAuditSummaryText');
+    const aiAuditTableBody = document.getElementById('aiAuditTableBody');
+    const aiAuditSelectAll = document.getElementById('aiAuditSelectAll');
+
+    if (!btnAuditAIOps) return;
+
+    function closeAuditModal() {
+        modalAIAuditReport.classList.add('hidden');
+    }
+
+    btnCloseAIAuditReport.addEventListener('click', closeAuditModal);
+    btnCancelAIAudit.addEventListener('click', closeAuditModal);
+    modalAIAuditReport.addEventListener('click', (e) => {
+        if (e.target === modalAIAuditReport) closeAuditModal();
+    });
+
+    const btnRunAudit = document.getElementById('btnRunAudit');
+    const aiAuditPlaylistSelect = document.getElementById('aiAuditPlaylistSelect');
+
+    btnAuditAIOps.addEventListener('click', () => {
+        document.getElementById('modalPlaylistAIOps').classList.add('hidden');
+        modalAIAuditReport.classList.remove('hidden');
+    });
+
+    let auditPollInterval = null;
+
+    btnRunAudit.addEventListener('click', async () => {
+        const targetPlaylist = aiAuditPlaylistSelect.value;
+        if (!targetPlaylist) return alert('Select a playlist first.');
+
+        btnRunAudit.textContent = 'Auditing...';
+        btnRunAudit.disabled = true;
+
+        try {
+            const res = await fetch(`/api/ai/audit-quality?playlist_id=${targetPlaylist}`, { method: 'POST' });
+            const data = await res.json();
+            
+            if (auditPollInterval) clearInterval(auditPollInterval);
+            
+            auditPollInterval = setInterval(async () => {
+                const statusRes = await fetch('/api/ai/audit-status');
+                const statusData = await statusRes.json();
+                
+                if (statusData.is_running) {
+                    aiAuditSummaryText.textContent = `Auditing ${statusData.completed} of ${statusData.total} tracks: ${statusData.current_track}`;
+                } else {
+                    clearInterval(auditPollInterval);
+                    btnRunAudit.textContent = 'Run Audit';
+                    btnRunAudit.disabled = false;
+                    
+                    if (statusData.error) {
+                        alert('Audit error: ' + statusData.error);
+                        return;
+                    }
+                    
+                    const report = statusData.report;
+                    if (report && report.error) {
+                        alert('Audit error: ' + report.error);
+                        return;
+                    }
+                    
+                    const failed_tracks = report && report.items ? report.items.filter(t => !t.is_valid) : [];
+                    const total_tracks = report ? report.total_items : 0;
+                    
+                    aiAuditSummaryText.textContent = `Audit Complete: Found ${failed_tracks.length} track(s) that failed quality checks out of ${total_tracks} total.`;
+                    
+                    // Simple Pagination State
+                    let currentPage = 1;
+                    const itemsPerPage = 10;
+                    let totalPages = Math.ceil(failed_tracks.length / itemsPerPage) || 1;
+
+                    const renderPage = () => {
+                        aiAuditTableBody.innerHTML = '';
+                        const start = (currentPage - 1) * itemsPerPage;
+                        const end = start + itemsPerPage;
+                        const pageItems = failed_tracks.slice(start, end);
+                        
+                        pageItems.forEach(track => {
+                            const tr = document.createElement('tr');
+                            tr.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+                            tr.innerHTML = `
+                                <td style='padding: 0.6rem; text-align: center;'><input type='checkbox' class='audit-track-check' value='${track.id}' checked style='accent-color: #ffb6c1; cursor: pointer;'></td>
+                                <td style='padding: 0.6rem;'>${track.title}</td>
+                                <td style='padding: 0.6rem; color: #ffb6c1;'>${track.vocal_suppression_db ? track.vocal_suppression_db.toFixed(1) : 'N/A'} dB</td>
+                                <td style='padding: 0.6rem; color: var(--text-muted);'>${track.reason}</td>
+                            `;
+                            aiAuditTableBody.appendChild(tr);
+                        });
+                        document.getElementById('aiAuditPageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+                    };
+
+                    document.getElementById('aiAuditPrevBtn').onclick = () => { if (currentPage > 1) { currentPage--; renderPage(); } };
+                    document.getElementById('aiAuditNextBtn').onclick = () => { if (currentPage < totalPages) { currentPage++; renderPage(); } };
+                    
+                    renderPage();
+
+                    aiAuditSelectAll.checked = true;
+                    aiAuditSelectAll.onchange = (e) => {
+                        document.querySelectorAll('.audit-track-check').forEach(cb => cb.checked = e.target.checked);
+                    };
+                }
+            }, 1000);
+
+        } catch (e) {
+            alert('Audit failed to start: ' + e);
+            btnRunAudit.textContent = 'Run Audit';
+            btnRunAudit.disabled = false;
+        }
+    });
+
+    btnStartRegeneration.addEventListener('click', async () => {
+        const selectedIds = Array.from(document.querySelectorAll('.audit-track-check:checked')).map(cb => cb.value);
+        if (selectedIds.length === 0) return alert('Select at least one track to regenerate.');
+
+        btnStartRegeneration.textContent = 'Starting...';
+        btnStartRegeneration.disabled = true;
+
+        try {
+            const res = await fetch('/api/ai/regenerate-muted-vocals', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ track_ids: selectedIds })
+            });
+            const data = await res.json();
+            alert(data.message);
+            closeAuditModal();
+        } catch (e) {
+            alert('Failed to start regeneration: ' + e);
+        } finally {
+            btnStartRegeneration.textContent = 'Start Regeneration & Sync';
+            btnStartRegeneration.disabled = false;
+        }
+    });
 });

@@ -34,6 +34,7 @@ class AIVocalProcessor:
             "demucs", 
             "-n", "htdemucs_ft", 
             "--two-stems", "vocals",
+            "-j", "1",
             "-o", self.workspace_dir
         ]
         if shifts > 1:

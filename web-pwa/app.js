@@ -2373,7 +2373,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 
                 const token = window.SONICSTREAM_MANIFEST_FALLBACK.write_sas_token;
-                const baseUrl = azureCloudManifestUrl.split("?")[0].replace("playlists_manifest.json", "");
+                const baseUrl = `${getAzureBlobBaseUrl()}/`;
                 const historyUrl = `${baseUrl}pwa_playback_history.json?${token}`;
                 
                 let currentHistory = {};

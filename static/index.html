@@ -345,15 +345,7 @@
                                 <span>Trim Silence Gaps</span>
                             </label>
 
-                            <!-- Batch AI Mute Playlist button -->
-                            <button id="batchAIMuteBtn" class="btn btn-secondary" style="padding: 0.45rem 0.8rem; font-size: 0.85rem; border-radius: 6px; display: flex; align-items: center; gap: 0.35rem; color: #ffb6c1; border-color: rgba(255, 182, 193, 0.4);" title="Queue background AI vocal muting (Karaoke) for all tracks in this playlist">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="8" cy="7" r="4"/>
-                                    <line x1="2" y1="2" x2="16" y2="16"/>
-                                </svg>
-                                <span>Batch AI Mute</span>
-                            </button>
+                            <!-- Removed legacy Batch AI Mute button since it is now in the global header -->
                             
                             <button id="selectAllBtn" class="btn btn-secondary btn-sm" style="padding: 0.45rem 0.8rem; font-size: 0.85rem; border-radius: 6px;">Select All</button>
                             <button id="deselectAllBtn" class="btn btn-secondary btn-sm" style="padding: 0.45rem 0.8rem; font-size: 0.85rem; border-radius: 6px;">Deselect All</button>
@@ -395,6 +387,7 @@
                                     <th class="sortable-th" data-sort="index" style="padding: 0.5rem; width: 40px;">#<span class="sort-ind"></span></th>
                                     <th style="padding: 0.5rem; width: 60px;">Media</th>
                                     <th class="sortable-th" data-sort="title" style="padding: 0.5rem; width: 250px;">Title<span class="sort-ind"></span></th>
+                                    <th style="padding: 0.5rem; width: 100px; text-align: center;">AI Ops</th>
                                     <th style="padding: 0.5rem; width: 100px; text-align: center;">Actions</th>
                                     <th class="sortable-th" data-sort="uploader" style="padding: 0.5rem; width: 160px;">Channel<span class="sort-ind"></span></th>
                                     <th class="sortable-th" data-sort="duration" style="padding: 0.5rem; width: 80px;">Duration<span class="sort-ind"></span></th>
@@ -415,18 +408,32 @@
                         <button id="btnNextPage" class="pager-btn" style="background: transparent; border: none; cursor: pointer; padding: 2px 6px;">Next Page</button>
                     </div>
 
-                    <!-- Mini Console logs section inside the playlist card itself -->
-                    <div class="terminal-logs" style="border: 1px solid var(--border-color); border-radius: 8px; background: #05070c; overflow: hidden; margin-top: 0.75rem;">
-                        <div class="terminal-header" style="background: #0f131a; padding: 0.3rem 0.6rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); border-bottom: 1px solid var(--border-color);">
-                            <span>Console Output</span>
-                            <div class="mac-dots" style="display: flex; gap: 4px;"><span style="width:5px;height:5px;border-radius:50%;background:#ff5f56;"></span><span style="width:5px;height:5px;border-radius:50%;background:#ffbd2e;"></span><span style="width:5px;height:5px;border-radius:50%;background:#27c93f;"></span></div>
-                        </div>
-                        <div class="terminal-body" id="consoleLogs" style="padding: 0.5rem; height: 80px; overflow-y: auto; font-family: var(--font-mono); font-size: 0.65rem; color: #38bdf8; display: flex; flex-direction: column; gap: 0.2rem;">
-                            <p class="system-line">Ready...</p>
-                        </div>
-                    </div>
-                </section>
-            </div>
+                      <!-- Mini Console logs section inside the playlist card itself -->
+                      <div style="display: flex; gap: 1rem; margin-top: 0.75rem;">
+                          <!-- Download / Playback Console logs -->
+                          <div class="terminal-logs" style="flex: 1; border: 1px solid var(--border-color); border-radius: 8px; background: #05070c; overflow: hidden;">
+                              <div class="terminal-header" style="background: #0f131a; padding: 0.3rem 0.6rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); border-bottom: 1px solid var(--border-color);">
+                                  <span>Playlist Console</span>
+                                  <div class="mac-dots" style="display: flex; gap: 4px;"><span style="width:5px;height:5px;border-radius:50%;background:#ff5f56;"></span><span style="width:5px;height:5px;border-radius:50%;background:#ffbd2e;"></span><span style="width:5px;height:5px;border-radius:50%;background:#27c93f;"></span></div>
+                              </div>
+                              <div class="terminal-body" id="consoleLogs" style="padding: 0.5rem; height: 80px; overflow-y: auto; font-family: var(--font-mono); font-size: 0.65rem; color: #38bdf8; display: flex; flex-direction: column; gap: 0.2rem;">
+                                  <p class="system-line">Ready...</p>
+                              </div>
+                          </div>
+
+                          <!-- Background Operations logs -->
+                          <div class="terminal-logs" style="flex: 1; border: 1px solid var(--border-color); border-radius: 8px; background: #05070c; overflow: hidden;">
+                              <div class="terminal-header" style="background: #0f131a; padding: 0.3rem 0.6rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); border-bottom: 1px solid var(--border-color);">
+                                  <span>Background AI Ops Console</span>
+                                  <div class="mac-dots" style="display: flex; gap: 4px;"><span style="width:5px;height:5px;border-radius:50%;background:#ff5f56;"></span><span style="width:5px;height:5px;border-radius:50%;background:#ffbd2e;"></span><span style="width:5px;height:5px;border-radius:50%;background:#27c93f;"></span></div>
+                              </div>
+                              <div class="terminal-body" id="aiLogs" style="padding: 0.5rem; height: 80px; overflow-y: auto; font-family: var(--font-mono); font-size: 0.65rem; color: #ffb6c1; display: flex; flex-direction: column; gap: 0.2rem;">
+                                  <p class="system-line">Ready...</p>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+              </div>
                 
             </div>
         </main>
@@ -954,6 +961,14 @@
                         <span>Trim long gaps of silence (> 2 seconds)</span>
                     </label>
                 </div>
+
+                <!-- Max Track Duration -->
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; background: rgba(0,0,0,0.2); padding: 0.6rem 0.8rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <label for="aiOpMaxDuration" style="display: flex; align-items: center; gap: 0.5rem;" title="Skip processing any track that exceeds this duration to avoid out-of-memory errors on giant mixes">
+                        <span>Max Track Duration (minutes):</span>
+                    </label>
+                    <input type="number" id="aiOpMaxDuration" value="30" min="1" max="180" style="width: 60px; background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px; padding: 0.2rem 0.4rem; text-align: center; font-size: 0.8rem;">
+                </div>
                 
                 <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0; line-height: 1.4; text-align: center;">
                     ⚡ Batch operations run pure 100% in the background. Output files save directly to <code>D:\OneDrive - Triamber\YoutubeDownloads</code> without interrupting media playback.
@@ -961,8 +976,64 @@
             </div>
             
             <div style="padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.75rem; background: rgba(0,0,0,0.2);">
+                <button class="btn btn-secondary" id="btnAuditAIOps" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 8px; color: #ffb6c1; border-color: #ffb6c1; margin-right: auto;">Audit Quality...</button>
                 <button class="btn btn-secondary" id="btnCancelPlaylistAIOps" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 8px;">Cancel</button>
                 <button class="btn btn-primary" id="btnStartBatchAIOps" style="padding: 0.5rem 1.25rem; font-size: 0.8rem; border-radius: 8px; background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink)); border: none;">Start Batch Operations</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Audit Report Modal -->
+    <div id="modalAIAuditReport" class="modal-overlay hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+        <div style="background: var(--bg-card, #12121c); border: 1.5px solid rgba(255, 182, 193, 0.5); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 182, 193, 0.25); border-radius: 16px; width: 100%; max-width: 800px; display: flex; flex-direction: column; overflow: hidden; color: var(--text-primary);">
+            <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; background: rgba(255, 182, 193, 0.05);">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffb6c1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <h3 style="margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--text-primary);">AI Quality Audit Report</h3>
+                </div>
+                <button id="btnCloseAIAuditReport" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; font-size: 1.2rem;">&times;</button>
+            </div>
+            
+            <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; max-height: 65vh; overflow-y: auto;">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                    <select id="aiAuditPlaylistSelect" style="flex: 1; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.85rem; outline: none; cursor: pointer;">
+                        <option value="ai_muted_vocals">AI Muted Vocals</option>
+                        <option value="ai_vocals_only">AI Vocals Only</option>
+                        <option value="ai_instrumentals">AI Instrumentals</option>
+                        <option value="all_downloads">All Songs</option>
+                    </select>
+                    <button class="btn btn-secondary" id="btnRunAudit" style="padding: 0.6rem 1rem; font-size: 0.8rem; border-radius: 8px; color: #ffb6c1; border-color: #ffb6c1;">Run Audit</button>
+                </div>
+
+                <p id="aiAuditSummaryText" style="font-size: 0.9rem; margin: 0; color: var(--text-secondary);">Select a playlist and click Run Audit.</p>
+                
+                <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+                        <thead style="background: rgba(255,255,255,0.05); border-bottom: 1px solid var(--border-color);">
+                            <tr>
+                                <th style="padding: 0.6rem; width: 40px; text-align: center;"><input type="checkbox" id="aiAuditSelectAll" style="accent-color: #ffb6c1; cursor: pointer;"></th>
+                                <th style="padding: 0.6rem;">Track Name</th>
+                                <th style="padding: 0.6rem; width: 120px;">Vocal Suppression</th>
+                                <th style="padding: 0.6rem; width: 180px;">Failure Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody id="aiAuditTableBody">
+                            <!-- JS populated -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Controls -->
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted);">
+                    <button id="aiAuditPrevBtn" style="background: transparent; border: none; cursor: pointer; color: var(--text-primary); padding: 4px 8px; border-radius: 4px;">Previous</button>
+                    <span id="aiAuditPageInfo">Page 1 of 1</span>
+                    <button id="aiAuditNextBtn" style="background: transparent; border: none; cursor: pointer; color: var(--text-primary); padding: 4px 8px; border-radius: 4px;">Next</button>
+                </div>
+            </div>
+            
+            <div style="padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.75rem; background: rgba(0,0,0,0.2);">
+                <button class="btn btn-secondary" id="btnCancelAIAudit" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 8px;">Cancel</button>
+                <button class="btn btn-primary" id="btnStartRegeneration" style="padding: 0.5rem 1.25rem; font-size: 0.8rem; border-radius: 8px; background: #ffb6c1; color: #111; border: none; font-weight: 700;">Start Regeneration & Sync</button>
             </div>
         </div>
     </div>

@@ -2621,6 +2621,8 @@ class BatchAIOpsRequest(BaseModel):
     do_instrument: bool = False
     skip_duplicates: bool = True
     trim_silence: bool = True
+    max_duration_mins: float = 30.0
+    track_ids: Optional[list[str]] = None
 
 @app.post("/api/history/{job_id}/batch-ai-ops")
 async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_tasks: BackgroundTasks):
@@ -2645,6 +2647,9 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
             processor = AIVocalProcessor(workspace_dir=os.path.join(BASE_DIR, "ai_workspace"))
             
             items = job.get("items", [])
+            if req.track_ids:
+                items = [it for it in items if it.get("id") in req.track_ids]
+                
             target_ddir = DOWNLOAD_DIR
             
             logs_buffer = []
@@ -2673,7 +2678,46 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                     print(formatted.encode('ascii', 'replace').decode('ascii'))
                 logs_buffer.append(formatted)
                 
-            log_msg(f"Started Batch AI operations for job '{job.get('title')}' with {len(items)} tracks.")
+            # Pre-filter items to jump straight to pending tracks
+            if req.skip_duplicates:
+                with history_lock:
+                    hist = load_history()
+                    muted_pl = next((j for j in hist if j.get("id") == "ai_muted_vocals"), {})
+                    vocals_pl = next((j for j in hist if j.get("id") == "ai_vocals_only"), {})
+                    inst_pl = next((j for j in hist if j.get("id") == "ai_instrumentals"), {})
+                
+                pending_items = []
+                for item in items:
+                    title = item.get("title", "")
+                    track_id = item.get("id")
+                    if not title or not track_id:
+                        continue
+                    if any(k in title for k in (" - AI Muted Vocals", " - AI Instrumental", " - AI Vocals Only", " - Karaoke")):
+                        continue
+                        
+                    # Skip files longer than max duration (default 30 mins) to prevent out-of-memory crashes on giant mixes
+                    dur = item.get("duration", 0)
+                    if isinstance(dur, (int, float)) and dur > (req.max_duration_mins * 60):
+                        continue
+                        
+                    has_muted = any(t.get("id") == f"{track_id}_ai_muted_vocals" for t in muted_pl.get("items", []))
+                    has_vocals = any(t.get("id") == f"{track_id}_ai_vocals_only" for t in vocals_pl.get("items", []))
+                    has_inst = any(t.get("id") == f"{track_id}_ai_instrumentals" for t in inst_pl.get("items", []))
+                    
+                    needs_generation = False
+                    if req.do_mute and not has_muted: needs_generation = True
+                    if req.do_vocals and not has_vocals: needs_generation = True
+                    if req.do_instrument and not has_inst: needs_generation = True
+                    
+                    if needs_generation:
+                        pending_items.append(item)
+                
+                skipped_count = len(items) - len(pending_items)
+                items = pending_items
+                if skipped_count > 0:
+                    log_msg(f"Instantly jumped {skipped_count} completed tracks.")
+                
+            log_msg(f"Started Batch AI operations for job '{job.get('title')}' with {len(items)} pending tracks.")
             save_progress(0, "Starting...", True)
             
             for idx, item in enumerate(items):
@@ -2684,6 +2728,11 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                 if any(k in title for k in (" - AI Muted Vocals", " - AI Instrumental", " - AI Vocals Only", " - Karaoke")):
                     continue
                     
+                dur = item.get("duration", 0)
+                if isinstance(dur, (int, float)) and dur > (req.max_duration_mins * 60):
+                    log_msg(f"SKIPPED (Too Long): Track is over {req.max_duration_mins} minutes limit.")
+                    continue
+                    
                 log_msg(f"--- Processing Track {idx+1}/{len(items)}: '{title}' ---")
                     
                 fn_clean = sanitize_filename(title)
@@ -2691,36 +2740,6 @@ async def batch_ai_ops_endpoint(job_id: str, req: BatchAIOpsRequest, background_
                 if not local_src or not os.path.exists(local_src):
                     log_msg(f"SKIPPED: Local file not found for '{title}'")
                     continue
-
-                # Early Duplicate Check (Saves ~3s per track by skipping AIVocalDetector)
-                if req.skip_duplicates:
-                    needs_generation = False
-                    if req.do_mute:
-                        out_name = f"{fn_clean} - Karaoke.mp3"
-                        if not (os.path.exists(os.path.join(target_ddir, out_name)) and os.path.getsize(os.path.join(target_ddir, out_name)) > 1000):
-                            needs_generation = True
-                    if req.do_vocals:
-                        out_name = f"{fn_clean} - AI Vocals Only.mp3"
-                        if not (os.path.exists(os.path.join(target_ddir, out_name)) and os.path.getsize(os.path.join(target_ddir, out_name)) > 1000):
-                            needs_generation = True
-                    if req.do_instrument:
-                        out_name = f"{fn_clean} - AI Instrumental.mp3"
-                        if not (os.path.exists(os.path.join(target_ddir, out_name)) and os.path.getsize(os.path.join(target_ddir, out_name)) > 1000):
-                            needs_generation = True
-                            
-                    if not needs_generation:
-                        # Files exist on disk. Ensure they are in the playlist.
-                        if req.do_mute:
-                            _add_ai_track_to_playlist(item, "ai_muted_vocals", "AI Muted Vocals", os.path.join(target_ddir, f"{fn_clean} - Karaoke.mp3"))
-                        if req.do_vocals:
-                            _add_ai_track_to_playlist(item, "ai_vocals_only", "AI Vocals Only", os.path.join(target_ddir, f"{fn_clean} - AI Vocals Only.mp3"))
-                        if req.do_instrument:
-                            _add_ai_track_to_playlist(item, "ai_instrumental", "AI Instrumental", os.path.join(target_ddir, f"{fn_clean} - AI Instrumental.mp3"))
-                        
-                        log_msg(f"SKIPPED (Duplicate): All AI stems already exist.")
-                        log_msg(f"--- Finished Track {idx+1}/{len(items)} ---")
-                        save_progress(idx + 1, title, True)
-                        continue
 
                 # Pre-Validation Stage: Check if track actually contains human vocals
                 try:
@@ -2829,17 +2848,188 @@ def get_ai_batch_status():
             pass
     return {"is_running": False, "completed": 0, "total": 0, "current_track": "", "job_title": ""}
 
+@app.post("/api/ai/regenerate-muted-vocals")
+def regenerate_muted_vocals(payload: dict):
+    """
+    Accepts a list of track IDs and runs the strong mdx_extra demucs model on them,
+    replacing the local file and uploading to Azure.
+    """
+    track_ids = payload.get("track_ids", [])
+    if not track_ids:
+        raise HTTPException(status_code=400, detail="No track IDs provided")
+
+    import threading
+    def _run_regeneration(t_ids):
+        logs_buffer = []
+        def save_progress(idx, current_track, is_running=True):
+            try:
+                progress_file = os.path.join(BASE_DIR, "ai_batch_progress.json")
+                with open(progress_file, "w", encoding="utf-8") as pf:
+                    json.dump({
+                        "is_running": is_running,
+                        "completed": idx,
+                        "total": len(t_ids),
+                        "current_track": current_track,
+                        "job_title": "AI Regeneration (mdx_extra)",
+                        "logs": logs_buffer[-50:]
+                    }, pf, indent=2, ensure_ascii=False)
+            except Exception:
+                pass
+
+        def log_msg(msg):
+            stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            formatted = f"[{stamp}] {msg}"
+            safe_print(formatted)
+            logs_buffer.append(msg)
+            
+        save_progress(0, "Starting...", True)
+        log_msg("Started AI Regeneration using mdx_extra model...")
+
+        import subprocess
+        
+        with history_lock:
+            history = load_history()
+            
+        completed_count = 0
+        for job in history:
+            items = job.get("items", job.get("request", {}).get("items", []))
+            for item in items:
+                if item.get("id") in t_ids:
+                    title = item.get("title", "")
+                    log_msg(f"Processing track: {title}")
+                    
+                    # Find original file by stripping AI suffixes
+                    base_clean = title.replace(" - Karaoke", "").replace(" - AI Muted Vocals", "").replace(" - AI Vocals Only", "").replace(" - AI Instrumental", "").strip()
+                    orig_file = base_clean + ".mp3"
+                    orig_path = os.path.join(DOWNLOAD_DIR, orig_file)
+                    
+                    if not os.path.exists(orig_path):
+                        # Try to fuzzy search if exact match fails
+                        found = False
+                        for f in os.listdir(DOWNLOAD_DIR):
+                            if not f.endswith(" - Karaoke.mp3") and not f.endswith(" - AI Muted Vocals.mp3"):
+                                if os.path.splitext(f)[0].strip().lower() == base_clean.lower():
+                                    orig_file = f
+                                    orig_path = os.path.join(DOWNLOAD_DIR, f)
+                                    found = True
+                                    break
+                        if not found:
+                            log_msg(f"Error: Cannot find local original file for '{title}'")
+                            completed_count += 1
+                            save_progress(completed_count, title, True)
+                            continue
+                        
+                    karaoke_file = item.get("file", orig_file)
+                    karaoke_path = os.path.join(DOWNLOAD_DIR, karaoke_file)
+                    
+                    # Run Demucs mdx_extra
+                    cmd = [
+                        "demucs", "-n", "mdx_extra", "--two-stems", "vocals",
+                        "--mp3", "--mp3-bitrate", "320",
+                        "-o", AI_WORKSPACE_DIR, orig_path
+                    ]
+                    env = os.environ.copy()
+                    env["PYTHONIOENCODING"] = "utf-8"
+                    log_msg(f"Running DSP engine (mdx_extra) for deep extraction...")
+                    kwargs = {'stdout': subprocess.PIPE, 'stderr': subprocess.PIPE, 'env': env}
+                    if os.name == 'nt':
+                        kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
+                    
+                    try:
+                        subprocess.run(cmd, check=True, **kwargs)
+                        # Copy output over
+                        import shutil
+                        clean_no_vocals = os.path.join(AI_WORKSPACE_DIR, "mdx_extra", os.path.splitext(orig_file)[0], "no_vocals.mp3")
+                        if os.path.exists(clean_no_vocals):
+                            shutil.copy2(clean_no_vocals, karaoke_path)
+                            log_msg(f"Overwrote regenerated audio locally.")
+                            
+                            # Upload to Azure
+                            try:
+                                with open(KEYS_PATH, "r") as f:
+                                    keys = json.load(f)
+                                account_name = keys.get("azure_storage_account")
+                                account_key = keys.get("azure_account_key")
+                                container = keys.get("azure_container")
+                                if account_key:
+                                    from azure.storage.blob import BlobServiceClient
+                                    conn_str = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
+                                    blob_client = BlobServiceClient.from_connection_string(conn_str).get_blob_client(container=container, blob=karaoke_file)
+                                    with open(karaoke_path, "rb") as d:
+                                        blob_client.upload_blob(d, overwrite=True)
+                                    log_msg(f"Successfully synced replacement to Azure Cloud.")
+                            except Exception as az_e:
+                                log_msg(f"[Error] Azure upload failed: {az_e}")
+                        else:
+                            log_msg(f"[Error] Demucs failed to output file.")
+                    except Exception as e:
+                        log_msg(f"[Error] Demucs process failed: {e}")
+                        
+                    completed_count += 1
+                    save_progress(completed_count, title, True)
+                    
+        log_msg("Regeneration batch complete.")
+        save_progress(completed_count, "Finished", False)
+                        
+    threading.Thread(target=_run_regeneration, args=(track_ids,), daemon=True).start()
+    return {"status": "started", "message": f"Started regeneration for {len(track_ids)} tracks in background"}
+
+# Global state for audit progress
+audit_state = {
+    "is_running": False,
+    "completed": 0,
+    "total": 0,
+    "current_track": "",
+    "report": None,
+    "error": None
+}
+audit_lock = threading.Lock()
+
 @app.post("/api/ai/audit-quality")
-def audit_ai_quality_endpoint(playlist_id: str = "ai_muted_vocals"):
+def audit_ai_quality_endpoint(background_tasks: BackgroundTasks, playlist_id: str = "ai_muted_vocals"):
     """
-    Runs an independent AI quality audit on all tracks in the specified AI playlist.
+    Starts an independent AI quality audit in the background.
     """
-    try:
+    with audit_lock:
+        if audit_state["is_running"]:
+            return {"status": "started", "message": "Audit already in progress"}
+            
+        audit_state.update({
+            "is_running": True,
+            "completed": 0,
+            "total": 0,
+            "current_track": "",
+            "report": None,
+            "error": None
+        })
+        
+    def _run_audit():
         from services.ai_quality_auditor import AIQualityAuditor
-        report = AIQualityAuditor.audit_playlist(HISTORY_FILE, DOWNLOAD_DIR, playlist_id=playlist_id)
-        return report
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        
+        def _on_progress(idx, total, title):
+            with audit_lock:
+                audit_state["completed"] = idx
+                audit_state["total"] = total
+                audit_state["current_track"] = title
+                
+        try:
+            report = AIQualityAuditor.audit_playlist(HISTORY_FILE, DOWNLOAD_DIR, playlist_id=playlist_id, progress_callback=_on_progress)
+            with audit_lock:
+                audit_state["report"] = report
+        except Exception as e:
+            with audit_lock:
+                audit_state["error"] = str(e)
+        finally:
+            with audit_lock:
+                audit_state["is_running"] = False
+
+    background_tasks.add_task(_run_audit)
+    return {"status": "started", "message": "Audit started in background"}
+
+@app.get("/api/ai/audit-status")
+def get_audit_status():
+    with audit_lock:
+        return audit_state
 
 @app.get("/api/stream/ai/{job_id}/{track_id}")
 def stream_ai_processed_audio(job_id: str, track_id: str, mode: str = "mute"):
