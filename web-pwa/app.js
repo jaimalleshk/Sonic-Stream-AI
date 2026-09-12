@@ -2386,7 +2386,7 @@ document.addEventListener("DOMContentLoaded", () => {
         track.lastPlayed = Date.now();
         if (activePlaylistId) {
             const pl = (playlists || []).find(p => p.id === activePlaylistId);
-            if (pl && pl.source === "desktop") {
+            if (pl && pl.source === "desktop" && pl.tracks) {
                 const tr = pl.tracks.find(t => t.id === track.id);
                 if (tr) {
                     tr.lastPlayed = track.lastPlayed;

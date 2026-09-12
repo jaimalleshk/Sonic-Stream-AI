@@ -8676,10 +8676,20 @@
       "id": "ai_muted_vocals",
       "title": "AI Muted Vocals",
       "playlist_title": "AI Muted Vocals",
-      "thumbnail": "https://i.ytimg.com/vi/HTGffvhp_XA/hqdefault.jpg",
-      "thumbnail_file": "https://i.ytimg.com/vi/HTGffvhp_XA/hqdefault.jpg",
-      "track_count": 79,
+      "thumbnail": "https://i.ytimg.com/vi/9U5wctZGn4s/hqdefault.jpg",
+      "thumbnail_file": "https://i.ytimg.com/vi/9U5wctZGn4s/hqdefault.jpg",
+      "track_count": 80,
       "tracks": [
+        {
+          "id": "9U5wctZGn4s_ai_muted_vocals",
+          "title": "Shiva Stuti by S P Balasubramaniam __ Lord Shiva __ Tamil Devotional Songs __ SHIVRATRI SPECIAL - Karaoke",
+          "artist": "Gollywood Hits",
+          "duration": 2356,
+          "thumbnail": "https://i.ytimg.com/vi/9U5wctZGn4s/hqdefault.jpg",
+          "thumbnail_file": "https://i.ytimg.com/vi/9U5wctZGn4s/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=9U5wctZGn4s",
+          "file": "Shiva Stuti by S P Balasubramaniam __ Lord Shiva __ Tamil Devotional Songs __ SHIVRATRI SPECIAL - Karaoke.mp3"
+        },
         {
           "id": "HTGffvhp_XA_ai_muted_vocals",
           "title": "Guru Paduka Stotram \ud83d\ude4f - Karaoke",
@@ -12972,5 +12982,6 @@
         }
       ]
     }
-  ]
+  ],
+  "write_sas_token": "se=2027-09-11T05%3A13%3A38Z&sp=racwdl&sv=2026-06-06&sr=c&sig=9bDT0SUgm8dsT34qhAfjCCVSMw3NHH5ETZn76ycio1A%3D"
 }

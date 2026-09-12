@@ -58,6 +58,17 @@ class AIQualityAuditor:
                     "reason": f"Duration mismatch: Karaoke stem {dur_k:.1f}s vs Original {dur_o:.1f}s."
                 }
 
+            # Silence check (Detect long gaps with faint noise)
+            from pydub import silence
+            silences = silence.detect_silence(audio_k, min_silence_len=2000, silence_thresh=-35)
+            if silences:
+                longest_silence = max([end - start for start, end in silences])
+                if longest_silence > 2500:
+                    return {
+                        "is_valid": False,
+                        "reason": f"Track contains a prolonged near-silent gap of {longest_silence / 1000.0:.1f} seconds."
+                    }
+
             # Take a 15-second representative segment from the middle of track
             start_ms = min(20000, max(0, int(len(audio_k) / 2) - 7500))
             end_ms = min(start_ms + 15000, len(audio_k))
@@ -128,13 +139,13 @@ class AIQualityAuditor:
                     "reason": f"Stem is an unseparated copy of original audio (Correlation: {correlation:.2f})."
                 }
 
-            if vocal_suppression_db < cls.MIN_VOCAL_SUPPRESSION_DB and correlation > 0.75:
+            if vocal_suppression_db < 7.5:  # Increased stringency, check purely on suppression DB
                 return {
                     "is_valid": False,
                     "correlation": round(correlation, 3),
                     "vocal_suppression_db": round(vocal_suppression_db, 2),
                     "volume_stability_score": volume_stability_score,
-                    "reason": f"Insufficient vocal suppression ({vocal_suppression_db:.1f} dB < {cls.MIN_VOCAL_SUPPRESSION_DB} dB)."
+                    "reason": f"Feeble human sound detected: Insufficient vocal suppression ({vocal_suppression_db:.1f} dB < 7.5 dB)."
                 }
 
             if not volume_stable:
@@ -159,7 +170,7 @@ class AIQualityAuditor:
             return {"is_valid": True, "reason": f"Quality auditor fallback notice: {e}"}
 
     @classmethod
-    def audit_playlist(cls, history_path: str, download_dir: str, playlist_id: str = "ai_muted_vocals") -> dict:
+    def audit_playlist(cls, history_path: str, download_dir: str, playlist_id: str = "ai_muted_vocals", progress_callback=None) -> dict:
         """
         Audits all tracks in a given playlist and returns an itemized audit report.
         """
@@ -169,17 +180,26 @@ class AIQualityAuditor:
         with open(history_path, "r", encoding="utf-8") as f:
             history = json.load(f)
 
-        job = next((j for j in history if j.get("id") == playlist_id), None)
-        if not job:
-            return {"error": f"Playlist {playlist_id} not found."}
+        if playlist_id == "all_downloads":
+            items = []
+            for job in history:
+                items.extend(job.get("items", job.get("request", {}).get("items", [])))
+        else:
+            job = next((j for j in history if j.get("id") == playlist_id), None)
+            if not job:
+                return {"error": f"Playlist {playlist_id} not found."}
+            items = job.get("items", [])
 
-        items = job.get("items", [])
         audit_records = []
         valid_count = 0
         invalid_count = 0
+        total_items = len(items)
 
         for idx, item in enumerate(items, 1):
             title = item.get("title", "")
+            if progress_callback:
+                progress_callback(idx, total_items, title)
+                
             filename = item.get("file", "")
             k_path = os.path.join(download_dir, filename) if filename else None
 
@@ -195,6 +215,7 @@ class AIQualityAuditor:
 
             res = cls.verify_karaoke_quality(orig_path, k_path)
             res["index"] = idx
+            res["id"] = item.get("id")
             res["title"] = title
             res["filename"] = filename
             audit_records.append(res)

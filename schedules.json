@@ -1,7 +1,7 @@
 [
   {
     "id": "sched_1786672476269",
-    "title": "Instruments - Daily 9pm",
+    "title": "Instruments - daily 9pm",
     "enabled": true,
     "target_type": "playlist",
     "playlist_id": "job_1783134296",
@@ -13,12 +13,12 @@
     "days": [],
     "start_time": "21:00",
     "end_time": "23:00",
-    "last_fired": "2026-08-19T21:00",
+    "last_fired": "2026-09-09T21:00",
     "created_at": "2026-08-13T20:54:36.269053"
   },
   {
     "id": "sched_1786673311481",
-    "title": "Instruments week days- 2pm",
+    "title": "Instruments daily- 2pm",
     "enabled": true,
     "target_type": "playlist",
     "playlist_id": "ai_muted_vocals",
@@ -36,12 +36,12 @@
     ],
     "start_time": "14:00",
     "end_time": "14:30",
-    "last_fired": null,
+    "last_fired": "2026-09-09T14:00",
     "created_at": "2026-08-13T21:08:31.481995"
   },
   {
     "id": "sched_1786673448309",
-    "title": "AI Muted Vocals week days 4pm",
+    "title": "AI Muted Vocals daily 4pm",
     "enabled": true,
     "target_type": "playlist",
     "playlist_id": "ai_muted_vocals",
@@ -55,11 +55,13 @@
       1,
       2,
       3,
-      4
+      4,
+      5,
+      6
     ],
     "start_time": "16:00",
     "end_time": "18:00",
-    "last_fired": "2026-08-20T16:00",
+    "last_fired": "2026-09-09T16:00",
     "created_at": "2026-08-13T21:10:48.309661"
   }
 ]
