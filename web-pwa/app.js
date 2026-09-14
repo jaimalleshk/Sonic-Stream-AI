@@ -1044,6 +1044,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    const btnForceAppUpdate = document.getElementById("btnForceAppUpdate");
+    if (btnForceAppUpdate) {
+        btnForceAppUpdate.addEventListener("click", async () => {
+            if (!confirm("This will force the app to check for updates by wiping the Service Worker cache. Continue?")) return;
+            try {
+                if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    for (let reg of registrations) {
+                        await reg.unregister();
+                    }
+                }
+                const cacheNames = await caches.keys();
+                await Promise.all(cacheNames.map(name => caches.delete(name)));
+                alert("App update triggered. The page will now reload.");
+                window.location.reload(true);
+            } catch (err) {
+                alert("Failed to force update: " + err.message);
+            }
+        });
+    }
+
     // --- MSAL & OneDrive API Integration ---
     function initMSAL() {
         if (typeof msal === "undefined") return;
