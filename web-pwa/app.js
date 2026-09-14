@@ -1326,29 +1326,30 @@ document.addEventListener("DOMContentLoaded", () => {
     // ~600 KB manifest twice, popped an alert(), and the two handlers fought over
     // the button label.
 
-    // Helper to sort tracks by oldest played first (or never played)
-    function sortTracksByOldestPlayed(tracks) {
-        return [...tracks].sort((a, b) => {
-            let tA = a.lastPlayed || 0;
-            let tB = b.lastPlayed || 0;
-            if (tA === tB) return Math.random() - 0.5; // randomize if same timestamp
-            return tA - tB;
-        });
+    // Helper to smartly shuffle tracks: oldest played first, but randomly ordered for ties
+    function smartShuffle(tracks) {
+        let shuffled = [...tracks];
+        // 1. Fisher-Yates shuffle first
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        // 2. Stable sort by lastPlayed (ascending). Tracks with identical/no timestamps remain randomized.
+        return shuffled.sort((a, b) => (a.lastPlayed || 0) - (b.lastPlayed || 0));
     }
 
     if (playPlaylistBtn) {
         playPlaylistBtn.addEventListener("click", () => {
             if (!activePlaylistItems || activePlaylistItems.length === 0) return;
-            const sorted = sortTracksByOldestPlayed(activePlaylistItems);
-            playTrack(sorted[0], sorted, 0);
+            playTrack(activePlaylistItems[0], activePlaylistItems, 0);
         });
     }
 
     if (shufflePlaylistBtn) {
         shufflePlaylistBtn.addEventListener("click", () => {
             if (!activePlaylistItems || activePlaylistItems.length === 0) return;
-            const sorted = sortTracksByOldestPlayed(activePlaylistItems);
-            playTrack(sorted[0], sorted, 0);
+            const shuffled = smartShuffle(activePlaylistItems);
+            playTrack(shuffled[0], shuffled, 0);
         });
     }
 
@@ -1788,7 +1789,7 @@ document.addEventListener("DOMContentLoaded", () => {
             row.querySelector(".shuffle-sidebar-btn")?.addEventListener("click", () => {
                 selectPlaylist(pl);
                 if (pl.tracks && pl.tracks.length > 0) {
-                    const shuffled = sortTracksByOldestPlayed(pl.tracks);
+                    const shuffled = smartShuffle(pl.tracks);
                     playTrack(shuffled[0], shuffled, 0);
                 }
             });
@@ -1880,7 +1881,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         on(".pa-play", () => { selectPlaylist(pl); if (pl.tracks && pl.tracks.length) playTrack(pl.tracks[0], pl.tracks, 0); });
         on(".pa-resume", () => { selectPlaylist(pl); resumePlaylist(pl); });
-        on(".pa-shuffle", () => { selectPlaylist(pl); if (pl.tracks && pl.tracks.length) { const s = sortTracksByOldestPlayed(pl.tracks); playTrack(s[0], s, 0); } });
+        on(".pa-shuffle", () => { selectPlaylist(pl); if (pl.tracks && pl.tracks.length) { const s = smartShuffle(pl.tracks); playTrack(s[0], s, 0); } });
         on(".pa-pin", () => { pl.isPinned = !pl.isPinned; savePlaylistToDB(pl); renderSidebarList(); renderMobilePlaylists(); });
         on(".pa-delete", () => {
             if (confirm(`Delete playlist "${pl.title}"?`)) {
