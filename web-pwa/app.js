@@ -973,7 +973,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bump with every deploy. Shown in Settings so we can tell at a glance whether
     // the phone is actually running the newest build (a stale service-worker cache
     // otherwise makes a fixed bug look unfixed).
-    const APP_BUILD = "v46";
+    const APP_BUILD = "v47";
 
     // Memoised cache statistics.
     //
@@ -1374,6 +1374,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (playerShuffleBtn) {
+        playerShuffleBtn.addEventListener("click", () => {
+            if (!activePlaylistItems || activePlaylistItems.length === 0) return;
+            const currentTrack = playQueue[currentTrackIndex];
+            const s = smartShuffle(activePlaylistItems);
+            if (currentTrack) {
+                const idx = s.findIndex(t => t.id === currentTrack.id);
+                if (idx > -1) {
+                    s.splice(idx, 1);
+                    s.unshift(currentTrack);
+                }
+            }
+            playTrack(s[0], s, 0);
+        });
+    }
+
     if (resumePlaylistBtn) {
         resumePlaylistBtn.addEventListener("click", () => {
             resumePlaylist();
@@ -1619,6 +1635,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (desktopPlaylists.length > 0) {
+                // Merge lastPlayed and other local state from existing playlists
+                desktopPlaylists.forEach(dp => {
+                    const existingPl = playlists.find(p => p.id === dp.id);
+                    if (existingPl && existingPl.tracks && dp.tracks) {
+                        dp.tracks.forEach(dTrack => {
+                            const eTrack = existingPl.tracks.find(t => t.id === dTrack.id);
+                            if (eTrack) {
+                                if (eTrack.lastPlayed) dTrack.lastPlayed = eTrack.lastPlayed;
+                                if (eTrack.isLocalBlob) dTrack.isLocalBlob = eTrack.isLocalBlob;
+                            }
+                        });
+                    }
+                });
                 playlists = desktopPlaylists;
                 const fileRecordsToSave = [];
                 for (let i = 0; i < desktopPlaylists.length; i++) {
