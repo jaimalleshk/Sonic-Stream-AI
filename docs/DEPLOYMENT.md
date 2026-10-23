@@ -23,6 +23,15 @@ Secrets never live in git or in the deployed static files (by default):
 On the deployed site, the user pastes the SAS token once in **Settings**
 (stored in their browser's IndexedDB). Nothing sensitive is served publicly.
 
+- The GitHub deploy workflow generates a **secret-free** `config.js` from
+  `settings.json` (the service worker precaches it).
+- `playlists_manifest.json` / `manifest_fallback.js` must never carry a token.
+  `deploy_pwa.py` used to embed a full read/write/delete `write_sas_token`
+  there; that was removed (nothing read it).
+- Before committing, run `python src/deploy_pwa.py clean` so `settings.json`
+  has no SAS token. After pulling, run `python src/deploy_pwa.py inject` to
+  regenerate your local `config.js` from `keys.json`.
+
 ---
 
 ## 2. Publish new audio to Azure Blob
